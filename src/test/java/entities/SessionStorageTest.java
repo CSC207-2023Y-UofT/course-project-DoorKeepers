@@ -32,7 +32,7 @@ class SessionStorageTest {
     }
 
     @Test
-    public void SessionStorageSetValidMonthlyData() throws EntityException {
+    public void SessionStorageSetValidMonthlyData() {
         SessionStorage session1 = new SessionStorage();
         session1.setMonthlyData(month1);
         try {
@@ -44,11 +44,11 @@ class SessionStorageTest {
     }
 
     @Test
-    public void SessionStorageSetInvalidMonthlyData() throws EntityException {
+    public void SessionStorageSetInvalidMonthlyData() {
         SessionStorage session1 = new SessionStorage();
         session1.setMonthlyData(month1);
         try {
-            Assertions.assertEquals(month1, session1.getMonthlyData(2));
+            Assertions.assertEquals(month1, session1.getMonthlyData(3));
         } catch (EntityException e) {
             System.out.println(e.getMessage());
         }

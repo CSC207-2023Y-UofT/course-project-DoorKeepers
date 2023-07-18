@@ -3,8 +3,8 @@ package entities;
 import java.util.ArrayList;
 
 public class SessionStorage {
-    private ArrayList<MonthlyStorage> monthlyData;
-    private ArrayList<Expense> recurData;
+    private final ArrayList<MonthlyStorage> monthlyData;
+    private final ArrayList<Expense> recurData;
 
     /**
      * Creates a new SessionStorage and assigns empty values to both its instance attributes

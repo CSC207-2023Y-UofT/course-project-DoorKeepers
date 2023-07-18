@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class MonthlyStorage {
     private final int currentMonth;
     private final double monthlyBudget;
-    private ArrayList<Category> categoryData;
-    private ArrayList<Expense> expenseData;
+    private final ArrayList<Category> categoryData;
+    private final ArrayList<Expense> expenseData;
 
 
 
