@@ -1,6 +1,7 @@
 package entities;
 
 public class Expense {
+
     private String name;
     private Category category;
     private double value;

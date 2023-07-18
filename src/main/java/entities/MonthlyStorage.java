@@ -3,12 +3,11 @@ package entities;
 import java.util.ArrayList;
 
 public class MonthlyStorage {
+
     private final int currentMonth;
     private final double monthlyBudget;
     private final ArrayList<Category> categoryData;
     private final ArrayList<Expense> expenseData;
-
-
 
     /**
      * Creates a new MonthlyStorage with the given data

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class SessionStorageTest {
+
     static Category category1;
     static Category category2;
     static Expense expense1;

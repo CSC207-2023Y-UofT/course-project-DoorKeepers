@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class CategoryTest {
+
     @Test
     public void CategoryCreateCategory() {
         Category c1 = new Category("Food", 100.00);

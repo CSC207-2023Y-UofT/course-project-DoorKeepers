@@ -47,6 +47,4 @@ class ExpenseTest {
         Assertions.assertEquals(70.00, e1.getValue());
     }
 
-
-
 }

@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 public class SessionStorage {
+
     private final ArrayList<MonthlyStorage> monthlyData;
     private final ArrayList<Expense> recurData;
 
