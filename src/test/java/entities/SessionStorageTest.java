@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Tests the SessionStorage class
+ */
 class SessionStorageTest {
 
     static Category category1;
@@ -25,6 +28,9 @@ class SessionStorageTest {
         month2 = new MonthlyStorage(2, 900.00);
     }
 
+    /**
+     * Tests the SessionStorage initializer and getRecurData()
+     */
     @Test
     public void SessionStorageCreateNewSession() {
         SessionStorage session1 = new SessionStorage();
@@ -32,10 +38,13 @@ class SessionStorageTest {
         Assertions.assertEquals(expected1, session1.getRecurData());
     }
 
+    /**
+     * Tests addMonth() and getMonthlyData() on a valid case
+     */
     @Test
     public void SessionStorageSetValidMonthlyData() {
         SessionStorage session1 = new SessionStorage();
-        session1.setMonthlyData(month1);
+        session1.addMonth(month1);
         try {
             Assertions.assertEquals(month1, session1.getMonthlyData(1));
         } catch (EntityException e) {
@@ -44,10 +53,13 @@ class SessionStorageTest {
 
     }
 
+    /**
+     * Tests addMonth() and getMonthlyData() on an invalid case
+     */
     @Test
     public void SessionStorageSetInvalidMonthlyData() {
         SessionStorage session1 = new SessionStorage();
-        session1.setMonthlyData(month1);
+        session1.addMonth(month1);
         try {
             Assertions.assertEquals(month1, session1.getMonthlyData(3));
         } catch (EntityException e) {
@@ -55,14 +67,35 @@ class SessionStorageTest {
         }
     }
 
+    /**
+     * Tests addRecurExpense() and getRecurData()
+     */
     @Test
-    public void SessionStorageSetRecurData() {
+    public void SessionStorageAddRecurExpense() {
         SessionStorage session1 = new SessionStorage();
-        session1.setRecurData(expense1);
-        session1.setRecurData(expense2);
+        session1.addRecurExpense(expense1);
+        session1.addRecurExpense(expense2);
+
         ArrayList<Expense> expected2 = new ArrayList<>();
         expected2.add(expense1);
         expected2.add(expense2);
+
+        Assertions.assertEquals(expected2, session1.getRecurData());
+    }
+
+    /**
+     * Tests deleteRecurExpense()
+     */
+    @Test
+    public void SessionStorageDeleteRecurExpense() {
+        SessionStorage session1 = new SessionStorage();
+        session1.addRecurExpense(expense1);
+        session1.addRecurExpense(expense2);
+        session1.deleteRecurExpense(expense1.getName());
+
+        ArrayList<Expense> expected2 = new ArrayList<>();
+        expected2.add(expense2);
+
         Assertions.assertEquals(expected2, session1.getRecurData());
     }
 

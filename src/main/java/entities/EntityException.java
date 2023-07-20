@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ *
+ */
 public class EntityException extends Exception {
 
     /**
