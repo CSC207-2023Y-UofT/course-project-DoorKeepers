@@ -2,5 +2,5 @@ package views.monthly_menu;
 
 import use_cases.monthly_menu.MonthMenuOB;
 
-public class MonthMenuP implements MonthMenuOB {
+public class AddCategoryP {
 }
