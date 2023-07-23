@@ -1,11 +1,12 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  */
-public class Category {
+public class Category implements Serializable {
 
     private String name;
     private double budget;

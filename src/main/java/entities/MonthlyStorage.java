@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  *
  */
-public class MonthlyStorage {
+public class MonthlyStorage implements Serializable {
 
     private final int monthID;
     private final double monthlyBudget;

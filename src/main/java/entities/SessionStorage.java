@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  *
  */
-public class SessionStorage {
+public class SessionStorage implements Serializable {
 
     private final ArrayList<MonthlyStorage> monthlyData;
     private final ArrayList<Expense> recurData;
