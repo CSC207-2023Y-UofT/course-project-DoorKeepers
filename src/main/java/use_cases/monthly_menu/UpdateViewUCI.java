@@ -3,8 +3,6 @@ package use_cases.monthly_menu;
 import entities.*;
 import views.monthly_menu.MonthMenuP;
 
-import java.util.ArrayList;
-
 /**
  * The UpdateViewUCI
  */
@@ -15,7 +13,7 @@ public class UpdateViewUCI implements UpdateViewIB{
         this.outputBoundary = new MonthMenuP();
     }
 
-    public MonthMenuOD creatOutput(UpdateViewID input){
+    public MonthMenuOD createOutput(UpdateViewID input){
         SessionStorage session = input.getSession();
         int monthID = input.getMonthID();
 
