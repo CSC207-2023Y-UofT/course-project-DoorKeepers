@@ -1,27 +1,45 @@
 package use_cases.monthly_menu;
 
+import entities.Category;
+import entities.Expense;
+
+import java.util.ArrayList;
+
 public class MonthMenuOD {
-    Object[][] expenseList;
-    Object[][] categoryList;
+    ArrayList<Expense> expenseData;
+    ArrayList<Category> categoryData;
+    String warning;
 
-    public MonthMenuOD(Object[][] expenses, Object[][] categories){
-        this.expenseList = expenses;
-        this.categoryList = categories;
+    public MonthMenuOD(ArrayList<Expense> expenseData, ArrayList<Category> categoryData){
+        this.expenseData = expenseData;
+        this.categoryData = categoryData;
     }
 
-    public Object[][] getExpenseList() {
-        return expenseList;
+    public MonthMenuOD(String warning){
+        this.warning = warning;
     }
 
-    public Object[][] getCategoryList() {
-        return categoryList;
+    public ArrayList<Expense> getExpenseData() {
+        return expenseData;
     }
 
-    public void setExpenseList(Object[][] expenseList) {
-        this.expenseList = expenseList;
+    public ArrayList<Category> getCategoryData() {
+        return categoryData;
     }
 
-    public void setCategoryList(Object[][] categoryList) {
-        this.categoryList = categoryList;
+    public String getWarning() {
+        return warning;
+    }
+
+    public void setExpenseData(ArrayList<Expense> expenseData) {
+        this.expenseData = expenseData;
+    }
+
+    public void setCategoryData(ArrayList<Category> categoryData) {
+        this.categoryData = categoryData;
+    }
+
+    public void setWarning(String warning) {
+        this.warning = warning;
     }
 }
