@@ -66,4 +66,16 @@ public class SessionStorage implements Serializable {
     public ArrayList<Expense> getRecurData(){
         return this.recurData;
     }
+
+    /**
+     * Copies all the contents from another SessionStorage object into this one.
+     * This method can be used to mutate the entire contents of a SessionStorage object in-place.
+     * @param other the SessionStorage object to copy the data from
+     */
+    public void copyDataFrom(SessionStorage other) {
+        this.monthlyData.clear();
+        this.monthlyData.addAll(other.monthlyData);
+        this.recurData.clear();
+        this.recurData.addAll(other.recurData);
+    }
 }
