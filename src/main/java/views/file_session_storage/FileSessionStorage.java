@@ -4,6 +4,8 @@ import entities.SessionStorage;
 
 import java.io.*;
 
+// Implementation of serializing and deserializing inspired from
+// https://www.tutorialspoint.com/java/java_serialization.htm
 public class FileSessionStorage implements SessionStorageG {
     /**
      * Saves a SessionStorage object into a file on disk.

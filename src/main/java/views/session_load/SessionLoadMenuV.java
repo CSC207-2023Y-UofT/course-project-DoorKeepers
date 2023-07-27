@@ -60,6 +60,8 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
                 this.controller.loadNew();
                 break;
             case "Load session from a file":
+                // Implementation of file chooser inspired from
+                // https://www.geeksforgeeks.org/java-swing-jfilechooser/
                 JFileChooser j = new JFileChooser();
                 if (j.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     this.controller.loadFile(j.getSelectedFile().getAbsolutePath());
