@@ -22,6 +22,7 @@ public class SessionLoadUCI implements SessionLoadIB {
     /**
      * Either loads a SessionStorage from a file, or creates a new empty one.
      * Then, mutates this.sessionToModify to reflect the data loaded/created.
+     *
      * @param inputData the user input data
      */
     @Override
@@ -30,13 +31,13 @@ public class SessionLoadUCI implements SessionLoadIB {
             // Create a new empty SessionStorage
             SessionStorage new_session = new SessionStorage();
             this.sessionToModify.copyDataFrom(new_session);
-            this.presenter.displaySuccess("Created new session successfully");
+            this.presenter.displaySuccess("Created new session successfully", this.sessionToModify);
         } else {
             try {
                 // Load a SessionStorage from a file
                 SessionStorage loaded_session = this.storageGateway.load(inputData.getFilename());
                 this.sessionToModify.copyDataFrom(loaded_session);
-                this.presenter.displaySuccess("Loaded session successfully");
+                this.presenter.displaySuccess("Loaded session successfully", this.sessionToModify);
             } catch (IOException e) {
                 this.presenter.displayError("File access failed");
             } catch (ClassNotFoundException e) {
@@ -61,7 +62,13 @@ public class SessionLoadUCI implements SessionLoadIB {
         assert session.equals(sample_session);
 
         // Create our SessionLoadUCI that we'll test
-        SessionLoadUCI uci = new SessionLoadUCI(new views.file_session_storage.FileSessionStorage(), new views.session_load.SessionLoadP(), session);
+        views.session_load.SessionLoadMenuV sessionLoadV = new views.session_load.SessionLoadMenuV();
+        views.main_menu.MainMenuV mainMenuV = new views.main_menu.MainMenuV();
+        SessionLoadUCI uci = new SessionLoadUCI(
+                new views.file_session_storage.FileSessionStorage(),
+                new views.session_load.SessionLoadP(sessionLoadV, mainMenuV),
+                session);
+        sessionLoadV.setController(new views.session_load.SessionLoadC(uci));
 
         // Test loading an empty session
         SessionLoadID inputData = new SessionLoadID();
