@@ -60,6 +60,14 @@ public class SessionStorage implements Serializable {
     }
 
     /**
+     * Returns the list of the MonthlyData objects stored in this Session
+     * @return list of all MonthlyData objects
+     */
+    public ArrayList<MonthlyStorage> getAllMonthlyData() {
+        return this.monthlyData;
+    }
+
+    /**
      * Returns the list of recurring expenses in this Session
      * @return list of recurring expenses
      */

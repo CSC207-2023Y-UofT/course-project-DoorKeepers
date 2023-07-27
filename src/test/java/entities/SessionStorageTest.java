@@ -99,4 +99,24 @@ class SessionStorageTest {
         Assertions.assertEquals(expected2, session1.getRecurData());
     }
 
+    /**
+     * Tests copyDataFrom()
+     */
+    @Test
+    public void SessionStorageCopyDataFrom() {
+        SessionStorage source = new SessionStorage();
+        SessionStorage target = new SessionStorage();
+
+        source.addRecurExpense(expense1);
+        source.addRecurExpense(expense2);
+        source.addMonth(month1);
+        source.addMonth(month2);
+
+        Assertions.assertNotEquals(source, target);
+
+        target.copyDataFrom(source);
+
+        Assertions.assertEquals(source.getAllMonthlyData(), target.getAllMonthlyData());
+        Assertions.assertEquals(source.getRecurData(), target.getRecurData());
+    }
 }
