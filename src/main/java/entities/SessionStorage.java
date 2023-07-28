@@ -86,4 +86,26 @@ public class SessionStorage implements Serializable {
         this.recurData.clear();
         this.recurData.addAll(other.recurData);
     }
+
+    /**
+     * Check if this SessionStorage is equal to Object
+     * @param obj Any instance of Object
+     * @return True if equals, False is not equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+
+        SessionStorage other = (SessionStorage) obj;
+        return Objects.equals(this.getRecurData(), other.getRecurData())
+                && Objects.equals(this.getAllMonthlyData(), other.getAllMonthlyData());
+    }
 }

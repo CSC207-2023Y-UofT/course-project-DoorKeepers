@@ -105,5 +105,27 @@ public class MonthlyStorage implements Serializable {
         this.expenseData.removeIf(e -> Objects.equals(e.getName(), expense_name));
     }
 
+    /**
+     * Check if this MonthlyStorage is equal to Object
+     * @param obj Any instance of Object
+     * @return True if equals, False is not equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
 
+        MonthlyStorage other = (MonthlyStorage) obj;
+        return Objects.equals(this.getMonthID(), other.getMonthID())
+                && Objects.equals(this.getMonthlyBudget(), other.getMonthlyBudget())
+                && Objects.equals(this.getCategoryData(), other.getCategoryData())
+                && Objects.equals(this.getExpenseData(), other.getExpenseData());
+    }
 }

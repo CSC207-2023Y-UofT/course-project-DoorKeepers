@@ -116,7 +116,6 @@ class SessionStorageTest {
 
         target.copyDataFrom(source);
 
-        Assertions.assertEquals(source.getAllMonthlyData(), target.getAllMonthlyData());
-        Assertions.assertEquals(source.getRecurData(), target.getRecurData());
+        Assertions.assertEquals(source, target);
     }
 }
