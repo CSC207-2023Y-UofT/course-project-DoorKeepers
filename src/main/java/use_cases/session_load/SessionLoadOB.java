@@ -3,6 +3,6 @@ package use_cases.session_load;
 import entities.SessionStorage;
 
 public interface SessionLoadOB {
-    void displaySuccess(String message, SessionStorage session);
-    void displayError(String message);
+    SessionLoadOD displaySuccess(String message, SessionStorage session);
+    SessionLoadOD displayError(String message) throws SessionLoadException;
 }

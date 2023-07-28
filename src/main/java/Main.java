@@ -13,24 +13,28 @@ public class Main {
     public static void main(String[] args) {
         // Build the main program window
         JFrame application = new JFrame("Expenditure Tracking");
+        application.setMinimumSize(new Dimension(500, 300));
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         CardLayout cardLayout = new CardLayout();
+
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
         // Program session
         SessionStorage session = new SessionStorage();
 
-        // Building menu views
-        SessionLoadMenuV sessionLoadMenu = new SessionLoadMenuV();
-        MainMenuV mainMenuV = new MainMenuV();
+        // Building menus
+        // Main Menu
+        MainMenuV mainMenu = new MainMenuV();
 
-        // Create and set controllers
-        sessionLoadMenu.setController(new SessionLoadC(new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(sessionLoadMenu, mainMenuV), session)));
+        // Load Session Menu
+        SessionLoadUCI sessionLoadUCI = new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(), session);
+        SessionLoadC sessionLoadController = new SessionLoadC(sessionLoadUCI);
+        SessionLoadMenuV sessionLoadMenu = new SessionLoadMenuV(sessionLoadController, mainMenu);
 
         // Add screens
         screens.add(sessionLoadMenu);
-        screens.add(mainMenuV);
+        screens.add(mainMenu);
 
         // Open program UI
         application.pack();

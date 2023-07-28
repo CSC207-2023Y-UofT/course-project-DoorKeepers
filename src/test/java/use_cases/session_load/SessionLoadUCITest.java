@@ -27,17 +27,16 @@ class SessionLoadUCITest {
         Assertions.assertEquals(session, sampleSession);
 
         // Create our SessionLoadUCI that we'll test
-        views.session_load.SessionLoadMenuV sessionLoadV = new views.session_load.SessionLoadMenuV();
-        views.main_menu.MainMenuV mainMenuV = new views.main_menu.MainMenuV();
         SessionLoadUCI uci = new SessionLoadUCI(
                 new views.file_session_storage.FileSessionStorage(),
-                new views.session_load.SessionLoadP(sessionLoadV, mainMenuV),
+                new views.session_load.SessionLoadP(),
                 session);
-        sessionLoadV.setController(new views.session_load.SessionLoadC(uci));
 
         // Test loading an empty session
         SessionLoadID inputData = new SessionLoadID();
-        uci.load(inputData);
+        Assertions.assertDoesNotThrow(() -> {
+            uci.load(inputData);
+        });
 
         // session should be empty now
         assert session.equals(new SessionStorage());
@@ -48,13 +47,10 @@ class SessionLoadUCITest {
         SessionStorage session = new SessionStorage();
 
         // Create our SessionLoadUCI that we'll test
-        views.session_load.SessionLoadMenuV sessionLoadV = new views.session_load.SessionLoadMenuV();
-        views.main_menu.MainMenuV mainMenuV = new views.main_menu.MainMenuV();
         SessionLoadUCI uci = new SessionLoadUCI(
                 new views.file_session_storage.FileSessionStorage(),
-                new views.session_load.SessionLoadP(sessionLoadV, mainMenuV),
+                new views.session_load.SessionLoadP(),
                 session);
-        sessionLoadV.setController(new views.session_load.SessionLoadC(uci));
 
         // Save sample session to a file
         try {
@@ -64,7 +60,9 @@ class SessionLoadUCITest {
         }
         // Load sample session from the file
         SessionLoadID inputData = new SessionLoadID("UCILoadFileTest.ser");
-        uci.load(inputData);
+        Assertions.assertDoesNotThrow(() -> {
+            uci.load(inputData);
+        });
 
         Assertions.assertEquals(session, sampleSession);
 

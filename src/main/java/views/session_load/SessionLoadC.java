@@ -1,7 +1,9 @@
 package views.session_load;
 
+import use_cases.session_load.SessionLoadException;
 import use_cases.session_load.SessionLoadIB;
 import use_cases.session_load.SessionLoadID;
+import use_cases.session_load.SessionLoadOD;
 
 public class SessionLoadC {
     private final SessionLoadIB interactor;
@@ -12,18 +14,28 @@ public class SessionLoadC {
 
     /**
      * Calls the interactor to load a new session from a file
+     *
      * @param filename the filename to load the session from
+     * @return a SessionLoadOD object with the output data to be used by the View
+     * @throws SessionLoadException if there is an error while opening the file
      */
-    public void loadFile(String filename) {
+    public SessionLoadOD loadFile(String filename) throws SessionLoadException {
         SessionLoadID inputData = new SessionLoadID(filename);
-        this.interactor.load(inputData);
+        return this.interactor.load(inputData);
     }
 
     /**
      * Calls the interactor to create a new empty session
+     *
+     * @return a SessionLoadOD object with the output data to be used by the View
      */
-    public void loadNew() {
+    public SessionLoadOD loadNew() {
         SessionLoadID inputData = new SessionLoadID();
-        this.interactor.load(inputData);
+        try {
+            return this.interactor.load(inputData);
+        } catch (SessionLoadException e) {
+            // Loading a new empty session should never fail
+            throw new RuntimeException();
+        }
     }
 }

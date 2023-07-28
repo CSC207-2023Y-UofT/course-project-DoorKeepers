@@ -1,14 +1,23 @@
 package views.session_load;
 
+import use_cases.session_load.SessionLoadException;
+import use_cases.session_load.SessionLoadOD;
+import views.main_menu.MainMenuV;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, ActionListener {
-    private SessionLoadC controller;
+    private final SessionLoadC controller;
+    private final MainMenuV mainMenuV;
 
-    public SessionLoadMenuV() {
+
+    public SessionLoadMenuV(SessionLoadC controller, MainMenuV mainMenuV) {
+        this.controller = controller;
+        this.mainMenuV = mainMenuV;
+
         JLabel title = new JLabel("Load session");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -29,15 +38,8 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
     }
 
     /**
-     * Sets the controller for this View
-     * @param controller the controller to be set
-     */
-    public void setController(SessionLoadC controller) {
-        this.controller = controller;
-    }
-
-    /**
      * Displays an error message in a popup
+     *
      * @param message an error message to display
      */
     @Override
@@ -54,21 +56,29 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
+    public void actionPerformed(ActionEvent eve) {
+        SessionLoadOD outputData;
+
+        switch (eve.getActionCommand()) {
             case "Create new session":
-                this.controller.loadNew();
+                outputData = this.controller.loadNew();
+                this.close();
+                this.mainMenuV.openMainMenu(outputData.getMessage(), outputData.getSession());
                 break;
             case "Load session from a file":
                 // Implementation of file chooser inspired from
                 // https://www.geeksforgeeks.org/java-swing-jfilechooser/
                 JFileChooser j = new JFileChooser();
                 if (j.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    this.controller.loadFile(j.getSelectedFile().getAbsolutePath());
+                    try {
+                        outputData = this.controller.loadFile(j.getSelectedFile().getAbsolutePath());
+                        this.close();
+                        this.mainMenuV.openMainMenu(outputData.getMessage(), outputData.getSession());
+                    } catch (SessionLoadException e) {
+                        this.displayError(e.getMessage());
+                    }
                 }
                 break;
-            default:
-                System.out.println(e.getActionCommand());
         }
     }
 }
