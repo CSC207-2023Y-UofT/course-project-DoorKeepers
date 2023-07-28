@@ -3,14 +3,9 @@ package views.monthly_menu;
 import entities.Category;
 import entities.Expense;
 import entities.SessionStorage;
-import use_cases.monthly_menu.MonthMenuOD;
-import use_cases.monthly_menu.UpdateViewIB;
-import use_cases.monthly_menu.UpdateViewID;
-import use_cases.monthly_menu.UpdateViewUCI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class MonthMenuV implements MonthMenuVB {
     views.monthly_menu.UpdateViewC controller;
@@ -115,7 +110,7 @@ public class MonthMenuV implements MonthMenuVB {
         String[] expenseTableTitle = new String[]{"Expense", "Value"};
         Object[][] expenseList = new Object[expenseData.length][2];
         for (int i = 0; i < expenseData.length; i++) {
-            Expense expense = (Expense) expenseData[i];
+            Expense expense = expenseData[i];
             expenseList[i][0] = expense.getName();
             expenseList[i][1] = expense.getValue();
         }
@@ -126,7 +121,7 @@ public class MonthMenuV implements MonthMenuVB {
         String[] categoryTableTitle = new String[]{"Category", "Budget"};
         Object[][] categoryList = new Object[categoryData.length][2];
         for (int i = 0; i < categoryData.length; i++) {
-            Category category = (Category) categoryData[i];
+            Category category = categoryData[i];
             categoryList[i][0] = category.getName();
             categoryList[i][1] = category.getBudget();
         }
