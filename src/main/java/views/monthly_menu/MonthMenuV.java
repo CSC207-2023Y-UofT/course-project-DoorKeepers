@@ -23,18 +23,18 @@ public class MonthMenuV implements MonthMenuVB {
 
         try {
             //Separate the layout into left and right sides
-            JPanel leftLayout = new JPanel(new BorderLayout(20,170));
+            JPanel leftLayout = new JPanel(new GridLayout(0,1,100,100));
             leftLayout.setBounds(30,30,200,200);
             JPanel rightLayout = new JPanel(new BorderLayout(20, 20));
             rightLayout.setBounds(30,30,333,200);
 
             //Left side components
-            JLabel showMonth = new JLabel("Month: "+ monthID);
-            leftLayout.add(showMonth, BorderLayout.NORTH);
+            JPanel monthPanel = getMonthPanel(monthID);
+            leftLayout.add(monthPanel);
             JPanel buttons = getButtons();
-            leftLayout.add(buttons, BorderLayout.CENTER);
+            leftLayout.add(buttons);
             JPanel genSumButton = getGenSum();
-            leftLayout.add(genSumButton, BorderLayout.SOUTH);
+            leftLayout.add(genSumButton);
 
             //Right side components: set JTables
             Object[] expenseData = controller.getOutput(session, monthID).getExpenseData().toArray();
@@ -54,6 +54,7 @@ public class MonthMenuV implements MonthMenuVB {
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             categoryScroll.setBounds(15, 15, 333, 90);
             rightLayout.add(categoryScroll, BorderLayout.CENTER);
+            rightLayout.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
             //Add both side to overall layout and set up frame
             layout.add(leftLayout, BorderLayout.WEST);
@@ -65,6 +66,16 @@ public class MonthMenuV implements MonthMenuVB {
         catch (Exception e){
             JOptionPane.showMessageDialog(frame, controller.getOutput(session, monthID).getWarning());
         }
+    }
+
+    private static JPanel getMonthPanel(int monthID){
+        JPanel monthPanel = new JPanel();
+        monthPanel.setLayout(new BoxLayout(monthPanel, BoxLayout.LINE_AXIS));
+        //monthPanel.setBounds(15, 15, 333, 90);
+        monthPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        monthPanel.add(new JLabel("Month: " + monthID));
+
+        return monthPanel;
     }
 
     private static JPanel getButtons() {
@@ -79,6 +90,7 @@ public class MonthMenuV implements MonthMenuVB {
         editExpense.setBounds(200,50,200,30);
         addCategory.setBounds(200,50,200,50);
         editCategory.setBounds(200,50,200,50);
+        buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         buttons.add(addExpense);
         buttons.add(editExpense);
@@ -89,9 +101,11 @@ public class MonthMenuV implements MonthMenuVB {
     }
 
     private static JPanel getGenSum(){
-        JPanel genSumButton = new JPanel(new GridLayout(0,2,20,20));
+        JPanel genSumButton = new JPanel();
+        genSumButton.setLayout(new BoxLayout(genSumButton, BoxLayout.LINE_AXIS));
         JButton generateSummary = new JButton("Generate summary");
         generateSummary.setBounds(200,50,200,50);
+        genSumButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         genSumButton.add(generateSummary);
 
         return genSumButton;
