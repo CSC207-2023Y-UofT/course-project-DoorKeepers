@@ -34,8 +34,8 @@ public class SessionLoadC {
         try {
             return this.interactor.load(inputData);
         } catch (SessionLoadException e) {
-            // Loading a new empty session should never fail
-            throw new RuntimeException();
+            // Loading a new empty session never throws
+            throw new AssertionError("Unreachable code");
         }
     }
 }
