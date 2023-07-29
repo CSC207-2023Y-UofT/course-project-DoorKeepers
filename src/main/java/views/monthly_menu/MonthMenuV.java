@@ -6,14 +6,21 @@ import entities.SessionStorage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The view class for creating the Month Menu view. This class implements the
- * MonthMenuView interface. This class calls the controller class to get the
+ * ActionListener interface. This class calls the controller class to get the
  * MonthMenuOD object, and use the output to set up success and fail view.
  */
-public class MonthMenuV implements MonthMenuVB {
+public class MonthMenuV implements ActionListener {
     views.monthly_menu.UpdateViewC controller;
+    JButton addExpense;
+    JButton editExpense;
+    JButton addCategory;
+    JButton editCategory;
+    JButton generateSummary;
 
     /**
      * Set up success and fail view. The success view shows the Month Menu
@@ -33,6 +40,11 @@ public class MonthMenuV implements MonthMenuVB {
 
         try {
             JPanel layout = new JPanel(new BorderLayout(20, 20));
+            this.addExpense = new JButton("Add an expense");
+            this.editExpense = new JButton("Edit an expense");
+            this.addCategory = new JButton("Add an category");
+            this.editCategory = new JButton("Edit an category");
+            this.generateSummary = new JButton("Generate summary");
 
             //Separate the layout into left and right sides
             JPanel leftLayout = new JPanel(new GridLayout(0,1,100,100));
@@ -40,12 +52,29 @@ public class MonthMenuV implements MonthMenuVB {
             JPanel rightLayout = new JPanel(new BorderLayout(20, 20));
             rightLayout.setBounds(30,30,333,200);
 
-            //Left side components
+            //Left side components: monthID
             JPanel monthPanel = getMonthPanel(monthID);
             leftLayout.add(monthPanel);
-            JPanel buttons = getButtons();
+
+            //Left side components: add/edit buttons
+            JPanel buttons = new JPanel(new GridLayout(0,2,20,20));
+            buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            addExpense.setBounds(200,50,200,30);
+            editExpense.setBounds(200,50,200,30);
+            addCategory.setBounds(200,50,200,50);
+            editCategory.setBounds(200,50,200,50);
+            buttons.add(addExpense);
+            buttons.add(editExpense);
+            buttons.add(addCategory);
+            buttons.add(editCategory);
             leftLayout.add(buttons);
-            JPanel genSumButton = getGenSum();
+
+            //Left side components: generate summary button
+            JPanel genSumButton = new JPanel();
+            genSumButton.setLayout(new BoxLayout(genSumButton, BoxLayout.LINE_AXIS));
+            genSumButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            generateSummary.setBounds(200,50,200,50);
+            genSumButton.add(generateSummary);
             leftLayout.add(genSumButton);
 
             //Right side components: set JTables
@@ -104,47 +133,6 @@ public class MonthMenuV implements MonthMenuVB {
     }
 
     /**
-     * Create the JPanel that shows the add/edit expense/category buttons.
-     * @return JPanel containing add/edit expense/category buttons
-     */
-    private static JPanel getButtons() {
-        JPanel buttons = new JPanel(new GridLayout(0,2,20,20));
-
-        JButton addExpense = new JButton("Add an expense");
-        JButton editExpense = new JButton("Edit an expense");
-        JButton addCategory = new JButton("Add an category");
-        JButton editCategory = new JButton("Edit an category");
-
-        addExpense.setBounds(200,50,200,30);
-        editExpense.setBounds(200,50,200,30);
-        addCategory.setBounds(200,50,200,50);
-        editCategory.setBounds(200,50,200,50);
-        buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        buttons.add(addExpense);
-        buttons.add(editExpense);
-        buttons.add(addCategory);
-        buttons.add(editCategory);
-
-        return buttons;
-    }
-
-    /**
-     * Create the JPanel that shows the generate summary button.
-     * @return JPanel containing the generate summary button.
-     */
-    private static JPanel getGenSum(){
-        JPanel genSumButton = new JPanel();
-        genSumButton.setLayout(new BoxLayout(genSumButton, BoxLayout.LINE_AXIS));
-        JButton generateSummary = new JButton("Generate summary");
-        generateSummary.setBounds(200,50,200,50);
-        genSumButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        genSumButton.add(generateSummary);
-
-        return genSumButton;
-    }
-
-    /**
      * Format list of Expense to JTable that shows the expense names and values.
      * @param expenseData expenseData to be outputted
      * @return JTable containing table of expense names and values
@@ -176,5 +164,24 @@ public class MonthMenuV implements MonthMenuVB {
         return new JTable(categoryList, categoryTableTitle);
     }
 
-    //TODO: add method for button reactions.
+    //TODO: implement the reactions to button clicks
+    /**
+     * React to various button clicks that result in ActionEvent.
+     * @param event the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        // Source: https://youtu.be/Kmgo00avvEw?t=2547
+        if (event.getSource()==addExpense){
+            // call add expense
+        } else if (event.getSource()==editExpense) {
+            // call edit expense
+        } else if (event.getSource()==addCategory) {
+            // call add category
+        } else if (event.getSource()==editCategory) {
+            // call edit category
+        } else if (event.getSource()==generateSummary) {
+            // call generateSummary
+        }
+    }
 }
