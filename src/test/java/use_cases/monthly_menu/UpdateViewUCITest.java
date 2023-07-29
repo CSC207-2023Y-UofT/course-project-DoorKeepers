@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the UpdateViewUCI class.
+ */
 class UpdateViewUCITest {
     static Category category1;
     static Category category2;
@@ -33,10 +36,10 @@ class UpdateViewUCITest {
         sessionStorage.addMonth(monthlyStorage);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
+    /**
+     * Test case when viewing a new month created. Method should output MonthMenuOD
+     * object storing empty list of Expense and list of Category containing other.
+     */
     @Test
     void createOutputNewMonthSuccess() {
         UpdateViewIB interactor = new UpdateViewUCI();
@@ -50,6 +53,11 @@ class UpdateViewUCITest {
         Assertions.assertEquals(categories,actualOutput.getCategoryData());
     }
 
+    /**
+     * Test case when accessing a MonthlyStorage in the specified SessionStorage.
+     * Method should output MonthMenuOD storing list of Expense and list of Category.
+     * @throws EntityException the exception thrown when adding an Expense/Category that already exist in the month
+     */
     @Test
     void createOutputNormalMonthSuccess() throws EntityException {
             UpdateViewIB interactor = new UpdateViewUCI();
@@ -71,6 +79,11 @@ class UpdateViewUCITest {
             Assertions.assertEquals(categories,actualOutput.getCategoryData());
     }
 
+    /**
+     * Test case when accessing a MonthlyStorage that does not exist in the
+     * specified SessionStorage. Method should output MonthMenuOD storing
+     * a String of error message.
+     */
     @Test
     void createOutputFail(){
             UpdateViewIB interactor = new UpdateViewUCI();

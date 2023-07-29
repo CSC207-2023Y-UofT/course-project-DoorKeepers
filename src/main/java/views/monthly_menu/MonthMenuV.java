@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * The view class for creating the Month Menu view. This class implements the
+ * The view class for creating/updating the Month Menu view. This class implements the
  * ActionListener interface. This class calls the controller class to get the
  * MonthMenuOD object, and use the output to set up success and fail view.
  */
