@@ -12,5 +12,5 @@ public interface GenerateSummaryIB {
      * @param inputData a GenerateSummaryID object holding the SessionStorage and monthID needed to retrieve data
      * @return a JPanel holding the graphs
      */
-    public GenerateSummaryOD generateNewSummary(GenerateSummaryID inputData) throws EntityException;
+     GenerateSummaryOD generateNewSummary(GenerateSummaryID inputData) throws EntityException;
 }

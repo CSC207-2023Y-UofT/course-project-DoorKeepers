@@ -16,7 +16,7 @@ public class GenerateSummaryC {
 
     /**
      * Creates a new GenerateSummaryC with the provided interactor
-     * @param interactor instance of interactor that will be called in the create method
+     * @param interactor instance of interactor that will be called in the generate method
      */
     public GenerateSummaryC(GenerateSummaryIB interactor) {
         this.interactor = interactor;
