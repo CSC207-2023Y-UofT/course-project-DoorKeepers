@@ -29,6 +29,7 @@ public class MonthMenuV implements ActionListener {
      * Menu window also shows the list of expenses and categories currently
      * stored in the MonthlyStorage. The fail view shows a pop-up window
      * showing the error message.
+     * Code inspired by https://stackoverflow.com/questions/5621338/how-to-add-jtable-in-jpanel-with-null-layout
      * @param controller the controller class to get output data
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
@@ -167,11 +168,11 @@ public class MonthMenuV implements ActionListener {
     //TODO: implement the reactions to button clicks
     /**
      * React to various button clicks that result in ActionEvent.
+     * Code inspired by https://youtu.be/Kmgo00avvEw?t=2547
      * @param event the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        // Source: https://youtu.be/Kmgo00avvEw?t=2547
         if (event.getSource()==addExpense){
             // call add expense
         } else if (event.getSource()==editExpense) {
