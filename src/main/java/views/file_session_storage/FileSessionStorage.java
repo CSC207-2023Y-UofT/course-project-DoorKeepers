@@ -1,6 +1,7 @@
 package views.file_session_storage;
 
 import entities.SessionStorage;
+import use_cases.session_load.SessionStorageG;
 
 import java.io.*;
 

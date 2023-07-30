@@ -1,4 +1,4 @@
-package views.file_session_storage;
+package use_cases.session_load;
 
 import entities.SessionStorage;
 

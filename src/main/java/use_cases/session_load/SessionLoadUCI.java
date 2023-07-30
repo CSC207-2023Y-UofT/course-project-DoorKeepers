@@ -1,7 +1,6 @@
 package use_cases.session_load;
 
 import entities.SessionStorage;
-import views.file_session_storage.SessionStorageG;
 
 import java.io.IOException;
 
