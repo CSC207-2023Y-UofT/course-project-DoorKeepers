@@ -1,5 +1,6 @@
 package views.session_load;
 
+import entities.SessionStorage;
 import use_cases.session_load.SessionLoadException;
 import use_cases.session_load.SessionLoadOD;
 import views.main_menu.MainMenuV;
@@ -40,7 +41,7 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
     /**
      * Displays an error message in a popup
      *
-     * @param message an error message to display
+     * @param message a String containing an error message to display
      */
     @Override
     public void displayError(String message) {
@@ -48,11 +49,14 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
     }
 
     /**
-     * Closes this menu by setting its visibility to false
+     * Closes this menu by setting its visibility to false and opens the main menu
+     *
+     * @param message a String containing a success message to display
+     * @param session a SessionStorage object with the loaded session that will be displayed in the main menu
      */
-    @Override
-    public void close() {
+    public void displaySuccess(String message, SessionStorage session) {
         this.setVisible(false);
+        this.mainMenuV.openMainMenu(message, session);
     }
 
     @Override
@@ -62,8 +66,7 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
         switch (eve.getActionCommand()) {
             case "Create new session":
                 outputData = this.controller.loadNew();
-                this.close();
-                this.mainMenuV.openMainMenu(outputData.getMessage(), outputData.getSession());
+                this.displaySuccess(outputData.getMessage(), outputData.getSession());
                 break;
             case "Load session from a file":
                 // Implementation of file chooser inspired from
@@ -72,8 +75,7 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
                 if (j.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     try {
                         outputData = this.controller.loadFile(j.getSelectedFile().getAbsolutePath());
-                        this.close();
-                        this.mainMenuV.openMainMenu(outputData.getMessage(), outputData.getSession());
+                        this.displaySuccess(outputData.getMessage(), outputData.getSession());
                     } catch (SessionLoadException e) {
                         this.displayError(e.getMessage());
                     }
