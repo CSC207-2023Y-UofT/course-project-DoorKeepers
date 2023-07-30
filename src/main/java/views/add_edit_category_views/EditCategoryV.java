@@ -1,20 +1,23 @@
 package views.add_edit_category_views;
 
 import entities.Category;
+import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class EditCategoryV implements CategoryVB, ActionListener {
     final CategoryC controller;
+    private SessionStorage curr_session;
 
     public EditCategoryV(CategoryC controller){
 
         JLabel select_category_label = new JLabel(" Select existing category:");
-        JComboBox<Category> category = new JComboBox<Category>(); // category list
+        JComboBox<Category> category = new JComboBox<Category>(curr_session.getMonthlyData()); // category list
         JLabel name_label = new JLabel("New Category Name:");
         JTextField name = new JTextField(15);
         JLabel value_label = new JLabel(" New Category Budget:");
@@ -62,8 +65,10 @@ public class EditCategoryV implements CategoryVB, ActionListener {
 
     }
 
-    @Override
-    public void exitToMonthMenu() {
 
+    @Override
+    public ArrayList<Category> category_selection() {
+        curr_session.getMonthlyData()
+        return null;
     }
 }
