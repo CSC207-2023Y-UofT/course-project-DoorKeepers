@@ -1,7 +1,6 @@
 package use_cases.monthly_menu;
 
 import entities.*;
-import views.monthly_menu.MonthMenuP;
 
 import java.util.ArrayList;
 
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 public class UpdateViewUCI implements UpdateViewIB{
     final MonthMenuOB outputBoundary;
 
-    public UpdateViewUCI(){
-        this.outputBoundary = new MonthMenuP();
+    public UpdateViewUCI(MonthMenuOB outputBoundary){
+        this.outputBoundary = outputBoundary;
     }
 
     /**

@@ -1,19 +1,18 @@
 package use_cases.monthly_menu;
 
 import entities.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import views.monthly_menu.MonthMenuP;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests the UpdateViewUCI class.
  */
 class UpdateViewUCITest {
+    static MonthMenuOB outputBoundary;
     static Category category1;
     static Category category2;
     static Category other;
@@ -25,6 +24,7 @@ class UpdateViewUCITest {
 
     @BeforeEach
     void setUp() {
+        outputBoundary = new MonthMenuP();
         category1 = new Category("Food", 100.00);
         category2 = new Category("Shopping", 70.00);
         expense1 = new Expense("Loblaws", category1, 50.00 );
@@ -42,7 +42,7 @@ class UpdateViewUCITest {
      */
     @Test
     void createOutputNewMonthSuccess() {
-        UpdateViewIB interactor = new UpdateViewUCI();
+        UpdateViewIB interactor = new UpdateViewUCI(outputBoundary);
         UpdateViewID inputData = new UpdateViewID(sessionStorage, monthID);
 
         ArrayList<Expense> expenses = new ArrayList<>();
@@ -60,7 +60,7 @@ class UpdateViewUCITest {
      */
     @Test
     void createOutputNormalMonthSuccess() throws EntityException {
-            UpdateViewIB interactor = new UpdateViewUCI();
+            UpdateViewIB interactor = new UpdateViewUCI(outputBoundary);
             monthlyStorage.addCategory(category1);
             monthlyStorage.addCategory(category2);
             monthlyStorage.addExpense(expense1);
@@ -86,7 +86,7 @@ class UpdateViewUCITest {
      */
     @Test
     void createOutputFail(){
-            UpdateViewIB interactor = new UpdateViewUCI();
+            UpdateViewIB interactor = new UpdateViewUCI(outputBoundary);
             UpdateViewID inputData = new UpdateViewID(sessionStorage, 202207);
 
             MonthMenuOD actualOutput = interactor.createOutput(inputData);
