@@ -11,13 +11,13 @@ public class CategoryID {
     private final SessionStorage session;
     private Category old_category;
 
-    public CategoryID(String name, double value, int monthID, SessionStorage session){
+    public CategoryID(String name, Object value, int monthID, SessionStorage session){
         this.name = name;
         this.value = value;
         this.monthID = monthID;
         this.session = session;
     }
-    public CategoryID(String name, double value, int monthID, SessionStorage session, Category old_category) {
+    public CategoryID(String name, Object value, int monthID, SessionStorage session, Category old_category) {
         this.name = name;
         this.value = value;
         this.monthID = monthID;

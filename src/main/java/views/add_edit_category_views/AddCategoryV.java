@@ -1,5 +1,6 @@
 package views.add_edit_category_views;
 
+import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.*;
 
 import javax.swing.*;
@@ -7,14 +8,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddCategoryV implements CategoryVB, ActionListener {
-    final CategoryC controller;
-    public AddCategoryV(CategoryC controller) {
+public class AddCategoryV extends Component implements ActionListener {
+    CategoryC controller;
+    JTextField name_input;
+    JTextField budget_input;
+    public AddCategoryV(CategoryC controller,int monthID, SessionStorage curr_session) {
 
         JLabel name_label = new JLabel("Category Name:");
-        JTextField name = new JTextField(15);
+        this.name_input = new JTextField(15);
         JLabel value_label = new JLabel("Category Budget:");
-        JTextField value = new JTextField(15);
+        this.budget_input = new JTextField(15);
         JButton submit = new JButton("Submit");
         submit.setSize(30,10);
 
@@ -33,29 +36,27 @@ public class AddCategoryV implements CategoryVB, ActionListener {
         frame.pack();
         frame.setVisible(true);
         panel.add(name_label, BorderLayout.WEST);
-        panel.add(name, BorderLayout.CENTER);
+        panel.add(name_input, BorderLayout.CENTER);
         panel.add(value_label);
-        panel.add(value);
+        panel.add(budget_input);
         panel.add(submit);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
 
-        submit.addActionListener(this);
-        CategoryP categoryP = new CategoryP();
-        CategoryIB categoryUCI = new CategoryUCI(categoryP);
-        this.controller = new CategoryC(categoryUCI);
-
-
+        this.controller = controller;
+        try{
+            controller.addCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session);
+            JOptionPane.showMessageDialog( this, name_input.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog( this, e.getMessage());
+        }
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {System.out.println("Click " + e.getActionCommand());
+        System.out.println("Click " + e.getActionCommand());
 
     }
 
-    @Override
-    public void exitToMonthMenu() {
-
-    }
 }

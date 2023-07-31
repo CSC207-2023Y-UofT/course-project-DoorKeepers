@@ -16,7 +16,7 @@ class CategoryUCITest {
 
 
     @Test
-    void addCategoryinMonth() throws EntityException {
+    void addCategoryInMonth() throws EntityException {
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         SessionStorage sesh = new SessionStorage();
@@ -32,13 +32,10 @@ class CategoryUCITest {
             }
         }
 
-
         }
 
-
-
     @Test
-    void editCategoryinMonth() throws EntityException {
+    void editCategoryInMonth() throws EntityException {
 
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);

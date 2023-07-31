@@ -1,6 +1,7 @@
 package views.add_edit_category_views;
 
 import entities.Category;
+import entities.EntityException;
 import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.*;
 
@@ -10,18 +11,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class EditCategoryV implements CategoryVB, ActionListener {
-    final CategoryC controller;
-    private SessionStorage curr_session;
+public class EditCategoryV extends Component implements ActionListener {
+    CategoryC controller;
+    JComboBox<Category> category_combo;
+    JTextField name_input;
+    JTextField budget_input;
+    Category selected_category;
 
-    public EditCategoryV(CategoryC controller){
+    public EditCategoryV(CategoryC controller, Category[] existing_category, int monthID, SessionStorage curr_session) {
+
+        this.controller = controller;
 
         JLabel select_category_label = new JLabel(" Select existing category:");
-        JComboBox<Category> category = new JComboBox<Category>(curr_session.getMonthlyData()); // category list
+        this.category_combo = new JComboBox<>(existing_category); // category list
         JLabel name_label = new JLabel("New Category Name:");
-        JTextField name = new JTextField(15);
-        JLabel value_label = new JLabel(" New Category Budget:");
-        JTextField value = new JTextField(15);
+        this.name_input = new JTextField(15);
+        JLabel budget_label = new JLabel(" New Category Budget:");
+        this.budget_input = new JTextField(15);
         JButton submit = new JButton("Submit");
         submit.setSize(30,10);
 
@@ -43,32 +49,31 @@ public class EditCategoryV implements CategoryVB, ActionListener {
         frame.setVisible(true);
         frame.setSize(500,300);
         panel.add(select_category_label);
-        panel.add(category);
+        panel.add(category_combo);
         panel.add(name_label, BorderLayout.WEST);
-        panel.add(name, BorderLayout.CENTER);
-        panel.add(value_label);
-        panel.add(value);
+        panel.add(name_input, BorderLayout.CENTER);
+        panel.add(budget_label);
+        panel.add(budget_input);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
 
         submit.addActionListener(this);
+        category_combo.addActionListener(this);
 
-        CategoryP categoryP = new CategoryP();
-        CategoryIB categoryUCI = new CategoryUCI(categoryP);
-        this.controller = new CategoryC(categoryUCI);
-
+        try{
+            controller.editCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
+            JOptionPane.showMessageDialog( this, name_input.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog( this, e.getMessage());
+        }
 
     }
-
     @Override
-    public void actionPerformed(ActionEvent e) {System.out.println("Click " + e.getActionCommand());
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Click " + e.getActionCommand());
+        this.selected_category = (Category) category_combo.getSelectedItem();
 
     }
 
 
-    @Override
-    public ArrayList<Category> category_selection() {
-        curr_session.getMonthlyData()
-        return null;
-    }
 }

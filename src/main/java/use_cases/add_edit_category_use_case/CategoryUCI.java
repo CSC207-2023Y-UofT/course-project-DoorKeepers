@@ -53,7 +53,6 @@ public class CategoryUCI implements CategoryIB {
             c.setName(categoryID_edit.getName());
             c.setBudget(categoryID_edit.getValue());
             this.categoryOD = new CategoryOD(c);
-
         } catch (NoSuchElementException e){
             categoryOB.fail("There is no such category in the current month. Please add a new category or select an existing category!");
         } catch (ClassCastException e) {
