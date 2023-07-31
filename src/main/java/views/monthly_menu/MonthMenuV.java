@@ -29,7 +29,8 @@ public class MonthMenuV implements ActionListener {
      * Menu window also shows the list of expenses and categories currently
      * stored in the MonthlyStorage. The fail view shows a pop-up window
      * showing the error message.
-     * Code inspired by https://stackoverflow.com/questions/5621338/how-to-add-jtable-in-jpanel-with-null-layout
+     * Code inspired from
+     * <a href="https://stackoverflow.com/questions/5621338/how-to-add-jtable-in-jpanel-with-null-layout">here</a>
      * @param controller the controller class to get output data
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
@@ -39,7 +40,7 @@ public class MonthMenuV implements ActionListener {
         //Set the frame
         JFrame frame = new JFrame("Monthly Menu");
 
-        try {
+        if (controller.getOutput(session, monthID).isSuccessful()){
             JPanel layout = new JPanel(new BorderLayout(20, 20));
             this.addExpense = new JButton("Add an expense");
             this.editExpense = new JButton("Edit an expense");
@@ -103,7 +104,7 @@ public class MonthMenuV implements ActionListener {
             layout.add(rightLayout, BorderLayout.CENTER);
             frame.setContentPane(layout);
         }
-        catch (Exception e){
+        else {
             // Create JPanel for error message
             JPanel layout = new JPanel();
             layout.setLayout(new BoxLayout(layout, BoxLayout.LINE_AXIS));
@@ -111,12 +112,12 @@ public class MonthMenuV implements ActionListener {
             layout.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
             frame.add(layout);
         }
-        finally {
-            // Allow frame to exit on close for both success and fail cases
-            frame.pack();
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }
+
+        // Allow frame to exit on close for both success and fail cases
+        frame.pack();
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     /**
@@ -168,7 +169,7 @@ public class MonthMenuV implements ActionListener {
     //TODO: implement the reactions to button clicks
     /**
      * React to various button clicks that result in ActionEvent.
-     * Code inspired by https://youtu.be/Kmgo00avvEw?t=2547
+     * Code inspired from <a href="https://youtu.be/Kmgo00avvEw?t=2547">here</a>
      * @param event the event to be processed
      */
     @Override

@@ -16,23 +16,28 @@ public class MonthMenuOD {
     ArrayList<Expense> expenseData;
     ArrayList<Category> categoryData;
     String warning;
+    boolean successful;
 
     /**
      * Constructs an MonthMenuOD holding output data.
      * @param expenseData ArrayList of Expense stored in a MonthlyStorage
      * @param categoryData ArrayList of Category stored in a MonthlyStorage
+     * @param successful boolean indicating whether access to Expense/Category list was successful
      */
-    public MonthMenuOD(ArrayList<Expense> expenseData, ArrayList<Category> categoryData){
+    public MonthMenuOD(ArrayList<Expense> expenseData, ArrayList<Category> categoryData, boolean successful){
         this.expenseData = expenseData;
         this.categoryData = categoryData;
+        this.successful = successful;
     }
 
     /**
      * Constructs an MonthMenuOD holding error message.
      * @param warning error message to show in the view
+     * @param successful boolean indicating whether access to Expense/Category list was successful
      */
-    public MonthMenuOD(String warning){
+    public MonthMenuOD(String warning, boolean successful){
         this.warning = warning;
+        this.successful = successful;
     }
 
     /**
@@ -57,6 +62,13 @@ public class MonthMenuOD {
      */
     public String getWarning() {
         return warning;
+    }
+
+    /**
+     * @return true if access to Expense/Category list was successful
+     */
+    public boolean isSuccessful() {
+        return successful;
     }
 
     /**

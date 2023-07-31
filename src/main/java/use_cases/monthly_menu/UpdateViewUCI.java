@@ -32,10 +32,11 @@ public class UpdateViewUCI implements UpdateViewIB{
             ArrayList<Expense> expenseData= monthData.getExpenseData();
             ArrayList<Category> categoryData= monthData.getCategoryData();
 
-            return outputBoundary.createOutput(new MonthMenuOD(expenseData,categoryData));
+            return outputBoundary.createOutput(new MonthMenuOD(expenseData,categoryData,true));
         }
         catch(EntityException e){ //set String warning as output if EntityException is caught
-            return outputBoundary.createOutput(new MonthMenuOD("Something went wrong, please try again."));
+            return outputBoundary.createOutput(new MonthMenuOD(
+                    "Something went wrong, please try again.",false));
         }
     }
 }
