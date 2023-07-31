@@ -19,7 +19,6 @@ public class CategoryP implements CategoryOB {
         // category(OD) update in month
         return categoryOD_add;
     }
-
     /**
      * Overrides fail() from Category_OB.
      * @param error Detailed error message for user.
