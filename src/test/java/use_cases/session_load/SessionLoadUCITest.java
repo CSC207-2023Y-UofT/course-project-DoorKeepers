@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Tests the SessionLoadUCI class
+ */
 class SessionLoadUCITest {
     static SessionStorage sampleSession;
     @BeforeAll
@@ -41,6 +44,10 @@ class SessionLoadUCITest {
         // session should be empty now
         assert session.equals(new SessionStorage());
     }
+
+    /**
+     * Tests loading an existing session from a file
+     */
     @Test
     public void SessionLoadUCILoadFile() {
         // This 'session' variable would be like the one we would have in the actual Main method

@@ -10,6 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The session load menu screen. It contains two buttons, one for creating and loading a new empty
+ * session, and one for loading an existing session from a file. It reports any errors through a popup
+ * and sends the user to the main menu after successfully loading a file.
+ */
 public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, ActionListener {
     private final SessionLoadC controller;
     private final MainMenuV mainMenuV;

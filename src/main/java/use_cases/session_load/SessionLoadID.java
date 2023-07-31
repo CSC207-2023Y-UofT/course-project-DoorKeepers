@@ -1,5 +1,10 @@
 package use_cases.session_load;
 
+/**
+ * The input data used by the interactor to load a session.
+ * The SessionLoadC controller class creates an instance of this class from user input
+ * and uses it as a parameter to call the SessionLoadUCI interactor.
+ */
 public class SessionLoadID {
     private final boolean isNew;
     private final String filename;

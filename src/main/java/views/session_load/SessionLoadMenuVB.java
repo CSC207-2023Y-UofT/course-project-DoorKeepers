@@ -2,6 +2,10 @@ package views.session_load;
 
 import entities.SessionStorage;
 
+/**
+ * A view boundary interface to display a success or error message when loading a session
+ * The SessionLoadMenuV view class implements this interface
+ */
 public interface SessionLoadMenuVB {
     /**
      * Displays an error message in a popup

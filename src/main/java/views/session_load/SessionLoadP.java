@@ -5,6 +5,11 @@ import use_cases.session_load.SessionLoadException;
 import use_cases.session_load.SessionLoadOB;
 import use_cases.session_load.SessionLoadOD;
 
+/**
+ * The presenter class for loading a session.
+ * It is called by the interactor through the SessionLoadOB interface, and it is the
+ * class responsible for building the SessionLoadOD objects
+ */
 public class SessionLoadP implements SessionLoadOB {
     /**
      * Returns a SessionLoadOD signifying success and containing a success message and a session object to display

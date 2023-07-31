@@ -4,6 +4,10 @@ import entities.SessionStorage;
 
 import java.io.IOException;
 
+/**
+ * A gateway interface for saving and loading sessions from files.
+ * It is implemented by FileSessionStorage and called from the SessionLoadUCI interactor class
+ */
 public interface SessionStorageG {
     /**
      * Saves a SessionStorage object into a file on disk.

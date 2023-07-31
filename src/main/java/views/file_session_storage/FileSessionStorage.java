@@ -5,8 +5,13 @@ import use_cases.session_load.SessionStorageG;
 
 import java.io.*;
 
-// Implementation of serializing and deserializing inspired from
-// https://www.tutorialspoint.com/java/java_serialization.htm
+/**
+ * A storage system for loading and saving SessionLoad to files.
+ * Implements the SessionStorageG interface and is called from the SessionLoadUCI
+ * interactor class.
+ * Implementation of serializing and deserializing inspired from
+ * <a href="https://www.tutorialspoint.com/java/java_serialization.htm">here</a>
+ */
 public class FileSessionStorage implements SessionStorageG {
     /**
      * Saves a SessionStorage object into a file on disk.
@@ -31,7 +36,7 @@ public class FileSessionStorage implements SessionStorageG {
      *
      * @param filename the name of the file to read the session from.
      * @return the SessionStorage object obtained from the file.
-     * @throws IOException if an error occurred while reading the file.
+     * @throws IOException            if an error occurred while reading the file.
      * @throws ClassNotFoundException if the file isn't a valid serialization of a SessionObject.
      */
     @Override

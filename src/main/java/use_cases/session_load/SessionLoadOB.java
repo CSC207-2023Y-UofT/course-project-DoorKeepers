@@ -2,6 +2,11 @@ package use_cases.session_load;
 
 import entities.SessionStorage;
 
+/**
+ * The output boundary interface for displaying the result of loading a session
+ * The SessionLoadP presenter class implements this interface and it is called by
+ * the SessionLoadUCI interactor class
+ */
 public interface SessionLoadOB {
     /**
      * Returns a SessionLoadOD signifying success and containing a success message and a session object to display

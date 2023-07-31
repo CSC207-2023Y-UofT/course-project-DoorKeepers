@@ -6,6 +6,11 @@ import views.session_load.SessionLoadMainMenuVB;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main menu screen. TODO: It contains a button to save the session, a button
+ * to create a new month, and also allows the user to open the month menu for any of the
+ * existing months in the current session
+ */
 public class MainMenuV extends JPanel implements SessionLoadMainMenuVB {
     public MainMenuV() {
         JLabel title = new JLabel("Main Menu");

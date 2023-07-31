@@ -1,5 +1,10 @@
 package use_cases.session_load;
 
+/**
+ * The input boundary interface for loading sessions
+ * The SessionLoadUCI interactor class implements this interface and it is called by
+ * the SessionLoadC controller class
+ */
 public interface SessionLoadIB {
     /**
      * Either loads a SessionStorage from a file, or creates a new empty one.

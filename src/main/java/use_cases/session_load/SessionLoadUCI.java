@@ -4,6 +4,11 @@ import entities.SessionStorage;
 
 import java.io.IOException;
 
+/**
+ * The use case interactor for loading a session.
+ * This class implements the SessionLoadIB interface and is the one responsible for
+ * doing the file accesses and modifying our entities.
+ */
 public class SessionLoadUCI implements SessionLoadIB {
     private final SessionStorageG storageGateway;
     private final SessionLoadOB presenter;
