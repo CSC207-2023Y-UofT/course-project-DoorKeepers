@@ -1,15 +1,12 @@
 package views.add_edit_category_views;
 
 import entities.Category;
-import entities.EntityException;
 import entities.SessionStorage;
-import use_cases.add_edit_category_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class EditCategoryV extends Component implements ActionListener {
     CategoryC controller;

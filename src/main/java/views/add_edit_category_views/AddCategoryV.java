@@ -1,7 +1,6 @@
 package views.add_edit_category_views;
 
 import entities.SessionStorage;
-import use_cases.add_edit_category_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
