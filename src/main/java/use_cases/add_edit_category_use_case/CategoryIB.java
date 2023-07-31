@@ -6,8 +6,7 @@ import entities.EntityException;
 import java.util.ArrayList;
 
 /**
- * This is an interface serving as the Category_Input_Boundary.
- * Passes in user input of category information in the form of CategoryID.
+ * Category_Input_Boundary passes in user input of category information in the form of CategoryID.
  */
 public interface CategoryIB {
     /**
@@ -18,7 +17,6 @@ public interface CategoryIB {
      * @throws EntityException thrown when the new category input is invalid.
      */
     CategoryOD addCategoryInMonth(CategoryID categoryID_add) throws EntityException;
-
     /**
      * Returns a Category object in the form of a Category_OD object when a category is successfully edited,
      * returns context specific fail messages when failed.
@@ -27,7 +25,6 @@ public interface CategoryIB {
      * @throws EntityException thrown when the new category input is invalid.
      */
     CategoryOD editCategoryInMonth(CategoryID categoryID_edit) throws EntityException;
-
     /**
      * Helper method that returns a category with String name from a list of categories.
      * @param monthCategoryData An ArrayList of categories.

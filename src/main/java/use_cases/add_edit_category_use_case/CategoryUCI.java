@@ -9,14 +9,30 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ * The Category_Use_Case_Interactor 1. adds/creates a new category and 2. edits an existing category. (Updates MonthlyStorage?)
+ * Contains a helper method isValidDouble() and findCategory().
+ */
+
 public class CategoryUCI implements CategoryIB {
     final CategoryOB categoryOB;
     private CategoryOD categoryOD;
+
+    /**
+     * Constructs CategoryUCI.
+     * @param categoryP presenter that is related to the use case.
+     */
 
     public CategoryUCI(CategoryP categoryP) {
         this.categoryOB = categoryP;
         this.categoryOD = null;
     }
+
+    /**
+     * Helper method returns a boolean to check if the input Object is a valid double.
+     * @param value a user input
+     * @return boolean true if value is a valid double, vice versa
+     */
 
     public static boolean isValidDouble(Object value){
         try{
@@ -25,9 +41,19 @@ public class CategoryUCI implements CategoryIB {
         }catch (NumberFormatException e){
             return false;
         }
-
     }
-
+    /**
+     * Overrides method in Category_IB.
+     * Attempts to add a category with information from CategoryID and returns whether fail/success after execution.
+     * Provides detailed fail messages according to each condition listed below
+     *  1. NumberFormatException: User tries to add a new budget value that can not be converted to a double.
+     *  2. Category budget less than 0: User tries to add a new budget value that is a negative number.
+     *  3. EntityException: User tries to add an invalid Category but failed. (See entities/EntityException.java)
+     *
+     * @param categoryID_add Category_Input_Data required for adding a new category to the designated monthID MonthlyStorage Object.
+     * @return Category_Output_Data category.
+     * @throws EntityException thrown when categoryID_add has invalid category information.
+     */
     @Override
     public CategoryOD addCategoryInMonth(CategoryID categoryID_add) throws EntityException {
         MonthlyStorage month = categoryID_add.getSession().getMonthlyData(categoryID_add.getMonthID());
@@ -45,13 +71,25 @@ public class CategoryUCI implements CategoryIB {
             this.categoryOD = new CategoryOD(category);
 
         } catch (NumberFormatException e) {
+            // 1. Invalid category budget input from user.
             categoryOB.fail("Category budget needs to be a number. Please try again!");
         } catch (EntityException e) {
             categoryOB.fail("Fail to add new category. Please try again!");
         }
         return categoryOB.success_add(categoryOD);
     }
-
+    /**
+     * Overrides method in Category_IB.
+     * Attempts to edit a category with information from CategoryID and returns whether fail/success after execution.
+     * Provides detailed fail messages according to each condition listed below
+     *  1. NumberFormatException: User tries to edit a budget value with input that can not be converted to a double.
+     *  2. Category budget less than 0: User tries to edit a budget value with input that is a negative number.
+     *  3. EntityException: User tries to edit a Category with invalid input but failed. (See entities/EntityException.java)
+     *
+     * @param categoryID_edit Category_Input_Data required for editing a new category to the designated monthID MonthlyStorage Object.
+     * @return Category_Output_Data category.
+     * @throws EntityException thrown when categoryID_add has invalid category information.
+     */
     @Override
     public CategoryOD editCategoryInMonth(CategoryID categoryID_edit) throws EntityException {
         MonthlyStorage month = categoryID_edit.getSession().getMonthlyData(categoryID_edit.getMonthID());
@@ -76,11 +114,18 @@ public class CategoryUCI implements CategoryIB {
         return categoryOB.success_edit(categoryOD);
     }
 
+    /**
+     * Helper method returns a Category from a given category list of a MonthlyStorage Object.
+     * @param monthCategoryData An ArrayList of categories.
+     * @param name Category name.
+     * @return Category with given String name.
+     */
     @Override
     public Category findCategory(ArrayList<Category> monthCategoryData, String name){
         for (Category c : monthCategoryData){
             if (Objects.equals(c.getName(), name)){
-                return c;}
+                return c;
+            }
         }
         return null;
     }

@@ -7,7 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * A view class for the Edit_Category_view that extends Component class and implements ActionListener interface.
+ * Creates a new controller that produces a Category_OD object.
+ */
 public class EditCategoryV extends Component implements ActionListener {
     CategoryC controller;
     JComboBox<Category> category_combo;
@@ -16,9 +19,9 @@ public class EditCategoryV extends Component implements ActionListener {
     Category selected_category;
 
     public EditCategoryV(CategoryC controller, Category[] existing_category, int monthID, SessionStorage curr_session) {
-
-        this.controller = controller;
-
+        /**
+         * Builds Add_Category_View.
+         */
         JLabel select_category_label = new JLabel(" Select existing category:");
         this.category_combo = new JComboBox<>(existing_category); // category list
         JLabel name_label = new JLabel("New Category Name:");
@@ -35,8 +38,6 @@ public class EditCategoryV extends Component implements ActionListener {
         JPanel panell = new JPanel();
         panell.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
         panell.setLayout(new GridLayout(0,1));
-
-
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,14 +57,18 @@ public class EditCategoryV extends Component implements ActionListener {
 
         submit.addActionListener(this);
         category_combo.addActionListener(this);
-
+        /**
+         * Attempts to pass in the category information to the controller.
+         * Success message with category name is produced when successful.
+         * Fail message with type of error when failed.
+         */
+        this.controller = controller;
         try{
             controller.editCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
             JOptionPane.showMessageDialog( this, name_input.getText());
         }catch (Exception e){
             JOptionPane.showMessageDialog( this, e.getMessage());
         }
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {

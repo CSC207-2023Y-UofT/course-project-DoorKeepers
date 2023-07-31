@@ -7,12 +7,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A view class for the Add_Category_view that extends Component class and implements ActionListener interface.
+ * Creates a new controller that produces a Category_OD object.
+ */
+
 public class AddCategoryV extends Component implements ActionListener {
     CategoryC controller;
     JTextField name_input;
     JTextField budget_input;
     public AddCategoryV(CategoryC controller,int monthID, SessionStorage curr_session) {
-
+        /**
+         * Builds Add_Category_View.
+         */
         JLabel name_label = new JLabel("Category Name:");
         this.name_input = new JTextField(15);
         JLabel value_label = new JLabel("Category Budget:");
@@ -41,7 +48,11 @@ public class AddCategoryV extends Component implements ActionListener {
         panel.add(submit);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
-
+        /**
+         * Attempts to pass in the category information to the controller.
+         * Success message with category name is produced when successful.
+         * Fail message with type of error when failed.
+         */
         this.controller = controller;
         try{
             controller.addCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session);
@@ -49,9 +60,7 @@ public class AddCategoryV extends Component implements ActionListener {
         }catch (Exception e){
             JOptionPane.showMessageDialog( this, e.getMessage());
         }
-
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {System.out.println("Click " + e.getActionCommand());
         System.out.println("Click " + e.getActionCommand());
