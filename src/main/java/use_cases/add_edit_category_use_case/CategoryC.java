@@ -20,9 +20,4 @@ public class CategoryC {
         return input.editCategoryInMonth(categoryID);
     }
 
-//    public CategoryOD pass(int monthID, SessionStorage curr_session){
-//        CategoryID categoryID = new CategoryID(monthID, curr_session);
-//        return input.addCategoryInMonth(categoryID);
-//    }
-
 }
