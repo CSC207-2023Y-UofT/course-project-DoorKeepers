@@ -56,7 +56,7 @@ public class SessionStorage {
                 return m;
             }
         }
-        throw new EntityException("That is not a valid currentMonth for this SessionStorage.");
+        throw new EntityException("That is not a valid monthID for this SessionStorage.");
     }
 
     /**
