@@ -69,6 +69,10 @@ public class MonthMenuV implements ActionListener {
             editExpense.setBounds(200,50,200,30);
             addCategory.setBounds(200,50,200,50);
             editCategory.setBounds(200,50,200,50);
+            addExpense.addActionListener(this);
+            editExpense.addActionListener(this);
+            addCategory.addActionListener(this);
+            editCategory.addActionListener(this);
             buttons.add(addExpense);
             buttons.add(editExpense);
             buttons.add(addCategory);
@@ -80,6 +84,7 @@ public class MonthMenuV implements ActionListener {
             genSumButton.setLayout(new BoxLayout(genSumButton, BoxLayout.LINE_AXIS));
             genSumButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             generateSummary.setBounds(200,50,200,50);
+            generateSummary.addActionListener(this);
             genSumButton.add(generateSummary);
             leftLayout.add(genSumButton);
 
