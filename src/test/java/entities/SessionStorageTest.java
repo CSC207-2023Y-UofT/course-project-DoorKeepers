@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 /**
- * A class that tests the SessionStorage class
+ * A class that tests the SessionStorage class.
  */
 class SessionStorageTest {
 
