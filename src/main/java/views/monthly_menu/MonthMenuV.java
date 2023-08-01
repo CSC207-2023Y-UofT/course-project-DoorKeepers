@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
  */
 public class MonthMenuV implements ActionListener {
     views.monthly_menu.UpdateViewC controller;
+    SessionStorage session;
+    int monthID;
     JButton addExpense;
     JButton editExpense;
     JButton addCategory;
@@ -37,6 +39,8 @@ public class MonthMenuV implements ActionListener {
      */
     public MonthMenuV(views.monthly_menu.UpdateViewC controller, SessionStorage session, int monthID) {
         this.controller = controller;
+        this.session = session;
+        this.monthID = monthID;
         //Set the frame
         JFrame frame = new JFrame("Monthly Menu");
 
