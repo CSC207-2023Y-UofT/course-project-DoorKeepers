@@ -21,7 +21,7 @@ class CategoryPTest {
     @Test
     void fail() {
         CategoryP presenter = new CategoryP();
-        assertEquals(presenter.fail("test_fail_method"), "test_fail_method");
+        assertEquals(presenter.fail("test_fail_method").getMessage(), "test_fail_method");
     }
     @Test
     void success_edit() {
