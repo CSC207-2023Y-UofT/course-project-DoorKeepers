@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * and shown in the Month Menu view.
  */
 public class MonthMenuOD {
-    ArrayList<Expense> expenseData;
-    ArrayList<Category> categoryData;
-    String warning;
+    private ArrayList<Expense> expenseData;
+    private ArrayList<Category> categoryData;
+    private String warning;
     boolean successful;
 
     /**
@@ -69,29 +69,5 @@ public class MonthMenuOD {
      */
     public boolean isSuccessful() {
         return successful;
-    }
-
-    /**
-     * Sets specified ArrayList of Expense to expenseData variable.
-     * @param expenseData ArrayList of Expense stored in a MonthlyStorage
-     */
-    public void setExpenseData(ArrayList<Expense> expenseData) {
-        this.expenseData = expenseData;
-    }
-
-    /**
-     * Sets specified ArrayList of Category to categoryData variable.
-     * @param categoryData ArrayList of Category stored in a MonthlyStorage
-     */
-    public void setCategoryData(ArrayList<Category> categoryData) {
-        this.categoryData = categoryData;
-    }
-
-    /**
-     * Sets specified String to warning variable.
-     * @param warning error message to show in the view
-     */
-    public void setWarning(String warning) {
-        this.warning = warning;
     }
 }

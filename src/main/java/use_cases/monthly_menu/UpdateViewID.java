@@ -8,8 +8,8 @@ import entities.SessionStorage;
  * of this class, and pass it to the Month Menu interactor.
  */
 public class UpdateViewID {
-    private SessionStorage session;
-    private int monthID;
+    private final SessionStorage session;
+    private final int monthID;
 
     /**
      * Constructs an UpdateViewID holding input data.
@@ -35,21 +35,5 @@ public class UpdateViewID {
      */
     public int getMonthID() {
         return monthID;
-    }
-
-    /**
-     * Sets specified SessionStorage object to session variable.
-     * @param session SessionStorage input used in interactor
-     */
-    public void setSession(SessionStorage session) {
-        this.session = session;
-    }
-
-    /**
-     * Sets specified int ID to monthID variable.
-     * @param monthID int ID of MonthlyStorage accessed in interactor
-     */
-    public void setMonthID(int monthID) {
-        this.monthID = monthID;
     }
 }
