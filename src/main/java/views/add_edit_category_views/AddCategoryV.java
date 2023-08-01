@@ -1,6 +1,8 @@
 package views.add_edit_category_views;
 
+import entities.EntityException;
 import entities.SessionStorage;
+import use_cases.add_edit_category_use_case.CategoryOD;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,8 @@ public class AddCategoryV extends Component implements ActionListener {
     CategoryC controller;
     JTextField name_input;
     JTextField budget_input;
+    int monthID;
+    SessionStorage curr_session;
     public AddCategoryV(CategoryC controller,int monthID, SessionStorage curr_session) {
         /**
          * Builds Add_Category_View.
@@ -48,22 +52,23 @@ public class AddCategoryV extends Component implements ActionListener {
         panel.add(submit);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
-        /**
-         * Attempts to pass in the category information to the controller.
-         * Success message with category name is produced when successful.
-         * Fail message with type of error when failed.
-         */
+
         this.controller = controller;
-        try{
-            controller.addCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session);
-            JOptionPane.showMessageDialog( this, name_input.getText());
-        }catch (Exception e){
-            JOptionPane.showMessageDialog( this, e.getMessage());
-        }
+        this.monthID = monthID;
+        this.curr_session = curr_session;
+
+        submit.addActionListener(this);
     }
     @Override
-    public void actionPerformed(ActionEvent e) {System.out.println("Click " + e.getActionCommand());
-        System.out.println("Click " + e.getActionCommand());
+    public void actionPerformed(ActionEvent evt) {
+        CategoryOD m = null;
+        try {
+            m = controller.addCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session);
+        } catch (EntityException e) {
+            JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
+        }
+        assert m != null;
+        JOptionPane.showMessageDialog( this, m.getMessage());
 
     }
 

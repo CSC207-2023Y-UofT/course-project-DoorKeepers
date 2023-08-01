@@ -1,7 +1,9 @@
 package views.add_edit_category_views;
 
 import entities.Category;
+import entities.EntityException;
 import entities.SessionStorage;
+import use_cases.add_edit_category_use_case.CategoryOD;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,14 +15,16 @@ import java.awt.event.ActionListener;
  */
 public class EditCategoryV extends Component implements ActionListener {
     CategoryC controller;
-    JComboBox<Category> category_combo;
+    JComboBox<String> category_combo;
     JTextField name_input;
     JTextField budget_input;
     Category selected_category;
+    int monthID;
+    SessionStorage curr_session;
 
-    public EditCategoryV(CategoryC controller, Category[] existing_category, int monthID, SessionStorage curr_session) {
+    public EditCategoryV(CategoryC controller, String[] existing_category, int monthID, SessionStorage curr_session) {
         /**
-         * Builds Add_Category_View.
+         * Builds Edit_Category_View.
          */
         JLabel select_category_label = new JLabel(" Select existing category:");
         this.category_combo = new JComboBox<>(existing_category); // category list
@@ -57,23 +61,28 @@ public class EditCategoryV extends Component implements ActionListener {
 
         submit.addActionListener(this);
         category_combo.addActionListener(this);
-        /**
-         * Attempts to pass in the category information to the controller.
-         * Success message with category name is produced when successful.
-         * Fail message with type of error when failed.
-         */
+
         this.controller = controller;
-        try{
-            controller.editCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
-            JOptionPane.showMessageDialog( this, name_input.getText());
-        }catch (Exception e){
-            JOptionPane.showMessageDialog( this, e.getMessage());
-        }
+        this.monthID = monthID;
+        this.curr_session = curr_session;
     }
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Click " + e.getActionCommand());
-        this.selected_category = (Category) category_combo.getSelectedItem();
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource() == category_combo) {
+            this.selected_category = (Category) category_combo.getSelectedItem();
+        }
+        else {
+            CategoryOD m = null;
+            try {
+                m = controller.editCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
+            } catch (EntityException e) {
+                JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
+            }
+            assert m != null;
+            JOptionPane.showMessageDialog(this, m.getMessage());
+        }
+
+
 
     }
 

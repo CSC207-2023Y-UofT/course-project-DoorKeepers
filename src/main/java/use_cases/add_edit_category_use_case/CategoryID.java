@@ -4,7 +4,7 @@ import entities.Category;
 import entities.SessionStorage;
 
 public class CategoryID {
-    private String name;
+    private final String name;
     private Object value;
     private final int monthID;
 
@@ -42,14 +42,8 @@ public class CategoryID {
         this.old_category = old_category;
     }
     public String getName(){return name;}
-
-    /**
-     * Casts @param value from Object to double, and gets category budget.
-     * @return Category budget in type double.
-     */
     public Object getValue(){return value;}
     public void setValue(double value){this.value = value;}
-
     public int getMonthID(){return monthID;}
     public SessionStorage getSession(){return session;}
     public Category getOld_category(){return old_category;}

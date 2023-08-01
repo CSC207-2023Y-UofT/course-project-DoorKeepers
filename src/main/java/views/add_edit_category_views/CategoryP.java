@@ -11,13 +11,12 @@ import use_cases.add_edit_category_use_case.CategoryOD;
 public class CategoryP implements CategoryOB {
     /**
      * Overrides success_add from Category_OB.
-     * @param categoryOD_add CategoryOD Object produced from adding the category
      * @return CategoryOD from success add attempt
      */
     @Override
-    public CategoryOD success_add(CategoryOD categoryOD_add) {
-        // category(OD) update in month
-        return categoryOD_add;
+    public CategoryOD success_add() {
+        String success_add = "You have added a new category!";
+        return new CategoryOD(success_add);
     }
     /**
      * Overrides fail() from Category_OB.
@@ -25,17 +24,17 @@ public class CategoryP implements CategoryOB {
      * @return String description of error from user.
      */
     @Override
-    public String fail(String error){
-        return error;
+    public CategoryOD fail(String error){
+        return new CategoryOD(error);
     }
     /**
      * Overrides success_edit from Category_OB.
-     * @param categoryOD_edit CategoryOD Object produced from editing a category
      * @return CategoryOD from success edit attempt
      */
     @Override
-    public CategoryOD success_edit(CategoryOD categoryOD_edit) {
-        return categoryOD_edit;
+    public CategoryOD success_edit() {
+        String success_edit = "You have edited a category!";
+        return new CategoryOD(success_edit);
     }
 }
 

@@ -11,8 +11,6 @@ import views.add_edit_category_views.CategoryP;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryUCITest {
-
-
     @Test
     void addCategoryInMonth() throws EntityException {
         try {

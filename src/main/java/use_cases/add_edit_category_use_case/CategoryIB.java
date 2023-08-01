@@ -18,8 +18,6 @@ public interface CategoryIB {
      */
     CategoryOD addCategoryInMonth(CategoryID categoryID_add) throws EntityException;
     /**
-     * Returns a Category object in the form of a Category_OD object when a category is successfully edited,
-     * returns context specific fail messages when failed.
      * @param categoryID_edit Category_Input_Data required for editing an existing Category Object in designated monthID MonthlyStorage Object.
      * @return CategoryOD Object The category that is successfully edited.
      * @throws EntityException thrown when the new category input is invalid.
