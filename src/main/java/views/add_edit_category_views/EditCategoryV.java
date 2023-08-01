@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- * A view class for the Edit_Category_view that extends Component class and implements ActionListener interface.
+ * View class for the Edit_Category_view that extends Component class and implements ActionListener interface.
  * Creates a new controller that produces a Category_OD object.
  */
 public class EditCategoryV extends Component implements ActionListener {
