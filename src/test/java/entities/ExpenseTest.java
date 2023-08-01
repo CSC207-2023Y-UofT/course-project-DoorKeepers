@@ -5,13 +5,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests the Expense class
+ * A class that tests the Expense class.
  */
 class ExpenseTest {
 
     static Category category;
     static Category other_category;
 
+    /**
+     * Runs once before the methods to set up the necessary entities for the tests.
+     */
     @BeforeAll
     public static void ExpenseCreateBaseEntities(){
         category = new Category("Food", 100.00);
@@ -19,7 +22,8 @@ class ExpenseTest {
     }
 
     /**
-     * Tests the Expense initializer, getName(), getCategory(), and getValue()
+     * Tests the Expense initializer, getName(), getCategory(), and getValue() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void ExpenseCreateExpense() {
@@ -30,7 +34,8 @@ class ExpenseTest {
     }
 
     /**
-     * Tests setName() and getName()
+     * Tests setName() and getName() with a valid test case
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void ExpenseSetName() {
@@ -41,7 +46,8 @@ class ExpenseTest {
     }
 
     /**
-     * Tests setCategory() and getCategory()
+     * Tests setCategory() and getCategory() with a valid test case
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void ExpenseSetCategory() {
@@ -52,7 +58,8 @@ class ExpenseTest {
     }
 
     /**
-     * Tests setBudget() and getBudget()
+     * Tests setBudget() and getBudget() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void ExpenseSetBudget() {
@@ -63,14 +70,39 @@ class ExpenseTest {
     }
 
     /**
-     * Tests equals() override
+     * Tests equals() override on two Expense objects with the same name.
      */
     @Test
-    public void ExpenseCheckEquals() {
+    public void ExpenseCheckEqualsSameName() {
         Expense e1 = new Expense("Loblaws", category, 50.00 );
-        Expense e2 = new Expense("Loblaws", category, 100.00 );
-        Expense e3 = new Expense("Shoppers", category, 50.00 );
+        Expense e2 = new Expense("Loblaws", other_category, 100.00 );
         Assertions.assertEquals(e1, e2);
+    }
+
+    /**
+     * Tests equals() override on two Expense objects with the same Category.
+     */
+    @Test
+    public void ExpenseCheckEqualsSameCategory() {
+        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e3 = new Expense("Shoppers", category, 50.00 );
+        Assertions.assertNotEquals(e1, e3);
+    }
+
+    /**
+     * Tests equals() override on two Expense objects initialized with the same name, but one is changed.
+     * Note: This is important because when we edit an Expense, we need to check if this new Expense is equal to
+     * another Expense in the month.
+     */
+    @Test
+    public void ExpenseCheckEqualsChangeName() {
+        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e2 = new Expense("Shoppers", other_category, 100.00 );
+        Expense e3 = new Expense("Loblaws", category, 50.00 );
+        Assertions.assertEquals(e1, e3);
+        Assertions.assertNotEquals(e2, e3);
+        e3.setName("Shoppers");
+        Assertions.assertEquals(e2, e3);
         Assertions.assertNotEquals(e1, e3);
     }
 
