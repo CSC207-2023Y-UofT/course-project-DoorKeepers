@@ -9,31 +9,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * GenerateSummaryUCInterpretor: A class that generates all the data in the correct format to make the graphs
+ * GenerateSummaryUCInterpreter: A class that generates all the data in the correct format to make the graphs
  * @author katarinavucic
  */
-public class GenerateSummaryUCInterpretor {
+public class GenerateSummaryUCInterpreter {
 
-    private final MonthlyStorage monthlyStorage;
     private final ArrayList<Category> categories;
     private final Map<Category, ArrayList<Expense>> mappedExpenses;
+    private double remainder;
 
     /**
      * Creates a new GenerateSummaryUCInterpreter with the provided presenter
      * @param monthlyStorage the MonthlyStorage object that the data will be generated for
      */
-    public GenerateSummaryUCInterpretor(MonthlyStorage monthlyStorage) {
-        this.monthlyStorage = monthlyStorage;
-        this.categories = this.monthlyStorage.getCategoryData();
-        ArrayList<Expense> expenses = this.monthlyStorage.getExpenseData();
+    public GenerateSummaryUCInterpreter(MonthlyStorage monthlyStorage) {
+        this.categories = monthlyStorage.getCategoryData();
+        ArrayList<Expense> expenses = monthlyStorage.getExpenseData();
         this.mappedExpenses = new HashMap<>();
 
         for (Category c: categories){
             mappedExpenses.put(c, new ArrayList<>());
         }
 
+        this.remainder = monthlyStorage.getMonthlyBudget();
         for (Expense e: expenses){
             mappedExpenses.get(e.getCategory()).add(e);
+            this.remainder -= e.getValue();
         }
 
     }
@@ -42,7 +43,7 @@ public class GenerateSummaryUCInterpretor {
      * Generates the statistical data required for creating the graphs
      * @return a Map holding data used to make the graphs
      */
-    public Map<String, ArrayList<Double>> generateStatisticalData(){
+    public Map<String, ArrayList<Double>> getStatisticalData(){
         Map<String, ArrayList<Double>> statisticalData = new HashMap<>();
         for (Category c: this.categories) {
             statisticalData.put(c.getName(), new ArrayList<>());
@@ -57,11 +58,11 @@ public class GenerateSummaryUCInterpretor {
     }
 
     /**
-     * Gets the monthlyBudget of this MonthlyStorage object
-     * @return the monthlyBudget of this MonthlyStorage
+     * Gets the remainder of this MonthlyStorage object
+     * @return the remainder of this MonthlyStorage
      */
-    public double getMonthlyBudget(){
-        return monthlyStorage.getMonthlyBudget();
+    public double getRemainder(){
+        return this.remainder;
     }
 
 }
