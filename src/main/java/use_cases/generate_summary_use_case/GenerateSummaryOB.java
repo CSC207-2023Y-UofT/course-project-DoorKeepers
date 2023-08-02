@@ -1,8 +1,8 @@
 package use_cases.generate_summary_use_case;
 
 /**
- * GenerateSummaryOB: An interface that the presenter implements to maintain the dependency inversion principle
- * @author katarinavucic
+ * An interface that the GenerateSummaryP presenter implements to maintain the dependency inversion principle. It
+ * contains the method used to format the GenerateSummaryOD into graphs.
  */
 public interface GenerateSummaryOB {
     /**

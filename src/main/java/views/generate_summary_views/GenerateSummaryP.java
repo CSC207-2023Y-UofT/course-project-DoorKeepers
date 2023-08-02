@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * GenerateSummaryP: A class that generates the graphs
+ * A class that generates the Bar Graph and Pie Chart given the GenerateSummaryOD outputData.
  * Code for Bar Graph inspired by <a href="http://www.java2s.com/Code/Java/Chart/JFreeChartStackedBarChartDemo4.htm">this website.</a>
  * Code for Pie Chart inspired by <a href="https://www.tutorialspoint.com/jfreechart/jfreechart_pie_chart.htm">this website.</a>
- * @author katarinavucic
  */
 public class GenerateSummaryP extends JFrame implements GenerateSummaryOB {
     private double remainder;
@@ -45,7 +44,7 @@ public class GenerateSummaryP extends JFrame implements GenerateSummaryOB {
     }
 
     /**
-     * Generates the Bar Graph
+     * Generates the Bar Graph.
      * @return a JPanel object holding the Bar Graph
      */
     private JPanel generateBarGraph() {
@@ -58,7 +57,7 @@ public class GenerateSummaryP extends JFrame implements GenerateSummaryOB {
     }
 
     /**
-     * Generates the Pie Chart
+     * Generates the Pie Chart.
      * @return a JPanel object holding the Pie Chart
      */
     private JPanel generatePieChart() {
@@ -75,7 +74,7 @@ public class GenerateSummaryP extends JFrame implements GenerateSummaryOB {
     }
 
     /**
-     * Generates the dataset used to plot the Bar Graph
+     * Generates the dataset used to plot the Bar Graph.
      * @return a CategoryDataset object holding the data
      */
     private CategoryDataset createBarGraphDataset() {
@@ -88,7 +87,7 @@ public class GenerateSummaryP extends JFrame implements GenerateSummaryOB {
     }
 
     /**
-     * Generates the dataset used to plot the Pie Chart
+     * Generates the dataset used to plot the Pie Chart.
      * @return a PieDataset object holding the data
      */
     private PieDataset createPieChartDataset() {

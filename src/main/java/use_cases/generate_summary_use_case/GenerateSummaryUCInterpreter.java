@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * GenerateSummaryUCInterpreter: A class that generates all the data in the correct format to make the graphs
- * @author katarinavucic
+ * A class that generates all the data in the correct format to make the Bar Graph and Pie Chart.
  */
 public class GenerateSummaryUCInterpreter {
 
@@ -19,7 +18,7 @@ public class GenerateSummaryUCInterpreter {
     private double remainder;
 
     /**
-     * Creates a new GenerateSummaryUCInterpreter with the provided presenter
+     * Creates a new GenerateSummaryUCInterpreter with the provided presenter.
      * @param monthlyStorage the MonthlyStorage object that the data will be generated for
      */
     public GenerateSummaryUCInterpreter(MonthlyStorage monthlyStorage) {
@@ -40,7 +39,7 @@ public class GenerateSummaryUCInterpreter {
     }
 
     /**
-     * Generates the statistical data required for creating the graphs
+     * Generates the statistical data required for creating the graphs.
      * @return a Map holding data used to make the graphs
      */
     public Map<String, ArrayList<Double>> getStatisticalData(){
@@ -58,7 +57,7 @@ public class GenerateSummaryUCInterpreter {
     }
 
     /**
-     * Gets the remainder of this MonthlyStorage object
+     * Gets the remainder of this MonthlyStorage object.
      * @return the remainder of this MonthlyStorage
      */
     public double getRemainder(){

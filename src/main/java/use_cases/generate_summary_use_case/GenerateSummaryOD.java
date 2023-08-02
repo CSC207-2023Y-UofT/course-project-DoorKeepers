@@ -6,35 +6,37 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * GenerateSummaryID: A class that holds the output data for use by the presenter.
- * @author katarinavucic
+ * A class that holds the output data for use by the GenerateSummaryP. This includes a remainder, the statistical data
+ * used to generate graphs, as well as the bar graph and pie chart panels that will be generated after the object is
+ * passed to the GenerateSummaryP.
  */
 public class GenerateSummaryOD {
 
-    private final double monthlyBudget;
+    private final double remainder;
     private final Map<String, ArrayList<Double>> statisticalData;
-    private JPanel graphPanel;
+    private JPanel barGraphPanel;
+    private JPanel pieChartPanel;
 
     /**
-     * Creates a new instance of GenerateSummaryOD
-     * @param monthlyBudget a double corresponding to the monthlyBudget of this month
+     * Creates a new instance of GenerateSummaryOD.
+     * @param remainder a double corresponding to the money unspent in this month
      * @param statisticalData a Map containing all the data needed to plot the graphs
      */
-    public GenerateSummaryOD(double monthlyBudget, Map<String, ArrayList<Double>> statisticalData) {
-        this.monthlyBudget = monthlyBudget;
+    public GenerateSummaryOD(double remainder, Map<String, ArrayList<Double>> statisticalData) {
+        this.remainder = remainder;
         this.statisticalData = statisticalData;
     }
 
     /**
-     * Gets the monthlyBudget of this GenerateSummaryOD
-     * @return the monthlyBudget of this GenerateSummaryOD
+     * Gets the remainder of this GenerateSummaryOD.
+     * @return the remainder of this GenerateSummaryOD
      */
-    public double getMonthlyBudget() {
-        return monthlyBudget;
+    public double getRemainder() {
+        return remainder;
     }
 
     /**
-     * Gets the statisticalData of this GenerateSummaryOD
+     * Gets the statisticalData of this GenerateSummaryOD.
      * @return the statisticalData of this GenerateSummaryOD
      */
     public Map<String, ArrayList<Double>> getStatisticalData() {
@@ -42,18 +44,35 @@ public class GenerateSummaryOD {
     }
 
     /**
-     * Sets the graphPanel of this GenerateSummaryOD
-     * @param graphPanel the new budget that this Category will have
+     * Sets the barGraphPanel of this GenerateSummaryOD.
+     * @param barGraphPanel the new barGraphPanel
      */
-    public void setGraphPanel(JPanel graphPanel) {
-        this.graphPanel = graphPanel;
+    public void setBarGraphPanel(JPanel barGraphPanel) {
+        this.barGraphPanel = barGraphPanel;
     }
 
     /**
-     * Gets the graphPanel of this GenerateSummaryOD
-     * @return the graphPanel of this GenerateSummaryOD
+     * Sets the pieChartPanel of this GenerateSummaryOD.
+     * @param pieChartPanel the new pieChartPanel
      */
-    public JPanel getGraphPanel(){
-        return this.graphPanel;
+    public void setPieChartPanel(JPanel pieChartPanel) {
+        this.pieChartPanel = pieChartPanel;
     }
+
+    /**
+     * Gets the BarGraphPanel of this GenerateSummaryOD.
+     * @return the BarGraphPanel of this GenerateSummaryOD
+     */
+    public JPanel getBarGraphPanel(){
+        return this.barGraphPanel;
+    }
+
+    /**
+     * Gets the pieChartPanel of this GenerateSummaryOD.
+     * @return the pieChartPanel of this GenerateSummaryOD
+     */
+    public JPanel getPieChartPanel() {
+        return pieChartPanel;
+    }
+
 }

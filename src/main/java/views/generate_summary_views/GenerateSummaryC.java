@@ -8,14 +8,14 @@ import use_cases.generate_summary_use_case.GenerateSummaryOD;
 
 
 /**
- * GenerateSummaryC: A class that creates the input data and calls the interactor's method to generate the summary.
- * @author katarinavucic
+ * A class that creates the GenerateSummaryID input data and calls the GenerateSummaryUCI interactor's method to
+ * generate the graphical summary.
  */
 public class GenerateSummaryC {
     final GenerateSummaryIB interactor;
 
     /**
-     * Creates a new GenerateSummaryC with the provided interactor
+     * Creates a new GenerateSummaryC with the provided interactor.
      * @param interactor instance of interactor that will be called in the generate method
      */
     public GenerateSummaryC(GenerateSummaryIB interactor) {
@@ -23,7 +23,8 @@ public class GenerateSummaryC {
     }
 
     /**
-     * Creates an input data object and calls the interactor's generateNewSummary method
+     * Creates an input data object and calls the interactor's generateNewSummary method to generate the graphical
+     * summary.
      * @param currentSession a SessionStorage object containing all information about the current session
      * @param monthID an int corresponding to the monthID of the current month
      * @return a JPanel holding the graphs
