@@ -1,6 +1,11 @@
 package views.create_new_month;
 
 import entities.SessionStorage;
+import use_cases.monthly_menu.MonthMenuOB;
+import use_cases.monthly_menu.UpdateViewIB;
+import use_cases.monthly_menu.UpdateViewUCI;
+import views.monthly_menu.MonthMenuP;
+import views.monthly_menu.UpdateViewC;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +69,12 @@ public class NewMonthV implements ActionListener {
             int monthID = (yearInt * 100) + selectedMonth;
             int budgetValue = Integer.parseInt(budget.getText());
             //TODO: use output
-            controller.getOutput(session,monthID, budgetValue);
+            if (controller.getOutput(session, monthID, budgetValue).isSuccessful()){
+                MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
+                UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
+                UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
+            }
+
         } else {
             this.selectedMonth = month.getSelectedIndex()+1;
         }
