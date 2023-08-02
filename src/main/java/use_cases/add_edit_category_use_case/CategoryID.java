@@ -1,6 +1,5 @@
 package use_cases.add_edit_category_use_case;
 
-import entities.Category;
 import entities.SessionStorage;
 
 /**
