@@ -20,6 +20,7 @@ public class AddCategoryV extends Component implements ActionListener {
     JTextField budget_input;
     int monthID;
     SessionStorage curr_session;
+    String old_category;
     public AddCategoryV(CategoryC controller,int monthID, SessionStorage curr_session) {
         /**
          * Builds Add_Category_View.
@@ -43,8 +44,6 @@ public class AddCategoryV extends Component implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Add New Category");
         frame.setSize(300,500);
-        frame.pack();
-        frame.setVisible(true);
         panel.add(name_label, BorderLayout.WEST);
         panel.add(name_input, BorderLayout.CENTER);
         panel.add(value_label);
@@ -53,9 +52,13 @@ public class AddCategoryV extends Component implements ActionListener {
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
 
+        frame.pack();
+        frame.setVisible(true);
+
         this.controller = controller;
         this.monthID = monthID;
         this.curr_session = curr_session;
+        this.old_category = null;
 
         submit.addActionListener(this);
     }
@@ -63,12 +66,12 @@ public class AddCategoryV extends Component implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         CategoryOD m = null;
         try {
-            m = controller.addCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session);
+            m = controller.categoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, old_category);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
         }
-        assert m != null;
-        JOptionPane.showMessageDialog( this, m.getMessage());
+        if(m != null){
+        JOptionPane.showMessageDialog( this, m.getMessage());}
 
     }
 

@@ -5,22 +5,21 @@ package use_cases.add_edit_category_use_case;
  */
 public interface CategoryOB {
     /**
-     * Returns same Category_Output_Data with given Category_Output_Data when category is successfully added.
-     * @return CategoryOD Object Passes Category Object.
+     * Returns a CategoryOD notifying success add.
+     * @return String success add message.
      */
-
     CategoryOD success_add();
 
     /**
-     * Returns String formatted error message.
+     * Returns a CategoryOD containing a String formatted error message.
      * @param error Detailed error message for user.
      * @return String Error message.
      */
     CategoryOD fail(String error);
-    /**
-     * Returns same Category_Output_Data with given Category_Output_Data when category is successfully edited.
-     * @return CategoryOD Object Passes Category Object.
-     */
 
+    /**
+     * Returns a CategoryOD notifying success edit.
+     * @return String success edit message.
+     */
     CategoryOD success_edit();
 }

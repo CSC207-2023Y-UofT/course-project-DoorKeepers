@@ -18,7 +18,7 @@ public class EditCategoryV extends Component implements ActionListener {
     JComboBox<String> category_combo;
     JTextField name_input;
     JTextField budget_input;
-    Category selected_category;
+    String selected_category;
     int monthID;
     SessionStorage curr_session;
 
@@ -47,8 +47,6 @@ public class EditCategoryV extends Component implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Edit Category");
         frame.setSize(300,500);
-        frame.pack();
-        frame.setVisible(true);
         frame.setSize(500,300);
         panel.add(select_category_label);
         panel.add(category_combo);
@@ -58,6 +56,9 @@ public class EditCategoryV extends Component implements ActionListener {
         panel.add(budget_input);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
+
+        frame.pack();
+        frame.setVisible(true);
 
         submit.addActionListener(this);
         category_combo.addActionListener(this);
@@ -69,17 +70,17 @@ public class EditCategoryV extends Component implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == category_combo) {
-            this.selected_category = (Category) category_combo.getSelectedItem();
+            this.selected_category = (String) category_combo.getSelectedItem();
         }
         else {
             CategoryOD m = null;
             try {
-                m = controller.editCategoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
+                m = controller.categoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
             }
-            assert m != null;
-            JOptionPane.showMessageDialog(this, m.getMessage());
+            if(m != null){
+                JOptionPane.showMessageDialog( this, m.getMessage());}
         }
 
 

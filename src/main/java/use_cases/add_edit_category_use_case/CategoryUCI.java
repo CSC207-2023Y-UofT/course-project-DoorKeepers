@@ -23,7 +23,6 @@ public class CategoryUCI implements CategoryIB {
      * Constructs CategoryUCI.
      * @param categoryP presenter that is related to the use case.
      */
-
     public CategoryUCI(CategoryOB categoryP) {
         this.categoryOB = categoryP;
     }
@@ -33,9 +32,8 @@ public class CategoryUCI implements CategoryIB {
      * @param value a user input
      * @return double converted from value
      */
-
-    public static double toDouble(Object value){
-        return Double.parseDouble(String.valueOf(value));
+    public static double toDouble(Object value) throws NumberFormatException, NullPointerException{
+            return Double.parseDouble(String.valueOf(value));
     }
     /**
      * Overrides method in Category_IB.
@@ -54,24 +52,25 @@ public class CategoryUCI implements CategoryIB {
         MonthlyStorage month = categoryID_add.getSession().getMonthlyData(categoryID_add.getMonthID());
         try{
             double value_double = toDouble(categoryID_add.getValue());
-            Category c = new Category(categoryID_add.getName(), value_double);
+            Category new_category = new Category(categoryID_add.getName(), value_double);
 
-            if (c.getBudget() < 0) {
+            if (new_category.getBudget() < 0) {
                 // 2. Category budget less than 0 fail
-                categoryOB.fail("Category budget can't be less than $0. Please try again!");
+                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
             }
+            month.addCategory(new_category);
 
-            month.addCategory(c);
+        } catch(NumberFormatException|NullPointerException e){
+            //1. NumberFormatException/NullPointerException fail
+            return categoryOB.fail("Category budget is needs to be a number. Please try again!");
 
-        } catch(NumberFormatException e){
-            //1. NumberFormatException fail
-            categoryOB.fail("Category budget is needs to be a number. Please try again!");
         } catch (EntityException e) {
             //3. EntityException fail
-            categoryOB.fail("There is already a category with this new name in this month.");
+            return categoryOB.fail("There is already a category with this new name in this month.");
 
         }
         return categoryOB.success_add();
+
     }
     /**
      * Overrides method in Category_IB.
@@ -90,32 +89,32 @@ public class CategoryUCI implements CategoryIB {
         MonthlyStorage month = categoryID_edit.getSession().getMonthlyData(categoryID_edit.getMonthID());
         ArrayList<Category> category_list = month.getCategoryData();
         try {
-            for (Category e : category_list) {
-                if (e.getName().equals(categoryID_edit.getName())) {
+            for (Category category1 : category_list) {
+                if (category1.getName().equals(categoryID_edit.getName())) {
                     //1. Repeated name fail
-                    categoryOB.fail("There is already a category with this new name in this month.");
+                    return categoryOB.fail("There is already a category with this new name in this month.");
                 }
             }
 
-            Category c = findCategory(category_list, categoryID_edit.getOld_category().getName());
+            Category existing_category = findCategory(category_list, categoryID_edit.getOld_category());
 
             double value_double = toDouble(categoryID_edit.getValue());
             if (value_double < 0) {
                 //4. Category budget less than 0 fail
-                categoryOB.fail("Category budget can't be less than $0. Please try again!");
+                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
             }
 
-            c.setName(categoryID_edit.getName());
+            existing_category.setName(categoryID_edit.getName());
 
             categoryID_edit.setValue(value_double);
-            c.setBudget(value_double);
+            existing_category.setBudget(value_double);
 
         } catch (NoSuchElementException e) {
             //2. NoSuchElementException fail
-            categoryOB.fail("There is no such category in the current month. Please add a new category or select existing category!");
+            return categoryOB.fail("There is no such category in the current month. Please add a new category or select existing category!");
         } catch(NumberFormatException e){
             //3. NumberFormatException fail
-            categoryOB.fail("Category budget needs to be a number. Please try again!");
+            return categoryOB.fail("Category budget needs to be a number. Please try again!");
 
         }
         return categoryOB.success_edit();
@@ -128,7 +127,7 @@ public class CategoryUCI implements CategoryIB {
      * @return Category with given String name.
      */
     @Override
-    public Category findCategory(ArrayList<Category> monthCategoryData, String name){
+    public Category findCategory(ArrayList<Category> monthCategoryData, String name)throws NoSuchElementException{
         for (Category c : monthCategoryData){
             if (Objects.equals(c.getName(), name)){
                 return c;
