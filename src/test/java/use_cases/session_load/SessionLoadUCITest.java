@@ -13,6 +13,7 @@ import java.io.IOException;
  */
 class SessionLoadUCITest {
     static SessionStorage sampleSession;
+
     @BeforeAll
     public static void SessionLoadUCICreateSampleSession() {
         sampleSession = new SessionStorage();
@@ -29,11 +30,12 @@ class SessionLoadUCITest {
         session.copyDataFrom(sampleSession);
         Assertions.assertEquals(session, sampleSession);
 
-        // Create our SessionLoadUCI that we'll test
+        // Create SessionLoadUCI to test
         SessionLoadUCI uci = new SessionLoadUCI(
                 new views.file_session_storage.FileSessionStorage(),
                 new views.session_load.SessionLoadP(),
-                session);
+                session
+        );
 
         // Test loading an empty session
         SessionLoadID inputData = new SessionLoadID();
@@ -49,22 +51,20 @@ class SessionLoadUCITest {
      * Tests loading an existing session from a file
      */
     @Test
-    public void SessionLoadUCILoadFile() {
+    public void SessionLoadUCILoadFile() throws IOException {
         // This 'session' variable would be like the one we would have in the actual Main method
         SessionStorage session = new SessionStorage();
 
-        // Create our SessionLoadUCI that we'll test
+        // Create SessionLoadUCI to test
         SessionLoadUCI uci = new SessionLoadUCI(
                 new views.file_session_storage.FileSessionStorage(),
                 new views.session_load.SessionLoadP(),
-                session);
+                session
+        );
 
         // Save sample session to a file
-        try {
-            new views.file_session_storage.FileSessionStorage().save("UCILoadFileTest.ser", sampleSession);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new views.file_session_storage.FileSessionStorage().save("UCILoadFileTest.ser", sampleSession);
+
         // Load sample session from the file
         SessionLoadID inputData = new SessionLoadID("UCILoadFileTest.ser");
         Assertions.assertDoesNotThrow(() -> {
@@ -75,5 +75,55 @@ class SessionLoadUCITest {
 
         // Cleanup
         new File("UCILoadFileTest.ser").delete();
+    }
+
+    /**
+     * Tests trying to load a file that doesn't exist and that a SessionLoadException will be raised
+     */
+    @Test
+    public void SessionLoadUCILoadNonexistentFile() {
+        SessionStorage session = sampleSession;
+
+        // Create SessionLoadUCI to test
+        SessionLoadUCI uci = new SessionLoadUCI(
+                new views.file_session_storage.FileSessionStorage(),
+                new views.session_load.SessionLoadP(),
+                session
+        );
+
+        // Test loading nonexistent file
+        SessionLoadID inputData = new SessionLoadID("TestNonexistentFile.ser");
+        Assertions.assertThrows(SessionLoadException.class, () -> uci.load(inputData));
+
+        // Check that our session is left unchanged
+        Assertions.assertEquals(session, sampleSession);
+    }
+
+    /**
+     * Tests trying to load an invalid file  and that a SessionLoadException will be raised
+     */
+    @Test
+    public void SessionLoadLUCILoadInvalidFile() throws IOException {
+        SessionStorage session = sampleSession;
+
+        // Create SessionLoadUCI to test
+        SessionLoadUCI uci = new SessionLoadUCI(
+                new views.file_session_storage.FileSessionStorage(),
+                new views.session_load.SessionLoadP(),
+                session
+        );
+
+        // Build an invalid file to load
+        new File("Hello world.txt").createNewFile();
+
+        // Test loading invalid file
+        SessionLoadID inputData = new SessionLoadID("Hello world.txt");
+        Assertions.assertThrows(SessionLoadException.class, () -> uci.load(inputData));
+
+        // Check that our session is left unchanged
+        Assertions.assertEquals(session, sampleSession);
+
+        // Cleanup
+        new File("Hello world.txt").delete();
     }
 }
