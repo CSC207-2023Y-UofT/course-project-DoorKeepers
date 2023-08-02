@@ -35,5 +35,4 @@ public class CategoryID {
     public int getMonthID(){return monthID;}
     public SessionStorage getSession(){return session;}
     public String getOld_category(){return old_category;}
-
 }
