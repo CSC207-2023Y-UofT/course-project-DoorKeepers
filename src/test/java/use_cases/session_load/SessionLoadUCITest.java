@@ -103,7 +103,7 @@ class SessionLoadUCITest {
      * Tests trying to load an invalid file  and that a SessionLoadException will be raised
      */
     @Test
-    public void SessionLoadLUCILoadInvalidFile() throws IOException {
+    public void SessionLoadUCILoadInvalidFile() throws IOException {
         SessionStorage session = sampleSession;
 
         // Create SessionLoadUCI to test
