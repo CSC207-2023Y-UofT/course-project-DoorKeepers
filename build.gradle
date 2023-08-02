@@ -13,8 +13,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jfree/jcommon
     implementation group: 'org.jfree', name: 'jcommon', version: '1.0.23'
 
-    // https://mvnrepository.com/artifact/org.jfree/jfreechart
-    implementation group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+    implementation 'org.jfree:jfreechart:1.5.3'
 
 }
 
