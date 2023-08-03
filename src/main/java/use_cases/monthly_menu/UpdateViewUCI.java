@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class UpdateViewUCI implements UpdateViewIB{
     final MonthMenuOB outputBoundary;
 
+    /**
+     * Construct a UpdateViewUCI.
+     * @param outputBoundary MonthMenuOB related to using output
+     */
     public UpdateViewUCI(MonthMenuOB outputBoundary){
         this.outputBoundary = outputBoundary;
     }

@@ -10,6 +10,7 @@ public interface MonthMenuOB {
     /**
      * Pass and returns MonthMenuOD containing output data.
      * @param output output to be shown in MonthMenuView
+     * @return MonthMenuOD object that contains output data
      */
     MonthMenuOD createOutput(MonthMenuOD output);
 }
