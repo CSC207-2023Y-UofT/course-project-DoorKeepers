@@ -1,12 +1,14 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- *
+ * A class that will store all the user data for a month. Each month has an associated monthID, budget, list of
+ * Category objects, and list of Expense objects.
  */
-public class MonthlyStorage {
+public class MonthlyStorage implements Serializable {
 
     private final int monthID;
     private final double monthlyBudget;
@@ -14,7 +16,7 @@ public class MonthlyStorage {
     private final ArrayList<Expense> expenseData;
 
     /**
-     * Creates a new MonthlyStorage with the given data
+     * Creates a new MonthlyStorage with the given data.
      * @param currentMonth integer representing the id of the MonthlyStorage
      * @param monthlyBudget budget of the MonthlyStorage
      */
@@ -29,15 +31,15 @@ public class MonthlyStorage {
     }
 
     /**
-     * Gets the currentMonth for this month
-     * @return the currentMonth associated with this MonthlyStorage
+     * Gets the monthID for this month.
+     * @return the monthID associated with this MonthlyStorage
      */
     public int getMonthID(){
         return this.monthID;
     }
 
     /**
-     * Gets the monthlyBudget for this month
+     * Gets the monthlyBudget for this month.
      * @return the monthlyBudget associated with this MonthlyStorage
      */
     public double getMonthlyBudget(){
@@ -45,7 +47,7 @@ public class MonthlyStorage {
     }
 
     /**
-     * Gets the list of categories for this month
+     * Gets the list of categories for this month.
      * @return the categoryData associated with this MonthlyStorage
      */
     public ArrayList<Category> getCategoryData(){
@@ -53,7 +55,7 @@ public class MonthlyStorage {
     }
 
     /**
-     * Gets the list of expenses for this month
+     * Gets the list of expenses for this month.
      * @return the expenseData associated with this MonthlyStorage
      */
     public ArrayList<Expense> getExpenseData(){
@@ -61,7 +63,7 @@ public class MonthlyStorage {
     }
 
     /**
-     * Adds a new Category to this month
+     * Adds a new Category to this month.
      * @param category a Category object to add
      * @throws EntityException if this Category is already in MonthlyStorage
      */
@@ -75,7 +77,7 @@ public class MonthlyStorage {
     }
 
     /**
-     * Adds a new Expense to this month
+     * Adds a new Expense to this month.
      * @param expense an Expense object to add
      * @throws EntityException if this Expense is already in MonthlyStorage
      */
@@ -89,7 +91,7 @@ public class MonthlyStorage {
     }
 
     /**
-     * Deletes a Category from this month
+     * Deletes a Category from this month.
      * @param category_name a String referring to the Category object to delete
      */
     public void deleteCategory(String category_name) throws EntityException {
@@ -97,12 +99,34 @@ public class MonthlyStorage {
     }
 
     /**
-     * Deletes an Expense from this month
+     * Deletes an Expense from this month.
      * @param expense_name a String referring to the Expense object to delete
      */
     public void deleteExpense(String expense_name) {
         this.expenseData.removeIf(e -> Objects.equals(e.getName(), expense_name));
     }
 
+    /**
+     * Check if this MonthlyStorage is equal to Object
+     * @param obj Any instance of Object
+     * @return True if equals, False is not equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
 
+        MonthlyStorage other = (MonthlyStorage) obj;
+        return Objects.equals(this.getMonthID(), other.getMonthID())
+                && Objects.equals(this.getMonthlyBudget(), other.getMonthlyBudget())
+                && Objects.equals(this.getCategoryData(), other.getCategoryData())
+                && Objects.equals(this.getExpenseData(), other.getExpenseData());
+    }
 }
