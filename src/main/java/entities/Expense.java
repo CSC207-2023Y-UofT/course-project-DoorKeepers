@@ -1,11 +1,12 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A class that will store all the data associated with an Expense. This includes a name, Category, and value.
  */
-public class Expense {
+public class Expense implements Serializable {
 
     private String name;
     private Category category;

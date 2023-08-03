@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -7,7 +8,7 @@ import java.util.Objects;
  * A class that will store all the user data for a month. Each month has an associated monthID, budget, list of
  * Category objects, and list of Expense objects.
  */
-public class MonthlyStorage {
+public class MonthlyStorage implements Serializable {
 
     private final int monthID;
     private final double monthlyBudget;
@@ -105,5 +106,27 @@ public class MonthlyStorage {
         this.expenseData.removeIf(e -> Objects.equals(e.getName(), expense_name));
     }
 
+    /**
+     * Check if this MonthlyStorage is equal to Object
+     * @param obj Any instance of Object
+     * @return True if equals, False is not equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
 
+        MonthlyStorage other = (MonthlyStorage) obj;
+        return Objects.equals(this.getMonthID(), other.getMonthID())
+                && Objects.equals(this.getMonthlyBudget(), other.getMonthlyBudget())
+                && Objects.equals(this.getCategoryData(), other.getCategoryData())
+                && Objects.equals(this.getExpenseData(), other.getExpenseData());
+    }
 }
