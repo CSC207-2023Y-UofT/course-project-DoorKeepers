@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  *
  */
-public class SessionStorage {
+public class SessionStorage implements Serializable {
 
     private final ArrayList<MonthlyStorage> monthlyData;
     private final ArrayList<Expense> recurData;
@@ -59,10 +60,52 @@ public class SessionStorage {
     }
 
     /**
+     * Returns the list of the MonthlyData objects stored in this Session
+     * @return list of all MonthlyData objects
+     */
+    public ArrayList<MonthlyStorage> getAllMonthlyData() {
+        return this.monthlyData;
+    }
+
+    /**
      * Returns the list of recurring expenses in this Session
      * @return list of recurring expenses
      */
     public ArrayList<Expense> getRecurData(){
         return this.recurData;
+    }
+
+    /**
+     * Copies all the contents from another SessionStorage object into this one.
+     * This method can be used to mutate the entire contents of a SessionStorage object in-place.
+     * @param other the SessionStorage object to copy the data from
+     */
+    public void copyDataFrom(SessionStorage other) {
+        this.monthlyData.clear();
+        this.monthlyData.addAll(other.monthlyData);
+        this.recurData.clear();
+        this.recurData.addAll(other.recurData);
+    }
+
+    /**
+     * Check if this SessionStorage is equal to Object
+     * @param obj Any instance of Object
+     * @return True if equals, False is not equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+
+        SessionStorage other = (SessionStorage) obj;
+        return Objects.equals(this.getRecurData(), other.getRecurData())
+                && Objects.equals(this.getAllMonthlyData(), other.getAllMonthlyData());
     }
 }
