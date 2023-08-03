@@ -10,33 +10,20 @@ import use_cases.add_edit_category_use_case.CategoryOD;
  */
 public class CategoryP implements CategoryOB {
     /**
-     * Returns a CategoryOD notifying success add.
-     * @return String success add message.
+     * Returns a CategoryOD notifying success.
+     * @return CategoryOD with success message.
      */
     @Override
-    public CategoryOD success_add() {
-        String successAdd = "You have added a new category!";
-        return new CategoryOD(successAdd);
+    public CategoryOD success(CategoryOD categoryOD) {
+        return categoryOD;
     }
-
     /**
-     * Returns a CategoryOD containing a String formatted error message.
-     * @param error Detailed error message for user.
-     * @return String Error message.
+     * Returns a CategoryOD notifying fail.
+     * @return CategoryOD with fail message.
      */
     @Override
-    public CategoryOD fail(String error){
-        return new CategoryOD(error);
-    }
-
-    /**
-     * Returns a CategoryOD notifying success edit.
-     * @return String success edit message.
-     */
-    @Override
-    public CategoryOD success_edit() {
-        String successEdit = "You have edited a category!";
-        return new CategoryOD(successEdit);
+    public CategoryOD fail(CategoryOD Fails) {
+        return Fails;
     }
 }
 

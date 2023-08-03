@@ -18,20 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryUCITest {
     private static SessionStorage session;
 
+    /**
+    Creates a SessionStorage for the following test cases.
+    */
     @BeforeAll
     public static void categorySetUp() {
-        /*
-          Creates a SessionStorage for the following test cases.
-         */
         session = new SessionStorage();
     }
 
+    /**
+    Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
+    Adding two known-to-fail inputs and two successful inputs.
+    */
     @Test
     void addCategoryInMonthSuccess() throws EntityException {
-        /*
-          Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
-          Adding two known-to-fail inputs and two successful inputs.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(6, 150);
@@ -45,11 +45,11 @@ class CategoryUCITest {
         assertEquals(2, session.getMonthlyData(6).getCategoryData().size());
     }
 
+    /**
+     * Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
+     */
     @Test
-    void addCategoryInMonth_same_name_fail() throws EntityException {
-        /*
-          Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
-         */
+    void addCategoryInMonthSameNameFail() throws EntityException {
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(5, 150);
@@ -67,11 +67,11 @@ class CategoryUCITest {
         assertEquals(2, session.getMonthlyData(5).getCategoryData().size());
     }
 
+    /**
+     * Tests fail add case when user tries to add a new Category budget that is a negative number.
+     */
     @Test
     void addCategoryInMonthNegValueFail() throws EntityException {
-        /*
-          Tests fail add case when user tries to add a new Category budget that is a negative number.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(4, 150);
@@ -86,11 +86,11 @@ class CategoryUCITest {
         assertEquals(1, session.getMonthlyData(4).getCategoryData().size());
     }
 
+    /**
+     * Tests fail add case when user tries to add a new Category budget that is an invalid double.
+     */
     @Test
     void addCategoryInMonthInvalidDoubleFail() throws EntityException {
-        /*
-          Tests fail add case when user tries to add a new Category budget that is an invalid double.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(3, 150);
@@ -105,12 +105,12 @@ class CategoryUCITest {
         assertEquals(1, session.getMonthlyData(3).getCategoryData().size());
     }
 
+    /**
+     * Tests success edit use case by adding one valid category and then a successful edit.
+     * Use findCategory() to see if the category_name is successfully edited.
+     */
     @Test
     void editCategoryInMonthSuccess() throws EntityException {
-        /*
-          Tests success edit use case by adding one valid category and then a successful edit.
-          Use findCategory() to see if the category_name is successfully edited.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(7, 150);
@@ -127,11 +127,11 @@ class CategoryUCITest {
         interactor.findCategory(session.getMonthlyData(7).getCategoryData(), "fish n' chips");
     }
 
+    /**
+     * Tests fail edit case when user tries to edit the Category name to another name that exists in MonthlyStorage.
+     */
     @Test
     void editCategoryInMonthSameNameFail() throws EntityException {
-        /*
-          Tests fail edit case when user tries to edit the Category name to another name that exists in MonthlyStorage.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(8, 150);
@@ -152,11 +152,11 @@ class CategoryUCITest {
         assertNotEquals(interactor.findCategory(session.getMonthlyData(8).getCategoryData(), "Banana").getBudget(), 12, 0.0);
     }
 
+    /**
+     * Tests fail edit case when user tries to edit the Category budget into a negative number.
+     */
     @Test
     void editCategoryInMonthNegValueFail() throws EntityException {
-        /*
-          Tests fail edit case when user tries to edit the Category budget into a negative number.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(9, 150);
@@ -173,11 +173,11 @@ class CategoryUCITest {
         Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(9).getCategoryData(), "Banana"));
     }
 
+    /**
+     * Tests fail edit case when user tries to edit a Category that does not exist in MonthlyStorage.
+     */
     @Test
     void editCategoryInMonthNoCategoryFail() throws EntityException {
-        /*
-          Tests fail edit case when user tries to edit a Category that does not exist in MonthlyStorage.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(10, 150);
@@ -191,11 +191,11 @@ class CategoryUCITest {
         Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(10).getCategoryData(), "Banana"));
     }
 
+    /**
+     * Tests fail edit case when user tries to edit the Category budget into an invalid double.
+     */
     @Test
     void editCategoryInMonthInvalidDoubleFail() throws EntityException {
-        /*
-          Tests fail edit case when user tries to edit the Category budget into an invalid double.
-         */
         CategoryP presenter = new CategoryP();
         CategoryIB interactor = new CategoryUCI(presenter);
         MonthlyStorage monthlyStorage = new MonthlyStorage(11, 150);

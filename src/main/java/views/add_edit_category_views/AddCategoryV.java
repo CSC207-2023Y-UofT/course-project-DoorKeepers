@@ -68,14 +68,14 @@ public class AddCategoryV extends Component implements ActionListener {
           Formats user input to pass in valid parameters for a CategtoryC to start a use case.
           Pop-up window with context specific message may be shown to user.
          */
-        CategoryOD m = null;
+        CategoryOD message = null;
         try {
-            m = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, oldCategory);
+            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, oldCategory);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
         }
-        if(m != null){
-        JOptionPane.showMessageDialog( this, m.getMessage());}
+        if(message != null){
+        JOptionPane.showMessageDialog( this, message.getMessage());}
 
     }
 

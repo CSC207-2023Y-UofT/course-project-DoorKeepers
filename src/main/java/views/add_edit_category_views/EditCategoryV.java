@@ -77,14 +77,14 @@ public class EditCategoryV extends Component implements ActionListener {
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
         }
         else {
-            CategoryOD m = null;
+            CategoryOD message = null;
             try {
-                m = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, selectedCategory);
+                message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, selectedCategory);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
             }
-            if(m != null){
-                JOptionPane.showMessageDialog( this, m.getMessage());}
+            if(message != null){
+                JOptionPane.showMessageDialog( this, message.getMessage());}
         }
 
 

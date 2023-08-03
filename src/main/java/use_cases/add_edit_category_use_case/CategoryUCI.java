@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * The CategoryUCI adds/creates a new category, edits an existing category, and updates MonthlyStorage.categoryData.
  * Contains a helper method isValidDouble() and findCategory().
+ * Creates CategoryOD objects related to specific use case fail/success conditions.
  */
 
 public class CategoryUCI implements CategoryIB {
@@ -53,21 +54,24 @@ public class CategoryUCI implements CategoryIB {
 
             if (newCategory.getBudget() < 0) {
                 // 2. Category budget less than 0 fail
-                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
+                CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
+                return categoryOB.fail(categoryODFailAdd);
             }
             month.addCategory(newCategory);
 
+            CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
+            return categoryOB.success(categoryODSuccessAdd);
+
         } catch(NumberFormatException|NullPointerException e){
             //1. NumberFormatException/NullPointerException fail
-            return categoryOB.fail("Category budget is needs to be a number. Please try again!");
+            CategoryOD categoryODFailAdd = new CategoryOD("Category budget is needs to be a number. Please try again!");
+            return categoryOB.fail(categoryODFailAdd);
 
         } catch (EntityException e) {
             //3. EntityException fail
-            return categoryOB.fail("There is already a category with this new name in this month.");
-
+            CategoryOD categoryODFailAdd = new CategoryOD("There is already a category with this new name in this month.");
+            return categoryOB.fail(categoryODFailAdd);
         }
-        return categoryOB.success_add();
-
     }
     /**
      * Overrides method in CategoryIB.
@@ -85,13 +89,12 @@ public class CategoryUCI implements CategoryIB {
     public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException {
         MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
         ArrayList<Category> categoryList = month.getCategoryData();
-
-
         try {
             double valueDouble = toDouble(categoryIDEdit.getValue());
             if (valueDouble < 0) {
                 //4. Category budget less than 0 fail
-                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
+                CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
+                return categoryOB.fail(categoryODFailEdit);
             }
 
             Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
@@ -102,7 +105,8 @@ public class CategoryUCI implements CategoryIB {
                 }
                 if (category1.getName().equals(categoryIDEdit.getName())) {
                     //1. Repeated name fail
-                    return categoryOB.fail("There is already a category with this new name in this month.");
+                    CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
+                    return categoryOB.fail(categoryODFailEdit);
                 }
             }
 
@@ -110,15 +114,18 @@ public class CategoryUCI implements CategoryIB {
             categoryIDEdit.setValue(valueDouble);
             existingCategory.setBudget(valueDouble);
 
+            CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
+            return categoryOB.success(categoryODSuccessEdit);
+
         } catch (NoSuchElementException e) {
             //2. NoSuchElementException fail
-            return categoryOB.fail("There is no such category in the current month. Please add a new category or select existing category!");
+            CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
+            return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException e){
             //3. NumberFormatException fail
-            return categoryOB.fail("Category budget needs to be a number. Please try again!");
-
+            CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
+            return categoryOB.fail(categoryODFailEdit);
         }
-        return categoryOB.success_edit();
     }
 
     /**
