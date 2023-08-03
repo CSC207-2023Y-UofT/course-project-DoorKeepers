@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * The view class for creating/updating the Month Menu view. This class implements the
@@ -90,10 +91,14 @@ public class MonthMenuV implements ActionListener {
             leftLayout.add(genSumButton);
 
             //Right side components: set JTables
-            Object[] expenseData = controller.getOutput(session, monthID).getExpenseData().toArray();
-            Object[] categoryData = controller.getOutput(session, monthID).getCategoryData().toArray();
-            JTable expenseTable = getExpenseTable((Expense[]) expenseData);
-            JTable categoryTable = getCategoryTable((Category[])categoryData);
+            ArrayList<Expense> expenses = controller.getOutput(session, monthID).getExpenseData();
+            ArrayList<Category> categories = controller.getOutput(session, monthID).getCategoryData();
+            Expense[] expensesArray = new Expense[expenses.size()];
+            Category[] categoriesArray = new Category[categories.size()];
+            expenses.toArray(expensesArray);
+            categories.toArray(categoriesArray);
+            JTable expenseTable = getExpenseTable(expensesArray);
+            JTable categoryTable = getCategoryTable(categoriesArray);
             Dimension dimension = new Dimension(333,180);
             expenseTable.setPreferredScrollableViewportSize(dimension);
             categoryTable.setPreferredScrollableViewportSize(dimension);
