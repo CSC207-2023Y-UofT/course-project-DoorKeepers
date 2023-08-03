@@ -3,7 +3,8 @@ package use_cases.add_edit_category_use_case;
 import entities.SessionStorage;
 
 /**
- * CategoryID contains all user inputs in terms of business logic items used in the programme.
+ * CategoryID contains all user inputs.
+ * Created in CategoryC and used in CategoryUCI to perform addCategoryInMonth() and editCategoryInMonth().
  */
 
 public class CategoryID {
