@@ -1,6 +1,7 @@
 package views.create_new_month;
 
 import entities.SessionStorage;
+import use_cases.create_new_month.NewMonthOD;
 import use_cases.monthly_menu.MonthMenuOB;
 import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
@@ -69,12 +70,14 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
             int yearInt = Integer.parseInt(year.getText());
             int monthID = (yearInt * 100) + selectedMonth;
             int budgetValue = Integer.parseInt(budget.getText());
-            //TODO: use output
-            if (controller.getOutput(session, monthID, budgetValue).isSuccessful()){
-                loadMonthMenu(monthID,"Month created successfully.");
-            }
 
-        } else {
+            NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
+            if (output.isSuccessful()){
+                loadMonthMenu(monthID,"Month created successfully.");
+            } else {
+                JOptionPane.showMessageDialog(frame, output.getWarning());
+            }
+        } else if (evt.getSource()==month) {
             this.selectedMonth = month.getSelectedIndex()+1;
         }
     }

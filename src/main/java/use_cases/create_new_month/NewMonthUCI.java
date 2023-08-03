@@ -1,7 +1,6 @@
 package use_cases.create_new_month;
 
 import entities.*;
-import use_cases.monthly_menu.MonthMenuOD;
 
 import java.util.ArrayList;
 
@@ -34,6 +33,7 @@ public class NewMonthUCI implements NewMonthIB {
             for (Expense expense : recurData){
                 newMonth.addExpense(new Expense(expense.getName(),other, expense.getValue()));
             }
+            //TODO: make sure new month has different ID from already stored months
             session.addMonth(newMonth);
             return outputBoundary.createOutput(new NewMonthOD(session,monthID,true));
         } catch (EntityException e){
