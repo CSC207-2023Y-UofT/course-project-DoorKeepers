@@ -28,6 +28,9 @@ public class GenerateSummaryC {
      * @param currentSession a SessionStorage object containing all information about the current session
      * @param monthID an int corresponding to the monthID of the current month
      * @return a JPanel holding the graphs
+     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+     * raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+     * SessionStorage, and is not something the user can fix.
      */
     public GenerateSummaryOD generate(SessionStorage currentSession, int monthID) throws EntityException {
         GenerateSummaryID inputData = new GenerateSummaryID(currentSession, monthID);
