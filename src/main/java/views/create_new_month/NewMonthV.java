@@ -5,6 +5,7 @@ import use_cases.monthly_menu.MonthMenuOB;
 import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
 import views.monthly_menu.MonthMenuP;
+import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
 
 import javax.swing.*;
@@ -12,9 +13,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewMonthV implements ActionListener {
+public class NewMonthV implements ActionListener, LoadNewMonthVB{
     NewMonthC controller;
     SessionStorage session;
+    JFrame frame = new JFrame("Creat a new Month");
     JTextField year = new JTextField(9);
     JComboBox<String> month = new JComboBox<>(new String[]{"January", "February", "March", "April",
             "May", "June", "July", "August", "September", "October", "November", "December"});
@@ -31,8 +33,7 @@ public class NewMonthV implements ActionListener {
         month.addActionListener(this);
         submitButton.addActionListener(this);
 
-        // Create frame
-        JFrame frame = new JFrame("Creat a new Month");
+        // Create layout
         JPanel layout = new JPanel();
         layout.setLayout(new BoxLayout(layout, BoxLayout.Y_AXIS));
 
@@ -70,13 +71,25 @@ public class NewMonthV implements ActionListener {
             int budgetValue = Integer.parseInt(budget.getText());
             //TODO: use output
             if (controller.getOutput(session, monthID, budgetValue).isSuccessful()){
-                MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
-                UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
-                UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
+                loadMonthMenu(monthID,"Month created successfully.");
             }
 
         } else {
             this.selectedMonth = month.getSelectedIndex()+1;
         }
+    }
+
+    /**
+     * Open Month Menu and notify user.
+     * @param message notify user that Month Menu is updated
+     */
+    @Override
+    public void loadMonthMenu(int monthID, String message) {
+        frame.setVisible(false);
+        MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
+        UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
+        UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
+        MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
+        monthMenu.openMonthMenu(message);
     }
 }

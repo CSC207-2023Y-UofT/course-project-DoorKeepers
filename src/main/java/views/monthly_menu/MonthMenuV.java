@@ -14,15 +14,17 @@ import java.awt.event.ActionListener;
  * ActionListener interface. This class calls the controller class to get the
  * MonthMenuOD object, and use the output to set up success and fail view.
  */
-public class MonthMenuV implements ActionListener {
+public class MonthMenuV implements ActionListener, UpdateViewVB {
     views.monthly_menu.UpdateViewC controller;
     SessionStorage session;
     int monthID;
+    JFrame frame = new JFrame("Monthly Menu");
     JButton addExpense;
     JButton editExpense;
     JButton addCategory;
     JButton editCategory;
     JButton generateSummary;
+
 
     /**
      * Set up success and fail view. The success view shows the Month Menu
@@ -42,8 +44,6 @@ public class MonthMenuV implements ActionListener {
         this.controller = controller;
         this.session = session;
         this.monthID = monthID;
-        //Set the frame
-        JFrame frame = new JFrame("Monthly Menu");
 
         if (controller.getOutput(session, monthID).isSuccessful()){
             JPanel layout = new JPanel(new BorderLayout(20, 20));
@@ -125,7 +125,7 @@ public class MonthMenuV implements ActionListener {
 
         // Allow frame to exit on close for both success and fail cases
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
@@ -195,5 +195,15 @@ public class MonthMenuV implements ActionListener {
         } else if (event.getSource()==generateSummary) {
             // call generateSummary
         }
+    }
+
+    /**
+     * Open Month Menu and notify user.
+     * @param message notify user that Month Menu is updated
+     */
+    @Override
+    public void openMonthMenu(String message){
+        frame.setVisible(true);
+        JOptionPane.showMessageDialog(frame, message);
     }
 }
