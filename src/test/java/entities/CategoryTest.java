@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests the Category class
+ * A class that tests the Category class.
  */
 class CategoryTest {
 
     /**
-     * Tests the Category initializer, getName(), and getBudget()
+     * Tests the Category initializer, getName(), and getBudget() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void CategoryCreateCategory() {
@@ -19,7 +20,8 @@ class CategoryTest {
     }
 
     /**
-     * Tests setName() and getName()
+     * Tests setName() and getName() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void CategorySetName() {
@@ -30,7 +32,8 @@ class CategoryTest {
     }
 
     /**
-     * Tests setBudget() and getBudget()
+     * Tests setBudget() and getBudget() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void CategorySetBudget() {
@@ -41,14 +44,39 @@ class CategoryTest {
     }
 
     /**
-     * Tests equals() override
+     * Tests equals() override on two Category objects with the same name.
      */
     @Test
-    public void CategoryCheckEquals() {
+    public void CategoryCheckEqualsSameName() {
         Category c4 = new Category("Food", 100);
         Category c5 = new Category("Food", 50);
-        Category c6 = new Category("Clothes", 100);
         Assertions.assertEquals(c4, c5);
+    }
+
+    /**
+     * Tests equals() override on two Category objects with the same budget.
+     */
+    @Test
+    public void CategoryCheckEqualsSameBudget() {
+        Category c4 = new Category("Food", 100);
+        Category c6 = new Category("Clothes", 100);
         Assertions.assertNotEquals(c4, c6);
+    }
+
+    /**
+     * Tests equals() override on two Category objects initialized with the same name, but one is changed.
+     * Note: This is important because when we edit a Category, we need to check if this new Category is equal to
+     * another Category in the month.
+     */
+    @Test
+    public void CategoryCheckEqualsChangeName() {
+        Category c4 = new Category("Food", 100);
+        Category c5 = new Category("Groceries", 50);
+        Category c6 = new Category("Food", 100);
+        Assertions.assertEquals(c4, c6);
+        Assertions.assertNotEquals(c5, c6);
+        c6.setName("Groceries");
+        Assertions.assertNotEquals(c4, c6);
+        Assertions.assertEquals(c5, c6);
     }
 }

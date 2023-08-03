@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- *
+ * A class that will store all the user data for a session. This includes a list of MonthlyStorage objects to store the
+ * data for several months, and a list of recurring Expense objects that apply to every month.
  */
 public class SessionStorage implements Serializable {
 
@@ -13,7 +14,7 @@ public class SessionStorage implements Serializable {
     private final ArrayList<Expense> recurData;
 
     /**
-     * Creates a new SessionStorage and assigns empty values to both its instance attributes
+     * Creates a new SessionStorage and assigns empty values to both its instance attributes.
      */
     public SessionStorage(){
         this.monthlyData = new ArrayList<>();
@@ -21,23 +22,23 @@ public class SessionStorage implements Serializable {
     }
 
     /**
-     * Adds a new month to the monthlyData
-     * @param month a MonthlyStorage object
+     * Adds a new month to the monthlyData.
+     * @param month a MonthlyStorage object to add
      */
     public void addMonth(MonthlyStorage month){
         this.monthlyData.add(month);
     }
 
     /**
-     * Adds a new expense to the Session's recurExpense array
-     * @param expense an Expense object
+     * Adds a new expense to the Session's recurExpense array.
+     * @param expense an Expense object to add
      */
     public void addRecurExpense(Expense expense){
         this.recurData.add(expense);
     }
 
     /**
-     * Deletes an Expense from this month
+     * Deletes an Expense from this month.
      * @param expense_name a String containing the name of the Expense to delete
      */
     public void deleteRecurExpense(String expense_name) {
@@ -45,10 +46,10 @@ public class SessionStorage implements Serializable {
     }
 
     /**
-     * Returns a MonthlyData object given the currentMonth
+     * Returns the MonthlyData object associated with the given monthID.
      * @param monthID an integer representing the MonthlyStorage object
-     * @return a MonthlyStorage object with currentMonth attribute equal to currentMonth parameter
-     * @throws EntityException if currentMonth parameter is not the currentMonth of any MonthlyStorage object
+     * @return a MonthlyStorage object with monthID attribute equal to monthID parameter
+     * @throws EntityException if monthID parameter is not the monthID of any MonthlyStorage object
      */
     public MonthlyStorage getMonthlyData(int monthID) throws EntityException {
         for (MonthlyStorage m: this.monthlyData) {
@@ -56,7 +57,7 @@ public class SessionStorage implements Serializable {
                 return m;
             }
         }
-        throw new EntityException("That is not a valid currentMonth for this SessionStorage.");
+        throw new EntityException("That is not a valid monthID for this SessionStorage.");
     }
 
     /**

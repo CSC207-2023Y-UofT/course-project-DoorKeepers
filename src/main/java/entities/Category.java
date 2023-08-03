@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
+ * A class that will store all the data associated with a Category. This includes a name and budget.
  */
 public class Category implements Serializable {
 
@@ -12,7 +12,7 @@ public class Category implements Serializable {
     private double budget;
 
     /**
-     * Creates a new Category with the given data
+     * Creates a new Category with the given data.
      * @param name name of category
      * @param budget budget of category
      */
@@ -22,7 +22,7 @@ public class Category implements Serializable {
     }
 
     /**
-     * Sets the name of this Category
+     * Sets the name of this Category.
      * @param new_name the new name that this Category will have
      */
     public void setName(String new_name){
@@ -30,7 +30,7 @@ public class Category implements Serializable {
     }
 
     /**
-     * Sets the budget of this Category
+     * Sets the budget of this Category.
      * @param new_budget the new budget that this Category will have
      */
     public void setBudget(double new_budget){
@@ -38,7 +38,7 @@ public class Category implements Serializable {
     }
 
     /**
-     * Gets the name of this Category
+     * Gets the name of this Category.
      * @return the name of this Category
      */
     public String getName(){
@@ -46,7 +46,7 @@ public class Category implements Serializable {
     }
 
     /**
-     * Gets the budget of this Category
+     * Gets the budget of this Category.
      * @return the budget of this Category
      */
     public double getBudget(){
@@ -54,8 +54,8 @@ public class Category implements Serializable {
     }
 
     /**
-     * Check if this Category is equal to Object
-     * @param obj Any instance of Object
+     * Checks if this Category is equal to Object.
+     * @param obj any instance of Object
      * @return True if equals, False is not equals
      */
     @Override

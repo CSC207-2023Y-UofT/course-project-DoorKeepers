@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
+ * A class that will store all the data associated with an Expense. This includes a name, Category, and value.
  */
 public class Expense implements Serializable {
 
@@ -13,7 +13,7 @@ public class Expense implements Serializable {
     private double value;
 
     /**
-     * Creates a new Expense with the given data
+     * Creates a new Expense with the given data.
      * @param name name of expense
      * @param category category of expense
      * @param value value (price) of expense
@@ -25,7 +25,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Sets the name of this Expense
+     * Sets the name of this Expense.
      * @param new_name the new name that this Expense will have
      */
     public void setName(String new_name){
@@ -33,7 +33,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Sets the Category of this Expense
+     * Sets the Category of this Expense.
      * @param new_category the new Category that this Expense will belong to
      */
     public void setCategory(Category new_category){
@@ -41,7 +41,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Sets the value of this Expense
+     * Sets the value of this Expense.
      * @param new_value the new value that this Expense will have
      */
     public void setValue(double new_value){
@@ -49,7 +49,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Gets the name of this Expense
+     * Gets the name of this Expense.
      * @return the name of this Expense
      */
     public String getName(){
@@ -57,7 +57,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Gets the Category of this Expense
+     * Gets the Category of this Expense.
      * @return the Category of this Expense
      */
     public Category getCategory(){
@@ -65,7 +65,7 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Gets the value of this Expense
+     * Gets the value of this Expense.
      * @return the value of this Expense
      */
     public double getValue(){
@@ -73,8 +73,8 @@ public class Expense implements Serializable {
     }
 
     /**
-     * Check if this Expense is equal to Object
-     * @param obj Any instance of Object
+     * Checks if this Expense is equal to Object.
+     * @param obj any instance of Object
      * @return True if equals, False is not equals
      */
     @Override

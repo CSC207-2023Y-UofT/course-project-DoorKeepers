@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 /**
- * Tests the SessionStorage class
+ * A class that tests the SessionStorage class.
  */
 class SessionStorageTest {
 
@@ -17,7 +17,11 @@ class SessionStorageTest {
     static Expense expense2;
     static MonthlyStorage month1;
     static MonthlyStorage month2;
+    static MonthlyStorage actual;
 
+    /**
+     * Runs once before the methods to set up the necessary entities for the tests.
+     */
     @BeforeAll
     public static void SessionStorageCreateBaseEntities(){
         category1 = new Category("Food", 100.00);
@@ -29,7 +33,7 @@ class SessionStorageTest {
     }
 
     /**
-     * Tests the SessionStorage initializer and getRecurData()
+     * Tests the SessionStorage initializer and getRecurData().
      */
     @Test
     public void SessionStorageCreateNewSession() {
@@ -39,36 +43,40 @@ class SessionStorageTest {
     }
 
     /**
-     * Tests addMonth() and getMonthlyData() on a valid case
+     * Tests addMonth() and getMonthlyData() on a valid case.
      */
     @Test
     public void SessionStorageSetValidMonthlyData() {
         SessionStorage session1 = new SessionStorage();
         session1.addMonth(month1);
         try {
-            Assertions.assertEquals(month1, session1.getMonthlyData(1));
+            actual = session1.getMonthlyData(1);
         } catch (EntityException e) {
             System.out.println(e.getMessage());
+        } finally {
+            Assertions.assertEquals(month1, actual);
         }
 
     }
 
     /**
-     * Tests addMonth() and getMonthlyData() on an invalid case
+     * Tests addMonth() and getMonthlyData() on an invalid case (a monthID that is not in the SessionStorage).
      */
     @Test
     public void SessionStorageSetInvalidMonthlyData() {
-        SessionStorage session1 = new SessionStorage();
-        session1.addMonth(month1);
-        try {
-            Assertions.assertEquals(month1, session1.getMonthlyData(3));
-        } catch (EntityException e) {
-            System.out.println(e.getMessage());
-        }
+        EntityException thrown = Assertions.assertThrows(EntityException.class, () -> {
+            SessionStorage session1 = new SessionStorage();
+            session1.addMonth(month1);
+            actual = session1.getMonthlyData(3);
+            Assertions.assertEquals(month1, actual);
+        });
+        Assertions.assertEquals("That is not a valid monthID for this SessionStorage.",
+                thrown.getMessage());
     }
 
     /**
-     * Tests addRecurExpense() and getRecurData()
+     * Tests addRecurExpense() and getRecurData() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void SessionStorageAddRecurExpense() {
@@ -84,7 +92,8 @@ class SessionStorageTest {
     }
 
     /**
-     * Tests deleteRecurExpense()
+     * Tests deleteRecurExpense() with a valid test case.
+     * Note: not testing for invalid cases, since the Add/Edit UCIs make sure the parameters are valid.
      */
     @Test
     public void SessionStorageDeleteRecurExpense() {
