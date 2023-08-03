@@ -1,15 +1,20 @@
 package use_cases.generate_summary_use_case;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * An interface that the GenerateSummaryP presenter implements to maintain the dependency inversion principle. It
- * contains the method used to format the GenerateSummaryOD into graphs.
+ * contains the method used to create the GenerateSummaryOD output data.
  */
 public interface GenerateSummaryOB {
     /**
-     * Generates a graphical representation of the formatted data associated with the current month and modifies the
-     * outputData to contain the resulting JPanel.
-     * @param outputData a GenerateSummaryOD object holding the formatted data needed to generate the graphs
+     * Creates a GenerateSummaryOD output data holding the remainder of money left in the budget and the statisticalData
+     * pertaining to the current month.
+     * @param remainder a double representing the money that the user has not spent in their budget
+     * @param statisticalData a map containing String names of Category objects as the keys and doubles representing
+     *                        money spent and budget as the values
      */
-    void formatOutputData(GenerateSummaryOD outputData);
+     GenerateSummaryOD createOutputData(double remainder, Map<String, ArrayList<Double>> statisticalData);
 
 }

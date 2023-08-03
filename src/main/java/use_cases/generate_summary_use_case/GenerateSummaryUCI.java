@@ -25,15 +25,16 @@ public class GenerateSummaryUCI implements GenerateSummaryIB {
      * Generates a graphical representation of the MonthlyStorage data associated with monthID in the currentSession.
      * @param inputData a GenerateSummaryID object holding the SessionStorage and monthID needed to retrieve data
      * @return a JPanel holding the graphs
+     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+     * raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+     * SessionStorage, and is not something the user can fix.
      */
     @Override
     public GenerateSummaryOD generateNewSummary(GenerateSummaryID inputData) throws EntityException{
         SessionStorage currentSession = inputData.getCurrentSession();
         MonthlyStorage monthlyStorage = currentSession.getMonthlyData(inputData.getMonthID());
         GenerateSummaryUCInterpreter interpreter = new GenerateSummaryUCInterpreter(monthlyStorage);
-        GenerateSummaryOD outputData = new GenerateSummaryOD(interpreter.getRemainder(), interpreter.getStatisticalData());
-        presenter.formatOutputData(outputData);
-        return outputData;
+        return presenter.createOutputData(interpreter.getRemainder(), interpreter.getStatisticalData());
     }
 
 }
