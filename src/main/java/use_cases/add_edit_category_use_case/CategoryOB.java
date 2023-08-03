@@ -1,7 +1,7 @@
 package use_cases.add_edit_category_use_case;
 
 /**
- * An interface Category_Output_Boundary containing methods implemented in Category_Presenter.
+ * An interface CategoryOB containing methods implemented in CategoryP.
  */
 public interface CategoryOB {
     /**

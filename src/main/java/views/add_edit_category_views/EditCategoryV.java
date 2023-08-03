@@ -9,28 +9,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- * View class for the Edit_Category_view that extends Component class and implements ActionListener interface.
+ * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  * Creates a new controller that produces a Category_OD object.
  */
 public class EditCategoryV extends Component implements ActionListener {
     CategoryC controller;
-    JComboBox<String> category_combo;
-    JTextField name_input;
-    JTextField budget_input;
-    String selected_category;
+    JComboBox<String> categoryCombo;
+    JTextField nameInput;
+    JTextField budgetInput;
+    String selectedCategory;
     int monthID;
-    SessionStorage curr_session;
+    SessionStorage currSession;
 
-    public EditCategoryV(CategoryC controller, String[] existing_category, int monthID, SessionStorage curr_session) {
-        /**
-         * Builds Edit_Category_View.
+    public EditCategoryV(CategoryC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
+        /*
+          Builds EditCategoryV.
          */
         JLabel select_category_label = new JLabel(" Select existing category:");
-        this.category_combo = new JComboBox<>(existing_category); // category list
+        this.categoryCombo = new JComboBox<>(existingCategory); // category list
         JLabel name_label = new JLabel("New Category Name:");
-        this.name_input = new JTextField(15);
+        this.nameInput = new JTextField(15);
         JLabel budget_label = new JLabel(" New Category Budget:");
-        this.budget_input = new JTextField(15);
+        this.budgetInput = new JTextField(15);
         JButton submit = new JButton("Submit");
         submit.setSize(30,10);
 
@@ -48,11 +48,11 @@ public class EditCategoryV extends Component implements ActionListener {
         frame.setSize(300,500);
         frame.setSize(500,300);
         panel.add(select_category_label);
-        panel.add(category_combo);
+        panel.add(categoryCombo);
         panel.add(name_label, BorderLayout.WEST);
-        panel.add(name_input, BorderLayout.CENTER);
+        panel.add(nameInput, BorderLayout.CENTER);
         panel.add(budget_label);
-        panel.add(budget_input);
+        panel.add(budgetInput);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);
 
@@ -60,21 +60,26 @@ public class EditCategoryV extends Component implements ActionListener {
         frame.setVisible(true);
 
         submit.addActionListener(this);
-        category_combo.addActionListener(this);
+        categoryCombo.addActionListener(this);
 
         this.controller = controller;
         this.monthID = monthID;
-        this.curr_session = curr_session;
+        this.currSession = currSession;
     }
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == category_combo) {
-            this.selected_category = (String) category_combo.getSelectedItem();
+        /*
+          Two ActionListeners with different behaviours differentiated by evt.getSource().
+          Formats user input to pass in valid parameters for a CategtoryC to start a use case.
+          Pop-up window with context specific message may be shown to user.
+         */
+        if (evt.getSource() == categoryCombo) {
+            this.selectedCategory = (String) categoryCombo.getSelectedItem();
         }
         else {
             CategoryOD m = null;
             try {
-                m = controller.categoryInMonth(name_input.getText(), String.valueOf(budget_input), monthID, curr_session, selected_category);
+                m = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, selectedCategory);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
             }

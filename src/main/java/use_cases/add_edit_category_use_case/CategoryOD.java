@@ -1,8 +1,7 @@
 package use_cases.add_edit_category_use_case;
 
 /**
- * Category_Output_Data passes a String message from programme according to the success or fail add/edit category attempt.
- * User will have to re-enter the programme if wish to add or edit a category.(Hence no setCategory())
+ * CategoryOD passes a String message (from CategoryP) resulting from the success or fail add/edit category attempt.
  */
 public class CategoryOD {
     String message;

@@ -4,37 +4,39 @@ import use_cases.add_edit_category_use_case.CategoryOB;
 import use_cases.add_edit_category_use_case.CategoryOD;
 
 /**
- * Category_Presenter notifies success/fail to add or edit category, implements CategoryOB.
- * Returns Category_OD when execution is successful.
+ * CategoryP notifies success/fail to add or edit category, implements CategoryOB.
+ * Returns CategoryOD when execution is successful.
  * Returns String error message when failed.
  */
 public class CategoryP implements CategoryOB {
     /**
-     * Overrides success_add from Category_OB.
-     * @return CategoryOD from success add attempt
+     * Returns a CategoryOD notifying success add.
+     * @return String success add message.
      */
     @Override
     public CategoryOD success_add() {
-        String success_add = "You have added a new category!";
-        return new CategoryOD(success_add);
+        String successAdd = "You have added a new category!";
+        return new CategoryOD(successAdd);
     }
+
     /**
-     * Overrides fail() from Category_OB.
+     * Returns a CategoryOD containing a String formatted error message.
      * @param error Detailed error message for user.
-     * @return String description of error from user.
+     * @return String Error message.
      */
     @Override
     public CategoryOD fail(String error){
         return new CategoryOD(error);
     }
+
     /**
-     * Overrides success_edit from Category_OB.
-     * @return CategoryOD from success edit attempt
+     * Returns a CategoryOD notifying success edit.
+     * @return String success edit message.
      */
     @Override
     public CategoryOD success_edit() {
-        String success_edit = "You have edited a category!";
-        return new CategoryOD(success_edit);
+        String successEdit = "You have edited a category!";
+        return new CategoryOD(successEdit);
     }
 }
 

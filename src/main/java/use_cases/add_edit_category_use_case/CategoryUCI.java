@@ -9,10 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * The Category_Use_Case_Interactor 1. adds/creates a new category and 2. edits an existing category.
- * Updates MonthlyStorage:
- * 1. adding a new Category to MonthlyStorage.categoryData with MonthlyStorage.addCategory()
- * 2.
+ * The CategoryUCI adds/creates a new category, edits an existing category, and updates MonthlyStorage.categoryData.
  * Contains a helper method isValidDouble() and findCategory().
  */
 
@@ -36,29 +33,29 @@ public class CategoryUCI implements CategoryIB {
             return Double.parseDouble(String.valueOf(value));
     }
     /**
-     * Overrides method in Category_IB.
+     * Overrides method in CategoryIB.
      * Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
      * Provides detailed fail messages according to each condition listed below:
      *  1. NumberFormatException: User tries to add a new budget value that can not be converted to a double.
      *  2. Category budget less than 0: User tries to add a new budget value that is a negative number.
      *  3. EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
      *
-     * @param categoryID_add Category_Input_Data required for adding a new category to the designated monthID MonthlyStorage Object.
-     * @return Category_Output_Data category.
-     * @throws EntityException thrown when categoryID_add has invalid category information.
+     * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
+     * @return CategoryOD String message indicating success/fail add attempt.
+     * @throws EntityException thrown when categoryIDAdd has invalid category information.
      */
     @Override
-    public CategoryOD addCategoryInMonth(CategoryID categoryID_add) throws EntityException {
-        MonthlyStorage month = categoryID_add.getSession().getMonthlyData(categoryID_add.getMonthID());
+    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd) throws EntityException {
+        MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
         try{
-            double value_double = toDouble(categoryID_add.getValue());
-            Category new_category = new Category(categoryID_add.getName(), value_double);
+            double valueDouble = toDouble(categoryIDAdd.getValue());
+            Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);
 
-            if (new_category.getBudget() < 0) {
+            if (newCategory.getBudget() < 0) {
                 // 2. Category budget less than 0 fail
                 return categoryOB.fail("Category budget can't be less than $0. Please try again!");
             }
-            month.addCategory(new_category);
+            month.addCategory(newCategory);
 
         } catch(NumberFormatException|NullPointerException e){
             //1. NumberFormatException/NullPointerException fail
@@ -73,7 +70,7 @@ public class CategoryUCI implements CategoryIB {
 
     }
     /**
-     * Overrides method in Category_IB.
+     * Overrides method in CategoryIB.
      * Attempts to edit a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
      * Provides detailed fail messages according to each condition listed below:
      *  1. Repeated Name: User tries to edit category name to another name that exists in the month.
@@ -81,33 +78,37 @@ public class CategoryUCI implements CategoryIB {
      *  3. NumberFormatException: User tries to edit a budget value with input that can not be converted to a double.
      *  4. Category budget less than 0: User tries to edit a budget value with input that is a negative number.
      *
-     * @param categoryID_edit Category_Input_Data required for editing a new category to the designated monthID MonthlyStorage Object.
-     * @return Category_Output_Data category.
+     * @param categoryIDEdit CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.
+     * @return CategoryOD String message indicating success/fail add attempt.
      */
     @Override
-    public CategoryOD editCategoryInMonth(CategoryID categoryID_edit) throws EntityException {
-        MonthlyStorage month = categoryID_edit.getSession().getMonthlyData(categoryID_edit.getMonthID());
-        ArrayList<Category> category_list = month.getCategoryData();
+    public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException {
+        MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
+        ArrayList<Category> categoryList = month.getCategoryData();
+
+
         try {
-            for (Category category1 : category_list) {
-                if (category1.getName().equals(categoryID_edit.getName())) {
+            double valueDouble = toDouble(categoryIDEdit.getValue());
+            if (valueDouble < 0) {
+                //4. Category budget less than 0 fail
+                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
+            }
+
+            Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
+
+            for (Category category1 : categoryList) {
+                if (Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
+                    categoryList.remove(findCategory(categoryList,categoryIDEdit.getName()));
+                }
+                if (category1.getName().equals(categoryIDEdit.getName())) {
                     //1. Repeated name fail
                     return categoryOB.fail("There is already a category with this new name in this month.");
                 }
             }
 
-            Category existing_category = findCategory(category_list, categoryID_edit.getOld_category());
-
-            double value_double = toDouble(categoryID_edit.getValue());
-            if (value_double < 0) {
-                //4. Category budget less than 0 fail
-                return categoryOB.fail("Category budget can't be less than $0. Please try again!");
-            }
-
-            existing_category.setName(categoryID_edit.getName());
-
-            categoryID_edit.setValue(value_double);
-            existing_category.setBudget(value_double);
+            existingCategory.setName(categoryIDEdit.getName());
+            categoryIDEdit.setValue(valueDouble);
+            existingCategory.setBudget(valueDouble);
 
         } catch (NoSuchElementException e) {
             //2. NoSuchElementException fail

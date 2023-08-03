@@ -6,23 +6,26 @@ import entities.EntityException;
 import java.util.ArrayList;
 
 /**
- * Category_Input_Boundary passes in user input of category information in the form of CategoryID.
+ * CategoryIB passes in user input of category information in the form of CategoryID.
  */
 public interface CategoryIB {
     /**
-     * Returns a Category object in the form of a Category_OD object when a category is successfully added,
-     * returns context specific fail messages when failed.
-     * @param categoryID_add Category_Input_Data required for adding a new category to the designated monthID MonthlyStorage Object.
-     * @return CategoryOD Object The category that is successfully added.
+     * Returns String success message in the form of a CategoryOD object when a category is successfully added,
+     * returns String fail messages that are context specific when failed.
+     * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
+     * @return String indicating fail/success add attempt.
      * @throws EntityException thrown when the new category input is invalid.
      */
-    CategoryOD addCategoryInMonth(CategoryID categoryID_add) throws EntityException;
+    CategoryOD addCategoryInMonth(CategoryID categoryIDAdd) throws EntityException;
+
     /**
-     * @param categoryID_edit Category_Input_Data required for editing an existing Category Object in designated monthID MonthlyStorage Object.
-     * @return CategoryOD Object The category that is successfully edited.
+     * Returns String success message in the form of a CategoryOD object when a category is successfully edited,
+     * returns String fail messages that are context specific when failed.
+     * @param categoryIDEdit CategoryID required for editing an existing Category Object in designated monthID MonthlyStorage Object.
+     * @return String indicating fail/success edit attempt.
      * @throws EntityException thrown when the new category input is invalid.
      */
-    CategoryOD editCategoryInMonth(CategoryID categoryID_edit) throws EntityException;
+    CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException;
     /**
      * Helper method that returns a category with String name from a list of categories.
      * @param monthCategoryData An ArrayList of categories.

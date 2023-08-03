@@ -3,71 +3,212 @@ package use_cases.add_edit_category_use_case;
 import entities.EntityException;
 import entities.MonthlyStorage;
 import entities.SessionStorage;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import views.add_edit_category_views.CategoryP;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.NoSuchElementException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * CategoryUCITest contains tests for the Category use cases (add & edit category).
+ */
 class CategoryUCITest {
-    @Test
-    void addCategoryInMonth() throws EntityException {
-            /**
-             * Tests method by checking if the size of categoryData in MonthlyStorage is correctly updated.
-             * Adding two known-to-fail inputs and two successful inputs.
-              */
-            CategoryP presenter = new CategoryP();
-            CategoryIB interactor = new CategoryUCI(presenter);
-            SessionStorage sesh = new SessionStorage();
-            MonthlyStorage month = new MonthlyStorage(6, 150);
-            sesh.addMonth(month);
+    private static SessionStorage session;
 
-            CategoryID add_ID_1 = new CategoryID("Salad", 12, 6, sesh, null);
-            CategoryID add_ID_same_name = new CategoryID("Salad", 2,6,sesh, null);
-            CategoryID add_ID_2 = new CategoryID("Banana",3.9, 6, sesh, null);
-            CategoryID add_ID_neg_value = new CategoryID("Sandwich",-3,6, sesh, null);
-
-            interactor.addCategoryInMonth(add_ID_1);
-            interactor.addCategoryInMonth(add_ID_2);
-            interactor.addCategoryInMonth(add_ID_same_name);
-            interactor.addCategoryInMonth(add_ID_neg_value);
-
-            //Expected value is 3 because there is one default Category "Others" upon creation of each MonthlyStorage and two successful entries.
-            assertEquals(3, sesh.getMonthlyData(6).getCategoryData().size());
-
+    @BeforeAll
+    public static void categorySetUp() {
+        /*
+          Creates a SessionStorage for the following test cases.
+         */
+        session = new SessionStorage();
     }
+
     @Test
-    void editCategoryInMonth() throws EntityException {
-            /**
-             * Tests method by first adding two valid categories three edit attempts: 1 success and 2 fails.
-             * Use findCategory() to see if the category_name is successfully edited.
-             */
-            CategoryP presenter = new CategoryP();
-            CategoryIB interactor = new CategoryUCI(presenter);
-            SessionStorage sesh = new SessionStorage();
-            MonthlyStorage month = new MonthlyStorage(6, 150);
-            sesh.addMonth(month);
+    void addCategoryInMonthSuccess() throws EntityException {
+        /*
+          Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
+          Adding two known-to-fail inputs and two successful inputs.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthAdd = new MonthlyStorage(6, 150);
+        session.addMonth(monthAdd);
 
-            CategoryID add_ID_1 = new CategoryID("Salad", 12, 6, sesh, null);
-            CategoryID add_ID_2 = new CategoryID("Banana",3.9, 6, sesh, null);
-            CategoryID add_ID_3 = new CategoryID("fun",900, 6, sesh, null);
-            interactor.addCategoryInMonth(add_ID_1);
-            interactor.addCategoryInMonth(add_ID_2);
-            interactor.addCategoryInMonth(add_ID_3);
+        CategoryID addID1 = new CategoryID("Salad", 12, 6, session, null);
 
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("You have added a new category!", interactor.addCategoryInMonth(addID1).getMessage());
+        //Expected value is 2 because there is one default Category "Others" upon creation of each MonthlyStorage and one successful entry.
+        assertEquals(2, session.getMonthlyData(6).getCategoryData().size());
+    }
 
-            CategoryID edit_id_1 = new CategoryID("fish n' chips", 17, 6, sesh, "Salad");
-            interactor.editCategoryInMonth(edit_id_1);
+    @Test
+    void addCategoryInMonth_same_name_fail() throws EntityException {
+        /*
+          Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthAdd = new MonthlyStorage(5, 150);
+        session.addMonth(monthAdd);
 
-            CategoryID edit_id_same_name = new CategoryID("fish n' chips", 16, 6, sesh, "Banana");
-            interactor.editCategoryInMonth(edit_id_same_name);
+        CategoryID addIDSameName = new CategoryID("Salad", 2, 5, session, null);
+        CategoryID addID1 = new CategoryID("Salad", 12, 5, session, null);
 
-            CategoryID edit_id_bad_value = new CategoryID("chips", -5, 6, sesh, "fun");
-            interactor.editCategoryInMonth(edit_id_bad_value);
+        interactor.addCategoryInMonth(addID1);
+        interactor.addCategoryInMonth(addIDSameName);
 
-            // Using findCategory() to check if a category with the desired name parameter is in the updated MonthlyStorage Category list.
-            assertNotNull(interactor.findCategory(sesh.getMonthlyData(6).getCategoryData(), "fish n' chips")); // success edit
-            assertNotNull(interactor.findCategory(sesh.getMonthlyData(6).getCategoryData(), "Banana")); //fail edit category name
-            assertNotNull(interactor.findCategory(sesh.getMonthlyData(6).getCategoryData(), "fun")); //fail edit category budget
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("There is already a category with this new name in this month.", interactor.addCategoryInMonth(addIDSameName).getMessage());
+        //Expected value is 2 because there is one default Category "Others" upon creation of each MonthlyStorage one successful, and one failed entry.
+        assertEquals(2, session.getMonthlyData(5).getCategoryData().size());
+    }
+
+    @Test
+    void addCategoryInMonthNegValueFail() throws EntityException {
+        /*
+          Tests fail add case when user tries to add a new Category budget that is a negative number.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthAdd = new MonthlyStorage(4, 150);
+        session.addMonth(monthAdd);
+
+        CategoryID addIDNegValue = new CategoryID("Sandwich", -3, 4, session, null);
+        interactor.addCategoryInMonth(addIDNegValue);
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("Category budget can't be less than $0. Please try again!", interactor.addCategoryInMonth(addIDNegValue).getMessage());
+        //Expected value is 1 because there is one default Category "Others" upon creation of each MonthlyStorage and one failed entry.
+        assertEquals(1, session.getMonthlyData(4).getCategoryData().size());
+    }
+
+    @Test
+    void addCategoryInMonthInvalidDoubleFail() throws EntityException {
+        /*
+          Tests fail add case when user tries to add a new Category budget that is an invalid double.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthAdd = new MonthlyStorage(3, 150);
+        session.addMonth(monthAdd);
+
+        CategoryID addIDInvalidDouble = new CategoryID("Salad", "a", 3, session, null);
+        interactor.addCategoryInMonth(addIDInvalidDouble);
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("Category budget is needs to be a number. Please try again!", interactor.addCategoryInMonth(addIDInvalidDouble).getMessage());
+        //Expected value is 1 because there is one default Category "Others" upon creation of each MonthlyStorage and one failed entry.
+        assertEquals(1, session.getMonthlyData(3).getCategoryData().size());
+    }
+
+    @Test
+    void editCategoryInMonthSuccess() throws EntityException {
+        /*
+          Tests success edit use case by adding one valid category and then a successful edit.
+          Use findCategory() to see if the category_name is successfully edited.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthEdit = new MonthlyStorage(7, 150);
+        session.addMonth(monthEdit);
+
+        CategoryID addID = new CategoryID("Salad", 12, 7, session, null);
+        interactor.addCategoryInMonth(addID);
+
+        CategoryID editId1 = new CategoryID("fish n' chips", 12, 7, session, "Salad");
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("You have edited a category!", interactor.editCategoryInMonth(editId1).getMessage());
+        // Using findCategory() to check if a category with the desired name parameter is in the updated MonthlyStorage Category list.
+        interactor.findCategory(session.getMonthlyData(7).getCategoryData(), "fish n' chips");
+    }
+
+    @Test
+    void editCategoryInMonthSameNameFail() throws EntityException {
+        /*
+          Tests fail edit case when user tries to edit the Category name to another name that exists in MonthlyStorage.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthEdit = new MonthlyStorage(8, 150);
+        session.addMonth(monthEdit);
+
+        CategoryID addID = new CategoryID("Salad", 12, 8, session, null);
+        CategoryID addID2 = new CategoryID("Banana", 3.9, 8, session, null);
+        CategoryID addID3 = new CategoryID("fun", 900, 8, session, null);
+        interactor.addCategoryInMonth(addID);
+        interactor.addCategoryInMonth(addID2);
+        interactor.addCategoryInMonth(addID3);
+
+        CategoryID editIdSameName = new CategoryID("Banana", 12, 8, session, "Salad");
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("There is already a category with this new name in this month.", interactor.editCategoryInMonth(editIdSameName).getMessage());
+        //Fail to edit Category budget when tries to also edit Category name, but it is an existing Category name.
+        assertNotEquals(interactor.findCategory(session.getMonthlyData(8).getCategoryData(), "Banana").getBudget(), 12, 0.0);
+    }
+
+    @Test
+    void editCategoryInMonthNegValueFail() throws EntityException {
+        /*
+          Tests fail edit case when user tries to edit the Category budget into a negative number.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthEdit = new MonthlyStorage(9, 150);
+        session.addMonth(monthEdit);
+
+        CategoryID addID = new CategoryID("Salad", 12, 9, session, null);
+        interactor.addCategoryInMonth(addID);
+
+        CategoryID editIdNegValue = new CategoryID("Banana", -12, 9, session, "Salad");
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("Category budget can't be less than $0. Please try again!", interactor.editCategoryInMonth(editIdNegValue).getMessage());
+        //Fail to edit Category name when tries to also edit Category budget, but it is a new budget that is a negative number.
+        Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(9).getCategoryData(), "Banana"));
+    }
+
+    @Test
+    void editCategoryInMonthNoCategoryFail() throws EntityException {
+        /*
+          Tests fail edit case when user tries to edit a Category that does not exist in MonthlyStorage.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthEdit = new MonthlyStorage(10, 150);
+        session.addMonth(monthEdit);
+
+        CategoryID editIdNegValue = new CategoryID("Banana", 12, 10, session, "Salad");
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("There is no such category in the current month. Please add a new category or select existing category!", interactor.editCategoryInMonth(editIdNegValue).getMessage());
+        //Fail to edit Category name, but the old_category is not found in MonthlyStorage.
+        Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(10).getCategoryData(), "Banana"));
+    }
+
+    @Test
+    void editCategoryInMonthInvalidDoubleFail() throws EntityException {
+        /*
+          Tests fail edit case when user tries to edit the Category budget into an invalid double.
+         */
+        CategoryP presenter = new CategoryP();
+        CategoryIB interactor = new CategoryUCI(presenter);
+        MonthlyStorage monthlyStorage = new MonthlyStorage(11, 150);
+        session.addMonth(monthlyStorage);
+
+        CategoryID addID = new CategoryID("Salad", 12, 11, session, null);
+        interactor.addCategoryInMonth(addID);
+
+        CategoryID editIDInvalidDouble = new CategoryID("Salad", "a", 11, session, "Salad");
+
+        // Check if the correct message is returned corresponding to the situation.
+        assertEquals("Category budget needs to be a number. Please try again!", interactor.editCategoryInMonth(editIDInvalidDouble).getMessage());
+        //Fail to edit Category budget, so Category budget should stay the same.
+        assertEquals(interactor.findCategory(session.getMonthlyData(11).getCategoryData(), "Salad").getBudget(), 12, 0.0);
     }
 }
