@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * The CategoryUCI adds/creates a new category, edits an existing category, and updates MonthlyStorage.categoryData.
+ * The CategoryUCI adds/creates new category, edits an existing category, and updates MonthlyStorage.categoryData.
  * Contains a helper method isValidDouble() and findCategory().
  * Creates CategoryOD objects related to specific use case fail/success conditions.
  */
