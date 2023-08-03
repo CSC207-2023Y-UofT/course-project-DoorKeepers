@@ -27,6 +27,7 @@ import java.util.Map;
  * <a href="https://www.tutorialspoint.com/jfreechart/jfreechart_pie_chart.htm">this website.</a>
  */
 public class GenerateSummaryV extends JFrame {
+
     private final JFrame screen;
     private double remainder;
     private Map<String, ArrayList<Double>> statisticalData;

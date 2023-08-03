@@ -1,7 +1,6 @@
 package use_cases.generate_summary_use_case;
 
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -14,8 +13,6 @@ public class GenerateSummaryOD {
 
     private final double remainder;
     private final Map<String, ArrayList<Double>> statisticalData;
-    private JPanel barGraphPanel;
-    private JPanel pieChartPanel;
 
     /**
      * Creates a new instance of GenerateSummaryOD.
@@ -42,37 +39,4 @@ public class GenerateSummaryOD {
     public Map<String, ArrayList<Double>> getStatisticalData() {
         return statisticalData;
     }
-
-    /**
-     * Sets the barGraphPanel of this GenerateSummaryOD.
-     * @param barGraphPanel the new barGraphPanel
-     */
-    public void setBarGraphPanel(JPanel barGraphPanel) {
-        this.barGraphPanel = barGraphPanel;
-    }
-
-    /**
-     * Sets the pieChartPanel of this GenerateSummaryOD.
-     * @param pieChartPanel the new pieChartPanel
-     */
-    public void setPieChartPanel(JPanel pieChartPanel) {
-        this.pieChartPanel = pieChartPanel;
-    }
-
-    /**
-     * Gets the BarGraphPanel of this GenerateSummaryOD.
-     * @return the BarGraphPanel of this GenerateSummaryOD
-     */
-    public JPanel getBarGraphPanel(){
-        return this.barGraphPanel;
-    }
-
-    /**
-     * Gets the pieChartPanel of this GenerateSummaryOD.
-     * @return the pieChartPanel of this GenerateSummaryOD
-     */
-    public JPanel getPieChartPanel() {
-        return pieChartPanel;
-    }
-
 }

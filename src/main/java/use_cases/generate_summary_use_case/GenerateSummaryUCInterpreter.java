@@ -4,9 +4,9 @@ import entities.Category;
 import entities.Expense;
 import entities.MonthlyStorage;
 
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class that generates all the data in the correct format to make the Bar Graph and Pie Chart.
@@ -20,7 +20,7 @@ public class GenerateSummaryUCInterpreter {
     private final double remainder;
 
     /**
-     * Creates a new GenerateSummaryUCInterpreter with the provided presenter.
+     * Creates a new GenerateSummaryUCInterpreter with the provided MonthlyStorage.
      * @param monthlyStorage the MonthlyStorage object that the data will be generated for
      */
     public GenerateSummaryUCInterpreter(MonthlyStorage monthlyStorage) {

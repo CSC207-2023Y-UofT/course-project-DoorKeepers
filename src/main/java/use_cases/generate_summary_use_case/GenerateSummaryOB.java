@@ -8,6 +8,7 @@ import java.util.Map;
  * contains the method used to create the GenerateSummaryOD output data.
  */
 public interface GenerateSummaryOB {
+
     /**
      * Creates a GenerateSummaryOD output data holding the remainder of money left in the budget and the statisticalData
      * pertaining to the current month.

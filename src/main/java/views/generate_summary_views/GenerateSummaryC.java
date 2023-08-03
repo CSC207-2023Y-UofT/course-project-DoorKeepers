@@ -6,12 +6,12 @@ import use_cases.generate_summary_use_case.GenerateSummaryIB;
 import use_cases.generate_summary_use_case.GenerateSummaryID;
 import use_cases.generate_summary_use_case.GenerateSummaryOD;
 
-
 /**
  * A class that creates the GenerateSummaryID input data and calls the GenerateSummaryUCI interactor's method to
  * generate the graphical summary.
  */
 public class GenerateSummaryC {
+
     final GenerateSummaryIB interactor;
 
     /**

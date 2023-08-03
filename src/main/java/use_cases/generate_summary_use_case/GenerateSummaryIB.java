@@ -7,6 +7,7 @@ import entities.EntityException;
  * contains the method used to generate a new graphical summary.
  */
 public interface GenerateSummaryIB {
+
     /**
      * Generates a graphical representation of the MonthlyStorage data associated with monthID in the currentSession.
      * @param inputData a GenerateSummaryID object holding the SessionStorage and monthID needed to retrieve data
