@@ -1,5 +1,6 @@
 package views.generate_summary_views;
 
+import entities.SessionStorage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,6 +13,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import use_cases.generate_summary_use_case.GenerateSummaryOD;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -28,53 +30,48 @@ import java.util.Map;
  */
 public class GenerateSummaryV extends JFrame {
 
-    private final JFrame screen;
-    private double remainder;
-    private Map<String, ArrayList<Double>> statisticalData;
-
     /**
-     * Creates a new GenerateSummaryV, containing an empty screen.
+     * Creates a new GenerateSummaryV, containing an empty screen and calls the controller to retrieve the formatted
+     * data. Then, it generates a graphical representation of the formatted data associated with the current month and
+     * displays them to the user. If an EntityException is caught, it will display an error to the user.
+     * @param controller a GenerateSummaryC controller that will generate the formatted data needed to generate
+     * the graphs
+     * @param session a SessionStorage object that contains the data of the current session
+     * @param monthID an int corresponding to the current MonthlyStorage month
      */
-    public GenerateSummaryV(){
-        screen = new JFrame("Graphical Summary");
+    public GenerateSummaryV(GenerateSummaryC controller, SessionStorage session, int monthID){
+        JFrame screen = new JFrame("Graphical Summary");
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        try {
+            GenerateSummaryOD outputData = controller.generate(session, monthID);
+            double remainder = outputData.getRemainder();
+            Map<String, ArrayList<Double>> statisticalData = outputData.getStatisticalData();
+
+            JPanel graphs = new JPanel();
+            graphs.setLayout(new BoxLayout(graphs, BoxLayout.X_AXIS));
+            screen.add(graphs);
+            graphs.add(generateBarGraph(statisticalData));
+            graphs.add(generatePieChart(remainder, statisticalData));
+        } catch (Exception e) {
+            JPanel errorMessage = new JPanel();
+            errorMessage.setLayout(new BoxLayout(errorMessage, BoxLayout.X_AXIS));
+            errorMessage.add(new JLabel("An error has occurred. Please reload the program."));
+            screen.add(errorMessage);
+        }
+        screen.pack();
+        screen.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         screen.setSize(800, 400);
-    }
-
-    /**
-     * Generates a graphical representation of the formatted data associated with the current month and displays them to
-     * the user
-     * @param remainder a double representing the money that the user has not spent in their budget
-     * @param statisticalData a map containing String names of Category objects as the keys and doubles representing
-     *                        money spent and budget as the values
-     */
-    public void displayGraphs(double remainder, Map<String, ArrayList<Double>> statisticalData){
-        this.remainder = remainder;
-        this.statisticalData = statisticalData;
-
-        JPanel graphs = new JPanel();
-        graphs.setLayout(new BoxLayout(graphs, BoxLayout.X_AXIS));
-        screen.add(graphs);
-        graphs.add(generateBarGraph());
-        graphs.add(generatePieChart());
-        screen.setVisible(true);
-    }
-
-    /**
-     * Displays an error message to the user.
-     * @param message an error message
-     */
-    public void displayErrorMessage(String message){
-        JOptionPane.showMessageDialog(screen, message);
         screen.setVisible(true);
     }
 
     /**
      * Generates the Bar Graph.
+     * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a JPanel object holding the Bar Graph
      */
-    private JPanel generateBarGraph() {
-        CategoryDataset barGraphDataset = createBarGraphDataset();
+    private JPanel generateBarGraph(Map<String, ArrayList<Double>> statisticalData) {
+        CategoryDataset barGraphDataset = createBarGraphDataset(statisticalData);
         JFreeChart barGraph = ChartFactory.createStackedBarChart("Monthly Expenses", "Category",
                 "Value", barGraphDataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot categoryPlot = barGraph.getCategoryPlot();
@@ -85,14 +82,16 @@ public class GenerateSummaryV extends JFrame {
 
     /**
      * Generates the Pie Chart.
+     * @param remainder a double corresponding to the money unspent in this month
+     * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a JPanel object holding the Pie Chart
      */
-    private JPanel generatePieChart() {
-        PieDataset<String> pieChartDataset = createPieChartDataset();
+    private JPanel generatePieChart(double remainder, Map<String, ArrayList<Double>> statisticalData) {
+        PieDataset<String> pieChartDataset = createPieChartDataset(remainder, statisticalData);
         JFreeChart pieChart = ChartFactory.createPieChart("Monthly Expenses", pieChartDataset, true,
                 true, false);
         Title subtitle;
-        if (this.remainder >= 0){
+        if (remainder >= 0){
             subtitle = new TextTitle("You are within budget.");
         } else {
             subtitle = new TextTitle("You are over budget.");
@@ -103,28 +102,31 @@ public class GenerateSummaryV extends JFrame {
 
     /**
      * Generates the dataset used to plot the Bar Graph.
+     * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a CategoryDataset object holding the data
      */
-    private CategoryDataset createBarGraphDataset() {
+    private CategoryDataset createBarGraphDataset(Map<String, ArrayList<Double>> statisticalData) {
         DefaultCategoryDataset barGraphDataset = new DefaultCategoryDataset();
-        for (String c: this.statisticalData.keySet()){
-            barGraphDataset.addValue(this.statisticalData.get(c).get(0), "Spent", c);
-            barGraphDataset.addValue(this.statisticalData.get(c).get(1), "Budget", c);
+        for (String c: statisticalData.keySet()){
+            barGraphDataset.addValue(statisticalData.get(c).get(0), "Spent", c);
+            barGraphDataset.addValue(statisticalData.get(c).get(1), "Budget", c);
         }
         return barGraphDataset;
     }
 
     /**
      * Generates the dataset used to plot the Pie Chart.
+     * @param remainder a double corresponding to the money unspent in this month
+     * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a PieDataset object holding the data
      */
-    private PieDataset<String> createPieChartDataset() {
+    private PieDataset<String> createPieChartDataset(double remainder, Map<String, ArrayList<Double>> statisticalData) {
         DefaultPieDataset<String> pieChartDataset = new DefaultPieDataset<>();
-        for (String c: this.statisticalData.keySet()){
-            pieChartDataset.setValue(c, this.statisticalData.get(c).get(0));
+        for (String c: statisticalData.keySet()){
+            pieChartDataset.setValue(c, statisticalData.get(c).get(0));
         }
-        if (this.remainder >= 0) {
-            pieChartDataset.setValue("Unspent", this.remainder);
+        if (remainder >= 0) {
+            pieChartDataset.setValue("Unspent", remainder);
         }
         return pieChartDataset;
     }

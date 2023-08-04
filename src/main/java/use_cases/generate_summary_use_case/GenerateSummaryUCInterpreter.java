@@ -13,9 +13,6 @@ import java.util.Map;
  */
 public class GenerateSummaryUCInterpreter {
 
-    private final MonthlyStorage monthlyStorage;
-    private final ArrayList<Category> categories;
-    private final ArrayList<Expense> expenses;
     private final Map<String, ArrayList<Double>> statisticalData;
     private final double remainder;
 
@@ -24,14 +21,10 @@ public class GenerateSummaryUCInterpreter {
      * @param monthlyStorage the MonthlyStorage object that the data will be generated for
      */
     public GenerateSummaryUCInterpreter(MonthlyStorage monthlyStorage) {
-        this.monthlyStorage = monthlyStorage;
-        this.categories = monthlyStorage.getCategoryData();
-        this.expenses = monthlyStorage.getExpenseData();
+        Map<Category, ArrayList<Expense>> mappedExpenses = sortExpenses(monthlyStorage);
 
-        Map<Category, ArrayList<Expense>> mappedExpenses = sortExpenses();
-
-        this.statisticalData = getStatisticalData(mappedExpenses);
-        this.remainder = getRemainder(mappedExpenses);
+        this.statisticalData = generateStatisticalData(monthlyStorage, mappedExpenses);
+        this.remainder = generateRemainder(monthlyStorage, mappedExpenses);
     }
 
     /**
@@ -53,15 +46,16 @@ public class GenerateSummaryUCInterpreter {
     /**
      * Generates a map that has Category objects as keys and a list of Expense objects associated with that Category as
      * values.
+     * @param monthlyStorage a MonthlyStorage object for the current month
      * @return a Map holding sorted month data
      */
-    private Map<Category, ArrayList<Expense>> sortExpenses(){
+    private Map<Category, ArrayList<Expense>> sortExpenses(MonthlyStorage monthlyStorage){
         Map<Category, ArrayList<Expense>> mappedExpenses = new HashMap<>();
 
-        for (Category c: this.categories){
+        for (Category c: monthlyStorage.getCategoryData()){
             mappedExpenses.put(c, new ArrayList<>());
         }
-        for (Expense e: this.expenses){
+        for (Expense e: monthlyStorage.getExpenseData()){
             mappedExpenses.get(e.getCategory()).add(e);
         }
         return mappedExpenses;
@@ -70,11 +64,15 @@ public class GenerateSummaryUCInterpreter {
     /**
      * Generates a map containing String names of Category objects as the keys and doubles representing money spent
      * and budget as the values.
+     * @param monthlyStorage a MonthlyStorage object for the current month
+     * @param mappedExpenses a Map that has Category objects as keys and a list of Expense objects associated with that
+     *                       Category as values
      * @return a Map holding data used to make the graphs
      */
-    private Map<String, ArrayList<Double>> getStatisticalData(Map<Category, ArrayList<Expense>> mappedExpenses){
+    private Map<String, ArrayList<Double>> generateStatisticalData(MonthlyStorage monthlyStorage, Map<Category,
+            ArrayList<Expense>> mappedExpenses){
         Map<String, ArrayList<Double>> statisticalData = new HashMap<>();
-        for (Category c: this.categories) {
+        for (Category c: monthlyStorage.getCategoryData()) {
             statisticalData.put(c.getName(), new ArrayList<>());
             double expenseSum = 0;
             for (Expense e: mappedExpenses.get(c)){
@@ -88,11 +86,14 @@ public class GenerateSummaryUCInterpreter {
 
     /**
      * Generates a double representing the money that the user has not spent in their budget.
+     * @param monthlyStorage a MonthlyStorage object for the current month
+     * @param mappedExpenses a Map that has Category objects as keys and a list of Expense objects associated with that
+     * Category as values
      * @return the remainder of this MonthlyStorage
      */
-    private double getRemainder(Map<Category, ArrayList<Expense>> mappedExpenses){
+    private double generateRemainder(MonthlyStorage monthlyStorage, Map<Category, ArrayList<Expense>> mappedExpenses){
         double remainder = monthlyStorage.getMonthlyBudget();
-        for (Expense e: expenses){
+        for (Expense e: monthlyStorage.getExpenseData()){
             mappedExpenses.get(e.getCategory()).add(e);
             remainder -= e.getValue();
         }

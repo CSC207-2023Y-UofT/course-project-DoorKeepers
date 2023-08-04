@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * A class that holds the output data for use by the GenerateSummaryP. This includes a remainder, the statistical data
- * used to generate graphs, as well as the bar graph and pie chart panels that will be generated after the object is
- * passed to the GenerateSummaryP.
+ * A class that holds the output data for use by the GenerateSummaryV. This includes a remainder and the statistical
+ * data used to generate graphs.
  */
 public class GenerateSummaryOD {
 
