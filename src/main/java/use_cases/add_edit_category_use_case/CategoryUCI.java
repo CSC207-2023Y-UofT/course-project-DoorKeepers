@@ -33,6 +33,7 @@ public class CategoryUCI implements CategoryIB {
     private double toDouble(Object value) throws NumberFormatException, NullPointerException{
             return Double.parseDouble(String.valueOf(value));
     }
+
     /**
      * Overrides method in CategoryIB.
      * Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
