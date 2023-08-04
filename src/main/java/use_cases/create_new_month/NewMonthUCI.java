@@ -53,6 +53,7 @@ public class NewMonthUCI implements NewMonthIB {
             session.addMonth(newMonth);
             return outputBoundary.createOutput(new NewMonthOD(true));
         } catch (EntityException e){
+            // Should not occur as recurData will not have expenses of the same name
             return outputBoundary.createOutput(new NewMonthOD(
                     "Something went wrong, please try again.",false));
         }

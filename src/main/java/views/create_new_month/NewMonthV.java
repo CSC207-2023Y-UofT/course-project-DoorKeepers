@@ -26,7 +26,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
     SessionStorage session;
     JFrame frame = new JFrame("Creat a new Month");
     JTextField year = new JTextField(9);
-    JComboBox<String> month = new JComboBox<>(new String[]{"January", "February", "March", "April",
+    JComboBox<String> month = new JComboBox<>(new String[]{"","January", "February", "March", "April",
             "May", "June", "July", "August", "September", "October", "November", "December"});
     JTextField budget = new JTextField(9);
     JButton submitButton = new JButton("Submit");
@@ -95,7 +95,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
             }
         } else if (evt.getSource()==month) {
             // Get integer representation of selected Month
-            this.selectedMonth = month.getSelectedIndex()+1;
+            this.selectedMonth = month.getSelectedIndex();
         }
     }
 
@@ -109,17 +109,20 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
             int monthID = (yearInt * 100) + selectedMonth;
             double budgetValue = Double.parseDouble(budget.getText());
 
-            // Check budget is greater than 0
-            if (budgetValue <= 0){
+            if (yearInt < 1900 || yearInt > 2100){
+                JOptionPane.showMessageDialog(frame, "Input a valid year.");
+            } else if (selectedMonth == 0) {
+                JOptionPane.showMessageDialog(frame,"Please select a Month.");
+            } else if (budgetValue <= 0){
                 JOptionPane.showMessageDialog(frame, "Budget must be more than 0.");
-            }
-
-            // Create new MonthlyStorage and get output
-            NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
-            if (output.isSuccessful()){
-                loadMonthMenu(session,monthID,"Month created successfully.");
             } else {
-                JOptionPane.showMessageDialog(frame, output.getWarning());
+                // Create new MonthlyStorage and get output
+                NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
+                if (output.isSuccessful()){
+                    loadMonthMenu(session,monthID,"Month created successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(frame, output.getWarning());
+                }
             }
         } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(frame,"Please input valid numbers.");
