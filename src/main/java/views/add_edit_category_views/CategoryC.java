@@ -7,12 +7,13 @@ import use_cases.add_edit_category_use_case.CategoryID;
 import use_cases.add_edit_category_use_case.CategoryOD;
 
 /**
- * CategoryC connects the user interface and the programme.
+ * CategoryC passes in user input information in the form of CategoryID.
+ * The CategoryIB calls methods in CategoryUCI to perform the use cases.
  * Returns a CategoryOD Object for classes AddCategoryV() and EditCategoryV().
  */
 public class CategoryC {
     /**
-     * Category_Controller passes in user input and produces a Category_Output_Data Object according to a use case.
+     * CategoryC passes in user input and produces a Category_Output_Data Object according to a use case.
      */
     final CategoryIB input;
 

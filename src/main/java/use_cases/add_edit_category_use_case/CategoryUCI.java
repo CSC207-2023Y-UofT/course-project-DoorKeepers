@@ -11,7 +11,6 @@ import java.util.Objects;
 /**
  * The CategoryUCI adds/creates new category, edits an existing category, and updates MonthlyStorage.categoryData.
  * Implements CategoryIB.
- * Contains a helper method isValidDouble() and findCategory().
  * Creates CategoryOD objects related to specific use case fail/success conditions.
  */
 
@@ -31,16 +30,13 @@ public class CategoryUCI implements CategoryIB {
      * @param value a user input
      * @return double converted from value
      */
-    public static double toDouble(Object value) throws NumberFormatException, NullPointerException{
+    private double toDouble(Object value) throws NumberFormatException, NullPointerException{
             return Double.parseDouble(String.valueOf(value));
     }
     /**
      * Overrides method in CategoryIB.
      * Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
-     * Provides detailed fail messages according to each condition listed below:
-     *  1. NumberFormatException: User tries to add a new budget value that can not be converted to a double.
-     *  2. Category budget less than 0: User tries to add a new budget value that is a negative number.
-     *  3. EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
+     * Provides detailed fail messages according to each condition below. (Explained in comments.)
      * NOTE: There are actually two different EntityException thrown.
      * One is from the SessionStorage Object when checking if monthID is in session.
      *  (Although we know MonthlyStorage with monthID is always in the SessionStorage, it will be caught at views/add_edit_category_views/AddCategoryV.java).
@@ -58,7 +54,7 @@ public class CategoryUCI implements CategoryIB {
             Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);
 
             if (newCategory.getBudget() < 0) {
-                // 2. Category budget less than 0 fail
+                // Category budget less than 0: User tries to add a new budget value that is a negative number.
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
                 return categoryOB.fail(categoryODFailAdd);
             }
@@ -68,12 +64,12 @@ public class CategoryUCI implements CategoryIB {
             return categoryOB.success(categoryODSuccessAdd);
 
         } catch(NumberFormatException|NullPointerException e){
-            //1. NumberFormatException/NullPointerException fail
+            //NumberFormatException: User tries to add a new budget value that can not be converted to a double.
             CategoryOD categoryODFailAdd = new CategoryOD("Category budget is needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailAdd);
 
         } catch (EntityException e) {
-            //3. EntityException fail
+            //EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
             CategoryOD categoryODFailAdd = new CategoryOD("There is already a category with this new name in this month.");
             return categoryOB.fail(categoryODFailAdd);
         }
@@ -81,12 +77,7 @@ public class CategoryUCI implements CategoryIB {
     /**
      * Overrides method in CategoryIB.
      * Attempts to edit a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
-     * Provides detailed fail messages according to each condition listed below:
-     *  1. Repeated Name: User tries to edit category name to another name that exists in the month.
-     *  2. NoSuchElementException: User tries to edit a category that does not exist.
-     *  3. NumberFormatException: User tries to edit a budget value with input that can not be converted to a double.
-     *  4. Category budget less than 0: User tries to edit a budget value with input that is a negative number.
-     *
+     * Provides detailed fail messages according to each condition below. (Explained in comments.)
      * @param categoryIDEdit CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
      * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
@@ -99,7 +90,7 @@ public class CategoryUCI implements CategoryIB {
             ArrayList<Category> categoryList = month.getCategoryData();
             double valueDouble = toDouble(categoryIDEdit.getValue());
             if (valueDouble < 0) {
-                //4. Category budget less than 0 fail
+                //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
                 CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
                 return categoryOB.fail(categoryODFailEdit);
             }
@@ -111,7 +102,7 @@ public class CategoryUCI implements CategoryIB {
                     categoryList.remove(findCategory(categoryList,categoryIDEdit.getName()));
                 }
                 if (category1.getName().equals(categoryIDEdit.getName())) {
-                    //1. Repeated name fail
+                    //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
                     return categoryOB.fail(categoryODFailEdit);
                 }
@@ -125,11 +116,11 @@ public class CategoryUCI implements CategoryIB {
             return categoryOB.success(categoryODSuccessEdit);
 
         } catch (NoSuchElementException e) {
-            //2. NoSuchElementException fail
+            //NoSuchElementException: User tries to edit a category that does not exist.
             CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
             return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException e){
-            //3. NumberFormatException fail
+            //NumberFormatException: User tries to edit a budget value with input that can not be converted to a double.
             CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailEdit);
         }

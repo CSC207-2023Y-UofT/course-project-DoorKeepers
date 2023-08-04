@@ -27,11 +27,11 @@ public class EditCategoryV extends Component implements ActionListener{
      * @param currSession SessionStorage the current working session.
      */
     public EditCategoryV(CategoryC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
-        JLabel select_category_label = new JLabel(" Select existing category:");
+        JLabel selectCategoryLabel = new JLabel(" Select existing category:");
         this.categoryCombo = new JComboBox<>(existingCategory); // category list
-        JLabel name_label = new JLabel("New Category Name:");
+        JLabel nameLabel = new JLabel("New Category Name:");
         this.nameInput = new JTextField(15);
-        JLabel budget_label = new JLabel(" New Category Budget:");
+        JLabel budgetLabel = new JLabel(" New Category Budget:");
         this.budgetInput = new JTextField(15);
         JButton submit = new JButton("Submit");
         submit.setSize(30,10);
@@ -45,11 +45,11 @@ public class EditCategoryV extends Component implements ActionListener{
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
         panel.setLayout(new GridLayout(0,1));
 
-        panel.add(select_category_label);
+        panel.add(selectCategoryLabel);
         panel.add(categoryCombo);
-        panel.add(name_label, BorderLayout.WEST);
+        panel.add(nameLabel, BorderLayout.WEST);
         panel.add(nameInput, BorderLayout.CENTER);
-        panel.add(budget_label);
+        panel.add(budgetLabel);
         panel.add(budgetInput);
 
         frame.add(panel, BorderLayout.NORTH);

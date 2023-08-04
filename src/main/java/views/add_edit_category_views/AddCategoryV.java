@@ -22,7 +22,7 @@ public class AddCategoryV extends Component implements ActionListener {
     SessionStorage currSession;
     String oldCategory;
 
-    /**\
+    /**
      * Builds AddCategoryV.
      * @param controller CategoryC reacts to user input to return a CategoryOD.
      * @param monthID int representing the MonthlyStorage.
@@ -40,13 +40,13 @@ public class AddCategoryV extends Component implements ActionListener {
 
         JLabel nameLabel = new JLabel("Category Name:");
         this.nameInput = new JTextField(15);
-        JLabel value_label = new JLabel("Category Budget:");
+        JLabel valueLabel = new JLabel("Category Budget:");
         this.budgetInput = new JTextField(15);
         JButton submit = new JButton("Submit");
 
         panel.add(nameLabel, BorderLayout.WEST);
         panel.add(nameInput, BorderLayout.CENTER);
-        panel.add(value_label);
+        panel.add(valueLabel);
         panel.add(budgetInput);
         panel.add(submit);
 

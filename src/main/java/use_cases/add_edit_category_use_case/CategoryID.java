@@ -22,6 +22,7 @@ public class CategoryID {
      * @param monthID An int representing the month which the Category Object belongs to.
      * @param session The current session which the MonthlyStorage Object belongs to.
      * @param oldCategory An existing Category in the MonthlyStorage Object the user wish to edit.
+     *                    Otherwise, oldCategory is null when in an add Category use case. (implemented in AddCategoryV)
      */
     public CategoryID(String name, Object value, int monthID, SessionStorage session, String oldCategory) {
         this.name = name;
