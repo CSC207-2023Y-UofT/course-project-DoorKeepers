@@ -45,4 +45,19 @@ class SessionSaveUCITest {
         // Cleanup
         new File("UCISaveFileTest.ser").delete();
     }
+
+    /**
+     * Tests failure when saving a session into a file
+     */
+    @Test
+    void SessionSaveUCIFailSave() {
+        FileSessionStorage fileSessionStorage = new FileSessionStorage();
+        SessionSaveUCI uci = new SessionSaveUCI(fileSessionStorage, new MainMenuP());
+
+        // Test UCI throws IOException
+        String invalidFilename = "/";
+        SessionSaveID inputData = new SessionSaveID(sampleSession, invalidFilename);
+
+        Assertions.assertThrows(IOException.class, () -> uci.save(inputData));
+    }
 }

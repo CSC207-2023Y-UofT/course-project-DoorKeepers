@@ -77,4 +77,15 @@ class FileSessionStorageTest {
         // Cleanup
         new File("Hello world.txt").delete();
     }
+
+    /**
+     * Tests that the save method will throw an exception when an error occurs while saving to the file
+     */
+    @Test
+    public void FileSessionStorageSaveFail() {
+        FileSessionStorage fileSessionStorage = new FileSessionStorage();
+
+        // Try to save to an invalid filename
+        Assertions.assertThrows(IOException.class, () -> fileSessionStorage.save("/", sampleSession));
+    }
 }
