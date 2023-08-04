@@ -15,6 +15,11 @@ import java.io.IOException;
 public class MainMenuC {
     private final SessionSaveIB interactor;
 
+    /**
+     * Creates a new MainMenuC
+     *
+     * @param interactor an interactor that implements the SessionSaveIB interface
+     */
     public MainMenuC(SessionSaveIB interactor) {
         this.interactor = interactor;
     }

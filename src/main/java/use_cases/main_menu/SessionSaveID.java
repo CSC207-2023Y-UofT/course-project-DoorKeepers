@@ -11,6 +11,12 @@ public class SessionSaveID {
     private final SessionStorage session;
     private final String filename;
 
+    /**
+     * Creates a new SessionSaveID
+     *
+     * @param session a SessionStorage object to save to a file
+     * @param filename a String with the filename to save the session to
+     */
     public SessionSaveID(SessionStorage session, String filename) {
         this.session = session;
         this.filename = filename;

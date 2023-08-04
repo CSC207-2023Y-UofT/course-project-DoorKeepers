@@ -13,6 +13,12 @@ public class SessionSaveUCI implements SessionSaveIB {
     private final SessionStorageG storageGateway;
     private final SessionSaveOB presenter;
 
+    /**
+     * Creates a new SessionSaveUCI
+     *
+     * @param storageGateway a storage gateway that implements the SessionStorageG interface
+     * @param presenter a presenter that implements the SessionSaveOB interface
+     */
     public SessionSaveUCI(SessionStorageG storageGateway, SessionSaveOB presenter) {
         this.storageGateway = storageGateway;
         this.presenter = presenter;
