@@ -131,7 +131,7 @@ public class MonthMenuV implements ActionListener {
         // Allow frame to exit on close for both success and fail cases
         frame.pack();
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
 
