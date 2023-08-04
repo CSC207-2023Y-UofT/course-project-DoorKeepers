@@ -8,11 +8,11 @@ package use_cases.create_new_month;
  * and used in the Create New Month view.
  */
 public class NewMonthOD {
-    String warning;
-    boolean successful;
+    private String warning;
+    private final boolean successful;
 
     /**
-     * Constructs an MonthMenuOD holding output data.
+     * Constructs a MonthMenuOD holding output data.
      * @param successful boolean indicating whether create new MonthlyStorage was successful
      */
     public NewMonthOD(boolean successful) {
@@ -38,7 +38,9 @@ public class NewMonthOD {
     }
 
     /**
-     * @return true if access to Expense/Category list was successful
+     * Indicates if new MonthlyStorage is created and added to SessionStorage.
+     * If false, NewMonthOD also stores a warning message.
+     * @return true if new MonthlyStorage is created and added to SessionStorage
      */
     public boolean isSuccessful() {
         return successful;

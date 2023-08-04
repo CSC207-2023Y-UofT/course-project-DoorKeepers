@@ -65,14 +65,13 @@ class NewMonthUCITest {
 
     /**
      * Test case when new MonthlyStorage is not added to session because there were duplicate
-     * recurring expenses. This should not occur.
-     * @throws EntityException when @BeforeEach not run correctly
+     * recurring expenses. This should not occur if all use case in the program run correctly.
      */
     @Test
-    void createOutputRecurExpenseFail() throws EntityException {
+    void createOutputRecurExpenseFail() {
         NewMonthIB interactor = new NewMonthUCI(outputBoundary);
 
-        Category other = sessionStorage.getMonthlyData(monthID1).getCategoryData().get(0);
+        Category other = new Category("Other",0);
         Expense recurring = new Expense("Indigo", other, 30.00);
         sessionStorage.addRecurExpense(recurring);
         sessionStorage.addRecurExpense(recurring);
@@ -81,7 +80,7 @@ class NewMonthUCITest {
 
         NewMonthOD output = interactor.createOutput(inputData);
         assertFalse(output.isSuccessful());
-        assertEquals("Something went wrong, please try again.", output.getWarning());
+        assertEquals("An error has occurred. Please reload the program.", output.getWarning());
 
     }
 

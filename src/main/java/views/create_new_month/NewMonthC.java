@@ -12,7 +12,7 @@ import use_cases.create_new_month.NewMonthOD;
  * NewMonthOD object.
  */
 public class NewMonthC {
-    final NewMonthIB inputBoundary;
+    private final NewMonthIB inputBoundary;
 
     /**
      * Construct the controller class.

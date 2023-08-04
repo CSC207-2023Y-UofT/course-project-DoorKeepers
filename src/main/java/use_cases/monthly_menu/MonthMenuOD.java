@@ -65,6 +65,8 @@ public class MonthMenuOD {
     }
 
     /**
+     * Indicates if access to Expense/Category list was successful.
+     * If true, MonthMenuOD also stores ArrayList of Expense and Category.
      * @return true if access to Expense/Category list was successful
      */
     public boolean isSuccessful() {

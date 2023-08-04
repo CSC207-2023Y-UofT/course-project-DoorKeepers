@@ -119,7 +119,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
                 // Create new MonthlyStorage and get output
                 NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
                 if (output.isSuccessful()){
-                    loadMonthMenu(session,monthID,"Month created successfully.");
+                    loadMonthMenu(session,monthID);
                 } else {
                     JOptionPane.showMessageDialog(frame, output.getWarning());
                 }
@@ -133,10 +133,9 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
      * Load Month Menu and notify user.
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
-     * @param message notify user that Month Menu is updated
      */
     @Override
-    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+    public void loadMonthMenu(SessionStorage session, int monthID) {
         frame.setVisible(false);
 
         // Construct MonthMenuV
@@ -146,6 +145,6 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
         MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
 
         // Open Month Menu
-        monthMenu.openMonthMenu(message);
+        monthMenu.openMonthMenu();
     }
 }

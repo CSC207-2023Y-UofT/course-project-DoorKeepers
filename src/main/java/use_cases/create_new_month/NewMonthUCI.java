@@ -32,14 +32,9 @@ public class NewMonthUCI implements NewMonthIB {
         double budgetValue = input.getBudgetValue();
 
         // Check that no MonthlyStorage in this session has the same monthID
-        ArrayList<MonthlyStorage> allMonthArrayList = session.getAllMonthlyData();
-        MonthlyStorage[] allMonthArray = new MonthlyStorage[allMonthArrayList.size()];
-        allMonthArrayList.toArray(allMonthArray);
-        for (MonthlyStorage monthlyStorage : allMonthArray){
-            if (monthlyStorage.getMonthID()==monthID){
-                return outputBoundary.createOutput(new NewMonthOD(
-                        "This month already exist in this session.",false));
-            }
+        if (checkMonthInSession(session, monthID)){
+            return outputBoundary.createOutput(new NewMonthOD(
+                    "This month already exist in this session.",false));
         }
 
         // Create new MonthlyStorage, retrieve recurring expenses, and add MonthlyStorage to session
@@ -55,7 +50,20 @@ public class NewMonthUCI implements NewMonthIB {
         } catch (EntityException e){
             // Should not occur as recurData will not have expenses of the same name
             return outputBoundary.createOutput(new NewMonthOD(
-                    "Something went wrong, please try again.",false));
+                    "An error has occurred. Please reload the program.",false));
         }
+    }
+
+    private static boolean checkMonthInSession(SessionStorage session, int monthID){
+        ArrayList<MonthlyStorage> allMonthArrayList = session.getAllMonthlyData();
+        MonthlyStorage[] allMonthArray = new MonthlyStorage[allMonthArrayList.size()];
+        allMonthArrayList.toArray(allMonthArray);
+
+        for (MonthlyStorage monthlyStorage : allMonthArray){
+            if (monthlyStorage.getMonthID()==monthID){
+                return true;
+            }
+        }
+        return false;
     }
 }

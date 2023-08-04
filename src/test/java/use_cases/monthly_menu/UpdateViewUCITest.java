@@ -90,6 +90,6 @@ class UpdateViewUCITest {
             UpdateViewID inputData = new UpdateViewID(sessionStorage, 202207);
 
             MonthMenuOD actualOutput = interactor.createOutput(inputData);
-            Assertions.assertEquals("Something went wrong, please try again.",actualOutput.getWarning());
+            Assertions.assertEquals("An error has occurred. Please reload the program.",actualOutput.getWarning());
     }
 }

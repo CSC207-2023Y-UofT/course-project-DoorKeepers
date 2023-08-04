@@ -13,7 +13,7 @@ public class NewMonthID {
     private final double budgetValue;
 
     /**
-     * Constructs an NewMonthID holding input data.
+     * Constructs a NewMonthID holding input data.
      * @param session the SessionStorage to store the new MonthlyStorage
      * @param monthID the monthID of the new MonthlyStorage
      * @param budgetValue the budget for the new MonthlyStorage

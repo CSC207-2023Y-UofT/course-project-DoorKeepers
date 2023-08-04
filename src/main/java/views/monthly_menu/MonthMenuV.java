@@ -203,10 +203,8 @@ public class MonthMenuV implements ActionListener {
 
     /**
      * Open Month Menu and notify user.
-     * @param message notify user that Month Menu is updated
      */
-    public void openMonthMenu(String message) {
+    public void openMonthMenu() {
         frame.setVisible(true);
-        JOptionPane.showMessageDialog(frame, message);
     }
 }
