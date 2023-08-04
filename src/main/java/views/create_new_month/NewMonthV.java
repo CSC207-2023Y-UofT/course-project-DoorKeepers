@@ -5,6 +5,7 @@ import use_cases.create_new_month.NewMonthOD;
 import use_cases.monthly_menu.MonthMenuOB;
 import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
+import views.load_monthly_menu.LoadMonthMenuVB;
 import views.monthly_menu.MonthMenuP;
 import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
@@ -15,7 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class NewMonthV implements ActionListener, LoadNewMonthVB{
+/**
+ * The view class for creating new MonthlyStorage. This class implements the
+ * ActionListener interface. This class calls the controller class to get the
+ * NewMonthOD object, and use the output to set up success and fail view.
+ */
+public class NewMonthV implements ActionListener, LoadMonthMenuVB {
     NewMonthC controller;
     SessionStorage session;
     JFrame frame = new JFrame("Creat a new Month");
@@ -27,11 +33,18 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
     int selectedMonth = 0;
 
 
+    /**
+     * Set up the window for user input. User is required to input the year,
+     * select the month, and input the budget for the month.
+     * Code inspired from <a href="https://youtu.be/Kmgo00avvEw">here</a>.
+     * @param controller the controller class to get output data
+     * @param session the SessionStorage to store the new MonthlyStorage
+     */
     public NewMonthV (NewMonthC controller, SessionStorage session){
         this.controller = controller;
         this.session = session;
 
-        // Add action listener
+        // Add action listener to drop down and button
         month.addActionListener(this);
         submitButton.addActionListener(this);
 
@@ -65,28 +78,46 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
         frame.setVisible(true);
     }
 
+    /**
+     * React to drop down selection and button click that result in ActionEvent.
+     * Code inspired from <a href="https://youtu.be/Kmgo00avvEw">here</a>.
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource()==submitButton){
+            // Check that user has inputted
             if (Objects.equals(year.getText(), "")||Objects.equals(budget.getText(), "")){
                 JOptionPane.showMessageDialog(frame,"Please fill in text fields.");
             } else {
+                //call helper method when there is input
                 getOutput();
             }
         } else if (evt.getSource()==month) {
+            // Get integer representation of selected Month
             this.selectedMonth = month.getSelectedIndex()+1;
         }
     }
 
+    /**
+     * Helper method to all controller method when user input is valid.
+     */
     private void getOutput(){
         try {
+            // Change user input to required number types
             int yearInt = Integer.parseInt(year.getText());
             int monthID = (yearInt * 100) + selectedMonth;
             double budgetValue = Double.parseDouble(budget.getText());
 
+            // Check budget is greater than 0
+            if (budgetValue <= 0){
+                JOptionPane.showMessageDialog(frame, "Budget must be more than 0.");
+            }
+
+            // Create new MonthlyStorage and get output
             NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
             if (output.isSuccessful()){
-                loadMonthMenu(monthID,"Month created successfully.");
+                loadMonthMenu(session,monthID,"Month created successfully.");
             } else {
                 JOptionPane.showMessageDialog(frame, output.getWarning());
             }
@@ -96,16 +127,22 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
     }
 
     /**
-     * Open Month Menu and notify user.
+     * Load Month Menu and notify user.
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
      * @param message notify user that Month Menu is updated
      */
     @Override
-    public void loadMonthMenu(int monthID, String message) {
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
         frame.setVisible(false);
+
+        // Construct MonthMenuV
         MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
         UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
         UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
         MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
+
+        // Open Month Menu
         monthMenu.openMonthMenu(message);
     }
 }

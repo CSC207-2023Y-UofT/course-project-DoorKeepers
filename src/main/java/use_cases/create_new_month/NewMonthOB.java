@@ -8,7 +8,7 @@ package use_cases.create_new_month;
 public interface NewMonthOB {
 
     /**
-     * Pass and returns MonthMenuOD containing output data.
+     * Pass in and returns MonthMenuOD containing output data.
      * @param output output to be used in NewMonthV to open MonthMenuV
      * @return NewMonthOD object that contains output data
      */

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * ActionListener interface. This class calls the controller class to get the
  * MonthMenuOD object, and use the output to set up success and fail view.
  */
-public class MonthMenuV implements ActionListener, UpdateViewVB {
+public class MonthMenuV implements ActionListener {
     views.monthly_menu.UpdateViewC controller;
     SessionStorage session;
     int monthID;
@@ -205,7 +205,6 @@ public class MonthMenuV implements ActionListener, UpdateViewVB {
      * Open Month Menu and notify user.
      * @param message notify user that Month Menu is updated
      */
-    @Override
     public void openMonthMenu(String message) {
         frame.setVisible(true);
         JOptionPane.showMessageDialog(frame, message);
