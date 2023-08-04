@@ -82,7 +82,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
     }
 
     /**
-     * Makes the main menu visible which displays the session data passed and displays a message in a popup
+     * Makes the main menu visible which displays the session data, and opens a popup with the message
      *
      * @param message a message to display in a popup after opening the menu
      * @param session the session data to display, or null if displaying a message is not needed

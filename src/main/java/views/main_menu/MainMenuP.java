@@ -10,10 +10,10 @@ import use_cases.main_menu.SessionSaveOD;
  */
 public class MainMenuP implements SessionSaveOB {
     /**
-     * Returns a SessionSaveOD signifying success which contains a success message to display
+     * Returns a SessionSaveOD containing a success message
      *
      * @param sessionSavedSuccessfully the output data to be returned
-     * @return a SessionSaveOD object with the output data to be used by the View
+     * @return the SessionSaveOD object passed in
      */
     @Override
     public SessionSaveOD displaySuccess(SessionSaveOD sessionSavedSuccessfully) {

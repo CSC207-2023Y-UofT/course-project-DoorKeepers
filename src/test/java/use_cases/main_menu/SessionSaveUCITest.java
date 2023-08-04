@@ -24,7 +24,10 @@ class SessionSaveUCITest {
     }
 
     /**
-     * Tests saving a session into a file correctly
+     * Tests the save method with valid inputs and no IOExceptions
+     *
+     * @throws IOException shouldn't throw since we are saving and loading to valid files
+     * @throws ClassNotFoundException shouldn't throw since we are only loading the file we just created
      */
     @Test
     void SessionSaveUCISave() throws IOException, ClassNotFoundException {
@@ -47,7 +50,7 @@ class SessionSaveUCITest {
     }
 
     /**
-     * Tests failure when saving a session into a file
+     * Tests the save method with an invalid filename that will cause an IOException to throw
      */
     @Test
     void SessionSaveUCIFailSave() {
