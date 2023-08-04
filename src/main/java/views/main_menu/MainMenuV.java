@@ -117,7 +117,16 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
             UpdateViewC monthMenuController = new UpdateViewC(new UpdateViewUCI(new MonthMenuP()));
             new MonthMenuV(monthMenuController, this.session, this.selectedMonthID);
         } else if (e.getSource() == this.createMonthButton) {
-            // TODO: connect to month creation controller
+            // TODO: connect to month creation
+            /* I imagine it looking something like this:
+             *
+             * MonthFactoryC monthFactoryController = new MonthFactoryC(...);
+             * new NewMonthV(monthFactoryController, this.session, this);
+             *
+             * not sure about the other parameters, but it should take 'this' so that
+             * inside NewMonthV it can call the openMainMenu method to update this view
+             */
+            throw new UnsupportedOperationException("Not yet implemented");
         } else if (e.getSource() == this.saveButton) {
             // Implementation of file chooser inspired from
             // https://www.geeksforgeeks.org/java-swing-jfilechooser/
