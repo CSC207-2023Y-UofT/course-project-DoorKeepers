@@ -8,7 +8,7 @@ import use_cases.add_edit_category_use_case.CategoryOD;
 
 /**
  * CategoryC connects the user interface and the programme.
- * Returns a CategoryOD Object wh
+ * Returns a CategoryOD Object for classes AddCategoryV() and EditCategoryV().
  */
 public class CategoryC {
     /**
@@ -18,10 +18,10 @@ public class CategoryC {
 
     /**
      * Constructs CategoryC with a CategoryIB.
-     * @param CategoryIB a CategoryIB.
+     * @param categoryIB a CategoryIB.
      */
-    public CategoryC(CategoryIB CategoryIB){
-        this.input = CategoryIB;
+    public CategoryC(CategoryIB categoryIB){
+        this.input = categoryIB;
     }
 
     /**

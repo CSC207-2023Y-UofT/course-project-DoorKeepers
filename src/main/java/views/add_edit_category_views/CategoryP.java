@@ -5,8 +5,7 @@ import use_cases.add_edit_category_use_case.CategoryOD;
 
 /**
  * CategoryP notifies success/fail to add or edit category, implements CategoryOB.
- * Returns CategoryOD when execution is successful.
- * Returns String error message when failed.
+ * Returns CategoryOD when use case is finished.
  */
 public class CategoryP implements CategoryOB {
     /**

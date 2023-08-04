@@ -1,7 +1,8 @@
 package use_cases.add_edit_category_use_case;
 
 /**
- * An interface CategoryOB containing methods implemented in CategoryP.
+ * An interface CategoryOB passes CategoryOD created in success or fail attempts.
+ * Implemented in CategoryP.
  */
 public interface CategoryOB {
     /**

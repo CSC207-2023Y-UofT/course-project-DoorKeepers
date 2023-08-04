@@ -10,6 +10,7 @@ import java.util.Objects;
 
 /**
  * The CategoryUCI adds/creates new category, edits an existing category, and updates MonthlyStorage.categoryData.
+ * Implements CategoryIB.
  * Contains a helper method isValidDouble() and findCategory().
  * Creates CategoryOD objects related to specific use case fail/success conditions.
  */
@@ -40,13 +41,17 @@ public class CategoryUCI implements CategoryIB {
      *  1. NumberFormatException: User tries to add a new budget value that can not be converted to a double.
      *  2. Category budget less than 0: User tries to add a new budget value that is a negative number.
      *  3. EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
+     * NOTE: There are actually two different EntityException thrown.
+     * One is from the SessionStorage Object when checking if monthID is in session.
+     *  (Although we know MonthlyStorage with monthID is always in the SessionStorage, it will be caught at views/add_edit_category_views/AddCategoryV.java).
+     * The second one is from the creation of a Category Object implementing addCategory() from MonthlyStorage, and is caught in the current implementation!
      *
      * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
      * @throws EntityException thrown when categoryIDAdd has invalid category information.
      */
     @Override
-    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd) throws EntityException {
+    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
         MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
         try{
             double valueDouble = toDouble(categoryIDAdd.getValue());
@@ -84,12 +89,14 @@ public class CategoryUCI implements CategoryIB {
      *
      * @param categoryIDEdit CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
+     * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
+     *                          it will be caught at views/add_edit_category_views/EditCategoryV.java).
      */
     @Override
-    public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException {
+    public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
         MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
-        ArrayList<Category> categoryList = month.getCategoryData();
         try {
+            ArrayList<Category> categoryList = month.getCategoryData();
             double valueDouble = toDouble(categoryIDEdit.getValue());
             if (valueDouble < 0) {
                 //4. Category budget less than 0 fail

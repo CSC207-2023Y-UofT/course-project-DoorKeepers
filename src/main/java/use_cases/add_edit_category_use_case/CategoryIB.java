@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * CategoryIB passes in user input of category information in the form of CategoryID.
+ * Implemented by CategoryUCI.
  */
 public interface CategoryIB {
     /**

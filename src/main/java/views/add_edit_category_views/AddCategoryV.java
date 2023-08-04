@@ -21,37 +21,36 @@ public class AddCategoryV extends Component implements ActionListener {
     int monthID;
     SessionStorage currSession;
     String oldCategory;
-    public AddCategoryV(CategoryC controller,int monthID, SessionStorage currSession) {
-        /*
-          Builds AddCategoryV.
-         */
+
+    /**\
+     * Builds AddCategoryV.
+     * @param controller CategoryC reacts to user input to return a CategoryOD.
+     * @param monthID int representing the MonthlyStorage.
+     * @param currSession SessionStorage the current working session.
+     */
+    public AddCategoryV(CategoryC controller, int monthID, SessionStorage currSession) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setTitle("Add New Category");
+        frame.setSize(300, 500);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
+        panel.setLayout(new GridLayout(0, 1));
+
         JLabel nameLabel = new JLabel("Category Name:");
         this.nameInput = new JTextField(15);
         JLabel value_label = new JLabel("Category Budget:");
         this.budgetInput = new JTextField(15);
         JButton submit = new JButton("Submit");
-        submit.setSize(30,10);
 
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panel.setLayout(new GridLayout(0,1));
-        JPanel panell = new JPanel();
-        panell.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panell.setLayout(new GridLayout(0,1));
-
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Add New Category");
-        frame.setSize(300,500);
         panel.add(nameLabel, BorderLayout.WEST);
         panel.add(nameInput, BorderLayout.CENTER);
         panel.add(value_label);
         panel.add(budgetInput);
         panel.add(submit);
-        frame.add(panell, BorderLayout.SOUTH);
-        panell.add(submit);
 
+        frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
 
@@ -62,21 +61,38 @@ public class AddCategoryV extends Component implements ActionListener {
 
         submit.addActionListener(this);
     }
+
+    /**
+     * Tries an Add Category use case.
+     * Pop-up window with context specific message may be shown to user.
+     */
+    private void tryUseCaseAdd(){
+        CategoryOD message;
+        message = null;
+        try {
+            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, oldCategory);
+        } catch (EntityException e) {
+            JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
+        }
+        if (message != null) {
+            JOptionPane.showMessageDialog(this, message.getMessage());
+        }
+    }
+
+    /**
+     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        /*
-          Formats user input to pass in valid parameters for a CategtoryC to start a use case.
-          Pop-up window with context specific message may be shown to user.
-         */
-        CategoryOD message = null;
-        try {
-            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput), monthID, currSession, oldCategory);
-        } catch (EntityException e) {
-            JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
+        // Check if user inputs a category name.
+        if (nameInput.getText().isEmpty()) {
+            JOptionPane.showMessageDialog( this, "Please enter a category name.");
         }
-        if(message != null){
-        JOptionPane.showMessageDialog( this, message.getMessage());}
-
+        // Check if user inputs a category budget.
+        if (budgetInput.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter a category budget.");
+        }
+        tryUseCaseAdd();
     }
 
 }
