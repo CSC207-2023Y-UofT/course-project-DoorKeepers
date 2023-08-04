@@ -31,6 +31,18 @@ public class NewMonthUCI implements NewMonthIB {
         int monthID = input.getMonthID();
         double budgetValue = input.getBudgetValue();
 
+        // Check that no MonthlyStorage in this session has the same monthID
+        ArrayList<MonthlyStorage> allMonthArrayList = session.getAllMonthlyData();
+        MonthlyStorage[] allMonthArray = new MonthlyStorage[allMonthArrayList.size()];
+        allMonthArrayList.toArray(allMonthArray);
+        for (MonthlyStorage monthlyStorage : allMonthArray){
+            if (monthlyStorage.getMonthID()==monthID){
+                return outputBoundary.createOutput(new NewMonthOD(
+                        "This month already exist in this session.",false));
+            }
+        }
+
+        // Create new MonthlyStorage, retrieve recurring expenses, and add MonthlyStorage to session
         try {
             ArrayList<Expense> recurData= session.getRecurData();
             MonthlyStorage newMonth = new MonthlyStorage(monthID, budgetValue);
@@ -38,7 +50,6 @@ public class NewMonthUCI implements NewMonthIB {
             for (Expense expense : recurData){
                 newMonth.addExpense(new Expense(expense.getName(),other, expense.getValue()));
             }
-            //TODO: make sure new month has different ID from already stored months
             session.addMonth(newMonth);
             return outputBoundary.createOutput(new NewMonthOD(true));
         } catch (EntityException e){
