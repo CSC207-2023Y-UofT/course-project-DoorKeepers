@@ -19,7 +19,6 @@ public class EditCategoryV extends Component implements ActionListener{
     String selectedCategory;
     int monthID;
     SessionStorage currSession;
-
     /**
      * Builds EditCategoryV for user entries.
      * @param controller CategoryC reacts to user input to return a CategoryOD.
