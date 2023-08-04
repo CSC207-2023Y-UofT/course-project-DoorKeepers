@@ -36,7 +36,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
 
         JLabel title = new JLabel("Main Menu");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(title);
+        title.setFont(new Font(null, Font.PLAIN, 20));
 
         this.selectMonthComboBox = new JComboBox<>();
         this.selectMonthButton = new JButton("Open month");
@@ -58,11 +58,24 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
         monthSelection.setLayout(new BoxLayout(monthSelection, BoxLayout.X_AXIS));
         monthSelection.add(this.selectMonthComboBox);
         monthSelection.add(this.selectMonthButton);
-        monthSelection.setMaximumSize(new Dimension(300, 30));
+        monthSelection.setMaximumSize(new Dimension(300, 25));
 
+        monthSelection.setAlignmentX(Component.CENTER_ALIGNMENT);
+        monthSelection.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.saveButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.createMonthButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.createMonthButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        this.add(new JPanel());
+        this.add(title);
+        this.add(new JPanel());
         this.add(monthSelection);
+        this.add(new JPanel());
         this.add(this.createMonthButton);
+        this.add(new JPanel());
         this.add(this.saveButton);
+        this.add(new JPanel());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setVisible(false);
