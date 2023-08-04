@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class NewMonthV implements ActionListener, LoadNewMonthVB{
     NewMonthC controller;
@@ -60,16 +61,28 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
         layout.setBorder(BorderFactory.createEmptyBorder(50, 60, 50, 60));
         frame.setContentPane(layout);
         frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource()==submitButton){
+            if (Objects.equals(year.getText(), "")||Objects.equals(budget.getText(), "")){
+                JOptionPane.showMessageDialog(frame,"Please fill in text fields.");
+            } else {
+                getOutput();
+            }
+        } else if (evt.getSource()==month) {
+            this.selectedMonth = month.getSelectedIndex()+1;
+        }
+    }
+
+    private void getOutput(){
+        try {
             int yearInt = Integer.parseInt(year.getText());
             int monthID = (yearInt * 100) + selectedMonth;
-            int budgetValue = Integer.parseInt(budget.getText());
+            double budgetValue = Double.parseDouble(budget.getText());
 
             NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
             if (output.isSuccessful()){
@@ -77,8 +90,8 @@ public class NewMonthV implements ActionListener, LoadNewMonthVB{
             } else {
                 JOptionPane.showMessageDialog(frame, output.getWarning());
             }
-        } else if (evt.getSource()==month) {
-            this.selectedMonth = month.getSelectedIndex()+1;
+        } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(frame,"Please input valid numbers.");
         }
     }
 

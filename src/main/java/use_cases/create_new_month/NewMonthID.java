@@ -10,7 +10,7 @@ import entities.SessionStorage;
 public class NewMonthID {
     private final SessionStorage session;
     private final int monthID;
-    private final int budgetValue;
+    private final double budgetValue;
 
     /**
      * Constructs an NewMonthID holding input data.
@@ -18,7 +18,7 @@ public class NewMonthID {
      * @param monthID the monthID of the new MonthlyStorage
      * @param budgetValue the budget for the new MonthlyStorage
      */
-    public NewMonthID(SessionStorage session, int monthID, int budgetValue) {
+    public NewMonthID(SessionStorage session, int monthID, double budgetValue) {
         this.session = session;
         this.monthID = monthID;
         this.budgetValue = budgetValue;
@@ -42,9 +42,10 @@ public class NewMonthID {
 
     /**
      * Gets the budget value stored.
+     *
      * @return double type budget for new MonthlyStorage to be created in interactor
      */
-    public int getBudgetValue() {
+    public double getBudgetValue() {
         return budgetValue;
     }
 }

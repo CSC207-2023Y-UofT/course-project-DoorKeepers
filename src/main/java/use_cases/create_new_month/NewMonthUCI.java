@@ -29,7 +29,7 @@ public class NewMonthUCI implements NewMonthIB {
     public NewMonthOD createOutput(NewMonthID input) {
         SessionStorage session = input.getSession();
         int monthID = input.getMonthID();
-        int budgetValue = input.getBudgetValue();
+        double budgetValue = input.getBudgetValue();
 
         try {
             ArrayList<Expense> recurData= session.getRecurData();

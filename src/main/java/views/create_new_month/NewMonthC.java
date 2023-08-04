@@ -22,7 +22,7 @@ public class NewMonthC {
      * @param budgetValue
      * @return
      */
-    NewMonthOD getOutput(SessionStorage session, int monthID, int budgetValue) {
+    NewMonthOD getOutput(SessionStorage session, int monthID, double budgetValue) {
         NewMonthID inputData = new NewMonthID(session, monthID, budgetValue);
         return inputBoundary.createOutput(inputData);
     }
