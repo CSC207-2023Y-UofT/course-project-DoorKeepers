@@ -72,7 +72,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
      * Makes the main menu visible which displays the session data passed and displays a message in a popup
      *
      * @param message a message to display in a popup after opening the menu
-     * @param session the session data to display
+     * @param session the session data to display, or null if displaying a message is not needed
      */
     @Override
     public void openMainMenu(String message, SessionStorage session) {
@@ -96,8 +96,9 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
         this.selectMonthButton.setEnabled(!monthIDs.isEmpty());
 
         this.setVisible(true);
-        JOptionPane.showMessageDialog(this, message);
-        System.out.println(session);
+        if (message != null) {
+            JOptionPane.showMessageDialog(this, message);
+        }
     }
 
     /**
