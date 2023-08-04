@@ -8,8 +8,8 @@ import entities.SessionStorage;
  */
 public class GenerateSummaryID {
 
-    SessionStorage currentSession;
-    int monthID;
+    private final SessionStorage currentSession;
+    private final int monthID;
 
     /**
      * Creates a new instance of GenerateSummaryID.

@@ -1,5 +1,6 @@
 package views.generate_summary_views;
 
+import entities.EntityException;
 import entities.SessionStorage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -41,7 +42,6 @@ public class GenerateSummaryV extends JFrame {
      */
     public GenerateSummaryV(GenerateSummaryC controller, SessionStorage session, int monthID){
         JFrame screen = new JFrame("Graphical Summary");
-        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
             GenerateSummaryOD outputData = controller.generate(session, monthID);
@@ -53,7 +53,7 @@ public class GenerateSummaryV extends JFrame {
             screen.add(graphs);
             graphs.add(generateBarGraph(statisticalData));
             graphs.add(generatePieChart(remainder, statisticalData));
-        } catch (Exception e) {
+        } catch (EntityException e) {
             JPanel errorMessage = new JPanel();
             errorMessage.setLayout(new BoxLayout(errorMessage, BoxLayout.X_AXIS));
             errorMessage.add(new JLabel("An error has occurred. Please reload the program."));
