@@ -101,6 +101,7 @@ class ExpenseUCITest {
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
         assertEquals(0, session.getMonthlyData(4).getExpenseData().size());
     }
+
     /**
      * Tests fail add case when user tries to add a new Expense name that exists in the recurringData.
      */

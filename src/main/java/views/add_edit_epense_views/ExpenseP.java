@@ -2,7 +2,6 @@ package views.add_edit_epense_views;
 
 import use_case.add_edit_expenses_use_case.ExpenseOB;
 import use_case.add_edit_expenses_use_case.ExpenseOD;
-
 public class ExpenseP implements ExpenseOB {
     /**
      * Returns a ExpenseOD notifying success.

@@ -6,6 +6,7 @@ package use_case.add_edit_expenses_use_case;
 public class ExpenseOD {
     String message;
 
+
     public ExpenseOD(String message) {
             this.message = message;}
     public String getMessage() {

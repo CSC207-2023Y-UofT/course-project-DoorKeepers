@@ -210,6 +210,7 @@ public class ExpenseUCI implements ExpenseIB {
             throw new NoSuchElementException();
         }
 
+
     /**
      * Identifying the only two cases when Session.recurringExpenseData needs to updated when attempting to edit Expense.
      * (The user changes their response for the isRecurringExpense checkbox)

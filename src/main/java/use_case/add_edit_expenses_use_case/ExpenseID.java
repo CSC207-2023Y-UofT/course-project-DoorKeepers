@@ -34,6 +34,7 @@ public class ExpenseID {
         this.session = session;
         this.oldExpense = oldExpense;
     }
+
     public String getName(){return name;}
     public Object getValue(){return value;}
     public void setValue(double value){this.value = value;}
