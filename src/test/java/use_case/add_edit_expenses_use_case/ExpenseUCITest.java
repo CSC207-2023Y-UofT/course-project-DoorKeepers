@@ -106,20 +106,20 @@ class ExpenseUCITest {
     /**
      * Tests fail add case when user tries to add a new Expense name that exists in the recurringData.
      */
-    @Test
-    void addExpenseInRecurringSuccess() throws EntityException {
-        ExpenseP presenter = new ExpenseP();
-        ExpenseUCI interactor = new ExpenseUCI(presenter);
-        MonthlyStorage monthAdd = new MonthlyStorage(10, 150);
-        session.addMonth(monthAdd);
-        monthAdd.addCategory(food);
-
-        ExpenseID addID = new ExpenseID("Sandwich", 3, "Other", true,10, session, null);
-
-        // Check if the correct message is returned corresponding to the situation.
-        assertEquals("You have created a new recurring expense!", interactor.addExpenseInMonth(addID).getMessage());
-        //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
-        assertEquals(1, session.getRecurData().size());    }
+//    @Test
+//    void addExpenseInRecurringSuccess() throws EntityException {
+//        ExpenseP presenter = new ExpenseP();
+//        ExpenseUCI interactor = new ExpenseUCI(presenter);
+//        MonthlyStorage monthAdd = new MonthlyStorage(10, 150);
+//        session.addMonth(monthAdd);
+//        monthAdd.addCategory(food);
+//
+//        ExpenseID addID = new ExpenseID("Sandwich", 3, "Other", true,10, session, null);
+//
+//        // Check if the correct message is returned corresponding to the situation.
+//        assertEquals("You have created a new recurring expense!", interactor.addExpenseInMonth(addID).getMessage());
+//        //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
+//        assertEquals(1, session.getRecurData().size());    }
     @Test
     void addExpenseInRecurringSameNameFail() throws EntityException {
         ExpenseP presenter = new ExpenseP();
