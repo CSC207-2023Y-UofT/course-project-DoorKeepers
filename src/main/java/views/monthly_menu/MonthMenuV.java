@@ -19,6 +19,7 @@ public class MonthMenuV implements ActionListener {
     views.monthly_menu.UpdateViewC controller;
     SessionStorage session;
     int monthID;
+    JFrame frame = new JFrame("Monthly Menu");
     JButton addExpense;
     JButton editExpense;
     JButton addCategory;
@@ -43,8 +44,6 @@ public class MonthMenuV implements ActionListener {
         this.controller = controller;
         this.session = session;
         this.monthID = monthID;
-        //Set the frame
-        JFrame frame = new JFrame("Monthly Menu");
 
         if (controller.getOutput(session, monthID).isSuccessful()){
             JPanel layout = new JPanel(new BorderLayout(20, 20));
@@ -130,7 +129,7 @@ public class MonthMenuV implements ActionListener {
 
         // Allow frame to exit on close for both success and fail cases
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
@@ -199,6 +198,17 @@ public class MonthMenuV implements ActionListener {
             // call edit category
         } else if (event.getSource()==generateSummary) {
             // call generateSummary
+        }
+    }
+    //TODO: public classes before private classes
+    /**
+     * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
+     */
+    public void openMonthMenu(String message) {
+        frame.setVisible(true);
+        //TODO: move constructor code to a private method that can be called from here
+        if (message!=null){
+            JOptionPane.showMessageDialog(frame,message);
         }
     }
 }

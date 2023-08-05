@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class UpdateViewUCI implements UpdateViewIB{
     final MonthMenuOB outputBoundary;
 
+    /**
+     * Construct a UpdateViewUCI.
+     * @param outputBoundary MonthMenuOB related to using output
+     */
     public UpdateViewUCI(MonthMenuOB outputBoundary){
         this.outputBoundary = outputBoundary;
     }
@@ -36,7 +40,7 @@ public class UpdateViewUCI implements UpdateViewIB{
         }
         catch(EntityException e){ //set String warning as output if EntityException is caught
             return outputBoundary.createOutput(new MonthMenuOD(
-                    "Something went wrong, please try again.",false));
+                    "An error has occurred. Please reload the program.",false));
         }
     }
 }
