@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * class calls this class to get the MonthMenuOD object.
  */
 public class UpdateViewUCI implements UpdateViewIB{
-    final MonthMenuOB outputBoundary;
+    private final MonthMenuOB outputBoundary;
 
     /**
      * Construct a UpdateViewUCI.

@@ -30,17 +30,29 @@ import java.util.Map;
  * <a href="https://www.tutorialspoint.com/jfreechart/jfreechart_pie_chart.htm">this website.</a>
  */
 public class GenerateSummaryV extends JFrame {
+    private final GenerateSummaryC controller;
+    private final SessionStorage session;
+    private final int monthID;
 
     /**
-     * Creates a new GenerateSummaryV view, containing an empty screen and calls the controller to retrieve the
-     * formatted data. Then, it generates a graphical representation of the formatted data associated with the current
-     * month and displays them to the user. If an EntityException is caught, it will display an error to the user.
+     * Construct the view class and call private method to set up GUI.
      * @param controller a GenerateSummaryC controller that will generate the formatted data needed to generate
      * the graphs
      * @param session a SessionStorage object that contains the data of the current session
      * @param monthID an int corresponding to the current MonthlyStorage month
      */
     public GenerateSummaryV(GenerateSummaryC controller, SessionStorage session, int monthID){
+        this.controller = controller;
+        this.session = session;
+        this.monthID = monthID;
+    }
+
+    /**
+     * Creates a new GenerateSummaryV view, containing an empty screen and calls the controller to retrieve the
+     * formatted data. Then, it generates a graphical representation of the formatted data associated with the current
+     * month and displays them to the user. If an EntityException is caught, it will display an error to the user.
+     */
+    public void openSummaryView(){
         JFrame screen = new JFrame("Graphical Summary");
 
         try {
