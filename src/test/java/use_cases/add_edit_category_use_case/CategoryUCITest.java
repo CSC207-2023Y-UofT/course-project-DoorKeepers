@@ -100,7 +100,7 @@ class CategoryUCITest {
         interactor.addCategoryInMonth(addIDInvalidDouble);
 
         // Check if the correct message is returned corresponding to the situation.
-        assertEquals("Category budget is needs to be a number. Please try again!", interactor.addCategoryInMonth(addIDInvalidDouble).getMessage());
+        assertEquals("Category budget needs to be a number. Please try again!", interactor.addCategoryInMonth(addIDInvalidDouble).getMessage());
         //Expected value is 1 because there is one default Category "Others" upon creation of each MonthlyStorage and one failed entry.
         assertEquals(1, session.getMonthlyData(3).getCategoryData().size());
     }
