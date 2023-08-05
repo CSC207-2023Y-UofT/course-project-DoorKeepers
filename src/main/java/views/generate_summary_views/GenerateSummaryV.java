@@ -30,6 +30,9 @@ import java.util.Map;
  * <a href="https://www.tutorialspoint.com/jfreechart/jfreechart_pie_chart.htm">this website.</a>
  */
 public class GenerateSummaryV extends JFrame {
+    private final GenerateSummaryC controller;
+    private final SessionStorage session;
+    private final int monthID;
 
     /**
      * Creates a new GenerateSummaryV view, containing an empty screen and calls the controller to retrieve the
@@ -41,6 +44,12 @@ public class GenerateSummaryV extends JFrame {
      * @param monthID an int corresponding to the current MonthlyStorage month
      */
     public GenerateSummaryV(GenerateSummaryC controller, SessionStorage session, int monthID){
+        this.controller = controller;
+        this.session = session;
+        this.monthID = monthID;
+    }
+
+    public void openSummaryView(){
         JFrame screen = new JFrame("Graphical Summary");
 
         try {

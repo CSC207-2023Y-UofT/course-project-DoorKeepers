@@ -3,6 +3,12 @@ package views.monthly_menu;
 import entities.Category;
 import entities.Expense;
 import entities.SessionStorage;
+import use_cases.generate_summary_use_case.GenerateSummaryIB;
+import use_cases.generate_summary_use_case.GenerateSummaryOB;
+import use_cases.generate_summary_use_case.GenerateSummaryUCI;
+import views.generate_summary_views.GenerateSummaryC;
+import views.generate_summary_views.GenerateSummaryP;
+import views.generate_summary_views.GenerateSummaryV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,7 +67,12 @@ public class MonthMenuV implements ActionListener {
         } else if (event.getSource()==editCategory) {
             // call edit category
         } else if (event.getSource()==generateSummary) {
-            // call generateSummary
+            // Construct GenerateSummaryV and show view
+            GenerateSummaryOB genSumPresenter = new GenerateSummaryP();
+            GenerateSummaryIB genSumInteractor = new GenerateSummaryUCI(genSumPresenter);
+            GenerateSummaryC genSumController = new GenerateSummaryC(genSumInteractor);
+            GenerateSummaryV genSumView = new GenerateSummaryV(genSumController, session, monthID);
+            genSumView.openSummaryView();
         }
     }
 
