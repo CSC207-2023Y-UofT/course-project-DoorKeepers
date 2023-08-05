@@ -180,11 +180,10 @@ public class ExpenseUCI implements ExpenseIB {
     }
 
     /**
-     *
      * @param ExpenseData An ArrayList of expenses.
      * @param name Expense name.
-     * @return
-     * @throws NoSuchElementException
+     * //@return
+     * //@throws NoSuchElementException
      */
 
         public Expense findExpense(ArrayList<Expense> ExpenseData, String name)throws NoSuchElementException{
