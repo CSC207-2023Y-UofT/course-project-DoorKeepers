@@ -22,15 +22,15 @@ import java.util.Objects;
  * NewMonthOD object, and use the output to set up success and fail view.
  */
 public class NewMonthV implements ActionListener, LoadMonthMenuVB {
-    NewMonthC controller;
-    SessionStorage session;
-    JFrame frame = new JFrame("Creat a new Month");
-    JTextField year = new JTextField(9);
-    JComboBox<String> month = new JComboBox<>(new String[]{"","January", "February", "March", "April",
+    private final NewMonthC controller;
+    private final SessionStorage session;
+    private final JFrame frame = new JFrame("Creat a new Month");
+    private final JTextField year = new JTextField(9);
+    private final JComboBox<String> month = new JComboBox<>(new String[]{"","January", "February", "March", "April",
             "May", "June", "July", "August", "September", "October", "November", "December"});
-    JTextField budget = new JTextField(9);
-    JButton submitButton = new JButton("Submit");
-    int selectedMonth = 0;
+    private final JTextField budget = new JTextField(9);
+    private final JButton submitButton = new JButton("Submit");
+    private int selectedMonth = 0;
 
 
     /**

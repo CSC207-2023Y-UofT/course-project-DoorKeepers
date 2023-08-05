@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * class calls this class to get the NewMonthOD object.
  */
 public class NewMonthUCI implements NewMonthIB {
-    final NewMonthOB outputBoundary;
+    private final NewMonthOB outputBoundary;
 
     /**
      * Construct a NewMonthUCI.
