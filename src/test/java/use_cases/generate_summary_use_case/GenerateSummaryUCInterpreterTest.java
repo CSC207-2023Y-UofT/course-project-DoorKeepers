@@ -59,9 +59,9 @@ class GenerateSummaryUCInterpreterTest {
         Map<String, ArrayList<Double>> statisticalData = interpreter.getStatisticalData();
 
         Assertions.assertEquals(70, statisticalData.get(category1.getName()).get(0));
-        Assertions.assertEquals(100, statisticalData.get(category1.getName()).get(1));
+        Assertions.assertEquals(30, statisticalData.get(category1.getName()).get(1));
         Assertions.assertEquals(90, statisticalData.get(category2.getName()).get(0));
-        Assertions.assertEquals(70, statisticalData.get(category2.getName()).get(1));
+        Assertions.assertEquals(0, statisticalData.get(category2.getName()).get(1));
         Assertions.assertEquals(20, statisticalData.get("Other").get(0));
         Assertions.assertEquals(0, statisticalData.get("Other").get(1));
 
@@ -78,9 +78,9 @@ class GenerateSummaryUCInterpreterTest {
         Map<String, ArrayList<Double>> statisticalData = interpreter.getStatisticalData();
 
         Assertions.assertEquals(70, statisticalData.get(category1.getName()).get(0));
-        Assertions.assertEquals(100, statisticalData.get(category1.getName()).get(1));
+        Assertions.assertEquals(30, statisticalData.get(category1.getName()).get(1));
         Assertions.assertEquals(90, statisticalData.get(category2.getName()).get(0));
-        Assertions.assertEquals(70, statisticalData.get(category2.getName()).get(1));
+        Assertions.assertEquals(0, statisticalData.get(category2.getName()).get(1));
         Assertions.assertEquals(0, statisticalData.get("Other").get(0));
         Assertions.assertEquals(0, statisticalData.get("Other").get(1));
 

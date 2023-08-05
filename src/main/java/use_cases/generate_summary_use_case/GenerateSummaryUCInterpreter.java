@@ -67,7 +67,9 @@ public class GenerateSummaryUCInterpreter {
      * @param monthlyStorage a MonthlyStorage object for the current month
      * @param mappedExpenses a Map that has Category objects as keys and a list of Expense objects associated with that
      *                       Category as values
-     * @return a Map holding data used to make the graphs
+     * @return a Map holding data used to make the graphs. The key values are Stings representing Category names, and
+     * the values are lists with the first double as the money spent in the Category and the second as the remainder of
+     * money left in the budget of that Category.
      */
     private Map<String, ArrayList<Double>> generateStatisticalData(MonthlyStorage monthlyStorage, Map<Category,
             ArrayList<Expense>> mappedExpenses){
@@ -79,7 +81,12 @@ public class GenerateSummaryUCInterpreter {
                 expenseSum += e.getValue();
             }
             statisticalData.get(c.getName()).add(expenseSum);
-            statisticalData.get(c.getName()).add(c.getBudget());
+            // Check to see if remainder is greater than 0. If it is, add the remainder, if not add 0.0.
+            if (c.getBudget() - expenseSum > 0){
+                statisticalData.get(c.getName()).add(c.getBudget() - expenseSum);
+            } else {
+                statisticalData.get(c.getName()).add(0.0);
+            }
         }
         return statisticalData;
     }
