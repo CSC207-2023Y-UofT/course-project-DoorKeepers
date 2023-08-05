@@ -112,7 +112,6 @@ class CategoryUCITest {
         CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(7, 150);
         session.addMonth(monthEdit);
-
         CategoryID addID = new CategoryID("Salad", 12, 7, session, null);
         interactor.addCategoryInMonth(addID);
 
