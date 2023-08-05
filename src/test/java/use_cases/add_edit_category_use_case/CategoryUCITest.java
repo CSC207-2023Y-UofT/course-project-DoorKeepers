@@ -41,7 +41,8 @@ class CategoryUCITest {
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have added a new category!", interactor.addCategoryInMonth(addID1).getMessage());
         //Expected value is 2 because there is one default Category "Others" upon creation of each MonthlyStorage and one successful entry.
-        assertEquals(2, session.getMonthlyData(6).getCategoryData().size());
+        assertEquals(addID1.getName(), session.getMonthlyData(6).getCategoryData().get(1).getName();
+        assertEquals(addID1.getValue(), session.getMonthlyData(6).getCategoryData().get(1).getValue();
     }
 
     /**
