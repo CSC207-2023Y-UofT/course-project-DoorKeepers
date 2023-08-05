@@ -31,8 +31,9 @@ public class CategoryC {
      * @param value user input Object category budget
      * @param monthID int representing current month
      * @param session SessionStorage current session
-     * @param oldCategory Category existing category selected by user
-     * @return Category_OD for success edit
+     * @param oldCategory Category existing category selected by user in edit use case;
+     *                    assigned null in add use case(implementation in AddCategoryV).
+     * @return CategoryOD for success edit
      * @throws EntityException thrown when edit category attempt fails.
      */
     public CategoryOD categoryInMonth(String name, Object value, int monthID, SessionStorage session, String oldCategory) throws EntityException {

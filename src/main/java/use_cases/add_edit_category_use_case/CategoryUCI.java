@@ -99,9 +99,6 @@ public class CategoryUCI implements CategoryIB {
             Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
 
             for (Category category1 : categoryList) {
-                if (Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
-                    categoryList.remove(findCategory(categoryList,categoryIDEdit.getName()));
-                }
                 if (category1.getName().equals(categoryIDEdit.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
@@ -132,6 +129,7 @@ public class CategoryUCI implements CategoryIB {
      * @param monthCategoryData An ArrayList of categories.
      * @param name Category name.
      * @return Category with given String name.
+     * @throws NoSuchElementException thrown when Category with String name doesn't exist in monthCategoryData.
      */
     @Override
     public Category findCategory(ArrayList<Category> monthCategoryData, String name)throws NoSuchElementException{
