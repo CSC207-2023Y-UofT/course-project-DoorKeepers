@@ -196,7 +196,6 @@ public class ExpenseUCI implements ExpenseIB {
         }
 
     /**
-     *
      * @param monthCategoryData An ArrayList of categories.
      * @param name Category name.
      * @return
