@@ -28,7 +28,6 @@ class CategoryUCITest {
 
     /**
     Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
-    Adding two known-to-fail inputs and two successful inputs.
     */
     @Test
     void addCategoryInMonthSuccess() throws EntityException {

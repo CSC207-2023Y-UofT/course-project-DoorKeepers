@@ -91,8 +91,7 @@ public class AddCategoryV extends Component implements ActionListener {
         // Check if user inputs a category budget.
         if (budgetInput.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Please enter a category budget.");
-        }
-        tryUseCaseAdd();
+        }else{tryUseCaseAdd();}
     }
 
 }
