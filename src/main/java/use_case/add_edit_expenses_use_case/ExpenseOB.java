@@ -1,5 +1,6 @@
 package use_case.add_edit_expenses_use_case;
 
+
 /**
  * An interface ExpenseOB containing methods implemented in ExpenseP.
  */

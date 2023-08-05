@@ -73,6 +73,7 @@ public class EditExpenseV extends Component implements ActionListener {
         this.monthID = monthID;
         this.currSession = currSession;
     }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
         /*

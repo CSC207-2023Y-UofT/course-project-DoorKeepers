@@ -2,10 +2,10 @@ package use_case.add_edit_expenses_use_case;
 
 import entities.EntityException;
 
-
 /**
  * ExpenseIB passes in user input of expense information in the form of ExpenseID.
  */
+
 public interface ExpenseIB {
     /**
      * Returns String success message in the form of a ExpenseOD object when an expense is successfully added,
