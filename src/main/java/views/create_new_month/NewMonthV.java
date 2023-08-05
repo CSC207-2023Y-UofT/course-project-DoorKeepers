@@ -101,6 +101,26 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
     }
 
     /**
+     * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     * @param message notify user when new MonthlyStorage is created, otherwise null
+     */
+    @Override
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+        frame.setVisible(false);
+
+        // Construct MonthMenuV
+        MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
+        UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
+        UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
+        MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
+
+        // Open Month Menu
+        monthMenu.openMonthMenu(message);
+    }
+
+    /**
      * Helper method to all controller method when user input is valid.
      */
     private void getOutput(){
@@ -120,7 +140,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
                 // Create new MonthlyStorage and get output
                 NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
                 if (output.isSuccessful()){
-                    loadMonthMenu(session,monthID);
+                    loadMonthMenu(session,monthID,"Month created successfully.");
                 } else {
                     JOptionPane.showMessageDialog(frame, output.getWarning());
                 }
@@ -128,24 +148,5 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
         } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(frame,"Please input valid numbers.");
         }
-    }
-
-    /**
-     * Load Month Menu and notify user.
-     * @param session the SessionStorage holding the required MonthlyStorage
-     * @param monthID the monthID of the required MonthlyStorage
-     */
-    @Override
-    public void loadMonthMenu(SessionStorage session, int monthID) {
-        frame.setVisible(false);
-
-        // Construct MonthMenuV
-        MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
-        UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
-        UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
-        MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
-
-        // Open Month Menu
-        monthMenu.openMonthMenu();
     }
 }

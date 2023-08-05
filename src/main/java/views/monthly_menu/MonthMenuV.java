@@ -200,11 +200,15 @@ public class MonthMenuV implements ActionListener {
             // call generateSummary
         }
     }
-
+    //TODO: public classes before private classes
     /**
-     * Open Month Menu and notify user.
+     * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
      */
-    public void openMonthMenu() {
+    public void openMonthMenu(String message) {
         frame.setVisible(true);
+        //TODO: move constructor code to a private method that can be called from here
+        if (message!=null){
+            JOptionPane.showMessageDialog(frame,message);
+        }
     }
 }
