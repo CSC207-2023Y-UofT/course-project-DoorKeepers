@@ -67,12 +67,16 @@ public class MonthMenuV implements ActionListener {
 
     /**
      * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
+     * @param message notify user if a new MonthlyStorage is created, else null
+     * @param loadMonthSaved true if method is called from MainMenuV to load saved MonthlyStorage
      */
-    public void openMonthMenu(String message) {
-        if (message!=null){
+    public void openMonthMenu(String message, boolean loadMonthSaved) {
+        if (message!=null){ // if opening Month Menu for a newly create MonthlyStorage
             frame.setVisible(true);
             JOptionPane.showMessageDialog(frame,message);
-        } else {
+        } else if (loadMonthSaved) { // if opening Month Menu for a saved MonthlyStorage
+            frame.setVisible(true);
+        } else { // if updating Month Menu after adding/editing Expense/Category
             createMonthMenuView();
             frame.setVisible(true);
         }
