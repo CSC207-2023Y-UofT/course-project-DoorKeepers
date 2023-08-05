@@ -93,7 +93,6 @@ class CategoryUCITest {
         CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(3, 150);
         session.addMonth(monthAdd);
-
         CategoryID addIDInvalidDouble = new CategoryID("Salad", "a", 3, session, null);
 
         // Check if the correct message is returned corresponding to the situation.
