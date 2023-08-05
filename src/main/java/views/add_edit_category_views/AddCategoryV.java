@@ -3,6 +3,8 @@ package views.add_edit_category_views;
 import entities.EntityException;
 import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.CategoryOD;
+import views.load_monthly_menu.LoadMonthMenuVB;
+import views.monthly_menu.MonthMenuV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,8 @@ import java.awt.event.ActionListener;
  * Creates a new controller that produces a CategoryOD object.
  */
 
-public class AddCategoryV extends Component implements ActionListener {
+public class AddCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+    private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JTextField nameInput;
     private final JTextField budgetInput;
@@ -23,12 +26,26 @@ public class AddCategoryV extends Component implements ActionListener {
     private final String oldCategory;
 
     /**
-     * Builds AddCategoryV.
+     * Builds AddCategoryV for user entries.
+     * @param monthMenu MonthMenuV that need to be updated when a new Category is created
      * @param controller CategoryC reacts to user input to return a CategoryOD.
      * @param monthID int representing the MonthlyStorage.
      * @param currSession SessionStorage the current working session.
      */
-    public AddCategoryV(CategoryC controller, int monthID, SessionStorage currSession) {
+    public AddCategoryV(MonthMenuV monthMenu, CategoryC controller, int monthID, SessionStorage currSession) {
+        this.monthMenu = monthMenu;
+        this.controller = controller;
+        this.monthID = monthID;
+        this.currSession = currSession;
+        this.oldCategory = null;
+        this.nameInput = new JTextField(15);
+        this.budgetInput = new JTextField(15);
+    }
+
+    /**
+     * Open add category GUI.
+     */
+    public void openAddCategory(){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Category");
@@ -39,10 +56,10 @@ public class AddCategoryV extends Component implements ActionListener {
         panel.setLayout(new GridLayout(0, 1));
 
         JLabel nameLabel = new JLabel("Category Name:");
-        this.nameInput = new JTextField(15);
         JLabel valueLabel = new JLabel("Category Budget:");
-        this.budgetInput = new JTextField(15);
         JButton submit = new JButton("Submit");
+
+        submit.addActionListener(this);
 
         panel.add(nameLabel, BorderLayout.WEST);
         panel.add(nameInput, BorderLayout.CENTER);
@@ -53,30 +70,6 @@ public class AddCategoryV extends Component implements ActionListener {
         frame.add(panel, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
-
-        this.controller = controller;
-        this.monthID = monthID;
-        this.currSession = currSession;
-        this.oldCategory = null;
-
-        submit.addActionListener(this);
-    }
-
-    /**
-     * Tries an Add Category use case.
-     * Pop-up window with context specific message may be shown to user.
-     */
-    private void tryUseCaseAdd(){
-        CategoryOD message;
-        message = null;
-        try {
-            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, oldCategory);
-        } catch (EntityException e) {
-            JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-        }
-        if (message != null) {
-            JOptionPane.showMessageDialog(this, message.getMessage());
-        }
     }
 
     /**
@@ -91,7 +84,40 @@ public class AddCategoryV extends Component implements ActionListener {
         // Check if user inputs a category budget.
         if (budgetInput.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Please enter a category budget.");
-        }else{tryUseCaseAdd();}
+        } else {
+            tryUseCaseAdd();
+        }
     }
 
+    /**
+     * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+     *
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     * @param message notify user when new MonthlyStorage is created, otherwise null
+     */
+    @Override
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+        monthMenu.openMonthMenu(message,false);
+    }
+
+    /**
+     * Tries an Add Category use case.
+     * Pop-up window with context specific message may be shown to user.
+     */
+    private void tryUseCaseAdd(){
+        CategoryOD message;
+        message = null;
+        try {
+            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()),
+                    monthID, currSession, oldCategory);
+            loadMonthMenu(currSession,monthID,null);
+        } catch (EntityException e) {
+            JOptionPane.showMessageDialog(this,
+                    "This month does not exist in current session. Please go to add month page.");
+        }
+        if (message != null) {
+            JOptionPane.showMessageDialog(this, message.getMessage());
+        }
+    }
 }

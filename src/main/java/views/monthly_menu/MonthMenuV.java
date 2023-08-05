@@ -3,9 +3,16 @@ package views.monthly_menu;
 import entities.Category;
 import entities.Expense;
 import entities.SessionStorage;
+import use_cases.add_edit_category_use_case.CategoryIB;
+import use_cases.add_edit_category_use_case.CategoryOB;
+import use_cases.add_edit_category_use_case.CategoryUCI;
 import use_cases.generate_summary_use_case.GenerateSummaryIB;
 import use_cases.generate_summary_use_case.GenerateSummaryOB;
 import use_cases.generate_summary_use_case.GenerateSummaryUCI;
+import views.add_edit_category_views.AddCategoryV;
+import views.add_edit_category_views.CategoryC;
+import views.add_edit_category_views.CategoryP;
+import views.add_edit_category_views.EditCategoryV;
 import views.generate_summary_views.GenerateSummaryC;
 import views.generate_summary_views.GenerateSummaryP;
 import views.generate_summary_views.GenerateSummaryV;
@@ -63,9 +70,22 @@ public class MonthMenuV implements ActionListener {
         } else if (event.getSource()==editExpense) {
             // call edit expense
         } else if (event.getSource()==addCategory) {
-            // call add category
+            // Construct AddCategoryV and show GUI
+            CategoryOB categoryPresenter = new CategoryP();
+            CategoryIB categoryInteractor = new CategoryUCI(categoryPresenter);
+            CategoryC categoryController = new CategoryC(categoryInteractor);
+            AddCategoryV addCategoryView = new AddCategoryV(this,categoryController, monthID,session);
+            addCategoryView.openAddCategory();
         } else if (event.getSource()==editCategory) {
-            // call edit category
+            // Get list of category names
+            String[] categoryNames = getCategoryNames();
+            // Construct EditCategoryV and show GUI
+            CategoryOB categoryPresenter = new CategoryP();
+            CategoryIB categoryInteractor = new CategoryUCI(categoryPresenter);
+            CategoryC categoryController = new CategoryC(categoryInteractor);
+            EditCategoryV editCategoryView = new EditCategoryV(this,categoryController,categoryNames,
+                    monthID,session);
+            editCategoryView.openEditCategory();
         } else if (event.getSource()==generateSummary) {
             // Construct GenerateSummaryV and show view
             GenerateSummaryOB genSumPresenter = new GenerateSummaryP();
@@ -234,5 +254,17 @@ public class MonthMenuV implements ActionListener {
             categoryList[i][1] = category.getBudget();
         }
         return new JTable(categoryList, categoryTableTitle);
+    }
+
+    private String[] getCategoryNames(){
+        ArrayList<Category> categories = controller.getOutput(session, monthID).getCategoryData();
+        Category[] categoriesArray = new Category[categories.size()];
+        categories.toArray(categoriesArray);
+        String[] categoryNames = new String[categoriesArray.length];
+        for (int i = 0; i < categoriesArray.length; i++){
+            Category category = categoriesArray[i];
+            categoryNames[i] = category.getName();
+        }
+        return categoryNames;
     }
 }
