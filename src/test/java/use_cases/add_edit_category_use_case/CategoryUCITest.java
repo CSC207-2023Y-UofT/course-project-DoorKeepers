@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * CategoryUCITest contains tests for the Category use cases (add & edit category).
  */
 class CategoryUCITest {
+
     private static SessionStorage session;
 
     /**
@@ -102,7 +103,7 @@ class CategoryUCITest {
     }
 
     /**
-     * Tests success edit use case by adding one valid category and then a successful edit.
+     * Tests success edit use case by adding a valid category and then a successful edit.
      * Use findCategory() to see if the category name is successfully edited.
      */
     @Test
