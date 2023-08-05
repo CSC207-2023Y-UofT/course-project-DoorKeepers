@@ -1,6 +1,9 @@
 import entities.SessionStorage;
+import use_cases.main_menu.SessionSaveUCI;
 import use_cases.session_load.SessionLoadUCI;
 import views.file_session_storage.FileSessionStorage;
+import views.main_menu.MainMenuC;
+import views.main_menu.MainMenuP;
 import views.main_menu.MainMenuV;
 import views.session_load.SessionLoadC;
 import views.session_load.SessionLoadP;
@@ -25,7 +28,9 @@ public class Main {
 
         // Building menus
         // Main Menu
-        MainMenuV mainMenu = new MainMenuV();
+        SessionSaveUCI sessionSaveUCI = new SessionSaveUCI(new FileSessionStorage(), new MainMenuP());
+        MainMenuC mainMenuController = new MainMenuC(sessionSaveUCI);
+        MainMenuV mainMenu = new MainMenuV(mainMenuController);
 
         // Load Session Menu
         SessionLoadUCI sessionLoadUCI = new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(), session);
