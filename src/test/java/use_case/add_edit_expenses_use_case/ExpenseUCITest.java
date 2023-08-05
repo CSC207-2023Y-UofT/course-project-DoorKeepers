@@ -96,7 +96,6 @@ class ExpenseUCITest {
         monthAdd.addCategory(food);
 
         ExpenseID addIDInvalidDouble = new ExpenseID("Sandwich", "a", "Food", true,4, session, null);
-
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Expense value is needs to be a number. Please try again!", interactor.addExpenseInMonth(addIDInvalidDouble).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
