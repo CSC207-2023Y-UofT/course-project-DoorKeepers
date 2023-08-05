@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 public class EditCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
+    private final JButton submit;
     private final JComboBox<String> categoryCombo;
     private final JTextField nameInput;
     private final JTextField budgetInput;
@@ -37,6 +38,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         this.monthID = monthID;
         this.currSession = currSession;
 
+        this.submit = new JButton("Submit");
         this.categoryCombo = new JComboBox<>(existingCategory); // category list
         this.nameInput = new JTextField(15);
         this.budgetInput = new JTextField(15);
@@ -58,7 +60,6 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         JLabel selectCategoryLabel = new JLabel(" Select existing category:");
         JLabel nameLabel = new JLabel("New Category Name:");
         JLabel budgetLabel = new JLabel(" New Category Budget:");
-        JButton submit = new JButton("Submit");
         submit.setSize(30,10);
 
         submit.addActionListener(this);
@@ -81,24 +82,26 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        // Check if user inputs a category name.
-        if (nameInput.getText().isEmpty()) {
-            JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
-        }
-        // Check if user inputs a category budget.
-        if (budgetInput.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
-        }
-        // Check if user selects an old category.
-        if (categoryCombo.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog( this, "Please select a category to edit.");
-        }
-        //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
-        if (evt.getSource() == categoryCombo) {
-            this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        }
-        else {
-            tryUseCaseEdit();
+        if (evt.getSource()==submit){
+            // Check if user inputs a category name.
+            if (nameInput.getText().isEmpty()) {
+                JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
+            }
+            // Check if user inputs a category budget.
+            if (budgetInput.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
+            }
+            // Check if user selects an old category.
+            if (categoryCombo.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog( this, "Please select a category to edit.");
+            }
+            //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
+            if (evt.getSource() == categoryCombo) {
+                this.selectedCategory = (String) categoryCombo.getSelectedItem();
+            }
+            else {
+                tryUseCaseEdit();
+            }
         }
     }
 
