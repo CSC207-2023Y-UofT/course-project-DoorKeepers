@@ -65,8 +65,8 @@ public class CategoryUCI implements CategoryIB {
             return categoryOB.success(categoryODSuccessAdd);
 
         } catch(NumberFormatException|NullPointerException e){
-            //NumberFormatException: User tries to add a new budget value that can not be converted to a double.
-            CategoryOD categoryODFailAdd = new CategoryOD("Category budget is needs to be a number. Please try again!");
+            //NumberFormatException|NullPointerException: User tries to add a new budget value that can not be converted to a double.
+            CategoryOD categoryODFailAdd = new CategoryOD("Category budget needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailAdd);
 
         } catch (EntityException e) {
@@ -117,8 +117,8 @@ public class CategoryUCI implements CategoryIB {
             //NoSuchElementException: User tries to edit a category that does not exist.
             CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
             return categoryOB.fail(categoryODFailEdit);
-        } catch(NumberFormatException e){
-            //NumberFormatException: User tries to edit a budget value with input that can not be converted to a double.
+        } catch(NumberFormatException|NullPointerException e){
+            //NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
             CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailEdit);
         }

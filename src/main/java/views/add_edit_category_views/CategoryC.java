@@ -12,9 +12,6 @@ import use_cases.add_edit_category_use_case.CategoryOD;
  * Returns a CategoryOD Object for classes AddCategoryV() and EditCategoryV().
  */
 public class CategoryC {
-    /**
-     * CategoryC passes in user input and produces a Category_Output_Data Object according to a use case.
-     */
     final CategoryIB input;
 
     /**
