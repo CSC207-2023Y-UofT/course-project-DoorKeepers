@@ -103,6 +103,4 @@ public class EditCategoryV extends Component implements ActionListener{
             tryUseCaseEdit();
         }
     }
-
-
 }

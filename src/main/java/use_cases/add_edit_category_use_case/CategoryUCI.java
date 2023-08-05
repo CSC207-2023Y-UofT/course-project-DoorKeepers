@@ -131,7 +131,6 @@ public class CategoryUCI implements CategoryIB {
      * @return Category with given String name.
      * @throws NoSuchElementException thrown when Category with String name doesn't exist in monthCategoryData.
      */
-    @Override
     public Category findCategory(ArrayList<Category> monthCategoryData, String name)throws NoSuchElementException{
         for (Category c : monthCategoryData){
             if (Objects.equals(c.getName(), name)){

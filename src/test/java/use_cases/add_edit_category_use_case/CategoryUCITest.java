@@ -32,7 +32,7 @@ class CategoryUCITest {
     @Test
     void addCategoryInMonthSuccess() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(6, 150);
         session.addMonth(monthAdd);
 
@@ -50,7 +50,7 @@ class CategoryUCITest {
     @Test
     void addCategoryInMonthSameNameFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(5, 150);
         session.addMonth(monthAdd);
 
@@ -71,7 +71,7 @@ class CategoryUCITest {
     @Test
     void addCategoryInMonthNegValueFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(4, 150);
         session.addMonth(monthAdd);
 
@@ -89,7 +89,7 @@ class CategoryUCITest {
     @Test
     void addCategoryInMonthInvalidDoubleFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthAdd = new MonthlyStorage(3, 150);
         session.addMonth(monthAdd);
 
@@ -108,7 +108,7 @@ class CategoryUCITest {
     @Test
     void editCategoryInMonthSuccess() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(7, 150);
         session.addMonth(monthEdit);
 
@@ -129,7 +129,7 @@ class CategoryUCITest {
     @Test
     void editCategoryInMonthSameNameFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(8, 150);
         session.addMonth(monthEdit);
 
@@ -154,7 +154,7 @@ class CategoryUCITest {
     @Test
     void editCategoryInMonthNegValueFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(9, 150);
         session.addMonth(monthEdit);
 
@@ -175,7 +175,7 @@ class CategoryUCITest {
     @Test
     void editCategoryInMonthNoCategoryFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthEdit = new MonthlyStorage(10, 150);
         session.addMonth(monthEdit);
 
@@ -193,7 +193,7 @@ class CategoryUCITest {
     @Test
     void editCategoryInMonthInvalidDoubleFail() throws EntityException {
         CategoryP presenter = new CategoryP();
-        CategoryIB interactor = new CategoryUCI(presenter);
+        CategoryUCI interactor = new CategoryUCI(presenter);
         MonthlyStorage monthlyStorage = new MonthlyStorage(11, 150);
         session.addMonth(monthlyStorage);
 
