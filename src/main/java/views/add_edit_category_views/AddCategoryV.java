@@ -15,12 +15,12 @@ import java.awt.event.ActionListener;
  */
 
 public class AddCategoryV extends Component implements ActionListener {
-    CategoryC controller;
-    JTextField nameInput;
-    JTextField budgetInput;
-    int monthID;
-    SessionStorage currSession;
-    String oldCategory;
+    private final CategoryC controller;
+    private final JTextField nameInput;
+    private final JTextField budgetInput;
+    private final int monthID;
+    private final SessionStorage currSession;
+    private final String oldCategory;
 
     /**
      * Builds AddCategoryV.

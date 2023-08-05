@@ -12,7 +12,7 @@ import use_cases.add_edit_category_use_case.CategoryOD;
  * Returns a CategoryOD Object for classes AddCategoryV() and EditCategoryV().
  */
 public class CategoryC {
-    final CategoryIB input;
+    private final CategoryIB input;
 
     /**
      * Constructs CategoryC with a CategoryIB.

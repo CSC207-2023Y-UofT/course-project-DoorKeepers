@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 
 public class CategoryUCI implements CategoryIB {
-    final CategoryOB categoryOB;
+    private final CategoryOB categoryOB;
 
     /**
      * Constructs CategoryUCI.

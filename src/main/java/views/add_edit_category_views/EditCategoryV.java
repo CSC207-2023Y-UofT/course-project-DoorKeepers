@@ -12,13 +12,13 @@ import java.awt.event.ActionListener;
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
 public class EditCategoryV extends Component implements ActionListener{
-    CategoryC controller;
-    JComboBox<String> categoryCombo;
-    JTextField nameInput;
-    JTextField budgetInput;
-    String selectedCategory;
-    int monthID;
-    SessionStorage currSession;
+    private final CategoryC controller;
+    private final JComboBox<String> categoryCombo;
+    private final JTextField nameInput;
+    private final JTextField budgetInput;
+    private String selectedCategory;
+    private final int monthID;
+    private final SessionStorage currSession;
     /**
      * Builds EditCategoryV for user entries.
      * @param controller CategoryC reacts to user input to return a CategoryOD.

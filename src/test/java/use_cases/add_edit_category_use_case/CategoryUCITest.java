@@ -59,7 +59,6 @@ class CategoryUCITest {
         CategoryID addID1 = new CategoryID("Salad", 12, 5, session, null);
 
         interactor.addCategoryInMonth(addID1);
-        interactor.addCategoryInMonth(addIDSameName);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("There is already a category with this new name in this month.", interactor.addCategoryInMonth(addIDSameName).getMessage());
@@ -78,7 +77,6 @@ class CategoryUCITest {
         session.addMonth(monthAdd);
 
         CategoryID addIDNegValue = new CategoryID("Sandwich", -3, 4, session, null);
-        interactor.addCategoryInMonth(addIDNegValue);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Category budget can't be less than $0. Please try again!", interactor.addCategoryInMonth(addIDNegValue).getMessage());
@@ -97,7 +95,6 @@ class CategoryUCITest {
         session.addMonth(monthAdd);
 
         CategoryID addIDInvalidDouble = new CategoryID("Salad", "a", 3, session, null);
-        interactor.addCategoryInMonth(addIDInvalidDouble);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Category budget needs to be a number. Please try again!", interactor.addCategoryInMonth(addIDInvalidDouble).getMessage());
@@ -107,7 +104,7 @@ class CategoryUCITest {
 
     /**
      * Tests success edit use case by adding one valid category and then a successful edit.
-     * Use findCategory() to see if the category_name is successfully edited.
+     * Use findCategory() to see if the category name is successfully edited.
      */
     @Test
     void editCategoryInMonthSuccess() throws EntityException {
