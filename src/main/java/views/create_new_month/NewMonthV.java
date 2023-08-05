@@ -40,6 +40,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
      * @param controller the controller class to get output data
      * @param session the SessionStorage to store the new MonthlyStorage
      */
+    //TODO: input MainMenuV and call openMainMenu if MonthlyStorage successfully created
     public NewMonthV (NewMonthC controller, SessionStorage session){
         this.controller = controller;
         this.session = session;
