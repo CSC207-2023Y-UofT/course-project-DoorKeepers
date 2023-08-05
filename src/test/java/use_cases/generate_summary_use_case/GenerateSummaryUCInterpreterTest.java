@@ -92,9 +92,9 @@ class GenerateSummaryUCInterpreterTest {
      */
     @Test
     public void GenerateSummaryEmptyMonth(){
-        MonthlyStorage newMonth = new MonthlyStorage(2, 1000);
+        MonthlyStorage new_month = new MonthlyStorage(2, 1000);
 
-        GenerateSummaryUCInterpreter interpreter = new GenerateSummaryUCInterpreter(newMonth);
+        GenerateSummaryUCInterpreter interpreter = new GenerateSummaryUCInterpreter(new_month);
         Map<String, ArrayList<Double>> statisticalData = interpreter.getStatisticalData();
 
         Map<String, ArrayList<Double>> expected = new HashMap<>();
