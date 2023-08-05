@@ -42,7 +42,7 @@ class CategoryUCITest {
         assertEquals("You have added a new category!", interactor.addCategoryInMonth(addID1).getMessage());
         //Expected value is 2 because there is one default Category "Others" upon creation of each MonthlyStorage and one successful entry.
         assertEquals(2, session.getMonthlyData(6).getCategoryData().size());
-    }
+        assertEquals(addID1.getName(), session.getMonthlyData(6).getCategoryData().get(1).getName());}
 
     /**
      * Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
