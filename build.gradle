@@ -9,6 +9,12 @@ repositories {
 dependencies {
     implementation 'junit:junit:4.13.1'
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+
+    // https://mvnrepository.com/artifact/org.jfree/jcommon
+    implementation group: 'org.jfree', name: 'jcommon', version: '1.0.23'
+
+    implementation 'org.jfree:jfreechart:1.5.3'
+
 }
 
 test {
