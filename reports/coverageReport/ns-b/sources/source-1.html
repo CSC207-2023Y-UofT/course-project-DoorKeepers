@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AddExpenseV</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">views.add_edit_epense_views</a>
+</div>
+
+<h1>Coverage Summary for Class: AddExpenseV (views.add_edit_epense_views)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddExpenseV</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package views.add_edit_epense_views;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;import entities.SessionStorage;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOD;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * A view class for the AddExpenseV that extends Component class and implements ActionListener interface.
+&nbsp; * Creates a new controller that produces a ExpenseOD object.
+&nbsp; */
+&nbsp;public class AddExpenseV extends Component implements ActionListener {
+&nbsp;    ExpenseC controller;
+&nbsp;    JTextField nameInput;
+&nbsp;    JTextField valueInput;
+&nbsp;    JComboBox&lt;String&gt; categoryCombo;
+&nbsp;    String selectedExpense;
+&nbsp;    String selectedCategory;
+&nbsp;    JCheckBox isRecurringCheckBox;
+&nbsp;    boolean isRecurring;
+&nbsp;    int monthID;
+&nbsp;    SessionStorage currSession;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Builds AddExpenseV
+&nbsp;     * @param controller ExpenseC reacts to user input to return ExpenseOD.
+&nbsp;     * @param existingCategory String[] of Category names that exists in current month.
+&nbsp;     * @param monthID int representing the MonthlyStorage.
+&nbsp;     * @param currSession SessionStorage the current working session.
+&nbsp;     */
+<b class="nc">&nbsp;    public AddExpenseV(ExpenseC controller, String[] existingCategory, int monthID, SessionStorage currSession) {</b>
+<b class="nc">&nbsp;        JLabel nameLabel = new JLabel(&quot;Expense Name:&quot;);</b>
+<b class="nc">&nbsp;        this.nameInput = new JTextField(15);</b>
+<b class="nc">&nbsp;        JLabel valueLabel = new JLabel(&quot;Expense Budget:&quot;);</b>
+<b class="nc">&nbsp;        this.valueInput = new JTextField(15);</b>
+<b class="nc">&nbsp;        JLabel selectCategoryLabel = new JLabel(&quot; Assign Category:&quot;);</b>
+<b class="nc">&nbsp;        this.categoryCombo = new JComboBox&lt;&gt;(existingCategory); // category list</b>
+<b class="nc">&nbsp;        JButton submit = new JButton(&quot;Submit&quot;);</b>
+<b class="nc">&nbsp;        submit.setSize(30, 10);</b>
+&nbsp;
+<b class="nc">&nbsp;        JFrame frame = new JFrame();</b>
+<b class="nc">&nbsp;        JPanel panel = new JPanel();</b>
+<b class="nc">&nbsp;        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));</b>
+<b class="nc">&nbsp;        panel.setLayout(new GridLayout(0, 1));</b>
+<b class="nc">&nbsp;        JPanel panell = new JPanel();</b>
+<b class="nc">&nbsp;        panell.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));</b>
+<b class="nc">&nbsp;        panell.setLayout(new GridLayout(0, 1));</b>
+&nbsp;
+<b class="nc">&nbsp;        frame.add(panel, BorderLayout.CENTER);</b>
+<b class="nc">&nbsp;        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</b>
+<b class="nc">&nbsp;        frame.setTitle(&quot;Add New Expense&quot;);</b>
+<b class="nc">&nbsp;        frame.setSize(300, 500);</b>
+<b class="nc">&nbsp;        panel.add(nameLabel, BorderLayout.WEST);</b>
+<b class="nc">&nbsp;        panel.add(nameInput, BorderLayout.CENTER);</b>
+<b class="nc">&nbsp;        panel.add(valueLabel);</b>
+<b class="nc">&nbsp;        panel.add(valueInput);</b>
+<b class="nc">&nbsp;        panel.add(selectCategoryLabel);</b>
+<b class="nc">&nbsp;        panel.add(categoryCombo);</b>
+<b class="nc">&nbsp;        panel.add(isRecurringCheckBox);</b>
+<b class="nc">&nbsp;        frame.add(panell, BorderLayout.SOUTH);</b>
+<b class="nc">&nbsp;        panell.add(submit);</b>
+&nbsp;
+<b class="nc">&nbsp;        frame.pack();</b>
+<b class="nc">&nbsp;        frame.setVisible(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.controller = controller;</b>
+<b class="nc">&nbsp;        this.monthID = monthID;</b>
+<b class="nc">&nbsp;        this.currSession = currSession;</b>
+<b class="nc">&nbsp;        this.selectedExpense = null;</b>
+&nbsp;
+<b class="nc">&nbsp;        categoryCombo.addActionListener(this);</b>
+<b class="nc">&nbsp;        isRecurringCheckBox.addActionListener(this);</b>
+<b class="nc">&nbsp;        submit.addActionListener(this);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void actionPerformed(ActionEvent evt) {
+<b class="nc">&nbsp;        if(evt.getSource() == categoryCombo){</b>
+<b class="nc">&nbsp;            this.selectedCategory = (String) categoryCombo.getSelectedItem();</b>
+<b class="nc">&nbsp;        }if (evt.getSource() == isRecurringCheckBox){</b>
+<b class="nc">&nbsp;            this.isRecurring = isRecurringCheckBox.isSelected();</b>
+<b class="nc">&nbsp;        }if (isRecurring == (!Objects.equals(selectedCategory, &quot;Other&quot;))) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog( this, &quot;A recurring expense belongs to Category &#39;Other&#39;. Please select Category &#39;Other&#39; in the field above, thanks! &quot;);</b>
+&nbsp;        } else {
+&nbsp;            try {
+<b class="nc">&nbsp;                ExpenseOD message = controller.expenseInMonth(nameInput.getText(), String.valueOf(valueInput), selectedCategory, isRecurring, monthID, currSession, selectedExpense);</b>
+<b class="nc">&nbsp;                JOptionPane.showMessageDialog(this, message.getMessage());</b>
+<b class="nc">&nbsp;            } catch (EntityException e) {</b>
+<b class="nc">&nbsp;                JOptionPane.showMessageDialog(this, &quot;This month does not exist in current session. Please go to add month page.&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GenerateSummaryUCInterpreter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.generate_summary_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: GenerateSummaryUCInterpreter (use_cases.generate_summary_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GenerateSummaryUCInterpreter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (33/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.generate_summary_use_case;
+&nbsp;
+&nbsp;import entities.Category;
+&nbsp;import entities.Expense;
+&nbsp;import entities.MonthlyStorage;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class that generates all the data in the correct format to make the Bar Graph and Pie Chart.
+&nbsp; */
+&nbsp;public class GenerateSummaryUCInterpreter {
+&nbsp;
+&nbsp;    private final Map&lt;String, ArrayList&lt;Double&gt;&gt; statisticalData;
+&nbsp;    private final double remainder;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new GenerateSummaryUCInterpreter with the provided MonthlyStorage.
+&nbsp;     * @param monthlyStorage the MonthlyStorage object that the data will be generated for
+&nbsp;     */
+<b class="fc">&nbsp;    public GenerateSummaryUCInterpreter(MonthlyStorage monthlyStorage) {</b>
+<b class="fc">&nbsp;        Map&lt;Category, ArrayList&lt;Expense&gt;&gt; mappedExpenses = sortExpenses(monthlyStorage);</b>
+&nbsp;
+<b class="fc">&nbsp;        this.statisticalData = generateStatisticalData(monthlyStorage, mappedExpenses);</b>
+<b class="fc">&nbsp;        this.remainder = generateRemainder(monthlyStorage, mappedExpenses);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the statistical data required for creating the graphs.
+&nbsp;     * @return a Map holding data used to make the graphs
+&nbsp;     */
+&nbsp;    public Map&lt;String, ArrayList&lt;Double&gt;&gt; getStatisticalData() {
+<b class="fc">&nbsp;        return statisticalData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the remainder of this MonthlyStorage object.
+&nbsp;     * @return the remainder of this MonthlyStorage
+&nbsp;     */
+&nbsp;    public double getRemainder() {
+<b class="fc">&nbsp;        return remainder;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates a map that has Category objects as keys and a list of Expense objects associated with that Category as
+&nbsp;     * values.
+&nbsp;     * @param monthlyStorage a MonthlyStorage object for the current month
+&nbsp;     * @return a Map holding sorted month data
+&nbsp;     */
+&nbsp;    private Map&lt;Category, ArrayList&lt;Expense&gt;&gt; sortExpenses(MonthlyStorage monthlyStorage){
+<b class="fc">&nbsp;        Map&lt;Category, ArrayList&lt;Expense&gt;&gt; mappedExpenses = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Category c: monthlyStorage.getCategoryData()){</b>
+<b class="fc">&nbsp;            mappedExpenses.put(c, new ArrayList&lt;&gt;());</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        for (Expense e: monthlyStorage.getExpenseData()){</b>
+<b class="fc">&nbsp;            mappedExpenses.get(e.getCategory()).add(e);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return mappedExpenses;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates a map containing String names of Category objects as the keys and doubles representing money spent
+&nbsp;     * and budget as the values.
+&nbsp;     * @param monthlyStorage a MonthlyStorage object for the current month
+&nbsp;     * @param mappedExpenses a Map that has Category objects as keys and a list of Expense objects associated with that
+&nbsp;     *                       Category as values
+&nbsp;     * @return a Map holding data used to make the graphs. The key values are Stings representing Category names, and
+&nbsp;     * the values are lists with the first double as the money spent in the Category and the second as the remainder of
+&nbsp;     * money left in the budget of that Category.
+&nbsp;     */
+&nbsp;    private Map&lt;String, ArrayList&lt;Double&gt;&gt; generateStatisticalData(MonthlyStorage monthlyStorage, Map&lt;Category,
+&nbsp;            ArrayList&lt;Expense&gt;&gt; mappedExpenses){
+<b class="fc">&nbsp;        Map&lt;String, ArrayList&lt;Double&gt;&gt; statisticalData = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Category c: monthlyStorage.getCategoryData()) {</b>
+<b class="fc">&nbsp;            statisticalData.put(c.getName(), new ArrayList&lt;&gt;());</b>
+<b class="fc">&nbsp;            double expenseSum = 0;</b>
+<b class="fc">&nbsp;            for (Expense e: mappedExpenses.get(c)){</b>
+<b class="fc">&nbsp;                expenseSum += e.getValue();</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;            statisticalData.get(c.getName()).add(expenseSum);</b>
+&nbsp;            // Check to see if remainder is greater than 0. If it is, add the remainder, if not add 0.0.
+<b class="fc">&nbsp;            if (c.getBudget() - expenseSum &gt; 0){</b>
+<b class="fc">&nbsp;                statisticalData.get(c.getName()).add(c.getBudget() - expenseSum);</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                statisticalData.get(c.getName()).add(0.0);</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return statisticalData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates a double representing the money that the user has not spent in their budget.
+&nbsp;     * @param monthlyStorage a MonthlyStorage object for the current month
+&nbsp;     * @param mappedExpenses a Map that has Category objects as keys and a list of Expense objects associated with that
+&nbsp;     * Category as values
+&nbsp;     * @return the remainder of this MonthlyStorage
+&nbsp;     */
+&nbsp;    private double generateRemainder(MonthlyStorage monthlyStorage, Map&lt;Category, ArrayList&lt;Expense&gt;&gt; mappedExpenses){
+<b class="fc">&nbsp;        double remainder = monthlyStorage.getMonthlyBudget();</b>
+<b class="fc">&nbsp;        for (Expense e: monthlyStorage.getExpenseData()){</b>
+<b class="fc">&nbsp;            mappedExpenses.get(e.getCategory()).add(e);</b>
+<b class="fc">&nbsp;            remainder -= e.getValue();</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return remainder;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionStorage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionStorage (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SessionStorage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (24/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entities;
+&nbsp;
+&nbsp;import java.io.Serializable;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class that will store all the user data for a session. This includes a list of MonthlyStorage objects to store the
+&nbsp; * data for several months, and a list of recurring Expense objects that apply to every month.
+&nbsp; */
+&nbsp;public class SessionStorage implements Serializable {
+&nbsp;
+&nbsp;    private final ArrayList&lt;MonthlyStorage&gt; monthlyData;
+&nbsp;    private final ArrayList&lt;Expense&gt; recurData;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new SessionStorage and assigns empty values to both its instance attributes.
+&nbsp;     */
+<b class="fc">&nbsp;    public SessionStorage(){</b>
+<b class="fc">&nbsp;        this.monthlyData = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.recurData = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a new month to the monthlyData.
+&nbsp;     * @param month a MonthlyStorage object to add
+&nbsp;     */
+&nbsp;    public void addMonth(MonthlyStorage month){
+<b class="fc">&nbsp;        this.monthlyData.add(month);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a new expense to the Session&#39;s recurExpense array.
+&nbsp;     * @param expense an Expense object to add
+&nbsp;     */
+&nbsp;    public void addRecurExpense(Expense expense){
+<b class="fc">&nbsp;        this.recurData.add(expense);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes an Expense from this month.
+&nbsp;     * @param expense_name a String containing the name of the Expense to delete
+&nbsp;     */
+&nbsp;    public void deleteRecurExpense(String expense_name) {
+<b class="fc">&nbsp;        this.recurData.removeIf(e -&gt; Objects.equals(e.getName(), expense_name));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the MonthlyData object associated with the given monthID.
+&nbsp;     * @param monthID an integer representing the MonthlyStorage object
+&nbsp;     * @return a MonthlyStorage object with monthID attribute equal to monthID parameter
+&nbsp;     * @throws EntityException if monthID parameter is not the monthID of any MonthlyStorage object
+&nbsp;     */
+&nbsp;    public MonthlyStorage getMonthlyData(int monthID) throws EntityException {
+<b class="fc">&nbsp;        for (MonthlyStorage m: this.monthlyData) {</b>
+<b class="fc">&nbsp;            if (m.getMonthID() == monthID) {</b>
+<b class="fc">&nbsp;                return m;</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        throw new EntityException(&quot;That is not a valid monthID for this SessionStorage.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the list of the MonthlyData objects stored in this Session
+&nbsp;     * @return list of all MonthlyData objects
+&nbsp;     */
+&nbsp;    public ArrayList&lt;MonthlyStorage&gt; getAllMonthlyData() {
+<b class="fc">&nbsp;        return this.monthlyData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the list of recurring expenses in this Session
+&nbsp;     * @return list of recurring expenses
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Expense&gt; getRecurData(){
+<b class="fc">&nbsp;        return this.recurData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Copies all the contents from another SessionStorage object into this one.
+&nbsp;     * This method can be used to mutate the entire contents of a SessionStorage object in-place.
+&nbsp;     * @param other the SessionStorage object to copy the data from
+&nbsp;     */
+&nbsp;    public void copyDataFrom(SessionStorage other) {
+<b class="fc">&nbsp;        this.monthlyData.clear();</b>
+<b class="fc">&nbsp;        this.monthlyData.addAll(other.monthlyData);</b>
+<b class="fc">&nbsp;        this.recurData.clear();</b>
+<b class="fc">&nbsp;        this.recurData.addAll(other.recurData);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check if this SessionStorage is equal to Object
+&nbsp;     * @param obj Any instance of Object
+&nbsp;     * @return True if equals, False is not equals
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object obj) {
+<b class="fc">&nbsp;        if (this == obj) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (obj == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (this.getClass() != obj.getClass()){</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        SessionStorage other = (SessionStorage) obj;</b>
+<b class="fc">&nbsp;        return Objects.equals(this.getRecurData(), other.getRecurData())</b>
+<b class="fc">&nbsp;                &amp;&amp; Objects.equals(this.getAllMonthlyData(), other.getAllMonthlyData());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

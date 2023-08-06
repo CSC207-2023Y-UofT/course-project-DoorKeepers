@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CategoryUCI</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.add_edit_category_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryUCI (use_cases.add_edit_category_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryUCI</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (46/46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.add_edit_category_use_case;
+&nbsp;
+&nbsp;import entities.Category;
+&nbsp;import entities.EntityException;
+&nbsp;import entities.MonthlyStorage;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.NoSuchElementException;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * The CategoryUCI adds/creates new category, edits an existing category, and updates MonthlyStorage.categoryData.
+&nbsp; * Implements CategoryIB.
+&nbsp; * Creates CategoryOD objects related to specific use case fail/success conditions.
+&nbsp; */
+&nbsp;
+&nbsp;public class CategoryUCI implements CategoryIB {
+&nbsp;    private final CategoryOB categoryOB;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs CategoryUCI.
+&nbsp;     * @param categoryP presenter that is related to the use case.
+&nbsp;     */
+<b class="fc">&nbsp;    public CategoryUCI(CategoryOB categoryP) {</b>
+<b class="fc">&nbsp;        this.categoryOB = categoryP;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Helper method returns a double to check if the input Object is a valid double.
+&nbsp;     * @param value a user input
+&nbsp;     * @return double converted from value
+&nbsp;     */
+&nbsp;    private double toDouble(Object value) throws NumberFormatException, NullPointerException{
+<b class="fc">&nbsp;            return Double.parseDouble(String.valueOf(value));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Overrides method in CategoryIB.
+&nbsp;     * Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
+&nbsp;     * Provides detailed fail messages according to each condition below. (Explained in comments.)
+&nbsp;     * NOTE: There are actually two different EntityException thrown.
+&nbsp;     * One is from the SessionStorage Object when checking if monthID is in session.
+&nbsp;     *  (Although we know MonthlyStorage with monthID is always in the SessionStorage, it will be caught at views/add_edit_category_views/AddCategoryV.java).
+&nbsp;     * The second one is from the creation of a Category Object implementing addCategory() from MonthlyStorage, and is caught in the current implementation!
+&nbsp;     *
+&nbsp;     * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
+&nbsp;     * @return CategoryOD String message indicating success/fail add attempt.
+&nbsp;     * @throws EntityException thrown when categoryIDAdd has invalid category information.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
+<b class="fc">&nbsp;        MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());</b>
+&nbsp;        try{
+<b class="fc">&nbsp;            double valueDouble = toDouble(categoryIDAdd.getValue());</b>
+<b class="fc">&nbsp;            Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (newCategory.getBudget() &lt; 0) {</b>
+&nbsp;                // Category budget less than 0: User tries to add a new budget value that is a negative number.
+<b class="fc">&nbsp;                CategoryOD categoryODFailAdd = new CategoryOD(&quot;Category budget can&#39;t be less than $0. Please try again!&quot;);</b>
+<b class="fc">&nbsp;                return categoryOB.fail(categoryODFailAdd);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            month.addCategory(newCategory);</b>
+&nbsp;
+<b class="fc">&nbsp;            CategoryOD categoryODSuccessAdd = new CategoryOD(&quot;You have added a new category!&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.success(categoryODSuccessAdd);</b>
+&nbsp;
+<b class="fc">&nbsp;        } catch(NumberFormatException|NullPointerException e){</b>
+&nbsp;            //NumberFormatException|NullPointerException: User tries to add a new budget value that can not be converted to a double.
+<b class="fc">&nbsp;            CategoryOD categoryODFailAdd = new CategoryOD(&quot;Category budget needs to be a number. Please try again!&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.fail(categoryODFailAdd);</b>
+&nbsp;
+<b class="fc">&nbsp;        } catch (EntityException e) {</b>
+&nbsp;            //EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
+<b class="fc">&nbsp;            CategoryOD categoryODFailAdd = new CategoryOD(&quot;There is already a category with this new name in this month.&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.fail(categoryODFailAdd);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Overrides method in CategoryIB.
+&nbsp;     * Attempts to edit a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
+&nbsp;     * Provides detailed fail messages according to each condition below. (Explained in comments.)
+&nbsp;     * @param categoryIDEdit CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.
+&nbsp;     * @return CategoryOD String message indicating success/fail add attempt.
+&nbsp;     * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
+&nbsp;     *                          it will be caught at views/add_edit_category_views/EditCategoryV.java).
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
+<b class="fc">&nbsp;        MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());</b>
+&nbsp;        try {
+<b class="fc">&nbsp;            ArrayList&lt;Category&gt; categoryList = month.getCategoryData();</b>
+<b class="fc">&nbsp;            double valueDouble = toDouble(categoryIDEdit.getValue());</b>
+<b class="fc">&nbsp;            if (valueDouble &lt; 0) {</b>
+&nbsp;                //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
+<b class="fc">&nbsp;                CategoryOD categoryODFailEdit = new CategoryOD(&quot;Category budget can&#39;t be less than $0. Please try again!&quot;);</b>
+<b class="fc">&nbsp;                return categoryOB.fail(categoryODFailEdit);</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());</b>
+&nbsp;
+<b class="fc">&nbsp;            for (Category category1 : categoryList) {</b>
+<b class="fc">&nbsp;                if (category1.getName().equals(categoryIDEdit.getName())) {</b>
+&nbsp;                    //Repeated name: User tries to edit category name to another name that exists in the month.
+<b class="fc">&nbsp;                    CategoryOD categoryODFailEdit = new CategoryOD(&quot;There is already a category with this new name in this month.&quot;);</b>
+<b class="fc">&nbsp;                    return categoryOB.fail(categoryODFailEdit);</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;
+<b class="fc">&nbsp;            existingCategory.setName(categoryIDEdit.getName());</b>
+<b class="fc">&nbsp;            categoryIDEdit.setValue(valueDouble);</b>
+<b class="fc">&nbsp;            existingCategory.setBudget(valueDouble);</b>
+&nbsp;
+<b class="fc">&nbsp;            CategoryOD categoryODSuccessEdit = new CategoryOD(&quot;You have edited a category!&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.success(categoryODSuccessEdit);</b>
+&nbsp;
+<b class="fc">&nbsp;        } catch (NoSuchElementException e) {</b>
+&nbsp;            //NoSuchElementException: User tries to edit a category that does not exist.
+<b class="fc">&nbsp;            CategoryOD categoryODFailEdit = new CategoryOD(&quot;There is no such category in the current month. Please add a new category or select existing category!&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.fail(categoryODFailEdit);</b>
+<b class="fc">&nbsp;        } catch(NumberFormatException|NullPointerException e){</b>
+&nbsp;            //NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
+<b class="fc">&nbsp;            CategoryOD categoryODFailEdit = new CategoryOD(&quot;Category budget needs to be a number. Please try again!&quot;);</b>
+<b class="fc">&nbsp;            return categoryOB.fail(categoryODFailEdit);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Helper method returns a Category from a given category list of a MonthlyStorage Object.
+&nbsp;     * @param monthCategoryData An ArrayList of categories.
+&nbsp;     * @param name Category name.
+&nbsp;     * @return Category with given String name.
+&nbsp;     * @throws NoSuchElementException thrown when Category with String name doesn&#39;t exist in monthCategoryData.
+&nbsp;     */
+&nbsp;    public Category findCategory(ArrayList&lt;Category&gt; monthCategoryData, String name)throws NoSuchElementException{
+<b class="fc">&nbsp;        for (Category c : monthCategoryData){</b>
+<b class="fc">&nbsp;            if (Objects.equals(c.getName(), name)){</b>
+<b class="fc">&nbsp;                return c;</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        throw new NoSuchElementException();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

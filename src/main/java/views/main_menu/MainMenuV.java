@@ -4,10 +4,13 @@ import entities.MonthlyStorage;
 import entities.SessionStorage;
 import use_cases.create_new_month.NewMonthUCI;
 import use_cases.main_menu.SessionSaveOD;
+import use_cases.monthly_menu.MonthMenuOB;
+import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
 import views.create_new_month.NewMonthC;
 import views.create_new_month.NewMonthP;
 import views.create_new_month.NewMonthV;
+import views.load_monthly_menu.LoadMonthMenuVB;
 import views.monthly_menu.MonthMenuP;
 import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
  * to create a new month, and also allows the user to open the month menu for any of the
  * existing months in the current session
  */
-public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionListener {
+public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionListener, LoadMonthMenuVB {
     private final MainMenuC controller;
     private SessionStorage session;
     private int selectedMonthID;
@@ -133,9 +136,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
             }
         } else if (e.getSource() == this.selectMonthButton) {
             // Open a new MonthMenuV to display the selected month
-            UpdateViewC monthMenuController = new UpdateViewC(new UpdateViewUCI(new MonthMenuP()));
-            MonthMenuV monthMenuV = new MonthMenuV(monthMenuController, this.session, this.selectedMonthID);
-            monthMenuV.openMonthMenu(null, true);
+            this.loadMonthMenu(this.session, this.selectedMonthID, null);
         } else if (e.getSource() == this.createMonthButton) {
             // Open a new NewMonthV so user can create their new month
             NewMonthC newMonthController = new NewMonthC(new NewMonthUCI(new NewMonthP()));
@@ -154,5 +155,24 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
                 }
             }
         }
+    }
+
+    /**
+     * Load a new Month Menu and notify user if a message is set.
+     *
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     * @param message a message that can be displayed, otherwise null
+     */
+    @Override
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+        // Construct MonthMenuV
+        MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
+        UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
+        UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
+        MonthMenuV monthMenu = new MonthMenuV(updateViewControl, session, monthID);
+
+        // Open Month Menu
+        monthMenu.openMonthMenu(message, true);
     }
 }
