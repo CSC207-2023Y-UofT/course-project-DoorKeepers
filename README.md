@@ -5,7 +5,8 @@
 - [Overview](#overview)
 - [Key Features](#key-features)
 - [Abbreviations](#abbreviations)
-- [Installation](#installation)
+- [Usage](#usage)
+  - [Installation](#installation)
 - [Clean Architecture Specifications](#clean-architecture-specifications)
   - [Clean Architecture Violations](#clean-architecture-violations)
   - [SOLID Principles](#solid-principles)
@@ -41,7 +42,9 @@ across different categories.
 allowing access and maintenance across various sessions. This feature guarantees that the financial history and insights
 accumulated remain preserved and accessible over time.
 
-## Installation
+## Usage
+
+### Installation
 
 1. Clone the repository: `git clone https://github.com/CSC207-2023Y-UofT/course-project-DoorKeepers.git`
 2. Locate local file in your terminal or open in an IDE.
@@ -50,6 +53,7 @@ accumulated remain preserved and accessible over time.
 5. Run the project: `java Main`
 
 ## Abbreviations
+
 | Name              | Abbreviation |
 |-------------------|--------------|
 | Controller        | C            |
@@ -67,23 +71,27 @@ accumulated remain preserved and accessible over time.
 ## Clean Architecture Specifications
 
 ### Clean Architecture Violations
-- Expense and Category are basic object types we have for conveying information. These classes belong to the Entity 
-layer, and are passed around in both the use_case and views packages. Thus if we remove the imports and change the 
-outputdata to Object[][] type in the UpdateViewUCI to accomodate Java Swing, it is not adhering to SOLID in point that 
-its not Open to importing other libraries.
+- Expense and Category are basic object types we have for conveying information that are not separable. For instance, an 
+expense called "Walmart" would have no meaning unless we know the specific amount of money spent shopping in Walmart. 
+These classes belong to the Entity layer, but are passed around in both the use_case and views packages, which is a 
+Clean Architecture violation. We could remove the imports to these entities, and change the output data to Object[][] 
+type in the UpdateViewUCI to accommodate Java Swing requirements. However, we thought it is not adhering to SOLID 
+principle from the point that Object[][] may not be the type required by other view libraries that could be imported, 
+which is in contrary to the Open/Closed Principle.
 - SessionStorage is an object type used to hold all information contained in the user's session. Every time a use case 
 is called, the interactor of that use case needs to access the information within the SessionStorage object. Thus, it 
 needs to be passed throughout all layers of our program, despite being a violation of Clean Architecture.
-
 
 ### SOLID Principles
 - **Single Responsibility Principle:** All classes are acted upon by a single actor and adhere to this principle.
 - **Open-Closed Principle:** Since our classes with main functionality implement IB and OB interfaces, the user is able 
 to modify any interactor or presenter as they see fit. For example, if the user wanted to implement another view that 
 generates statistical data with all months they could create another interactor to do that.
-- **Liskov Substitution Principle:** All of our IB and OB objects adhere to this principle. Additionally, the 
-LoadMonthMenuVB interface is a good example.
-- **Interface Segregation Principle:**
+- **Liskov Substitution Principle:** All of our IB and OB objects adhere to this principle. In order to adhere to the 
+DIP, the interactors and presenters are cast to the IB and OB, respectively. This demonstrates the LSP, as any class 
+that implements these interfaces can be used. Another example is the LoadMonthMenuVB, which 
+- **Interface Segregation Principle:** All of our interfaces adhere to this rule, as they are all small and contain only
+the necessary methods needed.
 - **Dependency Inversion Principle:** All classes have a boundary between every layer in Clean Architecture, to create 
 the dependency inversion.
 
