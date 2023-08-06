@@ -3,6 +3,8 @@ package views.add_edit_epense_views;
 import entities.EntityException;
 import entities.SessionStorage;
 import use_cases.add_edit_expenses_use_case.ExpenseOD;
+import views.load_monthly_menu.LoadMonthMenuVB;
+import views.monthly_menu.MonthMenuV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,8 @@ import java.util.Objects;
  * View class for the EditExpenseV that extends Component class and implements ActionListener interface.
  */
 
-public class EditExpenseV extends Component implements ActionListener {
+public class EditExpenseV extends Component implements ActionListener, LoadMonthMenuVB {
+    private final MonthMenuV monthMenu;
     ExpenseC controller;
     JComboBox<String> expenseCombo;
     JComboBox<String> categoryCombo;
@@ -24,32 +27,39 @@ public class EditExpenseV extends Component implements ActionListener {
     String selectedExpense;
     JCheckBox isRecurringCheckBox;
     boolean isRecurring;
+    private final JButton submit = new JButton("Submit");
     int monthID;
     SessionStorage currSession;
 
     /**
-     *
+     * Builds EditExpenseV for user entries.
      * @param controller
      * @param existingExpense
      * @param monthID
      * @param currSession
      */
+    public EditExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingExpense, String[] existingCategory, int monthID, SessionStorage currSession) {
+        this.monthMenu = monthMenu;
+        this.controller = controller;
+        this.monthID = monthID;
+        this.currSession = currSession;
 
-    public EditExpenseV(ExpenseC controller, String[] existingExpense, String[] existingCategory,int monthID, SessionStorage currSession) {
-        /*
-          Builds EditExpenseV.
-         */
-        JLabel select_expense_label = new JLabel(" Select existing expense:");
         this.expenseCombo = new JComboBox<>(existingExpense); // expense list
-        JLabel nameLabel = new JLabel("New Expense Name:");
         this.nameInput = new JTextField(15);
-        JLabel valueLabel = new JLabel(" New Expense Budget:");
         this.valueInput = new JTextField(15);
-        JLabel select_category_label = new JLabel(" Select existing category:");
         this.categoryCombo = new JComboBox<>(existingCategory);
         this.isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
+    }
+
+    /**
+     * Open edit expense GUI.
+     */
+    public void openEditExpense(){
+        JLabel select_expense_label = new JLabel(" Select existing expense:");
+        JLabel nameLabel = new JLabel("New Expense Name:");
+        JLabel valueLabel = new JLabel(" New Expense Budget:");
+        JLabel select_category_label = new JLabel(" Select existing category:");
         isRecurringCheckBox.setBounds(100,150,50,50);
-        JButton submit = new JButton("Submit");
         submit.setSize(30,10);
 
         JFrame frame = new JFrame();
@@ -84,10 +94,6 @@ public class EditExpenseV extends Component implements ActionListener {
         expenseCombo.addActionListener(this);
         categoryCombo.addActionListener(this);
         isRecurringCheckBox.addActionListener(this);
-
-        this.controller = controller;
-        this.monthID = monthID;
-        this.currSession = currSession;
     }
 
     @Override
@@ -109,11 +115,25 @@ public class EditExpenseV extends Component implements ActionListener {
             ExpenseOD message = null;
             try {
                 message = controller.expenseInMonth(nameInput.getText(), String.valueOf(valueInput), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+                // Update Month Menu
+                loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
             }
             if(message != null){
                 JOptionPane.showMessageDialog( this, message.getMessage());}
         }
+    }
+
+    /**
+     * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+     *
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     * @param message notify user when new MonthlyStorage is created, otherwise null
+     */
+    @Override
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+        monthMenu.openMonthMenu(message,false);
     }
 }

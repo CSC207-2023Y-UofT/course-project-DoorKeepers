@@ -3,6 +3,8 @@ package views.add_edit_category_views;
 import entities.EntityException;
 import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.CategoryOD;
+import views.load_monthly_menu.LoadMonthMenuVB;
+import views.monthly_menu.MonthMenuV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,14 +13,17 @@ import java.awt.event.ActionListener;
 /**
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
-public class EditCategoryV extends Component implements ActionListener{
+public class EditCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+    private final MonthMenuV monthMenu;
     private final CategoryC controller;
+    private final JButton submit;
     private final JComboBox<String> categoryCombo;
     private final JTextField nameInput;
     private final JTextField budgetInput;
     private String selectedCategory;
     private final int monthID;
     private final SessionStorage currSession;
+
     /**
      * Builds EditCategoryV for user entries.
      * @param controller CategoryC reacts to user input to return a CategoryOD.
@@ -26,16 +31,23 @@ public class EditCategoryV extends Component implements ActionListener{
      * @param monthID int representing the MonthlyStorage.
      * @param currSession SessionStorage the current working session.
      */
-    public EditCategoryV(CategoryC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
-        JLabel selectCategoryLabel = new JLabel(" Select existing category:");
-        this.categoryCombo = new JComboBox<>(existingCategory); // category list
-        JLabel nameLabel = new JLabel("New Category Name:");
-        this.nameInput = new JTextField(15);
-        JLabel budgetLabel = new JLabel(" New Category Budget:");
-        this.budgetInput = new JTextField(15);
-        JButton submit = new JButton("Submit");
-        submit.setSize(30,10);
+    public EditCategoryV(MonthMenuV monthMenu, CategoryC controller, String[] existingCategory, int monthID,
+                         SessionStorage currSession) {
+        this.monthMenu = monthMenu;
+        this.controller = controller;
+        this.monthID = monthID;
+        this.currSession = currSession;
 
+        this.submit = new JButton("Submit");
+        this.categoryCombo = new JComboBox<>(existingCategory); // category list
+        this.nameInput = new JTextField(15);
+        this.budgetInput = new JTextField(15);
+    }
+
+    /**
+     * Open edit category GUI.
+     */
+    public void openEditCategory(){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Edit Category");
@@ -44,6 +56,14 @@ public class EditCategoryV extends Component implements ActionListener{
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
         panel.setLayout(new GridLayout(0,1));
+
+        JLabel selectCategoryLabel = new JLabel(" Select existing category:");
+        JLabel nameLabel = new JLabel("New Category Name:");
+        JLabel budgetLabel = new JLabel(" New Category Budget:");
+        submit.setSize(30,10);
+
+        submit.addActionListener(this);
+        categoryCombo.addActionListener(this);
 
         panel.add(selectCategoryLabel);
         panel.add(categoryCombo);
@@ -55,13 +75,46 @@ public class EditCategoryV extends Component implements ActionListener{
         frame.add(panel, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
+    }
 
-        submit.addActionListener(this);
-        categoryCombo.addActionListener(this);
+    /**
+     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     */
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
+        if (evt.getSource() == categoryCombo) {
+            this.selectedCategory = (String) categoryCombo.getSelectedItem();
+        }
+        else {
+            // Check if user inputs a category name.
+            if (nameInput.getText().isEmpty()) {
+                JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
+            }
+            // Check if user inputs a category budget.
+            else if (budgetInput.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
+            }
+            // Check if user selects an old category.
+            else if (categoryCombo.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog( this, "Please select a category to edit.");
+            }
+            else {
+                tryUseCaseEdit();
+            }
+        }
+    }
 
-        this.controller = controller;
-        this.monthID = monthID;
-        this.currSession = currSession;
+    /**
+     * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+     *
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     * @param message notify user when new MonthlyStorage is created, otherwise null
+     */
+    @Override
+    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+        monthMenu.openMonthMenu(message,false);
     }
 
     /**
@@ -72,35 +125,10 @@ public class EditCategoryV extends Component implements ActionListener{
         try {
             CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
             JOptionPane.showMessageDialog(this, message.getMessage());
+            // Update Month Menu
+            loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-        }
-    }
-
-    /**
-     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
-     */
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        // Check if user inputs a category name.
-        if (nameInput.getText().isEmpty()) {
-            JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
-        }
-        // Check if user inputs a category budget.
-        if (budgetInput.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
-        }
-        // Check if user selects an old category.
-        if (categoryCombo.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog( this, "Please select a category to edit.");
-        }
-
-        //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
-        if (evt.getSource() == categoryCombo) {
-            this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        }
-        else {
-            tryUseCaseEdit();
         }
     }
 }
