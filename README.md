@@ -4,7 +4,12 @@
 
 - [Overview](#overview)
 - [Key Features](#key-features)
+- [Abbreviations](#abbreviations)
 - [Installation](#installation)
+- [Clean Architecture Specifications](#clean-architecture-specifications)
+  - [Clean Architecture Violations](#clean-architecture-violations)
+  - [SOLID Principles](#solid-principles)
+  - [Design Patterns](#design-patterns)
 - [Authors](#authors)
 
 ## Overview
@@ -43,6 +48,50 @@ accumulated remain preserved and accessible over time.
 3. Navigate to the correct directory: `cd src/main/java`
 4. Compile the project: `javac Main.java`
 5. Run the project: `java Main`
+
+## Abbreviations
+| Name              | Abbreviation |
+|-------------------|--------------|
+| Controller        | C            |
+| UseCaseInteractor | UCI          |
+| InputBoundary     | IB           |
+| InputData         | ID           |
+| OutputBoundary    | OB           |
+| OutputData        | OD           |
+| Presenter         | P            |
+| ViewBoundary      | VB           |
+| View              | V            |
+| Gateway           | G            |
+
+
+## Clean Architecture Specifications
+
+### Clean Architecture Violations
+- Expense and Category are basic object types we have for conveying information. These classes belong to the Entity 
+layer, and are passed around in both the use_case and views packages. Thus if we remove the imports and change the 
+outputdata to Object[][] type in the UpdateViewUCI to accomodate Java Swing, it is not adhering to SOLID in point that 
+its not Open to importing other libraries.
+- SessionStorage is an object type used to hold all information contained in the user's session. Every time a use case 
+is called, the interactor of that use case needs to access the information within the SessionStorage object. Thus, it 
+needs to be passed throughout all layers of our program, despite being a violation of Clean Architecture.
+
+
+### SOLID Principles
+- **Single Responsibility Principle:** All classes are acted upon by a single actor and adhere to this principle.
+- **Open-Closed Principle:** Since our classes with main functionality implement IB and OB interfaces, the user is able 
+to modify any interactor or presenter as they see fit. For example, if the user wanted to implement another view that 
+generates statistical data with all months they could create another interactor to do that.
+- **Liskov Substitution Principle:** All of our IB and OB objects adhere to this principle. Additionally, the 
+LoadMonthMenuVB interface is a good example.
+- **Interface Segregation Principle:**
+- **Dependency Inversion Principle:** All classes have a boundary between every layer in Clean Architecture, to create 
+the dependency inversion.
+
+### Design Patterns
+- The Facade design pattern is used to implement the GenerateSummaryUCI to delegate tasks to the 
+GenerateSummaryUCInterpreter for generating the statistical data, and the GenerateSummaryP for returning it.
+- In the future, we could implement the Factory design pattern to implement the Add/Edit Categories and Add/Edit 
+Expenses.
 
 ## Authors
 
