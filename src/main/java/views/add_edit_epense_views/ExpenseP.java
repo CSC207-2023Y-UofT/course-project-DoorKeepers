@@ -3,6 +3,11 @@ package views.add_edit_epense_views;
 
 import use_cases.add_edit_expenses_use_case.ExpenseOB;
 import use_cases.add_edit_expenses_use_case.ExpenseOD;
+
+/**
+ * ExpenseP notifies success/fail to add or edit expense, implements ExpenseOB.
+ * Returns ExpenseOD when use case is finished.
+ */
 public class ExpenseP implements ExpenseOB {
     /**
      * Returns a ExpenseOD notifying success.

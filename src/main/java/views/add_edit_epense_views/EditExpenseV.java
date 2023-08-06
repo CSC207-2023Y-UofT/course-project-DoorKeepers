@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+/**
+ * View class for the EditExpenseV that extends Component class and implements ActionListener interface.
+ */
+
 public class EditExpenseV extends Component implements ActionListener {
     ExpenseC controller;
     JComboBox<String> expenseCombo;
@@ -23,7 +27,15 @@ public class EditExpenseV extends Component implements ActionListener {
     int monthID;
     SessionStorage currSession;
 
-    public EditExpenseV(ExpenseC controller, String[] existingExpense, int monthID, SessionStorage currSession) {
+    /**
+     *
+     * @param controller
+     * @param existingExpense
+     * @param monthID
+     * @param currSession
+     */
+
+    public EditExpenseV(ExpenseC controller, String[] existingExpense, String[] existingCategory,int monthID, SessionStorage currSession) {
         /*
           Builds EditExpenseV.
          */
@@ -33,6 +45,8 @@ public class EditExpenseV extends Component implements ActionListener {
         this.nameInput = new JTextField(15);
         JLabel valueLabel = new JLabel(" New Expense Budget:");
         this.valueInput = new JTextField(15);
+        JLabel select_category_label = new JLabel(" Select existing category:");
+        this.categoryCombo = new JComboBox<>(existingCategory);
         this.isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
         isRecurringCheckBox.setBounds(100,150,50,50);
         JButton submit = new JButton("Submit");
@@ -57,6 +71,8 @@ public class EditExpenseV extends Component implements ActionListener {
         panel.add(nameInput, BorderLayout.CENTER);
         panel.add(valueLabel);
         panel.add(valueInput);
+        panel.add(select_category_label);
+        panel.add(categoryCombo);
         panel.add(isRecurringCheckBox);
         frame.add(panell, BorderLayout.SOUTH);
         panell.add(submit);

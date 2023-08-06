@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+/**
+ * A view class for the AddExpenseV that extends Component class and implements ActionListener interface.
+ * Creates a new controller that produces a ExpenseOD object.
+ */
 public class AddExpenseV extends Component implements ActionListener {
     ExpenseC controller;
     JTextField nameInput;
@@ -22,10 +26,14 @@ public class AddExpenseV extends Component implements ActionListener {
     int monthID;
     SessionStorage currSession;
 
+    /**
+     * Builds AddExpenseV
+     * @param controller ExpenseC reacts to user input to return ExpenseOD.
+     * @param existingCategory String[] of Category names that exists in current month.
+     * @param monthID int representing the MonthlyStorage.
+     * @param currSession SessionStorage the current working session.
+     */
     public AddExpenseV(ExpenseC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
-        /*
-          Builds AddExpenseV.
-         */
         JLabel nameLabel = new JLabel("Expense Name:");
         this.nameInput = new JTextField(15);
         JLabel valueLabel = new JLabel("Expense Budget:");
@@ -70,13 +78,11 @@ public class AddExpenseV extends Component implements ActionListener {
         submit.addActionListener(this);
     }
 
-
+    /**
+     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        /*
-          Formats user input to pass in valid parameters for a CategtoryC to start a use case.
-          Pop-up window with context specific message may be shown to user.
-         */
         if(evt.getSource() == categoryCombo){
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
         }if (evt.getSource() == isRecurringCheckBox){

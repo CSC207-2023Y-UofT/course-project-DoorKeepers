@@ -121,6 +121,8 @@ public class ExpenseUCI implements ExpenseIB {
      *
      * @param expenseIDEdit ExpenseID required for editing a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
+     * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
+     *      *                          it will be caught at views/add_edit_expense_views/EditExpenseV.java).
      */
     @Override
     public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
