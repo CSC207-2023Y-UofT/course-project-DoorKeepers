@@ -1,39 +1,106 @@
-# Project Template
+# Expenditure Tracker
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+## Table of Contents
 
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create deveopment branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Abbreviations](#abbreviations)
+- [Usage](#usage)
+  - [Installation](#installation)
+- [Clean Architecture Specifications](#clean-architecture-specifications)
+  - [Clean Architecture Violations](#clean-architecture-violations)
+  - [SOLID Principles](#solid-principles)
+  - [Design Patterns](#design-patterns)
+- [Authors](#authors)
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+## Overview
 
-## Workflow Documents
+The Expenditure Tracker is a Java application designed to help users manage their expenses throughout a given month. 
+This intuitive program offers an array of features that allow users to track, organize, and evaluate their expenditures,
+while also providing insightful data analysis for informed financial decision-making.
 
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+## Key Features
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+- **Expense Creation and Editing:** Users can submit and edit numerous expense entries, ensuring an accurate 
+representation of their spending patterns.
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
+- **Categorization:** This program enables users to efficiently categorize their expenses, resulting in a well-organized
+financial overview. Moreover, users customize their categories to allow for precise sorting of expenses according to 
+individual spending habits.
 
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
+- **Budget Allocation:** Users set a predetermined budget for the month, enhancing financial discipline. Additionally, 
+budgets are created per category, allowing for stricter financial management based on user preference.
 
-You will find HelloWorld in `src/main/java/tutorial` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
+- **Month Menu:** A user-friendly menu where all expense tracking is facilitated. The month menu is the hub for 
+expense and category creation, viewing previous expense logs, and generating the graphical summary. 
 
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
+- **Graphical Monthly Reports:** A comprehensive graphical representation of the user's spending distribution. 
+Generating easy-to-understand graphs through UI frameworks, users gain a visual insight into their financial allocation 
+across different categories.
 
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
+- **Persistent Data Storage:** This program ensures continuity by storing user data onto their local file system, 
+allowing access and maintenance across various sessions. This feature guarantees that the financial history and insights
+accumulated remain preserved and accessible over time.
 
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
+## Usage
 
-You can create another simple class and try generating a test for this class.
+### Installation
+
+1. Clone the repository: `git clone https://github.com/CSC207-2023Y-UofT/course-project-DoorKeepers.git`
+2. Locate local file in your terminal or open in an IDE.
+3. Navigate to the correct directory: `cd src/main/java`
+4. Compile the project: `javac Main.java`
+5. Run the project: `java Main`
+
+## Abbreviations
+
+| Name              | Abbreviation |
+|-------------------|--------------|
+| Controller        | C            |
+| UseCaseInteractor | UCI          |
+| InputBoundary     | IB           |
+| InputData         | ID           |
+| OutputBoundary    | OB           |
+| OutputData        | OD           |
+| Presenter         | P            |
+| ViewBoundary      | VB           |
+| View              | V            |
+| Gateway           | G            |
+
+
+## Clean Architecture Specifications
+
+### Clean Architecture Violations
+- Expense and Category are basic object types we have for conveying information that are not separable. For instance, an 
+expense called "Walmart" would have no meaning unless we know the specific amount of money spent shopping in Walmart. 
+These classes belong to the Entity layer, but are passed around in both the use_case and views packages, which is a 
+Clean Architecture violation. We could remove the imports to these entities, and change the output data to Object[][] 
+type in the UpdateViewUCI to accommodate Java Swing requirements. However, we thought it is not adhering to SOLID 
+principle from the point that Object[][] may not be the type required by other view libraries that could be imported, 
+which is in contrary to the Open/Closed Principle.
+- SessionStorage is an object type used to hold all information contained in the user's session. Every time a use case 
+is called, the interactor of that use case needs to access the information within the SessionStorage object. Thus, it 
+needs to be passed throughout all layers of our program, despite being a violation of Clean Architecture.
+
+### SOLID Principles
+- **Single Responsibility Principle:** All classes are acted upon by a single actor and adhere to this principle.
+- **Open-Closed Principle:** Since our classes with main functionality implement IB and OB interfaces, the user is able 
+to modify any interactor or presenter as they see fit. For example, if the user wanted to implement another view that 
+generates statistical data with all months they could create another interactor to do that.
+- **Liskov Substitution Principle:** All of our IB and OB objects adhere to this principle. In order to adhere to the 
+DIP, the interactors and presenters are cast to the IB and OB, respectively. This demonstrates the LSP, as any class 
+that implements these interfaces can be used. Another example is the LoadMonthMenuVB, which 
+- **Interface Segregation Principle:** All of our interfaces adhere to this rule, as they are all small and contain only
+the necessary methods needed.
+- **Dependency Inversion Principle:** All classes have a boundary between every layer in Clean Architecture, to create 
+the dependency inversion.
+
+### Design Patterns
+- The Facade design pattern is used to implement the GenerateSummaryUCI to delegate tasks to the 
+GenerateSummaryUCInterpreter for generating the statistical data, and the GenerateSummaryP for returning it.
+- In the future, we could implement the Factory design pattern to implement the Add/Edit Categories and Add/Edit 
+Expenses.
+
+## Authors
+
+This project was created by Ari, Katarina, Lulu, and Yin for [CSC207] Software Design at the University of Toronto.
