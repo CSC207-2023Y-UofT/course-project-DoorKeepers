@@ -3,6 +3,12 @@ package views.monthly_menu;
 import entities.Category;
 import entities.Expense;
 import entities.SessionStorage;
+import use_cases.generate_summary_use_case.GenerateSummaryIB;
+import use_cases.generate_summary_use_case.GenerateSummaryOB;
+import use_cases.generate_summary_use_case.GenerateSummaryUCI;
+import views.generate_summary_views.GenerateSummaryC;
+import views.generate_summary_views.GenerateSummaryP;
+import views.generate_summary_views.GenerateSummaryV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +22,76 @@ import java.util.ArrayList;
  * MonthMenuOD object, and use the output to set up success and fail view.
  */
 public class MonthMenuV implements ActionListener {
-    views.monthly_menu.UpdateViewC controller;
-    SessionStorage session;
-    int monthID;
-    JFrame frame = new JFrame("Monthly Menu");
-    JButton addExpense;
-    JButton editExpense;
-    JButton addCategory;
-    JButton editCategory;
-    JButton generateSummary;
+    private final UpdateViewC controller;
+    private final SessionStorage session;
+    private final int monthID;
+    private final JFrame frame = new JFrame("Monthly Menu");
+    private JButton addExpense;
+    private JButton editExpense;
+    private JButton addCategory;
+    private JButton editCategory;
+    private JButton generateSummary;
+
+    /**
+     * Construct the view class and call private method to set up GUI.
+     * @param controller the controller class to get output data
+     * @param session the SessionStorage holding the required MonthlyStorage
+     * @param monthID the monthID of the required MonthlyStorage
+     */
+    public MonthMenuV(views.monthly_menu.UpdateViewC controller, SessionStorage session, int monthID) {
+        this.controller = controller;
+        this.session = session;
+        this.monthID = monthID;
+
+        // frame initial settings
+        frame.setVisible(false);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        createMonthMenuView();
+    }
+
+    //TODO: implement the reactions to button clicks
+    /**
+     * React to various button clicks that result in ActionEvent.
+     * Code inspired from <a href="https://youtu.be/Kmgo00avvEw?t=2547">here</a>
+     * @param event the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource()==addExpense){
+            // call add expense
+        } else if (event.getSource()==editExpense) {
+            // call edit expense
+        } else if (event.getSource()==addCategory) {
+            // call add category
+        } else if (event.getSource()==editCategory) {
+            // call edit category
+        } else if (event.getSource()==generateSummary) {
+            // Construct GenerateSummaryV and show view
+            GenerateSummaryOB genSumPresenter = new GenerateSummaryP();
+            GenerateSummaryIB genSumInteractor = new GenerateSummaryUCI(genSumPresenter);
+            GenerateSummaryC genSumController = new GenerateSummaryC(genSumInteractor);
+            GenerateSummaryV genSumView = new GenerateSummaryV(genSumController, session, monthID);
+            genSumView.openSummaryView();
+        }
+    }
+
+    /**
+     * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
+     * @param message notify user if a new MonthlyStorage is created, else null
+     * @param loadMonthSaved true if method is called from MainMenuV to load saved MonthlyStorage
+     */
+    public void openMonthMenu(String message, boolean loadMonthSaved) {
+        if (message!=null){ // if opening Month Menu for a newly create MonthlyStorage
+            frame.setVisible(true);
+            JOptionPane.showMessageDialog(frame,message);
+        } else if (loadMonthSaved) { // if opening Month Menu for a saved MonthlyStorage
+            frame.setVisible(true);
+        } else { // if updating Month Menu after adding/editing Expense/Category
+            createMonthMenuView();
+            frame.setVisible(true);
+        }
+    }
 
     /**
      * Set up success and fail view. The success view shows the Month Menu
@@ -36,15 +103,8 @@ public class MonthMenuV implements ActionListener {
      * Code inspired from
      * <a href="https://stackoverflow.com/questions/5621338/how-to-add-jtable-in-jpanel-with-null-layout">here</a>
      * and <a href="https://youtu.be/S6evF1T_lrU">here</a>.
-     * @param controller the controller class to get output data
-     * @param session the SessionStorage holding the required MonthlyStorage
-     * @param monthID the monthID of the required MonthlyStorage
      */
-    public MonthMenuV(views.monthly_menu.UpdateViewC controller, SessionStorage session, int monthID) {
-        this.controller = controller;
-        this.session = session;
-        this.monthID = monthID;
-
+    private void createMonthMenuView(){
         if (controller.getOutput(session, monthID).isSuccessful()){
             JPanel layout = new JPanel(new BorderLayout(20, 20));
             this.addExpense = new JButton("Add an expense");
@@ -127,11 +187,7 @@ public class MonthMenuV implements ActionListener {
             frame.add(layout);
         }
 
-        // Allow frame to exit on close for both success and fail cases
         frame.pack();
-        frame.setVisible(false);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
     }
 
     /**
@@ -178,37 +234,5 @@ public class MonthMenuV implements ActionListener {
             categoryList[i][1] = category.getBudget();
         }
         return new JTable(categoryList, categoryTableTitle);
-    }
-
-    //TODO: implement the reactions to button clicks
-    /**
-     * React to various button clicks that result in ActionEvent.
-     * Code inspired from <a href="https://youtu.be/Kmgo00avvEw?t=2547">here</a>
-     * @param event the event to be processed
-     */
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        if (event.getSource()==addExpense){
-            // call add expense
-        } else if (event.getSource()==editExpense) {
-            // call edit expense
-        } else if (event.getSource()==addCategory) {
-            // call add category
-        } else if (event.getSource()==editCategory) {
-            // call edit category
-        } else if (event.getSource()==generateSummary) {
-            // call generateSummary
-        }
-    }
-    //TODO: public classes before private classes
-    /**
-     * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
-     */
-    public void openMonthMenu(String message) {
-        frame.setVisible(true);
-        //TODO: move constructor code to a private method that can be called from here
-        if (message!=null){
-            JOptionPane.showMessageDialog(frame,message);
-        }
     }
 }

@@ -6,6 +6,7 @@ import use_cases.monthly_menu.MonthMenuOB;
 import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
 import views.load_monthly_menu.LoadMonthMenuVB;
+import views.main_menu.MainMenuV;
 import views.monthly_menu.MonthMenuP;
 import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
@@ -22,6 +23,7 @@ import java.util.Objects;
  * NewMonthOD object, and use the output to set up success and fail view.
  */
 public class NewMonthV implements ActionListener, LoadMonthMenuVB {
+    private final MainMenuV mainMenu;
     private final NewMonthC controller;
     private final SessionStorage session;
     private final JFrame frame = new JFrame("Creat a new Month");
@@ -40,8 +42,8 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
      * @param controller the controller class to get output data
      * @param session the SessionStorage to store the new MonthlyStorage
      */
-    //TODO: input MainMenuV and call openMainMenu if MonthlyStorage successfully created
-    public NewMonthV (NewMonthC controller, SessionStorage session){
+    public NewMonthV (MainMenuV mainMenu, NewMonthC controller, SessionStorage session){
+        this.mainMenu = mainMenu;
         this.controller = controller;
         this.session = session;
 
@@ -117,7 +119,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
         MonthMenuV monthMenu = new MonthMenuV(updateViewControl,session,monthID);
 
         // Open Month Menu
-        monthMenu.openMonthMenu(message);
+        monthMenu.openMonthMenu(message,false);
     }
 
     /**
@@ -140,6 +142,9 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
                 // Create new MonthlyStorage and get output
                 NewMonthOD output = controller.getOutput(session, monthID, budgetValue);
                 if (output.isSuccessful()){
+                    // Update Main Menu dropdown list of Months
+                    mainMenu.openMainMenu(null,session);
+                    // Load new Month Menu for the new MonthlyStorage
                     loadMonthMenu(session,monthID,"Month created successfully.");
                 } else {
                     JOptionPane.showMessageDialog(frame, output.getWarning());
