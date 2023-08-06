@@ -1,6 +1,7 @@
 package views.file_session_storage;
 
 
+import entities.EntityException;
 import entities.SessionStorage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +16,9 @@ import java.io.IOException;
 class FileSessionStorageTest {
     static SessionStorage sampleSession;
 
+    /**
+     * Creates a sample SessionStorage object that following test cases will use
+     */
     @BeforeAll
     public static void SessionLoadUCICreateSampleSession() {
         sampleSession = new SessionStorage();
@@ -28,6 +32,8 @@ class FileSessionStorageTest {
      * This isn't split into two test cases because they are heavily intertwined; we can't test loading
      * a file without saving one first too. And we can't test that a save was successful without
      * loading it back to check.
+     * @throws IOException if an IO error that's outside the scope of this test happens
+     * @throws ClassNotFoundException Shouldn't throw this since it is testing a valid file
      */
     @Test
     public void FileSessionStorage() throws IOException, ClassNotFoundException {
@@ -64,6 +70,7 @@ class FileSessionStorageTest {
     /**
      * Tests that the load method will throw an exception when loading a file that is not a serialization
      * of a SessionStorage
+     * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test
     public void FileSessionStorageLoadInvalidFile() throws IOException {

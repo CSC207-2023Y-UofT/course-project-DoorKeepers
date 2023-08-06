@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * CategoryUCITest contains tests for the Category use cases (add & edit category).
+ * CategoryUCITest contains tests for the Category use cases (add and edit category).
  */
 class CategoryUCITest {
 
@@ -29,6 +29,7 @@ class CategoryUCITest {
 
     /**
     Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
+     @throws EntityException if a valid method call throws, so that should fail the test
     */
     @Test
     void addCategoryInMonthSuccess() throws EntityException {
@@ -47,6 +48,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void addCategoryInMonthSameNameFail() throws EntityException {
@@ -68,6 +70,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail add case when user tries to add a new Category budget that is a negative number.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void addCategoryInMonthNegValueFail() throws EntityException {
@@ -86,6 +89,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail add case when user tries to add a new Category budget that is an invalid double.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void addCategoryInMonthInvalidDoubleFail() throws EntityException {
@@ -104,6 +108,7 @@ class CategoryUCITest {
     /**
      * Tests success edit use case by adding a valid category and then a successful edit.
      * Use findCategory() to see if the category name is successfully edited.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void editCategoryInMonthSuccess() throws EntityException {
@@ -124,6 +129,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail edit case when user tries to edit the Category name to another name that exists in MonthlyStorage.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void editCategoryInMonthSameNameFail() throws EntityException {
@@ -149,6 +155,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail edit case when user tries to edit the Category budget into a negative number.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void editCategoryInMonthNegValueFail() throws EntityException {
@@ -170,6 +177,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail edit case when user tries to edit a Category that does not exist in MonthlyStorage.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void editCategoryInMonthNoCategoryFail() throws EntityException {
@@ -188,6 +196,7 @@ class CategoryUCITest {
 
     /**
      * Tests fail edit case when user tries to edit the Category budget into an invalid double.
+     * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
     void editCategoryInMonthInvalidDoubleFail() throws EntityException {
