@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionLoadIB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.session_load</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionLoadIB (use_cases.session_load)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">SessionLoadIB</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.session_load;
+&nbsp;
+&nbsp;/**
+&nbsp; * The input boundary interface for loading sessions
+&nbsp; * The SessionLoadUCI interactor class implements this interface and it is called by
+&nbsp; * the SessionLoadC controller class
+&nbsp; */
+&nbsp;public interface SessionLoadIB {
+&nbsp;    /**
+&nbsp;     * Either loads a SessionStorage from a file, or creates a new empty one.
+&nbsp;     *
+&nbsp;     * @param inputData the user input data
+&nbsp;     * @return a SessionLoadOD object with the output data to be used by the View
+&nbsp;     * @throws SessionLoadException if the user chose to load a file and there is an error while opening it
+&nbsp;     */
+&nbsp;    SessionLoadOD load(SessionLoadID inputData) throws SessionLoadException;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

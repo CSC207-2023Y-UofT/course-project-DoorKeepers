@@ -1,0 +1,83 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > NewMonthOB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.create_new_month</a>
+</div>
+
+<h1>Coverage Summary for Class: NewMonthOB (use_cases.create_new_month)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">NewMonthOB</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.create_new_month;
+&nbsp;
+&nbsp;/**
+&nbsp; * The output boundary interface for creating a mew MonthlyStorage.
+&nbsp; * The presenter class for the Create New Month use case
+&nbsp; * implements this interface, and returns NewMonthOD object.
+&nbsp; */
+&nbsp;public interface NewMonthOB {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Pass in and returns MonthMenuOD containing output data.
+&nbsp;     * @param output output to be used in NewMonthV to open MonthMenuV
+&nbsp;     * @return NewMonthOD object that contains output data
+&nbsp;     */
+&nbsp;    NewMonthOD createOutput(NewMonthOD output);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>
