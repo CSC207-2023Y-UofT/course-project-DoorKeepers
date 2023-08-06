@@ -94,7 +94,7 @@ public class MonthlyStorage implements Serializable {
      * Deletes a Category from this month.
      * @param category_name a String referring to the Category object to delete
      */
-    public void deleteCategory(String category_name) throws EntityException {
+    public void deleteCategory(String category_name) {
         this.categoryData.removeIf(c -> Objects.equals(c.getName(), category_name));
     }
 

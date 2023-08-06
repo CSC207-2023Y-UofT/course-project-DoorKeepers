@@ -119,6 +119,7 @@ class MonthlyStorageTest {
     /**
      * Tests deleteExpense() with a valid test case.
      * Note: EntityException is thrown because of addExpense() method that is not tested here.
+     * @throws EntityException if a valid method call throws
      */
     @Test
     public void MonthlyStorageDeleteExpenseSuccess() throws EntityException{
@@ -136,6 +137,7 @@ class MonthlyStorageTest {
     /**
      * Tests deleteExpense() with an Expense not in the MonthlyStorage.
      * Note: EntityException is thrown because of addExpense() method that is not tested here.
+     * @throws EntityException if a valid method call throws
      */
     @Test
     public void MonthlyStorageDeleteExpenseFail() throws EntityException {
@@ -152,6 +154,7 @@ class MonthlyStorageTest {
     /**
      * Tests deleteCategory() with a valid test case.
      * Note: EntityException is thrown because of addCategory() method that is not tested here.
+     * @throws EntityException if a valid method call throws
      */
     @Test
     public void MonthlyStorageDeleteCategorySuccess() throws EntityException{
@@ -173,6 +176,7 @@ class MonthlyStorageTest {
     /**
      * Tests deleteCategory() with a Category not in the MonthlyStorage.
      * Note: EntityException is thrown because of addCategory() method that is not tested here.
+     * @throws EntityException if a valid method call throws
      */
     @Test
     public void MonthlyStorageDeleteCategoryFail() throws EntityException{

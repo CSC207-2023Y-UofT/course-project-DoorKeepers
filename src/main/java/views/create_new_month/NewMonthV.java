@@ -39,6 +39,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
      * Set up the window for user input. User is required to input the year,
      * select the month, and input the budget for the month.
      * Code inspired from <a href="https://youtu.be/Kmgo00avvEw">here</a>.
+     * @param mainMenu the MainMenuV to update after creating the month
      * @param controller the controller class to get output data
      * @param session the SessionStorage to store the new MonthlyStorage
      */

@@ -10,6 +10,7 @@ public interface GenerateSummaryOB {
      * Returns a GenerateSummaryOD output data holding the remainder of money left in the budget and the statisticalData
      * pertaining to the current month.
      * @param outputData a GenerateSummaryOD object
+     * @return the GenerateSummaryOD object with statistical data and remainder information
      */
      GenerateSummaryOD createOutputData(GenerateSummaryOD outputData);
 

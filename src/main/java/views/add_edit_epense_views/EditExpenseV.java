@@ -18,18 +18,18 @@ import java.util.Objects;
 
 public class EditExpenseV extends Component implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
-    ExpenseC controller;
-    JComboBox<String> expenseCombo;
-    JComboBox<String> categoryCombo;
-    JTextField nameInput;
-    JTextField valueInput;
-    String selectedCategory;
-    String selectedExpense;
-    JCheckBox isRecurringCheckBox;
-    boolean isRecurring;
+    private final ExpenseC controller;
+    private final JComboBox<String> expenseCombo;
+    private final JComboBox<String> categoryCombo;
+    private final JTextField nameInput;
+    private final JTextField valueInput;
+    private String selectedCategory;
+    private String selectedExpense;
+    private final JCheckBox isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
+    private boolean isRecurring;
     private final JButton submit = new JButton("Submit");
-    int monthID;
-    SessionStorage currSession;
+    private final int monthID;
+    private final SessionStorage currSession;
 
     /**
      * Builds EditExpenseV for user entries.
@@ -48,7 +48,6 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         this.nameInput = new JTextField(15);
         this.valueInput = new JTextField(15);
         this.categoryCombo = new JComboBox<>(existingCategory);
-        this.isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
     }
 
     /**

@@ -49,6 +49,7 @@ class SessionLoadUCITest {
 
     /**
      * Tests loading an existing session from a file
+     * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test
     public void SessionLoadUCILoadFile() throws IOException {
@@ -101,6 +102,7 @@ class SessionLoadUCITest {
 
     /**
      * Tests trying to load an invalid file  and that a SessionLoadException will be raised
+     * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test
     public void SessionLoadUCILoadInvalidFile() throws IOException {
