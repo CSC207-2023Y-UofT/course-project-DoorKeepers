@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 /**
  * View class for the EditExpenseV that extends Component class and implements ActionListener interface.
@@ -109,8 +108,6 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
         }if (evt.getSource() == isRecurringCheckBox){
                 this.isRecurring = isRecurringCheckBox.isSelected();
-        }if (isRecurring == (!Objects.equals(selectedCategory, "Other"))) {
-            JOptionPane.showMessageDialog( this, "A recurring expense belongs to Category 'Other'. Please select Category 'Other' in the field above, thanks! ");
         } else {
             ExpenseOD message = null;
             try {

@@ -57,7 +57,7 @@ public class ExpenseUCI implements ExpenseIB {
         try {
             double valueDouble = toDouble(expenseIDAdd.getValue());
 
-            Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());
+            Category selectedCategory = findCategory(categoryList, expenseID.getNewCategory());
             Category other = findCategory(categoryList, "Other");
 
             if (valueDouble < 0) {
@@ -85,11 +85,11 @@ public class ExpenseUCI implements ExpenseIB {
                     }
                 }else{
                     Expense newrecurExpense = new Expense(expenseID.getName(), other, valueDouble);
+                    month.addExpense(newrecurExpense);
                     session.addRecurExpense(newrecurExpense);
                     ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
                     return expenseOB.success(expenseODSuccessAdd);}
                     }
-
             Expense newExpense = new Expense(expenseID.getName(), selectedCategory,valueDouble);
 
             month.addExpense(newExpense);
@@ -131,59 +131,64 @@ public class ExpenseUCI implements ExpenseIB {
         MonthlyStorage month = session.getMonthlyData(expenseID.getMonthID());
         ArrayList<Expense> monthExpenseList = month.getExpenseData();
         ArrayList<Category> categoryList = month.getCategoryData();
-        Expense selectedExpense;
 
         try {
-            Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());
+            Expense selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());
+            Category newCategory = findCategory(categoryList, expenseID.getNewCategory());
 
-            if(Objects.equals(expenseIDEdit.getOldCategory(), "Other")){
-                selectedExpense = findExpense(recurringExpenseList, expenseID.getOldExpense());
-            }else{selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());}
-
-            double valueDouble = toDouble(expenseIDEdit.getValue());
+            double valueDouble = toDouble(expenseID.getValue());
+            // Check that value is non-negative and non-zero.
             if (valueDouble < 0) {
                 //4. Expense budget less than 0 fail
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense budget can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);
-            }//&&!expenseID.getIsRecurringExpense()
-            if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){
+            }
+            // Check that new name does not already exist, if it is different from the old name.
+            if(!Objects.equals(expenseID.getName(), expenseID.getOldExpense())){
                 if(checkHaveSameNameInList(monthExpenseList)) {
                     //1. Repeated name fail
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
                     return expenseOB.fail(expenseODFailEdit);
-                }}
+                }
+            }
+
+            // What to do if there is a change in the recurring status.
             if (changeInRecurringInfo()) {// 4. Same recurring expense name fail
+                // this means that the user wants to make this a recurring expense.
                 if (expenseID.getIsRecurringExpense()) {
+                    // this checks if there is a recurring expense with that name, but this won't run because it is checked above.
                     if (checkHaveSameNameInList(recurringExpenseList)) {
                         ExpenseOD expenseODFailEdit = new ExpenseOD("There is a recurring expense with this name, you don't need to add recurring expense in month! " +
                                 "(If this is not the same expense, please use another name!)");
                         return expenseOB.fail(expenseODFailEdit);
-                    }else {
-                        selectedExpense.setName(expenseIDEdit.getName());
-                        expenseIDEdit.setValue(valueDouble);
+                    } else {
+
+                        selectedExpense.setName(expenseID.getName());
+                        expenseID.setValue(valueDouble);
                         selectedExpense.setValue(valueDouble);
-                        session.deleteRecurExpense(expenseID.getName());
-                        selectedExpense.setCategory(selectedCategory);
-                        ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to the category selected in current month!");
+                        session.addRecurExpense(selectedExpense);
+                        ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to a recurring expense in current session!");
                         return expenseOB.success(expenseODSuccessEditRecurring);
                     }
-                }else {
-                    selectedExpense.setName(expenseIDEdit.getName());
-                    expenseIDEdit.setValue(valueDouble);
+                    // this means that the user wants to remove a recurring expense.
+                } else {
+                    selectedExpense.setName(expenseID.getName());
+                    expenseID.setValue(valueDouble);
                     selectedExpense.setValue(valueDouble);
-                    session.addRecurExpense(selectedExpense);
-                    selectedExpense.setCategory(findCategory(categoryList, "Other"));
-                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to a recurring expense in current session!");
+                    session.deleteRecurExpense(expenseID.getName());
+                    selectedExpense.setCategory(newCategory);
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to the category selected in current month!");
                     return expenseOB.success(expenseODSuccessEditRecurring);
                 }
-                    }
-
-            selectedExpense.setName(expenseIDEdit.getName());
-            expenseIDEdit.setValue(valueDouble);
-            selectedExpense.setValue(valueDouble);
-
-            ExpenseOD expenseODSuccessEdit = new ExpenseOD("You have edited a expense!");
-            return expenseOB.success(expenseODSuccessEdit);
+            }
+            // there is not a change in the recurring status
+            else {
+                selectedExpense.setName(expenseID.getName());
+                expenseID.setValue(valueDouble);
+                selectedExpense.setValue(valueDouble);
+                ExpenseOD expenseODSuccessEdit = new ExpenseOD("You have edited a expense!");
+                return expenseOB.success(expenseODSuccessEdit);
+            }
 
             } catch(NoSuchElementException e){
                 //2. NoSuchElementException fail
