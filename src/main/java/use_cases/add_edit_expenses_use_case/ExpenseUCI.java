@@ -1,4 +1,4 @@
-package use_case.add_edit_expenses_use_case;
+package use_cases.add_edit_expenses_use_case;
 
 import entities.*;
 
@@ -7,9 +7,10 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class ExpenseUCI implements ExpenseIB {
-    final ExpenseOB expenseOB;
+    private final ExpenseOB expenseOB;
     private ExpenseID expenseID;
     private ArrayList<Expense> recurringExpenseList;
+    private ArrayList<Expense> monthExpenseList;
 
 
     /**
@@ -128,39 +129,52 @@ public class ExpenseUCI implements ExpenseIB {
         MonthlyStorage month = session.getMonthlyData(expenseID.getMonthID());
         ArrayList<Expense> monthExpenseList = month.getExpenseData();
         ArrayList<Category> categoryList = month.getCategoryData();
-        Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());
+        Expense selectedExpense;
 
         try {
-            Expense selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());
+            Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());
+
+            if(Objects.equals(expenseIDEdit.getOldCategory(), "Other")){
+                selectedExpense = findExpense(recurringExpenseList, expenseID.getOldExpense());
+            }else{selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());}
+
             double valueDouble = toDouble(expenseIDEdit.getValue());
             if (valueDouble < 0) {
                 //4. Expense budget less than 0 fail
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense budget can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);
-            }
-            for (Expense expense1 : monthExpenseList) {
-                if (expense1.getName().equals(expenseID.getName())) {
+            }//&&!expenseID.getIsRecurringExpense()
+            if(checkHaveSameNameInList(monthExpenseList)){
                     //1. Repeated name fail
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
                     return expenseOB.fail(expenseODFailEdit);
                 }
-            }
-
             if (changeInRecurringInfo()) {// 4. Same recurring expense name fail
-                if (!expenseID.getIsRecurringExpense()) {
-                    for (Expense expense2 : monthExpenseList) {
-                        if (expense2.getName().equals(expenseID.getName())) {
-                            ExpenseOD expenseODFailEdit = new ExpenseOD("There is a recurring expense with this name, you don't need to add recurring expense in month! " +
-                                    "(If this is not the same expense, please use another name!)");
-                            return expenseOB.fail(expenseODFailEdit);
-                        } else {
-                            session.deleteRecurExpense(expenseID.getName());
-                            selectedExpense.setCategory(selectedCategory);}
+                if (expenseID.getIsRecurringExpense()) {
+                    if (checkHaveSameNameInList(recurringExpenseList)) {
+                        ExpenseOD expenseODFailEdit = new ExpenseOD("There is a recurring expense with this name, you don't need to add recurring expense in month! " +
+                                "(If this is not the same expense, please use another name!)");
+                        return expenseOB.fail(expenseODFailEdit);
+                    }else {
+                        selectedExpense.setName(expenseIDEdit.getName());
+                        expenseIDEdit.setValue(valueDouble);
+                        selectedExpense.setValue(valueDouble);
+                        session.deleteRecurExpense(expenseID.getName());
+                        selectedExpense.setCategory(selectedCategory);
+                        ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to the category selected in current month!");
+                        return expenseOB.success(expenseODSuccessEditRecurring);
                     }
-                } else {
+                }else {
+                    selectedExpense.setName(expenseIDEdit.getName());
+                    expenseIDEdit.setValue(valueDouble);
+                    selectedExpense.setValue(valueDouble);
                     session.addRecurExpense(selectedExpense);
-                    selectedExpense.setCategory(selectedCategory);}
-            }
+                    selectedExpense.setCategory(findCategory(categoryList, "Other"));
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense to a recurring expense in current session!");
+                    return expenseOB.success(expenseODSuccessEditRecurring);
+                }
+                    }
+
             selectedExpense.setName(expenseIDEdit.getName());
             expenseIDEdit.setValue(valueDouble);
             selectedExpense.setValue(valueDouble);
@@ -205,7 +219,7 @@ public class ExpenseUCI implements ExpenseIB {
             for (Category category : monthCategoryData) {
                 if (Objects.equals(category.getName(), name)) {
                     return category;
-                }
+                };
             }
             throw new NoSuchElementException();
         }
@@ -217,7 +231,6 @@ public class ExpenseUCI implements ExpenseIB {
      * @return boolean suggesting there is a need to update Session.recurringExpenseData
      */
     private boolean changeInRecurringInfo() {
-                // check if new expense name exists as a recurring expense
         if(expenseID.getIsRecurringExpense()) {
             try {findExpense(recurringExpenseList, expenseID.getName());
                 return false;
@@ -229,6 +242,12 @@ public class ExpenseUCI implements ExpenseIB {
             }catch(NoSuchElementException e) {
                 return false;}
         }
+    }
+    private boolean checkHaveSameNameInList(ArrayList<Expense> expenseList){
+        for (Expense expense1 : expenseList) {
+            return expense1.getName().equals(expenseID.getName());
+    }
+        return false;
     }
 }
 

@@ -1,4 +1,4 @@
-package use_case.add_edit_expenses_use_case;
+package use_cases.add_edit_expenses_use_case;
 
 
 /**

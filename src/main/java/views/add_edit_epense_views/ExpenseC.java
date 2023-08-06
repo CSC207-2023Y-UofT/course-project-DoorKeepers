@@ -2,9 +2,9 @@ package views.add_edit_epense_views;
 
 import entities.EntityException;
 import entities.SessionStorage;
-import use_case.add_edit_expenses_use_case.ExpenseIB;
-import use_case.add_edit_expenses_use_case.ExpenseID;
-import use_case.add_edit_expenses_use_case.ExpenseOD;
+import use_cases.add_edit_expenses_use_case.ExpenseIB;
+import use_cases.add_edit_expenses_use_case.ExpenseID;
+import use_cases.add_edit_expenses_use_case.ExpenseOD;
 
 
 public class ExpenseC {
