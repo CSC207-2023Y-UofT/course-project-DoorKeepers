@@ -82,22 +82,22 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource()==submit){
+        //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
+        if (evt.getSource() == categoryCombo) {
+            this.selectedCategory = (String) categoryCombo.getSelectedItem();
+        }
+        else {
             // Check if user inputs a category name.
             if (nameInput.getText().isEmpty()) {
                 JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
             }
             // Check if user inputs a category budget.
-            if (budgetInput.getText().isEmpty()){
+            else if (budgetInput.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
             }
             // Check if user selects an old category.
-            if (categoryCombo.getSelectedItem() == null) {
+            else if (categoryCombo.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog( this, "Please select a category to edit.");
-            }
-            //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
-            if (evt.getSource() == categoryCombo) {
-                this.selectedCategory = (String) categoryCombo.getSelectedItem();
             }
             else {
                 tryUseCaseEdit();
