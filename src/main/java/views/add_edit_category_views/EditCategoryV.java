@@ -71,6 +71,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         panel.add(nameInput, BorderLayout.CENTER);
         panel.add(budgetLabel);
         panel.add(budgetInput);
+        panel.add(submit);
 
         frame.add(panel, BorderLayout.NORTH);
         frame.pack();
