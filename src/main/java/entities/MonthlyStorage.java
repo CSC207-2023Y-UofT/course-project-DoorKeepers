@@ -92,18 +92,18 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Deletes a Category from this month.
-     * @param category_name a String referring to the Category object to delete
+     * @param categoryName a String referring to the Category object to delete
      */
-    public void deleteCategory(String category_name) {
-        this.categoryData.removeIf(c -> Objects.equals(c.getName(), category_name));
+    public void deleteCategory(String categoryName) {
+        this.categoryData.removeIf(c -> Objects.equals(c.getName(), categoryName));
     }
 
     /**
      * Deletes an Expense from this month.
-     * @param expense_name a String referring to the Expense object to delete
+     * @param expenseName a String referring to the Expense object to delete
      */
-    public void deleteExpense(String expense_name) {
-        this.expenseData.removeIf(e -> Objects.equals(e.getName(), expense_name));
+    public void deleteExpense(String expenseName) {
+        this.expenseData.removeIf(e -> Objects.equals(e.getName(), expenseName));
     }
 
     /**

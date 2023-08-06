@@ -39,10 +39,10 @@ public class SessionStorage implements Serializable {
 
     /**
      * Deletes an Expense from this month.
-     * @param expense_name a String containing the name of the Expense to delete
+     * @param expenseName a String containing the name of the Expense to delete
      */
-    public void deleteRecurExpense(String expense_name) {
-        this.recurData.removeIf(e -> Objects.equals(e.getName(), expense_name));
+    public void deleteRecurExpense(String expenseName) {
+        this.recurData.removeIf(e -> Objects.equals(e.getName(), expenseName));
     }
 
     /**

@@ -26,26 +26,26 @@ public class Expense implements Serializable {
 
     /**
      * Sets the name of this Expense.
-     * @param new_name the new name that this Expense will have
+     * @param newName the new name that this Expense will have
      */
-    public void setName(String new_name){
-        this.name = new_name;
+    public void setName(String newName){
+        this.name = newName;
     }
 
     /**
      * Sets the Category of this Expense.
-     * @param new_category the new Category that this Expense will belong to
+     * @param newCategory the new Category that this Expense will belong to
      */
-    public void setCategory(Category new_category){
-        this.category = new_category;
+    public void setCategory(Category newCategory){
+        this.category = newCategory;
     }
 
     /**
      * Sets the value of this Expense.
-     * @param new_value the new value that this Expense will have
+     * @param newValue the new value that this Expense will have
      */
-    public void setValue(double new_value){
-        this.value = new_value;
+    public void setValue(double newValue){
+        this.value = newValue;
     }
 
     /**
