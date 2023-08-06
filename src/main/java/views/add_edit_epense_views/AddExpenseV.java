@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 /**
  * A view class for the AddExpenseV that extends Component class and implements ActionListener interface.
@@ -24,7 +23,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
     private final JComboBox<String> categoryCombo;
     private final String selectedExpense;
     private String selectedCategory;
-    private JCheckBox isRecurringCheckBox;
+    private final JCheckBox isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
     private boolean isRecurring;
     private final JButton submit = new JButton("Submit");
     private final int monthID;
@@ -32,6 +31,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
 
     /**
      * Builds AddExpenseV for user entries.
+     * @param monthMenu MonthMenuV that contains the button that creates AddExpenseV
      * @param controller ExpenseC reacts to user input to return ExpenseOD.
      * @param existingCategory String[] of Category names that exists in current month.
      * @param monthID int representing the MonthlyStorage.
@@ -90,7 +90,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
     }
 
     /**
-     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     * Checks and formats user input to pass in valid parameters to start a use case.
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
@@ -98,8 +98,6 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
         }if (evt.getSource() == isRecurringCheckBox){
             this.isRecurring = isRecurringCheckBox.isSelected();
-        }if (isRecurring == (!Objects.equals(selectedCategory, "Other"))) {
-            JOptionPane.showMessageDialog( this, "A recurring expense belongs to Category 'Other'. Please select Category 'Other' in the field above, thanks! ");
         } else {
             try {
                 ExpenseOD message = controller.expenseInMonth(nameInput.getText(), String.valueOf(valueInput), selectedCategory, isRecurring, monthID, currSession, selectedExpense);

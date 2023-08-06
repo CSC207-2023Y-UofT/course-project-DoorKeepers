@@ -1,6 +1,7 @@
 package views.add_edit_epense_views;
 
 import entities.EntityException;
+import entities.Expense;
 import entities.SessionStorage;
 import use_cases.add_edit_expenses_use_case.ExpenseOD;
 import views.load_monthly_menu.LoadMonthMenuVB;
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 /**
  * View class for the EditExpenseV that extends Component class and implements ActionListener interface.
@@ -33,10 +33,12 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
 
     /**
      * Builds EditExpenseV for user entries.
-     * @param controller
-     * @param existingExpense
-     * @param monthID
-     * @param currSession
+     * @param monthMenu MonthMenuV that contains the button that creates EditExpenseV.
+     * @param controller ExpenseC reacts to user input to return ExpenseOD.
+     * @param existingExpense String[] of Expense names that exists in current month.
+     * @param existingCategory String[] of Category names that exists in current month.
+     * @param monthID int representing the MonthlyStorage.
+     * @param currSession SessionStorage the current working session.
      */
     public EditExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingExpense, String[] existingCategory, int monthID, SessionStorage currSession) {
         this.monthMenu = monthMenu;
@@ -44,7 +46,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         this.monthID = monthID;
         this.currSession = currSession;
 
-        this.expenseCombo = new JComboBox<>(existingExpense); // expense list
+        this.expenseCombo = new JComboBox<>(existingExpense);
         this.nameInput = new JTextField(15);
         this.valueInput = new JTextField(15);
         this.categoryCombo = new JComboBox<>(existingCategory);
@@ -94,22 +96,23 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         categoryCombo.addActionListener(this);
         isRecurringCheckBox.addActionListener(this);
     }
-
+    /**
+     * Checks and formats user input to pass in valid parameters to start a use case.
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        /*
-          Two ActionListeners with different behaviours differentiated by evt.getSource().
-          Formats user input to pass in valid parameters for a CategtoryC to start a use case.
-          Pop-up window with context specific message may be shown to user.
-         */
         if (evt.getSource() == expenseCombo) {
-            this.selectedExpense = (String) expenseCombo.getSelectedItem();
-        }if(evt.getSource() == categoryCombo){
-            this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        }if (evt.getSource() == isRecurringCheckBox){
+            this.selectedExpense = (String) expenseCombo.getSelectedItem();}
+        if(currSession.getRecurData().size() > 0){
+            for(Expense recurExpense : currSession.getRecurData()){
+                if(recurExpense.getName().equals(selectedExpense)){
+                    isRecurringCheckBox.setSelected(true);}
+            }
+        }
+        if(evt.getSource() == categoryCombo){
+            this.selectedCategory = (String) categoryCombo.getSelectedItem();}
+        if (evt.getSource() == isRecurringCheckBox){
                 this.isRecurring = isRecurringCheckBox.isSelected();
-        }if (isRecurring == (!Objects.equals(selectedCategory, "Other"))) {
-            JOptionPane.showMessageDialog( this, "A recurring expense belongs to Category 'Other'. Please select Category 'Other' in the field above, thanks! ");
         } else {
             ExpenseOD message = null;
             try {
