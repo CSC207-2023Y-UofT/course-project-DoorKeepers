@@ -122,7 +122,7 @@ public class ExpenseUCI implements ExpenseIB {
      * @param expenseIDEdit ExpenseID required for editing a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
      * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
-     *      *                          it will be caught at views/add_edit_expense_views/EditExpenseV.java).
+     *                         it will be caught at views/add_edit_expense_views/EditExpenseV.java).
      */
     @Override
     public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
@@ -146,11 +146,12 @@ public class ExpenseUCI implements ExpenseIB {
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense budget can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);
             }//&&!expenseID.getIsRecurringExpense()
-            if(checkHaveSameNameInList(monthExpenseList)){
+            if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){
+                if(checkHaveSameNameInList(monthExpenseList)) {
                     //1. Repeated name fail
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
                     return expenseOB.fail(expenseODFailEdit);
-                }
+                }}
             if (changeInRecurringInfo()) {// 4. Same recurring expense name fail
                 if (expenseID.getIsRecurringExpense()) {
                     if (checkHaveSameNameInList(recurringExpenseList)) {
@@ -198,8 +199,8 @@ public class ExpenseUCI implements ExpenseIB {
     /**
      * @param ExpenseData An ArrayList of expenses.
      * @param name Expense name.
-     * //@return
-     * //@throws NoSuchElementException
+     * @return Expense with given String name
+     * @throws NoSuchElementException thrown when couldn't find Expense with String nane
      */
 
         public Expense findExpense(ArrayList<Expense> ExpenseData, String name)throws NoSuchElementException{
@@ -214,18 +215,17 @@ public class ExpenseUCI implements ExpenseIB {
     /**
      * @param monthCategoryData An ArrayList of categories.
      * @param name Category name.
-     * @return
-     * @throws NoSuchElementException
+     * @return Category with given String name
+     * @throws NoSuchElementException thrown when couldn't find Expense with String nane
      */
     public Category findCategory (ArrayList < Category > monthCategoryData, String name) throws NoSuchElementException {
             for (Category category : monthCategoryData) {
                 if (Objects.equals(category.getName(), name)) {
                     return category;
-                };
+                }
             }
             throw new NoSuchElementException();
         }
-
 
     /**
      * Identifying the only two cases when Session.recurringExpenseData needs to updated when attempting to edit Expense.
@@ -245,6 +245,12 @@ public class ExpenseUCI implements ExpenseIB {
                 return false;}
         }
     }
+
+    /**
+     * Checks if a given Expense arraylist contains a name that is the same as the Expense name input.
+     * @param expenseList ArrayList<Expense> containing a list of expenses
+     * @return boolean checks if same name exists
+     */
     private boolean checkHaveSameNameInList(ArrayList<Expense> expenseList){
         for (Expense expense1 : expenseList) {
             return expense1.getName().equals(expenseID.getName());
