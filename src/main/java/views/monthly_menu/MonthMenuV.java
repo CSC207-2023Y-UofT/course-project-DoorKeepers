@@ -256,6 +256,26 @@ public class MonthMenuV implements ActionListener {
         return new JTable(categoryList, categoryTableTitle);
     }
 
+    /**
+     * Get Array of String names from ArrayList of Expense.
+     * @return String list of names of expenses stored in MonthlyStorage
+     */
+    private String[] getExpenseNames(){
+        ArrayList<Expense> expenses = controller.getOutput(session, monthID).getExpenseData();
+        Expense[] expensesArray = new Expense[expenses.size()];
+        expenses.toArray(expensesArray);
+        String[] expenseNames = new String[expensesArray.length];
+        for (int i = 0; i < expensesArray.length; i++){
+            Expense expense = expensesArray[i];
+            expenseNames[i] = expense.getName();
+        }
+        return expenseNames;
+    }
+
+    /**
+     * Get Array of String names from ArrayList of Category.
+     * @return String list of names of categories stored in MonthlyStorage
+     */
     private String[] getCategoryNames(){
         ArrayList<Category> categories = controller.getOutput(session, monthID).getCategoryData();
         Category[] categoriesArray = new Category[categories.size()];
