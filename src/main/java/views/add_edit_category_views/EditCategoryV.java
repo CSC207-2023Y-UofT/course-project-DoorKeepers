@@ -125,6 +125,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         try {
             CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
             JOptionPane.showMessageDialog(this, message.getMessage());
+            // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");

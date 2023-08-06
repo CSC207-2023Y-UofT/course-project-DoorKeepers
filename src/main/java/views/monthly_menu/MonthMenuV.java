@@ -6,6 +6,9 @@ import entities.SessionStorage;
 import use_cases.add_edit_category_use_case.CategoryIB;
 import use_cases.add_edit_category_use_case.CategoryOB;
 import use_cases.add_edit_category_use_case.CategoryUCI;
+import use_cases.add_edit_expenses_use_case.ExpenseIB;
+import use_cases.add_edit_expenses_use_case.ExpenseOB;
+import use_cases.add_edit_expenses_use_case.ExpenseUCI;
 import use_cases.generate_summary_use_case.GenerateSummaryIB;
 import use_cases.generate_summary_use_case.GenerateSummaryOB;
 import use_cases.generate_summary_use_case.GenerateSummaryUCI;
@@ -13,6 +16,10 @@ import views.add_edit_category_views.AddCategoryV;
 import views.add_edit_category_views.CategoryC;
 import views.add_edit_category_views.CategoryP;
 import views.add_edit_category_views.EditCategoryV;
+import views.add_edit_epense_views.AddExpenseV;
+import views.add_edit_epense_views.EditExpenseV;
+import views.add_edit_epense_views.ExpenseC;
+import views.add_edit_epense_views.ExpenseP;
 import views.generate_summary_views.GenerateSummaryC;
 import views.generate_summary_views.GenerateSummaryP;
 import views.generate_summary_views.GenerateSummaryV;
@@ -66,9 +73,24 @@ public class MonthMenuV implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource()==addExpense){
-            // call add expense
+            // Get list of category names
+            String[] categoryNames = getCategoryNames();
+            // Construct AddExpenseV and show GUI
+            ExpenseOB expensePresenter = new ExpenseP();
+            ExpenseIB expenseInteractor = new ExpenseUCI(expensePresenter);
+            ExpenseC expenseController = new ExpenseC(expenseInteractor);
+            AddExpenseV addExpenseView = new AddExpenseV(this,expenseController,categoryNames,monthID,session);
+            addExpenseView.openAddExpense();
         } else if (event.getSource()==editExpense) {
-            // call edit expense
+            // Get list of category and list of expense names
+            String[] categoryNames = getCategoryNames();
+            String[] expenseNames = getExpenseNames();
+            // Construct EditExpenseV and show GUI
+            ExpenseOB expensePresenter = new ExpenseP();
+            ExpenseIB expenseInteractor = new ExpenseUCI(expensePresenter);
+            ExpenseC expenseController = new ExpenseC(expenseInteractor);
+            EditExpenseV editExpenseView = new EditExpenseV(this,expenseController,expenseNames,categoryNames,monthID,session);
+            editExpenseView.openEditExpense();
         } else if (event.getSource()==addCategory) {
             // Construct AddCategoryV and show GUI
             CategoryOB categoryPresenter = new CategoryP();

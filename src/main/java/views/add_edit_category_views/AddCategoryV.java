@@ -111,6 +111,7 @@ public class AddCategoryV extends Component implements ActionListener, LoadMonth
         try {
             message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()),
                     monthID, currSession, oldCategory);
+            // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this,
