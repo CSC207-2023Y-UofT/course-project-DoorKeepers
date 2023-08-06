@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CategoryC</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">views.add_edit_category_views</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryC (views.add_edit_category_views)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryC</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package views.add_edit_category_views;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;import entities.SessionStorage;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryIB;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryID;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryOD;
+&nbsp;
+&nbsp;/**
+&nbsp; * CategoryC passes in user input information in the form of CategoryID.
+&nbsp; * The CategoryIB calls methods in CategoryUCI to perform the use cases.
+&nbsp; * Returns a CategoryOD Object for classes AddCategoryV() and EditCategoryV().
+&nbsp; */
+&nbsp;public class CategoryC {
+&nbsp;    private final CategoryIB input;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs CategoryC with a CategoryIB.
+&nbsp;     * @param categoryIB a CategoryIB.
+&nbsp;     */
+<b class="nc">&nbsp;    public CategoryC(CategoryIB categoryIB){</b>
+<b class="nc">&nbsp;        this.input = categoryIB;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns CategoryOD Object when the category is successfully edited to the designated month with monthId in the working session.
+&nbsp;     * @param name user input String category name
+&nbsp;     * @param value user input Object category budget
+&nbsp;     * @param monthID int representing current month
+&nbsp;     * @param session SessionStorage current session
+&nbsp;     * @param oldCategory Category existing category selected by user in edit use case;
+&nbsp;     *                    assigned null in add use case(implementation in AddCategoryV).
+&nbsp;     * @return CategoryOD for success edit
+&nbsp;     * @throws EntityException thrown when edit category attempt fails.
+&nbsp;     */
+&nbsp;    public CategoryOD categoryInMonth(String name, Object value, int monthID, SessionStorage session, String oldCategory) throws EntityException {
+<b class="nc">&nbsp;        CategoryID categoryID = new CategoryID(name, value, monthID, session, oldCategory);</b>
+<b class="nc">&nbsp;        if(oldCategory == null){</b>
+<b class="nc">&nbsp;            return input.addCategoryInMonth(categoryID);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else {return input.editCategoryInMonth(categoryID);}</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

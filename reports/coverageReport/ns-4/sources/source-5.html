@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ExpenseIB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.add_edit_expenses_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: ExpenseIB (use_cases.add_edit_expenses_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ExpenseIB</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.add_edit_expenses_use_case;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;
+&nbsp;/**
+&nbsp; * ExpenseIB passes in user input of expense information in the form of ExpenseID.
+&nbsp; * Implemented by ExpenseUCI.
+&nbsp; */
+&nbsp;
+&nbsp;public interface ExpenseIB {
+&nbsp;    /**
+&nbsp;     * Describes abstract addExpenseInMonth() that is override in ExpenseUCI to format detailed responses for attempts to add an Expense.
+&nbsp;     * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
+&nbsp;     * @return String indicating fail/success add attempt.
+&nbsp;     * @throws EntityException thrown when the new  input is invalid.
+&nbsp;     */
+&nbsp;    ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) throws EntityException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Describes abstract editExpenseInMonth() that is override in ExpenseUCI to format detailed responses for attempts to edit an Expense.
+&nbsp;     * @param expenseIDEdit ExpenseID required for editing an existing Expense Object in designated monthID MonthlyStorage Object.
+&nbsp;     * @return String indicating fail/success edit attempt.
+&nbsp;     * @throws EntityException thrown when the new expense input is invalid.
+&nbsp;     */
+&nbsp;    ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>

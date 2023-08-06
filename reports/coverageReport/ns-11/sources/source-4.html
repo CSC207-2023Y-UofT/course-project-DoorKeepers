@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionLoadMainMenuVB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">views.session_load</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionLoadMainMenuVB (views.session_load)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">SessionLoadMainMenuVB</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package views.session_load;
+&nbsp;
+&nbsp;import entities.SessionStorage;
+&nbsp;
+&nbsp;/**
+&nbsp; * A view boundary interface to open up the main menu and display a success message
+&nbsp; * The MainMenuV view class implements this interface, and it is called by the SessionLoadMenuV
+&nbsp; * class to switch over to the main menu after loading the session
+&nbsp; */
+&nbsp;public interface SessionLoadMainMenuVB {
+&nbsp;    /**
+&nbsp;     * Makes the main menu visible which displays the session data passed and displays a message in a popup
+&nbsp;     * @param message a message to display in a popup after opening the menu
+&nbsp;     * @param session the session data to display, or null if displaying a message is not needed
+&nbsp;     */
+&nbsp;    void openMainMenu(String message, SessionStorage session);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-05 23:09</div>
+</div>
+</body>
+</html>
