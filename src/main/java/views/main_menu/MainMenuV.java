@@ -2,8 +2,12 @@ package views.main_menu;
 
 import entities.MonthlyStorage;
 import entities.SessionStorage;
+import use_cases.create_new_month.NewMonthUCI;
 import use_cases.main_menu.SessionSaveOD;
 import use_cases.monthly_menu.UpdateViewUCI;
+import views.create_new_month.NewMonthC;
+import views.create_new_month.NewMonthP;
+import views.create_new_month.NewMonthV;
 import views.monthly_menu.MonthMenuP;
 import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
@@ -122,24 +126,20 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.selectMonthComboBox) {
-            String selectedID = (String) this.selectMonthComboBox.getSelectedItem();
-            // This can't be null because dropdown is disabled when there are no months available
-            assert selectedID != null;
-            this.selectedMonthID = Integer.parseInt(selectedID);
+            // Handle month selection dropdown
+            if (this.selectMonthComboBox.getSelectedItem() != null) {
+                String selectedID = (String) this.selectMonthComboBox.getSelectedItem();
+                this.selectedMonthID = Integer.parseInt(selectedID);
+            }
         } else if (e.getSource() == this.selectMonthButton) {
+            // Open a new MonthMenuV to display the selected month
             UpdateViewC monthMenuController = new UpdateViewC(new UpdateViewUCI(new MonthMenuP()));
-            new MonthMenuV(monthMenuController, this.session, this.selectedMonthID);
+            MonthMenuV monthMenuV = new MonthMenuV(monthMenuController, this.session, this.selectedMonthID);
+            monthMenuV.openMonthMenu(null, true);
         } else if (e.getSource() == this.createMonthButton) {
-            // TODO: connect to month creation
-            /* I imagine it looking something like this:
-             *
-             * MonthFactoryC monthFactoryController = new MonthFactoryC(...);
-             * new NewMonthV(monthFactoryController, this.session, this);
-             *
-             * not sure about the other parameters, but it should take 'this' so that
-             * inside NewMonthV it can call the openMainMenu method to update this view
-             */
-            throw new UnsupportedOperationException("Not yet implemented");
+            // Open a new NewMonthV so user can create their new month
+            NewMonthC newMonthController = new NewMonthC(new NewMonthUCI(new NewMonthP()));
+            new NewMonthV(this, newMonthController, this.session);
         } else if (e.getSource() == this.saveButton) {
             // Implementation of file chooser inspired from
             // https://www.geeksforgeeks.org/java-swing-jfilechooser/
