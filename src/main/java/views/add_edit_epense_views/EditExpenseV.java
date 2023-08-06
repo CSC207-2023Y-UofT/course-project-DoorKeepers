@@ -47,7 +47,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         this.nameInput = new JTextField(15);
         this.valueInput = new JTextField(15);
         this.categoryCombo = new JComboBox<>(existingCategory);
-        this.isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
+        this.isRecurringCheckBox = new JCheckBox("Is recurring expense");
     }
 
     /**

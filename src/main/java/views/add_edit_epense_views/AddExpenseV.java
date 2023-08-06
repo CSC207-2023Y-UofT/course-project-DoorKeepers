@@ -38,15 +38,16 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
      * @param currSession SessionStorage the current working session.
      */
     public AddExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
-        this.monthMenu = monthMenu;
-        this.nameInput = new JTextField(15);
-        this.valueInput = new JTextField(15);
-        this.categoryCombo = new JComboBox<>(existingCategory); // category list
-
         this.controller = controller;
         this.monthID = monthID;
         this.currSession = currSession;
         this.selectedExpense = null;
+
+        this.monthMenu = monthMenu;
+        this.nameInput = new JTextField(15);
+        this.valueInput = new JTextField(15);
+        this.categoryCombo = new JComboBox<>(existingCategory); // category list
+        this.isRecurringCheckBox = new JCheckBox("Is recurring expense");
     }
 
     /**
@@ -68,7 +69,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
         panell.setLayout(new GridLayout(0, 1));
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Expense");
         frame.setSize(300, 500);
         panel.add(nameLabel, BorderLayout.WEST);
