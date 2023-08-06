@@ -25,6 +25,7 @@ class GenerateSummaryUCITest {
 
     /**
      * Runs once before the methods to set up the necessary entities for the tests.
+     * @throws EntityException if Category and Expense names are the same, which is not a concern for this test.
      */
     @BeforeAll
     public static void GenerateSummaryUCICreateBaseEntities() throws EntityException {
@@ -60,6 +61,9 @@ class GenerateSummaryUCITest {
 
     /**
      * Tests generateNewSummary() with a MonthlyStorage with Expense and Category objects.
+     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+     * raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+     * SessionStorage, and is not something the user can fix.
      */
     @Test
     public void GenerateSummaryUCINormalMonth() throws EntityException{
@@ -82,6 +86,9 @@ class GenerateSummaryUCITest {
 
     /**
      * Tests generateNewSummary() with a MonthlyStorage with Expense and Category objects and is over budget.
+     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+     * raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+     * SessionStorage, and is not something the user can fix.
      */
     @Test
     public void GenerateSummaryUCIFullMonth() throws EntityException{
@@ -104,6 +111,9 @@ class GenerateSummaryUCITest {
 
     /**
      * Tests generateNewSummary() with an empty MonthlyStorage.
+     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+     * raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+     * SessionStorage, and is not something the user can fix.
      */
     @Test
     public void GenerateSummaryUCIEmptyMonth() throws EntityException{
