@@ -65,19 +65,6 @@ public class EditCategoryV extends Component implements ActionListener{
     }
 
     /**
-     * Tries an Edit Category Use Case.
-     * Pop-up window with context specific message may be shown to user.
-     */
-    private void tryUseCaseEdit(){
-        try {
-            CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
-            JOptionPane.showMessageDialog(this, message.getMessage());
-        } catch (EntityException e) {
-            JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-        }
-    }
-
-    /**
      * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
      */
     @Override
@@ -101,6 +88,19 @@ public class EditCategoryV extends Component implements ActionListener{
         }
         else {
             tryUseCaseEdit();
+        }
+    }
+
+    /**
+     * Tries an Edit Category Use Case.
+     * Pop-up window with context specific message may be shown to user.
+     */
+    private void tryUseCaseEdit(){
+        try {
+            CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
+            JOptionPane.showMessageDialog(this, message.getMessage());
+        } catch (EntityException e) {
+            JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
         }
     }
 }

@@ -15,16 +15,16 @@ import java.util.Objects;
  * Creates a new controller that produces a ExpenseOD object.
  */
 public class AddExpenseV extends Component implements ActionListener {
-    ExpenseC controller;
-    JTextField nameInput;
-    JTextField valueInput;
-    JComboBox<String> categoryCombo;
-    String selectedExpense;
-    String selectedCategory;
-    JCheckBox isRecurringCheckBox;
-    boolean isRecurring;
-    int monthID;
-    SessionStorage currSession;
+    private final ExpenseC controller;
+    private final JTextField nameInput;
+    private final JTextField valueInput;
+    private final JComboBox<String> categoryCombo;
+    private final String selectedExpense;
+    private String selectedCategory;
+    private JCheckBox isRecurringCheckBox;
+    private boolean isRecurring;
+    private final int monthID;
+    private final SessionStorage currSession;
 
     /**
      * Builds AddExpenseV
