@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * Creates a new controller that produces a CategoryOD object.
  */
 
-public class AddCategoryV extends JPanel implements ActionListener, LoadMonthMenuVB {
+public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JTextField nameInput;
@@ -46,10 +46,9 @@ public class AddCategoryV extends JPanel implements ActionListener, LoadMonthMen
      * Open add category GUI.
      */
     public void openAddCategory(){
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setTitle("Add New Category");
-        frame.setSize(300, 500);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setTitle("Add New Category");
+        this.setSize(300, 500);
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
@@ -67,9 +66,9 @@ public class AddCategoryV extends JPanel implements ActionListener, LoadMonthMen
         panel.add(budgetInput);
         panel.add(submit);
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
+        this.add(panel, BorderLayout.CENTER);
+        this.pack();
+        this.setVisible(true);
     }
 
     /**

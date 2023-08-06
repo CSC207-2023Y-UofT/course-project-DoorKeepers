@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
-public class EditCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JButton submit;
@@ -48,10 +48,9 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
      * Open edit category GUI.
      */
     public void openEditCategory(){
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setTitle("Edit Category");
-        frame.setSize(500,300);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setTitle("Edit Category");
+        this.setSize(500,300);
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
@@ -73,9 +72,9 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         panel.add(budgetInput);
         panel.add(submit);
 
-        frame.add(panel, BorderLayout.NORTH);
-        frame.pack();
-        frame.setVisible(true);
+        this.add(panel, BorderLayout.NORTH);
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -103,6 +102,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
             else {
                 tryUseCaseEdit();
             }
+
         }
     }
 
@@ -125,9 +125,9 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
     private void tryUseCaseEdit(){
         try {
             CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
-            JOptionPane.showMessageDialog(this, message.getMessage());
             // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
+            JOptionPane.showMessageDialog(this, message.getMessage());
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
         }
