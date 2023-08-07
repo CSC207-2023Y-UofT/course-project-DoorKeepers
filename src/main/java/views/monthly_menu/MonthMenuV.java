@@ -237,6 +237,7 @@ public class MonthMenuV implements ActionListener {
     /**
      * Create the JPanel that shows the monthID.
      * @param monthID the monthID of the required MonthlyStorage
+     * @param monthlyBudget the monthlyBudget of the required MonthlyStorage
      * @return JPanel containing the monthID
      */
     private static JPanel getMonthPanel(int monthID, double monthlyBudget){
