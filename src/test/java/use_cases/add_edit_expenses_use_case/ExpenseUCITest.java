@@ -36,7 +36,7 @@ class ExpenseUCITest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseID addID = new ExpenseID("Sandwich", 3, "Food", false,1, session, null);
+        ExpenseID addID = new ExpenseID("Sandwich", 333, "Other", false,1, session, null);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have added a new expense!", interactor.addExpenseInMonth(addID).getMessage());

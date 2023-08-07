@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * A view class for the AddExpenseV that extends Component class and implements ActionListener interface.
@@ -95,19 +96,24 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
     @Override
     public void actionPerformed(ActionEvent evt) {
         if(evt.getSource() == categoryCombo){
-            this.selectedCategory = (String) categoryCombo.getSelectedItem();
+            this.selectedCategory = Objects.requireNonNull(categoryCombo.getSelectedItem()).toString();
+            System.out.println(selectedCategory);
+
         }if (evt.getSource() == isRecurringCheckBox){
             this.isRecurring = isRecurringCheckBox.isSelected();
         } else {
+            ExpenseOD message;
+            message = null;
             try {
-                ExpenseOD message = controller.expenseInMonth(nameInput.getText(), String.valueOf(valueInput), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
-                JOptionPane.showMessageDialog(this, message.getMessage());
-                // Update Month Menu
+                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+//                JOptionPane.showMessageDialog(this, message.getMessage());
+//                 Update Month Menu
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-            }
-        }
+            }if (message != null) {
+                JOptionPane.showMessageDialog(this, message.getMessage());
+        }}
     }
 
     /**
@@ -121,5 +127,20 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
         monthMenu.openMonthMenu(message,false);
     }
+
+//   public static void main(String[] args){
+//        MonthMenuC
+//       ExpenseP presenter = new ExpenseP();
+//       ExpenseUCI UCI = new ExpenseUCI(presenter);
+//       ExpenseC controller = new ExpenseC(UCI);
+//       String[] categoryList = new String[1];
+//       categoryList[0] = "Other";
+//       int monthID = 1;
+//       MonthlyStorage month = new MonthlyStorage(1,123);
+//       SessionStorage currSession = new SessionStorage();
+//       currSession.addMonth(month);
+//       MonthMenuV monthMenu = new MonthMenuV(monthC, currSession, 1);
+//       new AddExpenseV(monthMenu, controller,categoryList, monthID, currSession);
+//    }
 
 }

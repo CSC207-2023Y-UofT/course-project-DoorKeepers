@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * View class for the EditExpenseV that extends Component class and implements ActionListener interface.
  */
 
-public class EditExpenseV extends Component implements ActionListener, LoadMonthMenuVB {
+public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final ExpenseC controller;
     private final JComboBox<String> expenseCombo;
@@ -115,7 +115,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         } else {
             ExpenseOD message = null;
             try {
-                message = controller.expenseInMonth(nameInput.getText(), String.valueOf(valueInput), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
                 // Update Month Menu
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {

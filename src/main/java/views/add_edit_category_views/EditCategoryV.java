@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
-public class EditCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JButton submit;

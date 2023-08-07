@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * Creates a new controller that produces a CategoryOD object.
  */
 
-public class AddCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JTextField nameInput;
@@ -116,8 +116,7 @@ public class AddCategoryV extends Component implements ActionListener, LoadMonth
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this,
                     "This month does not exist in current session. Please go to add month page.");
-        }
-        if (message != null) {
+        }if (message != null) {
             JOptionPane.showMessageDialog(this, message.getMessage());
         }
     }

@@ -69,8 +69,8 @@ public class ExpenseUCI implements ExpenseIB {
             }else{
                 Expense newExpense = new Expense(expenseID.getName(), selectedCategory,valueDouble);
                 month.addExpense(newExpense);}
-            ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have added a new expense!");
-            return expenseOB.success(expenseODSuccessAdd);
+                ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have added a new expense!");
+                return expenseOB.success(expenseODSuccessAdd);
 
         } catch (NumberFormatException e) {
             // NumberFormatException|NullPointerException fail: User tries to edit Expense value to an invalid number.
@@ -82,7 +82,7 @@ public class ExpenseUCI implements ExpenseIB {
             return expenseOB.fail(expenseODFailAdd);
         } catch(NoSuchElementException e){
         // NoSuchElementException fail: User tries to assign a category that does not exist in current month.
-        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. Please add a new expense or select existing expense!");
+        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. Please add a new category or select existing category!");
         return expenseOB.fail(expenseODFailEdit);}}
 
     /**
@@ -162,7 +162,7 @@ public class ExpenseUCI implements ExpenseIB {
      * @param monthCategoryData An ArrayList of categories.
      * @param name Category name.
      * @return Category with given String name.
-     * @throws NoSuchElementException thrown when couldn't find Expense with String name.
+     * @throws NoSuchElementException thrown when couldn't find Category with String name.
      */
     public Category findCategory (ArrayList < Category > monthCategoryData, String name) throws NoSuchElementException {
             for (Category category : monthCategoryData) {
