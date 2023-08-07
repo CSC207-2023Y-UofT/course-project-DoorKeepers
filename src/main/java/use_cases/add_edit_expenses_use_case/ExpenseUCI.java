@@ -53,19 +53,19 @@ public class ExpenseUCI implements ExpenseIB {
                 //Expense value less than 0 fail: When a user tries to add the expense value with a negative number.
                 ExpenseOD expenseODFailAdd = new ExpenseOD("Expense value can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailAdd);}
+
+            for (Expense expense1 : monthExpenseList) {
+                if (expense1.getName().equals(expenseID.getName())) {
+                    //Repeated name in month
+                    ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
+                    return expenseOB.fail(expenseODFailEdit);}}
+
             if (expenseID.getIsRecurringExpense()) {
-                if(recurringExpenseList.size() > 0) {
-                    for (Expense expense1 : monthExpenseList) {
-                        if (expense1.getName().equals(expenseID.getName())) {
-                            //Repeated name in month
-                            ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
-                            return expenseOB.fail(expenseODFailEdit);}}
-                }else{
                     Expense newrecurExpense = new Expense(expenseID.getName(), selectedCategory, valueDouble);
                     session.addRecurExpense(newrecurExpense);
                     month.addExpense(newrecurExpense);
                     ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
-                    return expenseOB.success(expenseODSuccessAdd);}
+                    return expenseOB.success(expenseODSuccessAdd);
             }else{
                 Expense newExpense = new Expense(expenseID.getName(), selectedCategory,valueDouble);
                 month.addExpense(newExpense);}
@@ -122,13 +122,14 @@ public class ExpenseUCI implements ExpenseIB {
                     // Success edit to new recurring expense.
                     ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this new recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);
-                }else if (checkHaveSameNameInList(recurringExpenseList, expenseID.getOldExpense())){
+                }else{
                     setEditInfo(expenseID, valueDouble, selectedExpense,selectedCategory);
                     session.deleteRecurExpense(expenseID.getName());
                     //Success edit to remove recurring expense.
                     ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense and it is no longer a recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);}
             }else{setEditInfo(expenseID, valueDouble, selectedExpense,selectedCategory);}
+
             //Success edit to expense
             ExpenseOD expenseODSuccessEdit = new ExpenseOD("You have edited an expense!");
             return expenseOB.success(expenseODSuccessEdit);
