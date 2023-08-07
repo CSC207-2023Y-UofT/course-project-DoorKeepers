@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
  * A view class for the AddExpenseV that extends Component class and implements ActionListener interface.
  * Creates a new controller that produces a ExpenseOD object.
  */
-public class AddExpenseV extends Component implements ActionListener, LoadMonthMenuVB {
+public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final ExpenseC controller;
     private final JTextField nameInput;
@@ -23,7 +23,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
     private final JComboBox<String> categoryCombo;
     private final String selectedExpense;
     private String selectedCategory;
-    private final JCheckBox isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
+    private final JCheckBox isRecurringCheckBox = new JCheckBox("Is recurring expense");
     private boolean isRecurring;
     private final JButton submit = new JButton("Submit");
     private final int monthID;
@@ -68,7 +68,7 @@ public class AddExpenseV extends Component implements ActionListener, LoadMonthM
         panell.setLayout(new GridLayout(0, 1));
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Expense");
         frame.setSize(300, 500);
         panel.add(nameLabel, BorderLayout.WEST);

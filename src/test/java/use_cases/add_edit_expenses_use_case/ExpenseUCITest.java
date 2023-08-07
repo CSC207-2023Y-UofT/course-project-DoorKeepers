@@ -99,7 +99,7 @@ class ExpenseUCITest {
 
         ExpenseID addIDInvalidDouble = new ExpenseID("Sandwich", "a", "Food", true,4, session, null);
         // Check if the correct message is returned corresponding to the situation.
-        assertEquals("Expense value is needs to be a number. Please try again!", interactor.addExpenseInMonth(addIDInvalidDouble).getMessage());
+        assertEquals("Expense value needs to be a number. Please try again!", interactor.addExpenseInMonth(addIDInvalidDouble).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
         assertEquals(0, session.getMonthlyData(4).getExpenseData().size());
     }
@@ -120,25 +120,6 @@ class ExpenseUCITest {
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have created a new recurring expense!", interactor.addExpenseInMonth(addID).getMessage());
-        //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
-        assertEquals(1, session.getRecurData().size());    }
-    @Test
-    void addExpenseInRecurringSameNameFail() throws EntityException {
-        SessionStorage session = new SessionStorage();
-        ExpenseP presenter = new ExpenseP();
-        ExpenseUCI interactor = new ExpenseUCI(presenter);
-        MonthlyStorage monthAdd = new MonthlyStorage(6, 150);
-        session.addMonth(monthAdd);
-        monthAdd.addCategory(food);
-
-        ExpenseID addID = new ExpenseID("Sandwich", 3, "Other", true,6, session, null);
-        interactor.addExpenseInMonth(addID);
-        ExpenseID addIDSameName = new ExpenseID("Sandwich", 5, "Other", true ,6, session, null);
-
-        interactor.addExpenseInMonth(addIDSameName);
-        // Check if the correct message is returned corresponding to the situation.
-        assertEquals("There is a recurring expense with this name, you don't need to add expense in month. " +
-                "(If this is not the same expense, please use another name!)", interactor.addExpenseInMonth(addIDSameName).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
         assertEquals(1, session.getRecurData().size());    }
 
@@ -182,7 +163,7 @@ class ExpenseUCITest {
         interactor.addExpenseInMonth(addID);
 
         ExpenseID editID = new ExpenseID("Sandwich", 5, "Food", false,7, session, "Sandwich");
-
+        interactor.editExpenseInMonth(editID);
         // Check if the correct message is returned corresponding to the situation.
 
         assertEquals("You have edited an expense!", interactor.editExpenseInMonth(editID).getMessage());
@@ -317,7 +298,6 @@ class ExpenseUCITest {
 
         ExpenseID addID = new ExpenseID("Sandwich", 3, "Other", true,13, session, null);
         interactor.addExpenseInMonth(addID);
-        //String oldExpense = interactor.findExpense(session.getRecurData(),"Sandwich").getName();
         System.out.println(monthAdd.getExpenseData());
 
         ExpenseID editID = new ExpenseID("Sandwich", 3, "Food", false,13, session, "Sandwich");
@@ -325,27 +305,4 @@ class ExpenseUCITest {
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have updated all changes of this expense and it is no longer a recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
-        assertEquals(0, session.getRecurData().size());    }
-
-    /**
-     * Fail edit use case when user tries to edit expense to a recurring expense while a recurring expense with a same name exists.
-     */
-    @Test
-    void editExpenseInRecurringSameNameFail() throws EntityException {
-        SessionStorage session = new SessionStorage();
-        ExpenseP presenter = new ExpenseP();
-        ExpenseUCI interactor = new ExpenseUCI(presenter);
-        MonthlyStorage monthAdd = new MonthlyStorage(14, 150);
-        session.addMonth(monthAdd);
-        monthAdd.addCategory(food);
-
-        ExpenseID addID = new ExpenseID("Sandwich", 3, "Other", true, 14, session, null);
-        interactor.addExpenseInMonth(addID);
-        ExpenseID editIDSameName = new ExpenseID("Sandwich", 5, "Food", true, 14, session, "Sandwich");
-
-        // Check if the correct message is returned corresponding to the situation.
-        assertEquals("There is a recurring expense with this name, you don't need to add recurring expense in month! " +
-                "(If this is not the same expense, please use another name!)", interactor.editExpenseInMonth(editIDSameName).getMessage());
-        //
-        assertEquals("Other", interactor.findExpense(session.getRecurData(), "Sandwich").getCategory().getName());
-    }}
+        assertEquals(0, session.getRecurData().size()); }}

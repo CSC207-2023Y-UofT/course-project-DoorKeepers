@@ -9,8 +9,8 @@ public class ExpenseID {
     private final String name;
     private Object value;
 
-    private String oldCategory;
-    private boolean isRecurringExpense;
+    private final String category;
+    private final boolean isRecurringExpense;
     private final int monthID;
     private final SessionStorage session;
     private final String oldExpense;
@@ -19,17 +19,17 @@ public class ExpenseID {
      * Constructs ExpenseID for adding/editing an existing Expense Object.
      * @param name Expense name
      * @param value Expense budget
-     * @param oldCategory String Category name representing an existing Category in which the Expense belongs to.
+     * @param category String Category name representing an existing Category in which the Expense belongs to.
      * @param isRecurringExpense boolean indicating whether an Expense is recurring.
      * @param monthID An int representing the month which the Expense Object belongs to.
      * @param session The current session which the MonthlyStorage Object belongs to.
      * @param oldExpense String Expense name representing an existing Expense in the MonthlyStorage Object the user wish to edit.
      */
 
-    public ExpenseID(String name, Object value, String oldCategory, boolean isRecurringExpense, int monthID, SessionStorage session, String oldExpense) {
+    public ExpenseID(String name, Object value, String category, boolean isRecurringExpense, int monthID, SessionStorage session, String oldExpense) {
         this.name = name;
         this.value = value;
-        this.oldCategory = oldCategory;
+        this.category = category;
         this.isRecurringExpense = isRecurringExpense;
         this.monthID = monthID;
         this.session = session;
@@ -58,7 +58,7 @@ public class ExpenseID {
      * Gets String Category name that this Expense belongs to (before add/edit expense occurs).
      * @return String Category name associated with the Expense in this use case.
      */
-    public String getOldCategory(){return oldCategory;}
+    public String getCategory(){return category;}
 
     /**
      * Gets boolean indicating if this Expense is a recurring expense.

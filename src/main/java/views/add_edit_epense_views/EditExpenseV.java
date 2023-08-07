@@ -25,7 +25,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
     private final JTextField valueInput;
     private String selectedCategory;
     private String selectedExpense;
-    private final JCheckBox isRecurringCheckBox = new JCheckBox("This is a recurring expense.");
+    private final JCheckBox isRecurringCheckBox = new JCheckBox("Is recurring expense.");
     private boolean isRecurring;
     private final JButton submit = new JButton("Submit");
     private final int monthID;
@@ -72,7 +72,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
         panell.setLayout(new GridLayout(0,1));
 
         frame.add(panel, BorderLayout.NORTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Edit Expense");
         frame.setSize(300,500);
         frame.setSize(500,300);
@@ -103,12 +103,11 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == expenseCombo) {
             this.selectedExpense = (String) expenseCombo.getSelectedItem();}
+        // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
         if(currSession.getRecurData().size() > 0){
             for(Expense recurExpense : currSession.getRecurData()){
                 if(recurExpense.getName().equals(selectedExpense)){
-                    isRecurringCheckBox.setSelected(true);}
-            }
-        }
+                    isRecurringCheckBox.setSelected(true);}}}
         if(evt.getSource() == categoryCombo){
             this.selectedCategory = (String) categoryCombo.getSelectedItem();}
         if (evt.getSource() == isRecurringCheckBox){
@@ -120,8 +119,7 @@ public class EditExpenseV extends Component implements ActionListener, LoadMonth
                 // Update Month Menu
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {
-                JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");
-            }
+                JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");}
             if(message != null){
                 JOptionPane.showMessageDialog( this, message.getMessage());}
         }
