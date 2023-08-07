@@ -12,7 +12,6 @@ import use_cases.add_edit_expenses_use_case.ExpenseUCI;
 import use_cases.generate_summary_use_case.GenerateSummaryIB;
 import use_cases.generate_summary_use_case.GenerateSummaryOB;
 import use_cases.generate_summary_use_case.GenerateSummaryUCI;
-import use_cases.monthly_menu.MonthMenuOD;
 import views.add_edit_category_views.AddCategoryV;
 import views.add_edit_category_views.CategoryC;
 import views.add_edit_category_views.CategoryP;
@@ -147,9 +146,7 @@ public class MonthMenuV implements ActionListener {
      * and <a href="https://youtu.be/S6evF1T_lrU">here</a>.
      */
     private void createMonthMenuView(){
-        // Get output
-        MonthMenuOD outputData = controller.getOutput(session, monthID);
-        if (outputData.isSuccessful()){
+        if (controller.getOutput(session, monthID).isSuccessful()){
             JPanel layout = new JPanel(new BorderLayout(20, 20));
             this.addExpense = new JButton("Add an expense");
             this.editExpense = new JButton("Edit an expense");
@@ -164,7 +161,7 @@ public class MonthMenuV implements ActionListener {
             rightLayout.setBounds(30,30,333,200);
 
             //Left side components: monthID
-            JPanel monthPanel = getMonthPanel(monthID,outputData.getMonthlyBudget());
+            JPanel monthPanel = getMonthPanel(monthID,controller.getOutput(session, monthID).getMonthlyBudget());
             leftLayout.add(monthPanel);
 
             //Left side components: add/edit buttons
@@ -194,8 +191,8 @@ public class MonthMenuV implements ActionListener {
             leftLayout.add(genSumButton);
 
             //Right side components: set JTables
-            ArrayList<Expense> expenses = outputData.getExpenseData();
-            ArrayList<Category> categories = outputData.getCategoryData();
+            ArrayList<Expense> expenses = controller.getOutput(session, monthID).getExpenseData();
+            ArrayList<Category> categories = controller.getOutput(session, monthID).getCategoryData();
             Expense[] expensesArray = new Expense[expenses.size()];
             Category[] categoriesArray = new Category[categories.size()];
             expenses.toArray(expensesArray);
@@ -226,7 +223,7 @@ public class MonthMenuV implements ActionListener {
             // Create JPanel for error message
             JPanel layout = new JPanel();
             layout.setLayout(new BoxLayout(layout, BoxLayout.LINE_AXIS));
-            layout.add(new JLabel(outputData.getWarning()));
+            layout.add(new JLabel(controller.getOutput(session, monthID).getWarning()));
             layout.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
             frame.add(layout);
         }
