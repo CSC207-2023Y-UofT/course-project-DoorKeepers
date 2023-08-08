@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MonthMenuOD {
     private ArrayList<Expense> expenseData;
     private ArrayList<Category> categoryData;
+    private double monthlyBudget;
     private String warning;
     boolean successful;
 
@@ -22,11 +23,13 @@ public class MonthMenuOD {
      * Constructs an MonthMenuOD holding output data.
      * @param expenseData ArrayList of Expense stored in a MonthlyStorage
      * @param categoryData ArrayList of Category stored in a MonthlyStorage
+     * @param monthlyBudget this month's total budget set by user
      * @param successful boolean indicating whether access to Expense/Category list was successful
      */
-    public MonthMenuOD(ArrayList<Expense> expenseData, ArrayList<Category> categoryData, boolean successful){
+    public MonthMenuOD(ArrayList<Expense> expenseData, ArrayList<Category> categoryData, double monthlyBudget, boolean successful){
         this.expenseData = expenseData;
         this.categoryData = categoryData;
+        this.monthlyBudget = monthlyBudget;
         this.successful = successful;
     }
 
@@ -54,6 +57,14 @@ public class MonthMenuOD {
      */
     public ArrayList<Category> getCategoryData() {
         return categoryData;
+    }
+
+    /**
+     * Gets the monthlyBudget stored.
+     * @return monthlyBudget to be outputted
+     */
+    public double getMonthlyBudget() {
+        return monthlyBudget;
     }
 
     /**

@@ -161,7 +161,7 @@ public class MonthMenuV implements ActionListener {
             rightLayout.setBounds(30,30,333,200);
 
             //Left side components: monthID
-            JPanel monthPanel = getMonthPanel(monthID);
+            JPanel monthPanel = getMonthPanel(monthID,controller.getOutput(session, monthID).getMonthlyBudget());
             leftLayout.add(monthPanel);
 
             //Left side components: add/edit buttons
@@ -234,13 +234,15 @@ public class MonthMenuV implements ActionListener {
     /**
      * Create the JPanel that shows the monthID.
      * @param monthID the monthID of the required MonthlyStorage
+     * @param monthlyBudget the monthlyBudget of the required MonthlyStorage
      * @return JPanel containing the monthID
      */
-    private static JPanel getMonthPanel(int monthID){
+    private static JPanel getMonthPanel(int monthID, double monthlyBudget){
         JPanel monthPanel = new JPanel();
-        monthPanel.setLayout(new BoxLayout(monthPanel, BoxLayout.LINE_AXIS));
+        monthPanel.setLayout(new GridLayout(0,1));
         monthPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         monthPanel.add(new JLabel("Month: " + monthID));
+        monthPanel.add(new JLabel("Total budget: " + monthlyBudget));
 
         return monthPanel;
     }

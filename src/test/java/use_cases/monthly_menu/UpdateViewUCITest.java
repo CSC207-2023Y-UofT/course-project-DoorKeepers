@@ -51,6 +51,7 @@ class UpdateViewUCITest {
         MonthMenuOD actualOutput = interactor.createOutput(inputData);
         Assertions.assertEquals(expenses,actualOutput.getExpenseData());
         Assertions.assertEquals(categories,actualOutput.getCategoryData());
+        Assertions.assertEquals(100,actualOutput.getMonthlyBudget());
     }
 
     /**
@@ -77,6 +78,7 @@ class UpdateViewUCITest {
             MonthMenuOD actualOutput = interactor.createOutput(inputData);
             Assertions.assertEquals(expenses,actualOutput.getExpenseData());
             Assertions.assertEquals(categories,actualOutput.getCategoryData());
+            Assertions.assertEquals(100,actualOutput.getMonthlyBudget());
     }
 
     /**

@@ -35,8 +35,9 @@ public class UpdateViewUCI implements UpdateViewIB{
             MonthlyStorage monthData = session.getMonthlyData(monthID); // throws EntityException
             ArrayList<Expense> expenseData= monthData.getExpenseData();
             ArrayList<Category> categoryData= monthData.getCategoryData();
+            double monthlyBudget = monthData.getMonthlyBudget();
 
-            return outputBoundary.createOutput(new MonthMenuOD(expenseData,categoryData,true));
+            return outputBoundary.createOutput(new MonthMenuOD(expenseData,categoryData, monthlyBudget,true));
         }
         catch(EntityException e){ //set String warning as output if EntityException is caught
             return outputBoundary.createOutput(new MonthMenuOD(
