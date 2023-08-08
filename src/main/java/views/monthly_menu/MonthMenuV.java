@@ -64,7 +64,6 @@ public class MonthMenuV implements ActionListener {
         createMonthMenuView();
     }
 
-    //TODO: implement the reactions to button clicks
     /**
      * React to various button clicks that result in ActionEvent.
      * Code inspired from <a href="https://youtu.be/Kmgo00avvEw?t=2547">here</a>
@@ -151,8 +150,8 @@ public class MonthMenuV implements ActionListener {
             JPanel layout = new JPanel(new BorderLayout(20, 20));
             this.addExpense = new JButton("Add an expense");
             this.editExpense = new JButton("Edit an expense");
-            this.addCategory = new JButton("Add an category");
-            this.editCategory = new JButton("Edit an category");
+            this.addCategory = new JButton("Add a category");
+            this.editCategory = new JButton("Edit a category");
             this.generateSummary = new JButton("Generate summary");
 
             //Separate the layout into left and right sides

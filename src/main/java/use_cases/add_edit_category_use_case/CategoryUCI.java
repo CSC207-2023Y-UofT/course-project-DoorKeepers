@@ -50,17 +50,14 @@ public class CategoryUCI implements CategoryIB {
     @Override
     public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
         MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
-        try{
-            double valueDouble = toDouble(categoryIDAdd.getValue());
-            Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);
 
+        try{double valueDouble = toDouble(categoryIDAdd.getValue());
+            Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);
             if (newCategory.getBudget() < 0) {
                 // Category budget less than 0: User tries to add a new budget value that is a negative number.
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
-                return categoryOB.fail(categoryODFailAdd);
-            }
+                return categoryOB.fail(categoryODFailAdd);}
             month.addCategory(newCategory);
-
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
@@ -68,7 +65,6 @@ public class CategoryUCI implements CategoryIB {
             //NumberFormatException|NullPointerException: User tries to add a new budget value that can not be converted to a double.
             CategoryOD categoryODFailAdd = new CategoryOD("Category budget needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailAdd);
-
         } catch (EntityException e) {
             //EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
             CategoryOD categoryODFailAdd = new CategoryOD("There is already a category with this new name in this month.");
@@ -87,14 +83,13 @@ public class CategoryUCI implements CategoryIB {
     @Override
     public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
         MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
-        try {
-            ArrayList<Category> categoryList = month.getCategoryData();
+
+        try {ArrayList<Category> categoryList = month.getCategoryData();
             double valueDouble = toDouble(categoryIDEdit.getValue());
             if (valueDouble < 0) {
                 //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
                 CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
-                return categoryOB.fail(categoryODFailEdit);
-            }
+                return categoryOB.fail(categoryODFailEdit);}
 
             Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
 
@@ -102,14 +97,11 @@ public class CategoryUCI implements CategoryIB {
                 if (category1.getName().equals(categoryIDEdit.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
-                    return categoryOB.fail(categoryODFailEdit);
-                }
-            }
+                    return categoryOB.fail(categoryODFailEdit);}}
 
             existingCategory.setName(categoryIDEdit.getName());
             categoryIDEdit.setValue(valueDouble);
             existingCategory.setBudget(valueDouble);
-
             CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
             return categoryOB.success(categoryODSuccessEdit);
 
@@ -134,9 +126,6 @@ public class CategoryUCI implements CategoryIB {
     public Category findCategory(ArrayList<Category> monthCategoryData, String name)throws NoSuchElementException{
         for (Category c : monthCategoryData){
             if (Objects.equals(c.getName(), name)){
-                return c;
-            }
-        }
-        throw new NoSuchElementException();
-    }
+                return c;}}
+        throw new NoSuchElementException();}
 }

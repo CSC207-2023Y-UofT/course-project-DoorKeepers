@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * Creates a new controller that produces a CategoryOD object.
  */
 
-public class AddCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JTextField nameInput;
@@ -24,6 +24,7 @@ public class AddCategoryV extends Component implements ActionListener, LoadMonth
     private final int monthID;
     private final SessionStorage currSession;
     private final String oldCategory;
+    private final JFrame frame;
 
     /**
      * Builds AddCategoryV for user entries.
@@ -40,13 +41,13 @@ public class AddCategoryV extends Component implements ActionListener, LoadMonth
         this.oldCategory = null;
         this.nameInput = new JTextField(15);
         this.budgetInput = new JTextField(15);
+        this.frame = new JFrame();
     }
 
     /**
      * Open add category GUI.
      */
     public void openAddCategory(){
-        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Category");
         frame.setSize(300, 500);
@@ -111,13 +112,13 @@ public class AddCategoryV extends Component implements ActionListener, LoadMonth
         try {
             message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()),
                     monthID, currSession, oldCategory);
+            frame.setVisible(false);
             // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this,
                     "This month does not exist in current session. Please go to add month page.");
-        }
-        if (message != null) {
+        }if (message != null) {
             JOptionPane.showMessageDialog(this, message.getMessage());
         }
     }

@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
-public class EditCategoryV extends Component implements ActionListener, LoadMonthMenuVB {
+public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMenuVB {
     private final MonthMenuV monthMenu;
     private final CategoryC controller;
     private final JButton submit;
@@ -23,6 +23,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
     private String selectedCategory;
     private final int monthID;
     private final SessionStorage currSession;
+    private final JFrame frame;
 
     /**
      * Builds EditCategoryV for user entries.
@@ -37,9 +38,10 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         this.controller = controller;
         this.monthID = monthID;
         this.currSession = currSession;
+        this.frame = new JFrame();
 
         this.submit = new JButton("Submit");
-        this.categoryCombo = new JComboBox<>(existingCategory); // category list
+        this.categoryCombo = new JComboBox<>(existingCategory);
         this.nameInput = new JTextField(15);
         this.budgetInput = new JTextField(15);
     }
@@ -48,7 +50,6 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
      * Open edit category GUI.
      */
     public void openEditCategory(){
-        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Edit Category");
         frame.setSize(500,300);
@@ -71,6 +72,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         panel.add(nameInput, BorderLayout.CENTER);
         panel.add(budgetLabel);
         panel.add(budgetInput);
+        panel.add(submit);
 
         frame.add(panel, BorderLayout.NORTH);
         frame.pack();
@@ -125,6 +127,7 @@ public class EditCategoryV extends Component implements ActionListener, LoadMont
         try {
             CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
             JOptionPane.showMessageDialog(this, message.getMessage());
+            frame.setVisible(false);
             // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
