@@ -146,15 +146,17 @@ public class ExpenseUCI implements ExpenseIB {
 
     /**
      * Finds Expense with String name from a provided list of Expenses.
-     * @param ExpenseData An ArrayList of expenses.
+     * @param expenseData An ArrayList of expenses.
      * @param name Expense name.
      * @return Expense with given String name.
      * @throws NoSuchElementException thrown when couldn't find Expense with String name.
      */
-        public Expense findExpense(ArrayList<Expense> ExpenseData, String name)throws NoSuchElementException{
-            for (Expense expense : ExpenseData) {
-                if (Objects.equals(expense.getName(), name)) {
-                    return expense;}}
+        public Expense findExpense(ArrayList<Expense> expenseData, String name)throws NoSuchElementException{
+            if(expenseData != null) {
+                for (Expense expense : expenseData) {
+                    if (Objects.equals(expense.getName(), name)) {
+                        return expense;}}
+            }
             throw new NoSuchElementException();}
 
     /**
@@ -187,11 +189,11 @@ public class ExpenseUCI implements ExpenseIB {
      */
     private boolean changeInRecurringInfo() {
         if(expenseID.getIsRecurringExpense()) {
-            try {findExpense(recurringExpenseList, expenseID.getName());
+            try {findExpense(recurringExpenseList, expenseID.getOldExpense());
                 return false;
             }catch (NoSuchElementException e){return true;}
         }else{
-            try{findExpense(recurringExpenseList, expenseID.getName());
+            try{findExpense(recurringExpenseList, expenseID.getOldExpense());
                 return true;
             }catch(NoSuchElementException e) {
                 return false;}}}

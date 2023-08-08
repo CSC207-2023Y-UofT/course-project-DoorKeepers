@@ -24,6 +24,7 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
     private final int monthID;
     private final SessionStorage currSession;
     private final String oldCategory;
+    private final JFrame frame;
 
     /**
      * Builds AddCategoryV for user entries.
@@ -40,13 +41,13 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
         this.oldCategory = null;
         this.nameInput = new JTextField(15);
         this.budgetInput = new JTextField(15);
+        this.frame = new JFrame();
     }
 
     /**
      * Open add category GUI.
      */
     public void openAddCategory(){
-        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Category");
         frame.setSize(300, 500);
@@ -111,6 +112,7 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
         try {
             message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()),
                     monthID, currSession, oldCategory);
+            frame.setVisible(false);
             // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
