@@ -23,18 +23,18 @@ public class Category implements Serializable {
 
     /**
      * Sets the name of this Category.
-     * @param new_name the new name that this Category will have
+     * @param newName the new name that this Category will have
      */
-    public void setName(String new_name){
-        this.name = new_name;
+    public void setName(String newName){
+        this.name = newName;
     }
 
     /**
      * Sets the budget of this Category.
-     * @param new_budget the new budget that this Category will have
+     * @param newBudget the new budget that this Category will have
      */
-    public void setBudget(double new_budget){
-        this.budget = new_budget;
+    public void setBudget(double newBudget){
+        this.budget = newBudget;
     }
 
     /**
