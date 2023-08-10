@@ -53,6 +53,7 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
     /**
      * Open add expense GUI.
      */
+
     public void openAddExpense(){
         JLabel nameLabel = new JLabel("Expense Name:");
         JLabel valueLabel = new JLabel("Expense Value:");
