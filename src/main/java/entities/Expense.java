@@ -92,4 +92,5 @@ public class Expense implements Serializable {
         Expense other = (Expense) obj;
         return Objects.equals(this.getName(), other.getName());
     }
+
 }

@@ -10,7 +10,6 @@ public class ExpenseUCI implements ExpenseIB {
     private final ExpenseOB expenseOB;
     private ExpenseID expenseID;
     private ArrayList<Expense> recurringExpenseList;
-    private final ExpenseFactory expenseFactory;
 
     /**
      * Constructs ExpenseUCI.
@@ -19,7 +18,6 @@ public class ExpenseUCI implements ExpenseIB {
      */
     public ExpenseUCI(ExpenseOB expenseP) {
         this.expenseOB = expenseP;
-        this.expenseFactory = new ExpenseFactory();
     }
 
     /**
@@ -63,11 +61,11 @@ public class ExpenseUCI implements ExpenseIB {
                     return expenseOB.fail(expenseODFailEdit);}}
 
             if (expenseID.getIsRecurringExpense()) {
-                Expense newrecurExpense = expenseFactory.create(expenseID.getName(), selectedCategory, valueDouble);
-                session.addRecurExpense(newrecurExpense);
-                month.addExpense(newrecurExpense);
-                ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
-                return expenseOB.success(expenseODSuccessAdd);
+                    Expense newrecurExpense = new Expense(expenseID.getName(), selectedCategory, valueDouble);
+                    session.addRecurExpense(newrecurExpense);
+                    month.addExpense(newrecurExpense);
+                    ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
+                    return expenseOB.success(expenseODSuccessAdd);
             }else{
                 Expense newExpense = new Expense(expenseID.getName(), selectedCategory,valueDouble);
                 month.addExpense(newExpense);}
