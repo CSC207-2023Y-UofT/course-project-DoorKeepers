@@ -55,7 +55,7 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
      */
     public void openAddExpense(){
         JLabel nameLabel = new JLabel("Expense Name:");
-        JLabel valueLabel = new JLabel("Expense Value:");
+        JLabel valueLabel = new JLabel("Expense Budget:");
         JLabel selectCategoryLabel = new JLabel(" Assign Category:");
 
         submit.setSize(30, 10);

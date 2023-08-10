@@ -60,7 +60,7 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
     public void openEditExpense(){
         JLabel select_expense_label = new JLabel(" Select existing expense:");
         JLabel nameLabel = new JLabel("New Expense Name:");
-        JLabel valueLabel = new JLabel(" New Expense Value:");
+        JLabel valueLabel = new JLabel(" New Expense Budget:");
         JLabel select_category_label = new JLabel(" Select existing category:");
         isRecurringCheckBox.setBounds(100,150,50,50);
         submit.setSize(30,10);
