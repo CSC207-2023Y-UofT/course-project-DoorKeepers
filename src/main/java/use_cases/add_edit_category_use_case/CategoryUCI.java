@@ -1,6 +1,7 @@
 package use_cases.add_edit_category_use_case;
 
 import entities.Category;
+import entities.CategoryFactory;
 import entities.EntityException;
 import entities.MonthlyStorage;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 
 public class CategoryUCI implements CategoryIB {
     private final CategoryOB categoryOB;
+    private final CategoryFactory categoryFactory;
 
     /**
      * Constructs CategoryUCI.
@@ -23,6 +25,7 @@ public class CategoryUCI implements CategoryIB {
      */
     public CategoryUCI(CategoryOB categoryP) {
         this.categoryOB = categoryP;
+        this.categoryFactory = new CategoryFactory();
     }
 
     /**
@@ -50,9 +53,8 @@ public class CategoryUCI implements CategoryIB {
     @Override
     public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
         MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
-
         try{double valueDouble = toDouble(categoryIDAdd.getValue());
-            Category newCategory = new Category(categoryIDAdd.getName(), valueDouble);
+            Category newCategory = categoryFactory.create(categoryIDAdd.getName(), valueDouble);
             if (newCategory.getBudget() < 0) {
                 // Category budget less than 0: User tries to add a new budget value that is a negative number.
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
@@ -93,11 +95,12 @@ public class CategoryUCI implements CategoryIB {
 
             Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
 
-            for (Category category1 : categoryList) {
+            if(!Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
+                for (Category category1 : categoryList) {
                 if (category1.getName().equals(categoryIDEdit.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
-                    return categoryOB.fail(categoryODFailEdit);}}
+                    return categoryOB.fail(categoryODFailEdit);}}}
 
             existingCategory.setName(categoryIDEdit.getName());
             categoryIDEdit.setValue(valueDouble);
