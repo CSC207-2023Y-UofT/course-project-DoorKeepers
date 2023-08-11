@@ -16,6 +16,7 @@ class SessionLoadUCITest {
     static SessionStorage sampleSession;
 
     /**
+     * Creates a sample SessionStorage object that following test cases will use.
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeAll

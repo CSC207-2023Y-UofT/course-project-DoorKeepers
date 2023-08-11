@@ -19,6 +19,7 @@ class NewMonthUCITest {
     static SessionStorage sessionStorage;
 
     /**
+     * Runs before each method to set up the necessary entities and relevant objects for the tests.
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeEach
