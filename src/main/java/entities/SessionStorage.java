@@ -29,7 +29,7 @@ public class SessionStorage implements Serializable {
     public void addMonth(MonthlyStorage month) throws EntityException {
         for (MonthlyStorage m: this.monthlyData){
             if (m.equals(month)){
-                throw new EntityException("There is already a Category with that name in this MonthlyStorage.");
+                throw new EntityException("There is already a MonthlyStorage with that name in this SessionStorage.");
             }
         }
         this.monthlyData.add(month);

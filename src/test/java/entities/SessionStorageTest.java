@@ -44,9 +44,10 @@ class SessionStorageTest {
 
     /**
      * Tests addMonth() and getMonthlyData() on a valid case.
+     * @throws EntityException if case fails
      */
     @Test
-    public void SessionStorageSetValidMonthlyData() {
+    public void SessionStorageSetValidMonthlyData() throws EntityException{
         SessionStorage session1 = new SessionStorage();
         session1.addMonth(month1);
         try {
@@ -60,10 +61,26 @@ class SessionStorageTest {
     }
 
     /**
+     * Tests addMonth() with an invalid test case
+     * (a MonthlyStorage with the same monthID already exist in SessionStorage).
+     */
+    @Test
+    public void SessionStorageAddMonthFail(){
+        EntityException thrown = Assertions.assertThrows(EntityException.class, () -> {
+            SessionStorage session1 = new SessionStorage();
+            session1.addMonth(month1);
+            month2 = new MonthlyStorage(1, 1000.00);
+            session1.addMonth(month2);
+        });
+        Assertions.assertEquals("There is already a MonthlyStorage with that name in this SessionStorage.",
+                thrown.getMessage());
+    }
+
+    /**
      * Tests addMonth() and getMonthlyData() on an invalid case (a monthID that is not in the SessionStorage).
      */
     @Test
-    public void SessionStorageSetInvalidMonthlyData() {
+    public void SessionStorageInvalidMonthlyID() {
         EntityException thrown = Assertions.assertThrows(EntityException.class, () -> {
             SessionStorage session1 = new SessionStorage();
             session1.addMonth(month1);
@@ -110,9 +127,10 @@ class SessionStorageTest {
 
     /**
      * Tests copyDataFrom()
+     * @throws EntityException if an error occur with addMonth()
      */
     @Test
-    public void SessionStorageCopyDataFrom() {
+    public void SessionStorageCopyDataFrom() throws EntityException {
         SessionStorage source = new SessionStorage();
         SessionStorage target = new SessionStorage();
 
