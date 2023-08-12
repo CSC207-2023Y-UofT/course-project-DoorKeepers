@@ -7,7 +7,7 @@ import use_cases.session_load.SessionLoadOD;
 
 /**
  * The controller class for the session load menu.
- * It is called by the view with the user input and it calls the interactor
+ * It is called by the view with the user input, and it calls the interactor
  * through the SessionLoadIB interface
  */
 public class SessionLoadC {

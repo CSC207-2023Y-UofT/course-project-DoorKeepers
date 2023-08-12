@@ -80,7 +80,7 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
     }
 
     /**
-     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     * Checks and formats user input to pass in valid parameters for a CategoryC to start a use case.
      */
     @Override
     public void actionPerformed(ActionEvent evt) {

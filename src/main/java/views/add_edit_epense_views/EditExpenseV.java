@@ -68,9 +68,9 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
         panel.setLayout(new GridLayout(0,1));
-        JPanel panell = new JPanel();
-        panell.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panell.setLayout(new GridLayout(0,1));
+        JPanel panel2 = new JPanel();
+        panel2.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
+        panel2.setLayout(new GridLayout(0,1));
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -86,8 +86,8 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         panel.add(select_category_label);
         panel.add(categoryCombo);
         panel.add(isRecurringCheckBox);
-        frame.add(panell, BorderLayout.SOUTH);
-        panell.add(submit);
+        frame.add(panel2, BorderLayout.SOUTH);
+        panel2.add(submit);
 
         frame.pack();
         frame.setVisible(true);

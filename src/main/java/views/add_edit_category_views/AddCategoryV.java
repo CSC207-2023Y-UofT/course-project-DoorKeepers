@@ -74,7 +74,7 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
     }
 
     /**
-     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     * Checks and formats user input to pass in valid parameters for a CategoryC to start a use case.
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
