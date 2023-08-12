@@ -18,6 +18,7 @@ public class ExpenseUCI implements ExpenseIB {
     private final ExpenseFactory expenseFactory;
     private MonthlyStorage month;
     private SessionStorage session;
+    private int monthID;
 
     /**
      * Constructs ExpenseUCI.
@@ -45,19 +46,20 @@ public class ExpenseUCI implements ExpenseIB {
      * Provides detailed fail messages according to each condition below
      * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
-     * @throws EntityException thrown when expenseIDAdd has invalid expense information.
      */
     @Override
-    public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) throws EntityException {
-        this.expenseID = expenseIDAdd;
-        this.session = expenseIDAdd.getSession();
-        this.month = expenseIDAdd.getSession().getMonthlyData(expenseIDAdd.getMonthID());
-        this.monthExpenseList = month.getExpenseData();
-        this.monthCategoryList = month.getCategoryData();
-        this.recurringExpenseList = session.getRecurData();
+    public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd){
 
-        try {double valueDouble = toDouble(expenseIDAdd.getValue());
+        try {this.expenseID = expenseIDAdd;
+            this.session = expenseID.getSession();
+            this.monthID = expenseID.getMonthID();
+            this.month = session.getMonthlyData(monthID);
+            this.monthExpenseList = month.getExpenseData();
+            this.monthCategoryList = month.getCategoryData();
+            this.recurringExpenseList = session.getRecurData();
+            double valueDouble = toDouble(expenseIDAdd.getValue());
             this.selectedCategory = findCategory(monthCategoryList, expenseID.getCategory());
+
             if (valueDouble < 0) {
                 //Expense value less than 0 fail: When a user tries to add the expense value with a negative number.
                 ExpenseOD expenseODFailAdd = new ExpenseOD("Expense value can't be less than $0. Please try again!");
@@ -103,21 +105,23 @@ public class ExpenseUCI implements ExpenseIB {
      */
     @Override
     public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
-        this.expenseID = expenseIDEdit;
-        this.session = expenseID.getSession();
-        this.month = session.getMonthlyData(expenseID.getMonthID());
-        this.monthExpenseList = month.getExpenseData();
-        this.monthCategoryList = month.getCategoryData();
 
-        try {this.selectedCategory = findCategory(monthCategoryList, expenseID.getCategory());
+
+        try {this.expenseID = expenseIDEdit;
+            this.session = expenseID.getSession();
+            this.monthID = expenseID.getMonthID();
+            this.month = session.getMonthlyData(monthID);
+            this.monthExpenseList = month.getExpenseData();
+            this.monthCategoryList = month.getCategoryData();
+            this.selectedCategory = findCategory(monthCategoryList, expenseID.getCategory());
             this.selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());
-            this.valueDouble = toDouble(expenseIDEdit.getValue());
+            this.valueDouble = toDouble(expenseID.getValue());
             if (valueDouble < 0) {
                 //Expense value less than 0 fail: When a user tries to edit the expense value with a negative number.
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense value can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);}
 
-            if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){
+            if(!Objects.equals(expenseID.getName(), selectedExpense.getName())){
                 if(checkHaveSameNameInList(monthExpenseList, expenseID.getName())) {
                     // Repeated name fail: When a user tries to edit the expense name to a existing expense in month.
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");

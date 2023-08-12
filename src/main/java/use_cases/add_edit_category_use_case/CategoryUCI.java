@@ -18,10 +18,10 @@ public class CategoryUCI implements CategoryIB {
     private CategoryID categoryID;
     private Category selectedCategory;
     private double valueDouble;
-    private ArrayList<Category> monthCategoryList;
     private final CategoryFactory categoryFactory;
     private MonthlyStorage month;
     private SessionStorage session;
+    private int monthID;
 
 
     /**
@@ -53,18 +53,20 @@ public class CategoryUCI implements CategoryIB {
      *
      * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
-     * @throws EntityException thrown when categoryIDAdd has invalid category information.
      */
     @Override
-    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
-        this.month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
-        try{this.valueDouble = toDouble(categoryIDAdd.getValue());
-            Category newCategory = categoryFactory.create(categoryIDAdd.getName(), valueDouble);
-            if (newCategory.getBudget() < 0) {
+    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd){
+        try{this.categoryID = categoryIDAdd;
+            this.session = categoryID.getSession();
+            this.monthID = categoryID.getMonthID();
+            this.month = session.getMonthlyData(monthID);
+            this.valueDouble = toDouble(categoryID.getValue());
+
+            if (valueDouble < 0) {
                 // Category budget less than 0: User tries to add a new budget value that is a negative number.
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
                 return categoryOB.fail(categoryODFailAdd);}
-            month.addCategory(categoryFactory.createMonthObject(setCategoryEditorInfo()));
+            month.addCategory(categoryFactory.createMonthObject(setCategoryCreatorInfo()));
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
@@ -90,10 +92,13 @@ public class CategoryUCI implements CategoryIB {
     @Override
     public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
 
-        try {this.session = categoryID.getSession();
-            this.month = session.getMonthlyData(categoryIDEdit.getMonthID());
-            this.monthCategoryList = month.getCategoryData();
-            this.valueDouble = toDouble(categoryIDEdit.getValue());
+        try {this.categoryID = categoryIDEdit;
+            this.session = categoryID.getSession();
+            this.monthID = categoryID.getMonthID();
+            this.month = session.getMonthlyData(monthID);
+            ArrayList<Category> monthCategoryList = month.getCategoryData();
+            this.valueDouble = toDouble(categoryID.getValue());
+
             if (valueDouble < 0) {
                 //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
                 CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
@@ -101,9 +106,9 @@ public class CategoryUCI implements CategoryIB {
 
             this.selectedCategory = findCategory(monthCategoryList, categoryIDEdit.getOldCategory());
 
-            if(!Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
+            if(!Objects.equals(categoryID.getName(), categoryIDEdit.getOldCategory())){
                 for (Category category1 : monthCategoryList) {
-                if (category1.getName().equals(categoryIDEdit.getName())) {
+                if (category1.getName().equals(categoryID.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
                     return categoryOB.fail(categoryODFailEdit);}}}
