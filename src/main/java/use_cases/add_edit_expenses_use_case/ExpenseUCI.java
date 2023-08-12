@@ -8,21 +8,12 @@ import java.util.Objects;
 
 public class ExpenseUCI implements ExpenseIB {
     private final ExpenseOB expenseOB;
-    private ExpenseID expenseID;
-    private Category selectedCategory;
-    private Expense selectedExpense;
-    private double valueDouble;
-    private ArrayList<Expense> monthExpenseList;
-    private ArrayList<Category> monthCategoryList;
     private ArrayList<Expense> recurringExpenseList;
-    private final ExpenseFactory expenseFactory;
+    private final MonthObjectFactory expenseFactory;
     private MonthlyStorage month;
-    private SessionStorage session;
-    private int monthID;
 
     /**
-     * Constructs ExpenseUCI.
-     *
+     * Constructs ExpenseUCI. An ExpenseFactory is constructed.
      * @param expenseP presenter that is related to the use case.
      */
     public ExpenseUCI(ExpenseOB expenseP) {
@@ -42,7 +33,9 @@ public class ExpenseUCI implements ExpenseIB {
 
     /**
      * Overrides method in ExpenseIB.
-     * Attempts to add an expense with information from ExpenseID and returns a ExpenseOD indicating whether fail/success after execution.
+     * Attempts to add an expense with information from ExpenseID and returns a ExpenseOD
+     * indicating whether fail/success after execution.
+     * ExpenseFactory methods are implemented to better adhere to Liskov's Substitution Principle.
      * Provides detailed fail messages according to each condition below
      * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
@@ -50,15 +43,12 @@ public class ExpenseUCI implements ExpenseIB {
     @Override
     public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd){
 
-        try {this.expenseID = expenseIDAdd;
-            this.session = expenseID.getSession();
-            this.monthID = expenseID.getMonthID();
-            this.month = session.getMonthlyData(monthID);
-            this.monthExpenseList = month.getExpenseData();
-            this.monthCategoryList = month.getCategoryData();
+        try {
+            SessionStorage session = expenseIDAdd.getSession();
+            this.month = session.getMonthlyData(expenseIDAdd.getMonthID());
+            ArrayList<Expense> monthExpenseList = month.getExpenseData();
             this.recurringExpenseList = session.getRecurData();
             double valueDouble = toDouble(expenseIDAdd.getValue());
-            this.selectedCategory = findCategory(monthCategoryList, expenseID.getCategory());
 
             if (valueDouble < 0) {
                 //Expense value less than 0 fail: When a user tries to add the expense value with a negative number.
@@ -66,19 +56,20 @@ public class ExpenseUCI implements ExpenseIB {
                 return expenseOB.fail(expenseODFailAdd);}
 
             for (Expense expense1 : monthExpenseList) {
-                if (expense1.getName().equals(expenseID.getName())) {
+                if (expense1.getName().equals(expenseIDAdd.getName())) {
                     //Repeated name in month
-                    ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
+                    ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name " +
+                            "in this month.");
                     return expenseOB.fail(expenseODFailEdit);}}
 
-            if (expenseID.getIsRecurringExpense()) {
-                Expense newrecurExpense = expenseFactory.createMonthObject(setExpenseCreatorInfo());
+            if (expenseIDAdd.getIsRecurringExpense()) {
+                Expense newrecurExpense = expenseFactory.createMonthObject(setExpenseCreatorInfo(expenseIDAdd));
                 session.addRecurExpense(newrecurExpense);
                 month.addExpense(newrecurExpense);
                 ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
                 return expenseOB.success(expenseODSuccessAdd);
             }else{
-                month.addExpense(expenseFactory.createMonthObject(setExpenseCreatorInfo()));
+                month.addExpense(expenseFactory.createMonthObject(setExpenseCreatorInfo(expenseIDAdd)));
                 ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have added a new expense!");
                 return expenseOB.success(expenseODSuccessAdd);}
 
@@ -92,11 +83,13 @@ public class ExpenseUCI implements ExpenseIB {
             return expenseOB.fail(expenseODFailAdd);
         } catch(NoSuchElementException e){
         // NoSuchElementException fail: User tries to assign a category that does not exist in current month.
-        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. Please add a new category or select existing category!");
+        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. " +
+                "Please add a new category or select existing category!");
         return expenseOB.fail(expenseODFailEdit);}}
 
     /**
      * Attempts to edit an expense with information from ExpenseID and returns a ExpenseOD indicating whether fail/success after execution.
+     * ExpenseFactory methods are implemented to better adhere to Liskov's Substitution Principle.
      * Provides detailed fail messages according to each condition below
      * @param expenseIDEdit ExpenseID required for editing a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
@@ -107,39 +100,39 @@ public class ExpenseUCI implements ExpenseIB {
     public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
 
 
-        try {this.expenseID = expenseIDEdit;
-            this.session = expenseID.getSession();
-            this.monthID = expenseID.getMonthID();
-            this.month = session.getMonthlyData(monthID);
-            this.monthExpenseList = month.getExpenseData();
-            this.monthCategoryList = month.getCategoryData();
-            this.selectedCategory = findCategory(monthCategoryList, expenseID.getCategory());
-            this.selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());
-            this.valueDouble = toDouble(expenseID.getValue());
+        try {
+            SessionStorage session = expenseIDEdit.getSession();
+            this.month = session.getMonthlyData(expenseIDEdit.getMonthID());
+            ArrayList<Expense> monthExpenseList = month.getExpenseData();
+            double valueDouble = toDouble(expenseIDEdit.getValue());
+
             if (valueDouble < 0) {
                 //Expense value less than 0 fail: When a user tries to edit the expense value with a negative number.
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense value can't be less than $0. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);}
 
-            if(!Objects.equals(expenseID.getName(), selectedExpense.getName())){
-                if(checkHaveSameNameInList(monthExpenseList, expenseID.getName())) {
+            if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){
+                if(checkHaveSameNameInList(monthExpenseList, expenseIDEdit.getName())) {
                     // Repeated name fail: When a user tries to edit the expense name to a existing expense in month.
-                    ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
+                    ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name " +
+                            "in this month.");
                     return expenseOB.fail(expenseODFailEdit);}}
 
-            if (changeInRecurringInfo()) {
-                if (expenseID.getIsRecurringExpense()) {
-                    session.addRecurExpense(expenseFactory.editMonthObject(setExpenseEditorInfo()));
+            if (changeInRecurringInfo(expenseIDEdit)) {
+                if (expenseIDEdit.getIsRecurringExpense()) {
+                    session.addRecurExpense(expenseFactory.editMonthObject(setExpenseEditorInfo(expenseIDEdit)));
                     // Success edit to new recurring expense.
-                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this new recurring expense!");
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes " +
+                            "of this new recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);
                 }else{
-                    expenseFactory.editMonthObject(setExpenseEditorInfo());
-                    session.deleteRecurExpense(expenseID.getName());
+                    expenseFactory.editMonthObject(setExpenseEditorInfo(expenseIDEdit));
+                    session.deleteRecurExpense(expenseIDEdit.getName());
                     //Success edit to remove recurring expense.
-                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense and it is no longer a recurring expense!");
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes " +
+                            "of this expense and it is no longer a recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);}
-            }else{expenseFactory.editMonthObject(setExpenseEditorInfo());}
+            }else{expenseFactory.editMonthObject(setExpenseEditorInfo(expenseIDEdit));}
 
             //Success edit to expense
             ExpenseOD expenseODSuccessEdit = new ExpenseOD("You have edited an expense!");
@@ -147,7 +140,8 @@ public class ExpenseUCI implements ExpenseIB {
 
             } catch(NoSuchElementException e){
                 //NoSuchElementException fail: User tries to edit an expense that does not exist.
-                ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such expense in the current month. Please add a new expense or select existing expense!");
+                ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such expense in the current month. " +
+                        "Please add a new expense or select existing expense!");
                 return expenseOB.fail(expenseODFailEdit);
             } catch(NumberFormatException e){
                 // NumberFormatException|NullPointerException fail: User tries to edit Expense value to an invalid number.
@@ -198,7 +192,7 @@ public class ExpenseUCI implements ExpenseIB {
      * (The user changes their response for the isRecurringExpense checkbox)
      * @return boolean suggesting there is a need to update Session.recurringExpenseData
      */
-    private boolean changeInRecurringInfo() {
+    private boolean changeInRecurringInfo(ExpenseID expenseID) {
         if(expenseID.getIsRecurringExpense()) {
             try {findExpense(recurringExpenseList, expenseID.getOldExpense());
                 return false;
@@ -210,17 +204,22 @@ public class ExpenseUCI implements ExpenseIB {
                 return false;}}}
 
     /**
-     * Sets the information needed to create an ExpenseCreatorInputData to call the createMonthObject method in ExpenseFactory
-     * @return ExpenseCreatorInputData MonthObjectFactoryInputData Object specifically used in ExpenseFactory for the createMonthObject method.
+     * Sets the information needed to create an ExpenseCreatorInputData to call createMonthObject method in ExpenseFactory
+     * @return ExpenseCreatorInputData MonthObjectFactoryInputData Object specifically used in ExpenseFactory
+     * for the createMonthObject method.
      */
-    private ExpenseCreatorInputData setExpenseCreatorInfo(){
-        return ExpenseCreatorInputData expenseCreatorInputData = new ExpenseCreatorInputData(expenseID.getName(),selectedCategory, valueDouble);}
+    private MonthObjectFactoryInputData setExpenseCreatorInfo(ExpenseID expenseIDAdd){
+        return new ExpenseCreatorInputData(expenseIDAdd.getName(), findCategory(month.getCategoryData(),
+                expenseIDAdd.getCategory()), toDouble(expenseIDAdd.getValue()));}
     /**
-     * Sets the information needed to edit an ExpenseEditorInputData to call the editMonthObject method in ExpenseFactory
-     * @return ExpenseEditorInputData MonthObjectFactoryInputData Object specifically used in ExpenseFactory for the editMonthObject method.
+     * Sets the information needed to edit an ExpenseEditorInputData to call editMonthObject method in ExpenseFactory
+     * @return ExpenseEditorInputData MonthObjectFactoryInputData Object specifically used in ExpenseFactory
+     * for the editMonthObject method.
      */
-    private ExpenseEditorInputData setExpenseEditorInfo(){
-        return ExpenseEditorInputData expenseEditorInputData(expenseID.getName(),selectedCategory, valueDouble, selectedExpense);}
+    private MonthObjectFactoryInputData setExpenseEditorInfo(ExpenseID expenseIDEdit){
+        return new ExpenseEditorInputData(expenseIDEdit.getName(),findCategory(month.getCategoryData(),
+                expenseIDEdit.getCategory()), toDouble(expenseIDEdit.getValue()),
+                findExpense(month.getExpenseData(), expenseIDEdit.getOldExpense()));}
 
 }
 

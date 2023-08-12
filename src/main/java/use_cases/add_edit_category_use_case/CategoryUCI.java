@@ -13,17 +13,12 @@ import java.util.Objects;
  */
 public class CategoryUCI implements CategoryIB {
     private final CategoryOB categoryOB;
-    private CategoryID categoryID;
-    private Category selectedCategory;
-    private double valueDouble;
-    private final CategoryFactory categoryFactory;
+    private final MonthObjectFactory categoryFactory;
     private MonthlyStorage month;
-    private SessionStorage session;
-    private int monthID;
 
 
     /**
-     * Constructs CategoryUCI.
+     * Constructs CategoryUCI. A CategoryFactory is constructed.
      * @param categoryP presenter that is related to the use case.
      */
     public CategoryUCI(CategoryOB categoryP) {
@@ -42,29 +37,32 @@ public class CategoryUCI implements CategoryIB {
 
     /**
      * Overrides method in CategoryIB.
-     * Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
+     * Attempts to add a category with information from CategoryID and returns a CategoryOD
+     * indicating whether fail/success after execution.
+     * CategoryFactory methods are implemented to better adhere to Liskov's Substitution Principle.
      * Provides detailed fail messages according to each condition below. (Explained in comments.)
      * NOTE: There are actually two different EntityException thrown.
      * One is from the SessionStorage Object when checking if monthID is in session.
-     *  (Although we know MonthlyStorage with monthID is always in the SessionStorage, it will be caught at views/add_edit_category_views/AddCategoryV.java).
-     * The second one is from the creation of a Category Object implementing addCategory() from MonthlyStorage, and is caught in the current implementation!
+     *  (Although we know MonthlyStorage with monthID is always in the SessionStorage,
+     *  it will be caught at views/add_edit_category_views/AddCategoryV.java).
+     * The second one is from the creation of a Category Object implementing addCategory() from MonthlyStorage,
+     * and is caught in the current implementation!
      *
-     * @param categoryIDAdd CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.
+     * @param categoryIDAdd CategoryID required for adding a new category to designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
      */
     @Override
     public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd){
-        try{this.categoryID = categoryIDAdd;
-            this.session = categoryID.getSession();
-            this.monthID = categoryID.getMonthID();
-            this.month = session.getMonthlyData(monthID);
-            this.valueDouble = toDouble(categoryID.getValue());
+        try{
+            this.month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
+            double valueDouble = toDouble(categoryIDAdd.getValue());
 
             if (valueDouble < 0) {
                 // Category budget less than 0: User tries to add a new budget value that is a negative number.
-                CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
+                CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. " +
+                        "Please try again!");
                 return categoryOB.fail(categoryODFailAdd);}
-            month.addCategory(categoryFactory.createMonthObject(setCategoryCreatorInfo()));
+            month.addCategory(categoryFactory.createMonthObject(setCategoryCreatorInfo(categoryIDAdd)));
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
@@ -74,15 +72,18 @@ public class CategoryUCI implements CategoryIB {
             return categoryOB.fail(categoryODFailAdd);
         } catch (EntityException e) {
             //EntityException: User tries to add an invalid Category name but failed. (See entities/EntityException.java)
-            CategoryOD categoryODFailAdd = new CategoryOD("There is already a category with this new name in this month.");
+            CategoryOD categoryODFailAdd = new CategoryOD("There is already a category with this new name " +
+                    "in this month.");
             return categoryOB.fail(categoryODFailAdd);
         }
     }
     /**
      * Overrides method in CategoryIB.
-     * Attempts to edit a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
+     * Attempts to edit a category with information from CategoryID and returns a CategoryOD
+     * indicating whether fail/success after execution.
+     * CategoryFactory methods are implemented to better adhere to Liskov's Substitution Principle.
      * Provides detailed fail messages according to each condition below. (Explained in comments.)
-     * @param categoryIDEdit CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.
+     * @param categoryIDEdit CategoryID required for editing a new category to designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
      * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
      *                          it will be caught at views/add_edit_category_views/EditCategoryV.java).
@@ -90,37 +91,37 @@ public class CategoryUCI implements CategoryIB {
     @Override
     public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
 
-        try {this.categoryID = categoryIDEdit;
-            this.session = categoryID.getSession();
-            this.monthID = categoryID.getMonthID();
-            this.month = session.getMonthlyData(monthID);
+        try {
+            this.month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
             ArrayList<Category> monthCategoryList = month.getCategoryData();
-            this.valueDouble = toDouble(categoryID.getValue());
+            double valueDouble = toDouble(categoryIDEdit.getValue());
 
             if (valueDouble < 0) {
                 //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
-                CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
+                CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. " +
+                        "Please try again!");
                 return categoryOB.fail(categoryODFailEdit);}
 
-            this.selectedCategory = findCategory(monthCategoryList, categoryIDEdit.getOldCategory());
-
-            if(!Objects.equals(categoryID.getName(), categoryIDEdit.getOldCategory())){
+            if(!Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
                 for (Category category1 : monthCategoryList) {
-                if (category1.getName().equals(categoryID.getName())) {
+                if (category1.getName().equals(categoryIDEdit.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
-                    CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
+                    CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name " +
+                            "in this month.");
                     return categoryOB.fail(categoryODFailEdit);}}}
 
-            categoryFactory.editMonthObject(setCategoryEditorInfo());
+            categoryFactory.editMonthObject(setCategoryEditorInfo(categoryIDEdit));
             CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
             return categoryOB.success(categoryODSuccessEdit);
 
         } catch (NoSuchElementException e) {
             //NoSuchElementException: User tries to edit a category that does not exist.
-            CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
+            CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. " +
+                    "Please add a new category or select existing category!");
             return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException|NullPointerException e){
-            //NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
+            //NumberFormatException|NullPointerException: User tries to edit a budget value
+            // with input that can not be converted to a double.
             CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
             return categoryOB.fail(categoryODFailEdit);
         }
@@ -139,15 +140,18 @@ public class CategoryUCI implements CategoryIB {
                 return c;}}
         throw new NoSuchElementException();}
     /**
-     * Sets the information needed to create a CategoryCreatorInputData to call the createMonthObject method in CategoryFactory
-     * @return CategoryCreatorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory for the createMonthObject method.
+     * Sets information needed to create a CategoryCreatorInputData to call createMonthObject method in CategoryFactory
+     * @return CategoryCreatorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory
+     * for the createMonthObject method.
      */
-    private CategoryCreatorInputData setCategoryCreatorInfo(){
-        return CategoryCreatorInputData categoryCreatorInputData = new CategoryCreatorInputData(categoryID.getName(), valueDouble);}
+    private MonthObjectFactoryInputData setCategoryCreatorInfo(CategoryID categoryIDAdd){
+        return new CategoryCreatorInputData(categoryIDAdd.getName(), toDouble(categoryIDAdd.getValue()));}
     /**
-     * Sets the information needed to edit a CategoryEditorInputData to call the editMonthObject method in CategoryFactory
-     * @return CategoryEditorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory for the editMonthObject method.
+     * Sets information needed to edit a CategoryEditorInputData to call editMonthObject method in CategoryFactory
+     * @return CategoryEditorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory
+     * for the editMonthObject method.
      */
-    private CategoryEditorInputData setCategoryEditorInfo(){
-        return CategoryEditorInputData categoryEditorInputData(categoryID.getName(), valueDouble, selectedCategory);}
+    private MonthObjectFactoryInputData setCategoryEditorInfo(CategoryID categoryIDEdit){
+        return new CategoryEditorInputData(categoryIDEdit.getName(), toDouble(categoryIDEdit.getValue()),
+                findCategory(month.getCategoryData(), categoryIDEdit.getOldCategory()));}
 }
