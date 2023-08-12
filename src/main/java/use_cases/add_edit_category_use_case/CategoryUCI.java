@@ -1,9 +1,7 @@
 package use_cases.add_edit_category_use_case;
 
-import entities.Category;
-import entities.CategoryFactory;
-import entities.EntityException;
-import entities.MonthlyStorage;
+import entities.*;
+import use_cases.add_edit_expenses_use_case.ExpenseID;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -17,7 +15,14 @@ import java.util.Objects;
 
 public class CategoryUCI implements CategoryIB {
     private final CategoryOB categoryOB;
+    private CategoryID categoryID;
+    private Category selectedCategory;
+    private double valueDouble;
+    private ArrayList<Category> monthCategoryList;
     private final CategoryFactory categoryFactory;
+    private MonthlyStorage month;
+    private SessionStorage session;
+
 
     /**
      * Constructs CategoryUCI.
@@ -52,14 +57,14 @@ public class CategoryUCI implements CategoryIB {
      */
     @Override
     public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd)throws EntityException{
-        MonthlyStorage month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
-        try{double valueDouble = toDouble(categoryIDAdd.getValue());
+        this.month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
+        try{this.valueDouble = toDouble(categoryIDAdd.getValue());
             Category newCategory = categoryFactory.create(categoryIDAdd.getName(), valueDouble);
             if (newCategory.getBudget() < 0) {
                 // Category budget less than 0: User tries to add a new budget value that is a negative number.
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. Please try again!");
                 return categoryOB.fail(categoryODFailAdd);}
-            month.addCategory(newCategory);
+            month.addCategory(categoryFactory.createMonthObject(setCategoryEditorInfo()));
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
@@ -84,27 +89,26 @@ public class CategoryUCI implements CategoryIB {
      */
     @Override
     public CategoryOD editCategoryInMonth(CategoryID categoryIDEdit) throws EntityException{
-        MonthlyStorage month = categoryIDEdit.getSession().getMonthlyData(categoryIDEdit.getMonthID());
 
-        try {ArrayList<Category> categoryList = month.getCategoryData();
-            double valueDouble = toDouble(categoryIDEdit.getValue());
+        try {this.session = categoryID.getSession();
+            this.month = session.getMonthlyData(categoryIDEdit.getMonthID());
+            this.monthCategoryList = month.getCategoryData();
+            this.valueDouble = toDouble(categoryIDEdit.getValue());
             if (valueDouble < 0) {
                 //Category budget less than 0: User tries to edit a budget value with input that is a negative number.
                 CategoryOD categoryODFailEdit = new CategoryOD("Category budget can't be less than $0. Please try again!");
                 return categoryOB.fail(categoryODFailEdit);}
 
-            Category existingCategory = findCategory(categoryList, categoryIDEdit.getOldCategory());
+            this.selectedCategory = findCategory(monthCategoryList, categoryIDEdit.getOldCategory());
 
             if(!Objects.equals(categoryIDEdit.getName(), categoryIDEdit.getOldCategory())){
-                for (Category category1 : categoryList) {
+                for (Category category1 : monthCategoryList) {
                 if (category1.getName().equals(categoryIDEdit.getName())) {
                     //Repeated name: User tries to edit category name to another name that exists in the month.
                     CategoryOD categoryODFailEdit = new CategoryOD("There is already a category with this new name in this month.");
                     return categoryOB.fail(categoryODFailEdit);}}}
 
-            existingCategory.setName(categoryIDEdit.getName());
-            categoryIDEdit.setValue(valueDouble);
-            existingCategory.setBudget(valueDouble);
+            categoryFactory.editMonthObject(setCategoryEditorInfo());
             CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
             return categoryOB.success(categoryODSuccessEdit);
 
@@ -131,4 +135,16 @@ public class CategoryUCI implements CategoryIB {
             if (Objects.equals(c.getName(), name)){
                 return c;}}
         throw new NoSuchElementException();}
+    /**
+     * Sets the information needed to create a CategoryCreatorInputData to call the createMonthObject method in CategoryFactory
+     * @return CategoryCreatorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory for the createMonthObject method.
+     */
+    private CategoryCreatorInputData setCategoryCreatorInfo(){
+        return CategoryCreatorInputData categoryCreatorInputData = new CategoryCreatorInputData(categoryID.getName(), valueDouble);}
+    /**
+     * Sets the information needed to edit a CategoryEditorInputData to call the editMonthObject method in CategoryFactory
+     * @return CategoryEditorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory for the editMonthObject method.
+     */
+    private CategoryEditorInputData setCategoryEditorInfo(){
+        return CategoryEditorInputData categoryEditorInputData(categoryID.getName(), valueDouble, selectedCategory);}
 }
