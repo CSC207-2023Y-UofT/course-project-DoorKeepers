@@ -1,10 +1,10 @@
 package entities;
 
 /**
- * A class that holds the input data for use by the ExpenseCreator. It extends MonthObjectCreatorInputData, so that it
+ * A class that holds the input data for use by the ExpenseFactory. It extends MonthObjectFactoryInputData, so that it
  * can be used in place of this type. It includes the name, value, and category that the new Expense will have.
  */
-public class ExpenseCreatorInputData extends MonthObjectCreatorInputData {
+public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
 
     private final String name;
     private final Category category;

@@ -93,5 +93,4 @@ public class Expense implements MonthObject, Serializable {
         Expense other = (Expense) obj;
         return Objects.equals(this.getName(), other.getName());
     }
-
 }
