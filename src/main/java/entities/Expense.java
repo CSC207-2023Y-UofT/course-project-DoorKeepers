@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * A class that will store all the data associated with an Expense. This includes a name, Category, and value.
- * It implements the MonthObject interface, which allows for it to be created using a MonthObjectCreator.
+ * It implements the MonthObject interface, which allows for it to be created using a MonthObjectFactory.
  */
 public class Expense implements MonthObject, Serializable {
 
@@ -27,10 +27,11 @@ public class Expense implements MonthObject, Serializable {
 
     /**
      * Sets the name of this Expense.
-     * @param newName the new name that this Expense will have
+     * @param name the new name that this Expense will have
      */
-    public void setName(String newName){
-        this.name = newName;
+    @Override
+    public void setName(String name){
+        this.name = name;
     }
 
     /**
@@ -53,6 +54,7 @@ public class Expense implements MonthObject, Serializable {
      * Gets the name of this Expense.
      * @return the name of this Expense
      */
+    @Override
     public String getName(){
         return this.name;
     }

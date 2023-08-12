@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A class that will store all the data associated with a Category. This includes a name and budget. It implements the
- * MonthObject interface, which allows for it to be created using a MonthObjectCreator.
+ * A class that will store all the data associated with a Category. This includes a name and budget.
+ * It implements the MonthObject interface, which allows for it to be created using a MonthObjectFactory.
  */
 public class Category implements MonthObject, Serializable {
 
@@ -24,10 +24,11 @@ public class Category implements MonthObject, Serializable {
 
     /**
      * Sets the name of this Category.
-     * @param newName the new name that this Category will have
+     * @param name the new name that this Category will have
      */
-    public void setName(String newName){
-        this.name = newName;
+    @Override
+    public void setName(String name){
+        this.name = name;
     }
 
     /**
@@ -42,6 +43,7 @@ public class Category implements MonthObject, Serializable {
      * Gets the name of this Category.
      * @return the name of this Category
      */
+    @Override
     public String getName(){
         return this.name;
     }

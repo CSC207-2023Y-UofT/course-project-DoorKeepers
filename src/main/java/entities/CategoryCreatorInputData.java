@@ -1,7 +1,7 @@
 package entities;
 
 /**
- * A class that holds the input data for use by the CategoryCreator. It extends MonthObjectFactoryInputData, so that it
+ * A class that holds the input data for use by the CategoryFactory. It extends MonthObjectFactoryInputData, so that it
  * can be used in place of this type. It includes the name and budget that the new Category will have.
  */
 public class CategoryCreatorInputData extends MonthObjectFactoryInputData {
