@@ -1,7 +1,6 @@
 package use_cases.add_edit_category_use_case;
 
 import entities.*;
-import use_cases.add_edit_expenses_use_case.ExpenseID;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
