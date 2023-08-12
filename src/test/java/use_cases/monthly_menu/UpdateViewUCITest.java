@@ -22,8 +22,12 @@ class UpdateViewUCITest {
     static MonthlyStorage monthlyStorage;
     static SessionStorage sessionStorage;
 
+    /**
+     * Runs before each method to set up the necessary entities and relevant objects for the tests.
+     * @throws EntityException if an error occur with addMonth() in SessionStorage
+     */
     @BeforeEach
-    void setUp() {
+    void setUp() throws EntityException {
         outputBoundary = new MonthMenuP();
         category1 = new Category("Food", 100.00);
         category2 = new Category("Shopping", 70.00);

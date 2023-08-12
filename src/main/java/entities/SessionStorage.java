@@ -22,10 +22,16 @@ public class SessionStorage implements Serializable {
     }
 
     /**
-     * Adds a new month to the monthlyData.
+     * Adds a new month to monthlyData.
      * @param month a MonthlyStorage object to add
+     * @throws EntityException if this MonthlyStorage is already in SessionStorage
      */
-    public void addMonth(MonthlyStorage month){
+    public void addMonth(MonthlyStorage month) throws EntityException {
+        for (MonthlyStorage m: this.monthlyData){
+            if (m.equals(month)){
+                throw new EntityException("There is already a MonthlyStorage with that name in this SessionStorage.");
+            }
+        }
         this.monthlyData.add(month);
     }
 
