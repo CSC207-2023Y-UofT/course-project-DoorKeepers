@@ -5,12 +5,9 @@ import java.util.Objects;
 
 /**
  * A class that will store all the data associated with a Category. This includes a name and budget.
-<<<<<<< HEAD
  * It implements the MonthObject interface, which allows for it to be created using a MonthObjectFactory.
-=======
->>>>>>> 6e343668b7d94be135d299828c3d090a464ad90f
  */
-public class Category implements Serializable {
+public class Category implements MonthObject, Serializable {
 
     private String name;
     private double budget;
