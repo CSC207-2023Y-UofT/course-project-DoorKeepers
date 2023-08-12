@@ -17,10 +17,11 @@ class FileSessionStorageTest {
     static SessionStorage sampleSession;
 
     /**
-     * Creates a sample SessionStorage object that following test cases will use
+     * Creates a sample SessionStorage object that following test cases will use.
+     * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeAll
-    public static void SessionLoadUCICreateSampleSession() {
+    public static void SessionLoadUCICreateSampleSession() throws EntityException {
         sampleSession = new SessionStorage();
         sampleSession.addRecurExpense(new entities.Expense("abc", new entities.Category("lala", 10.0), 3.0));
         sampleSession.addMonth(new entities.MonthlyStorage(1, 20.0));
