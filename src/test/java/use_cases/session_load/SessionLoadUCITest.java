@@ -80,7 +80,8 @@ class SessionLoadUCITest {
         Assertions.assertEquals(session, sampleSession);
 
         // Cleanup
-        new File("UCILoadFileTest.ser").delete();
+        boolean deletedTestFile = new File("UCILoadFileTest.ser").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**
@@ -121,7 +122,8 @@ class SessionLoadUCITest {
         );
 
         // Build an invalid file to load
-        new File("Hello world.txt").createNewFile();
+        boolean createdTestFile = new File("Hello world.txt").createNewFile();
+        Assertions.assertTrue(createdTestFile);
 
         // Test loading invalid file
         SessionLoadID inputData = new SessionLoadID("Hello world.txt");
@@ -131,6 +133,7 @@ class SessionLoadUCITest {
         Assertions.assertEquals(session, sampleSession);
 
         // Cleanup
-        new File("Hello world.txt").delete();
+        boolean deletedTestFile = new File("Hello world.txt").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 }

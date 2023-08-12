@@ -111,7 +111,7 @@ public class ExpenseUCI implements ExpenseIB {
 
             if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){
                 if(checkHaveSameNameInList(monthExpenseList, expenseID.getName())) {
-                    // Repeated name fail: When a user tries to edit the expense name to a existing expense in month.
+                    // Repeated name fail: When a user tries to edit the expense name to an existing expense in month.
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
                     return expenseOB.fail(expenseODFailEdit);}}
 

@@ -55,7 +55,8 @@ class FileSessionStorageTest {
         Assertions.assertEquals(sampleSession, savedAndLoadedSession);
 
         // Cleanup
-        new File("FSSSaveFileTest.ser").delete();
+        boolean deletedTestFile = new File("FSSSaveFileTest.ser").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**
@@ -78,12 +79,14 @@ class FileSessionStorageTest {
         FileSessionStorage fileSessionStorage = new FileSessionStorage();
 
         // Build an invalid file to load
-        new File("Hello world.txt").createNewFile();
+        boolean createdTestFile = new File("Hello world.txt").createNewFile();
+        Assertions.assertTrue(createdTestFile);
 
         Assertions.assertThrows(IOException.class, () -> fileSessionStorage.load("Hello world.txt"));
 
         // Cleanup
-        new File("Hello world.txt").delete();
+        boolean deletedTestFile = new File("Hello world.txt").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**

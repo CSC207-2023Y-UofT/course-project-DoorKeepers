@@ -9,7 +9,7 @@ import use_cases.add_edit_expenses_use_case.ExpenseOD;
 
 public class ExpenseC {
     /**
-     * Expense_Controller passes in user input and produces a Expense_Output_Data Object according to a use case.
+     * Expense_Controller passes in user input and produces an Expense_Output_Data Object according to a use case.
      */
     final ExpenseIB input;
 

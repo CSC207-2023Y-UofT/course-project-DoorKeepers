@@ -56,7 +56,7 @@ public class NewMonthUCI implements NewMonthIB {
      * @param monthID the monthID of the new MonthlyStorage
      * @param budgetValue the budget for the new MonthlyStorage
      * @return new MonthlyStorage object
-     * @throws EntityException if an error in the program causes two Expenese in recurData to have the same name
+     * @throws EntityException if an error in the program causes two Expense in recurData to have the same name
      */
     private MonthlyStorage createNewMonth(SessionStorage session, int monthID, double budgetValue) throws EntityException {
         ArrayList<Expense> recurData= session.getRecurData();

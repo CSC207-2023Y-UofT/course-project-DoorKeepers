@@ -4,7 +4,7 @@ import entities.SessionStorage;
 
 /**
  * The output boundary interface for displaying the result of loading a session
- * The SessionLoadP presenter class implements this interface and it is called by
+ * The SessionLoadP presenter class implements this interface, and it is called by
  * the SessionLoadUCI interactor class
  */
 public interface SessionLoadOB {

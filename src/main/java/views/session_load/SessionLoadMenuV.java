@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
  * session, and one for loading an existing session from a file. It reports any errors through a popup
  * and sends the user to the main menu after successfully loading a file.
  */
-public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, ActionListener {
+public class SessionLoadMenuV extends JPanel implements ActionListener {
     private final SessionLoadC controller;
     private final MainMenuV mainMenuV;
 
@@ -48,8 +48,7 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
      *
      * @param message a String containing an error message to display
      */
-    @Override
-    public void displayError(String message) {
+    private void displayError(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
@@ -59,7 +58,7 @@ public class SessionLoadMenuV extends JPanel implements SessionLoadMenuVB, Actio
      * @param message a String containing a success message to display
      * @param session a SessionStorage object with the loaded session that will be displayed in the main menu
      */
-    public void displaySuccess(String message, SessionStorage session) {
+    private void displaySuccess(String message, SessionStorage session) {
         this.setVisible(false);
         this.mainMenuV.openMainMenu(message, session);
     }
