@@ -70,15 +70,15 @@ public class ExpenseUCI implements ExpenseIB {
                     return expenseOB.fail(expenseODFailEdit);}}
 
             if (expenseID.getIsRecurringExpense()) {
-                Expense newrecurExpense = expenseFactory.createMonthObject(expenseID.getName(), selectedCategory, valueDouble);
+                Expense newrecurExpense = expenseFactory.createMonthObject(setExpenseCreatorInfo());
                 session.addRecurExpense(newrecurExpense);
                 month.addExpense(newrecurExpense);
                 ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have created a new recurring expense!");
                 return expenseOB.success(expenseODSuccessAdd);
             }else{
-                month.addExpense(expenseFactory.createMonthObject(expenseID.getName(), selectedCategory, valueDouble));}
+                month.addExpense(expenseFactory.createMonthObject(setExpenseCreatorInfo()));
                 ExpenseOD expenseODSuccessAdd = new ExpenseOD("You have added a new expense!");
-                return expenseOB.success(expenseODSuccessAdd);
+                return expenseOB.success(expenseODSuccessAdd);}
 
         } catch (NumberFormatException e) {
             // NumberFormatException|NullPointerException fail: User tries to edit Expense value to an invalid number.
