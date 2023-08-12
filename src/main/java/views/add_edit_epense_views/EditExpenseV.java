@@ -58,6 +58,14 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
      * Open edit expense GUI.
      */
     public void openEditExpense(){
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setTitle("Edit Expense");
+        frame.setSize(500,300);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
+        panel.setLayout(new GridLayout(0,1));
+
         JLabel select_expense_label = new JLabel(" Select existing expense:");
         JLabel nameLabel = new JLabel("New Expense Name:");
         JLabel valueLabel = new JLabel(" New Expense Budget:");
@@ -65,18 +73,7 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         isRecurringCheckBox.setBounds(100,150,50,50);
         submit.setSize(30,10);
 
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panel.setLayout(new GridLayout(0,1));
-        JPanel panell = new JPanel();
-        panell.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panell.setLayout(new GridLayout(0,1));
 
-        frame.add(panel, BorderLayout.NORTH);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setTitle("Edit Expense");
-        frame.setSize(300,500);
-        frame.setSize(500,300);
         panel.add(select_expense_label);
         panel.add(expenseCombo);
         panel.add(nameLabel, BorderLayout.WEST);
@@ -86,9 +83,9 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         panel.add(select_category_label);
         panel.add(categoryCombo);
         panel.add(isRecurringCheckBox);
-        frame.add(panell, BorderLayout.SOUTH);
-        panell.add(submit);
+        panel.add(submit);
 
+        frame.add(panel, BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
 
@@ -109,7 +106,10 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
         this.selectedCategory = (String) categoryCombo.getSelectedItem();
         this.isRecurring = isRecurringCheckBox.isSelected();
-        }else if(evt.getSource() == submit){
+        }else if(expenseCombo.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog( this, "Please select an expense you wish to edit.");}
+
+        if(evt.getSource() == submit){
             ExpenseOD message = null;
             try {
                 message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
@@ -122,7 +122,6 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
                 JOptionPane.showMessageDialog( this, message.getMessage());}
         }
     }
-
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
      *

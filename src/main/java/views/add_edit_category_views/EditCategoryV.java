@@ -87,8 +87,9 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
         //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
         if (evt.getSource() == categoryCombo) {
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        }
-        else {
+        } else if(categoryCombo.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog( this, "Please select a category you wish to edit.");
+        } else {
             // Check if user inputs a category name.
             if (nameInput.getText().isEmpty()) {
                 JOptionPane.showMessageDialog( this, "Please enter the previous category name if you don't wish to edit. Thanks.");
@@ -97,16 +98,11 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
             else if (budgetInput.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Please enter the previous category budget if you don't wish to edit. Thanks.");
             }
-            // Check if user selects an old category.
-            else if (categoryCombo.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog( this, "Please select a category to edit.");
-            }
             else {
                 tryUseCaseEdit();
             }
         }
     }
-
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
      *

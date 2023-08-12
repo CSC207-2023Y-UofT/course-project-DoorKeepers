@@ -79,15 +79,7 @@ public class ExpenseUCI implements ExpenseIB {
         } catch (EntityException e) {
             // EntityException fail: User tries to add an invalid Expense name but failed. (See entities/EntityException.java)
             ExpenseOD expenseODFailAdd = new ExpenseOD("There is already a expense with this new name in this month.");
-            return expenseOB.fail(expenseODFailAdd);
-        } catch(NoSuchElementException e){
-            // NoSuchElementException fail: User tries to edit an expense but did not select an expense in editExpenseView.
-            //This exception for an EditExpenseUseCase is caught here due to the implementation in ExpenseC.
-            //The determining factor for entering an Add or Edit UseCase is by checking if the selected Expense is null,
-            // hence when a user did not select an expense when editing an expense, ExpenseC actually classifies the instance
-            // as an AddExpenseUseCase although the user is interacting with the editExpenseView.
-        ExpenseOD expenseODFailEdit = new ExpenseOD("Please select an expense you wish to edit.");
-        return expenseOB.fail(expenseODFailEdit);}}
+            return expenseOB.fail(expenseODFailAdd);}}
 
     /**
      * Attempts to edit an expense with information from ExpenseID and returns a ExpenseOD indicating whether fail/success after execution.
