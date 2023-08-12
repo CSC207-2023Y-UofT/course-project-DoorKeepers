@@ -81,8 +81,12 @@ public class ExpenseUCI implements ExpenseIB {
             ExpenseOD expenseODFailAdd = new ExpenseOD("There is already a expense with this new name in this month.");
             return expenseOB.fail(expenseODFailAdd);
         } catch(NoSuchElementException e){
-        // NoSuchElementException fail: User tries to assign a category that does not exist in current month.
-        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. Please add a new category or select existing category!");
+            // NoSuchElementException fail: User tries to edit an expense but did not select an expense in editExpenseView.
+            //This exception for an EditExpenseUseCase is caught here due to the implementation in ExpenseC.
+            //The determining factor for entering an Add or Edit UseCase is by checking if the selected Expense is null,
+            // hence when a user did not select an expense when editing an expense, ExpenseC actually classifies the instance
+            // as an AddExpenseUseCase although the user is interacting with the editExpenseView.
+        ExpenseOD expenseODFailEdit = new ExpenseOD("Please select an expense you wish to edit.");
         return expenseOB.fail(expenseODFailEdit);}}
 
     /**
@@ -136,7 +140,7 @@ public class ExpenseUCI implements ExpenseIB {
 
             } catch(NoSuchElementException e){
                 //NoSuchElementException fail: User tries to edit an expense that does not exist.
-                ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such expense in the current month. Please add a new expense or select existing expense!");
+                ExpenseOD expenseODFailEdit = new ExpenseOD("Please make sure you have selected the expense you wish to edit or assigned a category to the expense!");
                 return expenseOB.fail(expenseODFailEdit);
             } catch(NumberFormatException e){
                 // NumberFormatException|NullPointerException fail: User tries to edit Expense value to an invalid number.

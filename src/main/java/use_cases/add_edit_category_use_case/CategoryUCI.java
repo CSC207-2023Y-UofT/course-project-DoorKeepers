@@ -61,6 +61,14 @@ public class CategoryUCI implements CategoryIB {
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
+        } catch (NoSuchElementException e) {
+            //NoSuchElementException: User tries to edit a category but did not select a category in EditCategoryV.
+            //This exception for an EditCategoryUseCase is caught here due to the implementation in CategoryC.
+            //The determining factor for entering an Add or Edit UseCase is by checking if the selectedCategory is null,
+            // hence when a user did not select a category when editing a category, CategoryC actually classifies the instance
+            // as an AddCategoryUseCase although the user is interacting with the editCategoryView.
+            CategoryOD categoryODFailEdit = new CategoryOD("Please select a Category that you wish to edit!");
+            return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException|NullPointerException e){
             //NumberFormatException|NullPointerException: User tries to add a new budget value that can not be converted to a double.
             CategoryOD categoryODFailAdd = new CategoryOD("Category budget needs to be a number. Please try again!");
@@ -105,10 +113,6 @@ public class CategoryUCI implements CategoryIB {
             CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
             return categoryOB.success(categoryODSuccessEdit);
 
-        } catch (NoSuchElementException e) {
-            //NoSuchElementException: User tries to edit a category that does not exist.
-            CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
-            return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException|NullPointerException e){
             //NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
             CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
