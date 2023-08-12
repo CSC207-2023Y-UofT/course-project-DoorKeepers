@@ -11,7 +11,6 @@ import java.util.Objects;
  * Implements CategoryIB.
  * Creates CategoryOD objects related to specific use case fail/success conditions.
  */
-
 public class CategoryUCI implements CategoryIB {
     private final CategoryOB categoryOB;
     private CategoryID categoryID;
