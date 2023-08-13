@@ -15,7 +15,9 @@ class CategoryFactoryTest {
      */
     @Test
     public void CategoryCreate() {
-        CategoryCreatorInputData inputData = new CategoryCreatorInputData("Groceries", 100);
+        CategoryCreatorInputData inputData = new CategoryCreatorInputData();
+        inputData.setName("Groceries");
+        inputData.setBudget(100);
         MonthObjectFactory creator = new CategoryFactory();
         MonthObject monthObject = creator.createMonthObject(inputData);
 
@@ -30,7 +32,12 @@ class CategoryFactoryTest {
     @Test
     public void CategoryEditName() {
         Category c1 = new Category("Dine out", 50);
-        CategoryEditorInputData inputData = new CategoryEditorInputData("Eat out", 50, c1);
+
+        CategoryEditorInputData inputData = new CategoryEditorInputData();
+        inputData.setName("Eat Out");
+        inputData.setBudget(50);
+        inputData.setCategory(c1);
+
         MonthObjectFactory editor = new CategoryFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
@@ -46,7 +53,12 @@ class CategoryFactoryTest {
     @Test
     public void CategoryEditBudget() {
         Category c1 = new Category("Dine out", 50);
-        CategoryEditorInputData inputData = new CategoryEditorInputData("Dine out", 100, c1);
+
+        CategoryEditorInputData inputData = new CategoryEditorInputData();
+        inputData.setName("Dine out");
+        inputData.setBudget(100);
+        inputData.setCategory(c1);
+
         MonthObjectFactory editor = new CategoryFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
@@ -65,7 +77,12 @@ class CategoryFactoryTest {
     @Test
     public void CategoryEditNothing() {
         Category c1 = new Category("Dine out", 50);
-        CategoryEditorInputData inputData = new CategoryEditorInputData("Dine out", 50, c1);
+
+        CategoryEditorInputData inputData = new CategoryEditorInputData();
+        inputData.setName("Dine out");
+        inputData.setBudget(50);
+        inputData.setCategory(c1);
+
         MonthObjectFactory editor = new CategoryFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 

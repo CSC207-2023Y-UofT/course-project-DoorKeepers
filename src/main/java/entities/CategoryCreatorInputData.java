@@ -6,17 +6,24 @@ package entities;
  */
 public class CategoryCreatorInputData extends MonthObjectFactoryInputData {
 
-    private final String name;
-    private final double budget;
+    private String name;
+    private double budget;
 
     /**
-     * Creates a new instance of CategoryCreatorInputData.
-     * @param name the name of the category
-     * @param budget the budget of the category
+     * Sets the name of this CategoryCreatorInputData.
+     * @param name the name that the Category will have
      */
-    public CategoryCreatorInputData(String name, double budget){
+    @Override
+    public void setName(String name){
         this.name = name;
-        this.budget = budget;
+    }
+
+    /**
+     * Sets the budget of this CategoryCreatorInputData.
+     * @param newBudget the budget that the Category will have
+     */
+    public void setBudget(double newBudget){
+        this.budget = newBudget;
     }
 
     /**

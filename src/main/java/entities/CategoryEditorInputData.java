@@ -5,33 +5,47 @@ package entities;
  * can be used in place of this type. It includes the new name, new budget, and Category object to edit the Category.
  */
 public class CategoryEditorInputData extends MonthObjectFactoryInputData {
-    private final String name;
-    private final double budget;
-    private final Category category;
+
+    private String name;
+    private double budget;
+    private Category category;
 
     /**
-     * Creates a new instance of CategoryEditorInputData.
-     * @param name the new name of the category
-     * @param budget the new budget of the category
-     * @param category the Category object to edit
+     * Sets the name of this CategoryEditorInputData.
+     * @param name the new name that the edited Category will have
      */
-    public CategoryEditorInputData(String name, double budget, Category category){
+    @Override
+    public void setName(String name){
         this.name = name;
-        this.budget = budget;
+    }
+
+    /**
+     * Sets the budget of this CategoryEditorInputData.
+     * @param newBudget the new budget that the edited Category will have
+     */
+    public void setBudget(double newBudget){
+        this.budget = newBudget;
+    }
+
+    /**
+     * Sets the Category object of this CategoryEditorInputData.
+     * @param category the Category to edit
+     */
+    public void setCategory(Category category){
         this.category = category;
     }
 
     /**
-     * Gets the new name of this CategoryEditorInputData.
-     * @return the new name of this CategoryEditorInputData
+     * Gets the name of this CategoryEditorInputData.
+     * @return the name of this CategoryEditorInputData
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Gets the new budget of this CategoryEditorInputData.
-     * @return the new budget of this CategoryEditorInputData
+     * Gets the budget of this CategoryEditorInputData.
+     * @return the budget of this CategoryEditorInputData
      */
     public double getBudget() {
         return budget;

@@ -6,20 +6,33 @@ package entities;
  */
 public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
 
-    private final String name;
-    private final Category category;
-    private final double value;
+    private String name;
+    private Category category;
+    private double value;
 
     /**
-     * Creates a new instance of ExpenseCreatorInputData.
-     * @param name the name of the expense
-     * @param category the category of the expense
-     * @param value the value of the expense
+     * Sets the name of this ExpenseCreatorInputData.
+     * @param name the name that the Expense will have
      */
-    public ExpenseCreatorInputData(String name, Category category, double value){
+    @Override
+    public void setName(String name){
         this.name = name;
-        this.category = category;
-        this.value = value;
+    }
+
+    /**
+     * Sets the Category of this ExpenseCreatorInputData.
+     * @param newCategory the Category that the Expense will have
+     */
+    public void setCategory(Category newCategory){
+        this.category = newCategory;
+    }
+
+    /**
+     * Sets the value of this ExpenseCreatorInputData.
+     * @param newValue the value that the Expense will have
+     */
+    public void setValue(double newValue){
+        this.value = newValue;
     }
 
     /**

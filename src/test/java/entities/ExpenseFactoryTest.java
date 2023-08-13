@@ -17,7 +17,12 @@ class ExpenseFactoryTest {
     @Test
     public void ExpenseCreate() {
         Category c1 = new Category("Dine out", 50);
-        ExpenseCreatorInputData inputData = new ExpenseCreatorInputData("Subway", c1, 10);
+
+        ExpenseCreatorInputData inputData = new ExpenseCreatorInputData();
+        inputData.setName("Subway");
+        inputData.setCategory(c1);
+        inputData.setValue(10);
+
         MonthObjectFactory creator = new ExpenseFactory();
         MonthObject monthObject = creator.createMonthObject(inputData);
 
@@ -34,7 +39,13 @@ class ExpenseFactoryTest {
     public void ExpenseEditName() {
         Category c1 = new Category("Dine out", 50);
         Expense e1 = new Expense("Subway", c1, 10);
-        ExpenseEditorInputData inputData = new ExpenseEditorInputData("Pizza", c1, 10, e1);
+
+        ExpenseEditorInputData inputData = new ExpenseEditorInputData();
+        inputData.setName("Pizza");
+        inputData.setCategory(c1);
+        inputData.setValue(10);
+        inputData.setExpense(e1);
+
         MonthObjectFactory editor = new ExpenseFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
@@ -53,7 +64,13 @@ class ExpenseFactoryTest {
         Category c1 = new Category("Dine out", 50);
         Category c2 = new Category("Groceries", 100);
         Expense e1 = new Expense("Subway", c1, 10);
-        ExpenseEditorInputData inputData = new ExpenseEditorInputData("Subway", c2, 10, e1);
+
+        ExpenseEditorInputData inputData = new ExpenseEditorInputData();
+        inputData.setName("Subway");
+        inputData.setCategory(c2);
+        inputData.setValue(10);
+        inputData.setExpense(e1);
+
         MonthObjectFactory editor = new ExpenseFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
@@ -71,7 +88,13 @@ class ExpenseFactoryTest {
     public void ExpenseEditValue() {
         Category c1 = new Category("Dine out", 50);
         Expense e1 = new Expense("Subway", c1, 10);
-        ExpenseEditorInputData inputData = new ExpenseEditorInputData("Subway", c1, 20, e1);
+
+        ExpenseEditorInputData inputData = new ExpenseEditorInputData();
+        inputData.setName("Subway");
+        inputData.setCategory(c1);
+        inputData.setValue(20);
+        inputData.setExpense(e1);
+
         MonthObjectFactory editor = new ExpenseFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
@@ -92,7 +115,13 @@ class ExpenseFactoryTest {
     public void ExpenseEditNothing() {
         Category c1 = new Category("Dine out", 50);
         Expense e1 = new Expense("Subway", c1, 10);
-        ExpenseEditorInputData inputData = new ExpenseEditorInputData("Subway", c1, 10, e1);
+
+        ExpenseEditorInputData inputData = new ExpenseEditorInputData();
+        inputData.setName("Subway");
+        inputData.setCategory(c1);
+        inputData.setValue(10);
+        inputData.setExpense(e1);
+
         MonthObjectFactory editor = new ExpenseFactory();
         MonthObject monthObject = editor.editMonthObject(inputData);
 
