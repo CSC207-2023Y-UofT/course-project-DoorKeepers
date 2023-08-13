@@ -162,8 +162,7 @@ class ExpenseUCITest {
         ExpenseID addID = new ExpenseID("Sandwich", 3, "Food", false,7, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseID editID = new ExpenseID("Sandwich", 5, "Food", false,7, session, "Sandwich");
-        interactor.editExpenseInMonth(editID);
+        ExpenseID editID = new ExpenseID("Sandwich", 5, "Food", false,7, session, addID.getName());
         // Check if the correct message is returned corresponding to the situation.
 
         assertEquals("You have edited an expense!", interactor.editExpenseInMonth(editID).getMessage());
@@ -261,7 +260,7 @@ class ExpenseUCITest {
 
         ExpenseID editID = new ExpenseID("Sandwich", 3, "Other", true,12, session, oldExpense);
         // Check if the correct message is returned corresponding to the situation.
-        assertEquals("You have updated all changes of this new recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
+        assertEquals("You have updated all changes of this recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
         //Expected value is 1 because RecurData is updated with one new recurring expense.
         assertEquals(1, session.getRecurData().size());    }
 

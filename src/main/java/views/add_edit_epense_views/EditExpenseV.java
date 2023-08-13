@@ -23,10 +23,8 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
     private final JComboBox<String> categoryCombo;
     private final JTextField nameInput;
     private final JTextField valueInput;
-    private String selectedCategory;
     private String selectedExpense;
     private final JCheckBox isRecurringCheckBox = new JCheckBox("Is recurring expense.");
-    private boolean isRecurring;
     private final JButton submit = new JButton("Submit");
     private final int monthID;
     private final SessionStorage currSession;
@@ -41,7 +39,8 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
      * @param monthID int representing the MonthlyStorage.
      * @param currSession SessionStorage the current working session.
      */
-    public EditExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingExpense, String[] existingCategory, int monthID, SessionStorage currSession) {
+    public EditExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingExpense, String[] existingCategory,
+                        int monthID, SessionStorage currSession) {
         this.monthMenu = monthMenu;
         this.controller = controller;
         this.monthID = monthID;
@@ -91,7 +90,6 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
 
         submit.addActionListener(this);
         expenseCombo.addActionListener(this);
-        isRecurringCheckBox.addActionListener(this);
     }
     /**
      * Checks and formats user input to pass in valid parameters to start a use case.
@@ -102,22 +100,25 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
             this.selectedExpense = (String) expenseCombo.getSelectedItem();
             for (Expense recurExpense : currSession.getRecurData()) {
                 if (recurExpense.getName().equals(selectedExpense)) {
+                    // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
                     isRecurringCheckBox.setSelected(true);}}
-        // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
-        this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        this.isRecurring = isRecurringCheckBox.isSelected();
-        }else if(expenseCombo.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog( this, "Please select an expense you wish to edit.");}
+        }
 
-        if(evt.getSource() == submit){
+        if(selectedExpense == null){
+            JOptionPane.showMessageDialog( this, "Please select an expense you wish to edit.");
+        }else if(evt.getSource() == submit){
+            String selectedCategory = (String) categoryCombo.getSelectedItem();
+            boolean isRecurring = isRecurringCheckBox.isSelected();
             ExpenseOD message = null;
             try {
-                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory,
+                        isRecurring, monthID, currSession, selectedExpense);
                 // Update Month Menu
-                this.setVisible(false);
+                frame.setVisible(false);
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {
-                JOptionPane.showMessageDialog( this, "This month does not exist in current session. Please go to add month page.");}
+                JOptionPane.showMessageDialog( this, "This month does not exist in current " +
+                        "session. Please go to add month page.");}
             if(message != null){
                 JOptionPane.showMessageDialog( this, message.getMessage());}
         }
