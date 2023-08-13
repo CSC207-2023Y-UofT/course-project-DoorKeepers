@@ -55,4 +55,23 @@ class CategoryFactoryTest {
         Assertions.assertEquals(category.getBudget(), inputData.getBudget());
         Assertions.assertEquals(category, inputData.getCategory());
     }
+
+    /**
+     * Tests editMonthObject() with valid category information and nothing different.
+     * Note: this test is included since The CategoryUseCaseInteractor considers this as a valid option for the user to
+     * edit, and sends the request to the CategoryFactory. Thus, it is added to ensure that the CategoryFactory will
+     * correctly handle this case.
+     */
+    @Test
+    public void CategoryEditNothing() {
+        Category c1 = new Category("Dine out", 50);
+        CategoryEditorInputData inputData = new CategoryEditorInputData("Dine out", 50, c1);
+        MonthObjectFactory editor = new CategoryFactory();
+        MonthObject monthObject = editor.editMonthObject(inputData);
+
+        Category category = (Category) monthObject;
+        Assertions.assertEquals(category.getName(), inputData.getName());
+        Assertions.assertEquals(category.getBudget(), inputData.getBudget());
+        Assertions.assertEquals(category, inputData.getCategory());
+    }
 }

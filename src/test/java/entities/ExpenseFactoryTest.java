@@ -84,6 +84,9 @@ class ExpenseFactoryTest {
 
     /**
      * Tests editMonthObject() with valid expense information and nothing different.
+     * Note: this test is included since The ExpenseUseCaseInteractor considers this as a valid option for the user to
+     * edit, and sends the request to the ExpenseFactory. Thus, it is added to ensure that the ExpenseFactory will
+     * correctly handle this case.
      */
     @Test
     public void ExpenseEditNothing() {
