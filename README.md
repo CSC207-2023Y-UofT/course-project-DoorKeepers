@@ -7,10 +7,11 @@
 - [Usage](#usage)
   - [Installation](#installation)
   - [Screens](#screens)
+- [Implementation](#implementation)
+  - [Code Structure](#code-structure)
   - [Testing](#testing)
   - [JavaDoc](#javadoc)
 - [Clean Architecture Specifications](#clean-architecture-specifications)
-  - [Implementation](#implementation)
   - [Clean Architecture Violations](#clean-architecture-violations)
   - [SOLID Principles](#solid-principles)
   - [Design Patterns](#design-patterns)
@@ -71,6 +72,28 @@ accumulated remain preserved and accessible over time.
 
 ![graphical_summary.png](images/graphical_summary.png)
 
+## Implementation
+
+### Code Structure
+The whole project is built by following the MVC design pattern. We have divided our classes into three main packages:
+`entities`, `use_cases`, and `views`. The three of them correspond to different layers of Clean Architecture.
+
+Firstly, the `entities` package corresponds to the Enterprise Business Rules layer. It contains all the basic entity
+object types (`Expense`, `Category`, `MonthlyStorage`, `SessionStorage`), an exception type used for errors related to
+the entities (`EntityException`), and the factory classes used to build `Category` and `Expense` objects.
+
+Secondly, the `use_cases` package corresponds to the Application Business Rules layer. It contains the use case
+interactors for all of our features, and their corresponding input boundary, input data, output boundary, and
+output data. In addition, the `generate_summary_use_case` subpackage contains an extra class used to help in generating
+the statistical data it needs, and the `session_load` subpackage also contains an interface used to communicate with our
+file storage gateway.
+
+Finally, the `views` package corresponds to both the Interface Adapters, and Frameworks & Drivers layers. It contains
+the view, controller and presenter classes for all of our features. Additionally, this package also holds our
+file storage gateway, which is the class that handles loading and saving session files.
+
+There is a `Main` file outside the packages, which builds the program windows and screens, and displays the UI.
+
 ### Testing
 This project uses JUnit as its testing framework. All the tests are contained inside the `src/test/java` directory.
 It contains tests for the entity classes, use case interactor classes, and the file storage gateway. It doesn't contain
@@ -98,26 +121,6 @@ This documentation is written into the code, but we also provide generated docum
 `reports/JavaDoc` directory.
 
 ## Clean Architecture Specifications
-
-### Implementation
-The whole project is built by following the MVC design pattern. We have divided our classes into three main packages:
-`entities`, `use_cases`, and `views`. The three of them correspond to different layers of Clean Architecture. 
-
-Firstly, the `entities` package corresponds to the Enterprise Business Rules layer. It contains all the basic entity 
-object types (`Expense`, `Category`, `MonthlyStorage`, `SessionStorage`), an exception type used for errors related to 
-the entities (`EntityException`), and the factory classes used to build `Category` and `Expense` objects. 
-
-Secondly, the `use_cases` package corresponds to the Application Business Rules layer. It contains the use case 
-interactors for all of our features, and their corresponding input boundary, input data, output boundary, and 
-output data. In addition, the `generate_summary_use_case` subpackage contains an extra class used to help in generating 
-the statistical data it needs, and the `session_load` subpackage also contains an interface used to communicate with our
-file storage gateway.
-
-Finally, the `views` package corresponds to both the Interface Adapters, and Frameworks & Drivers layers. It contains
-the view, controller and presenter classes for all of our features. Additionally, this package also holds our
-file storage gateway, which is the class that handles loading and saving session files.
-
-There is a `Main` file outside the packages, which builds the program windows and screens, and displays the UI.
 
 ### Clean Architecture Violations
 - `Expense` and `Category` are basic object types we have for conveying information that are not separable. 
