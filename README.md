@@ -145,6 +145,11 @@ the necessary methods needed.
 the dependency inversion.
 
 ### Design Patterns
+- All of our features are implemented using the MVC design pattern. We chose the MVC design pattern to help us organize
+our code in a way that clearly separates the Clean Architecture layers. The Model, View, and Controller concepts
+in MVC clearly separate responsibilities, and they organize dependencies such that they only point inwards. 
+Furthermore, using MVC for all our features helped us keep them with a consistent structure, even if they
+were implemented separately.
 - The Factory design pattern is used to implement the Add/Edit Category and Add/Edit Expense features. We chose to add 
 this implementation to avoid tight coupling between the creators (`ExpenseUseCaseInteractor` and 
 `CategoryUseCaseInteractor`) and their products (`Expense` and `Category`). This choice helps our code adhere to the 
