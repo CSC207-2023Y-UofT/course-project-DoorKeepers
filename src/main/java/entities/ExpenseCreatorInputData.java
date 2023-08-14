@@ -39,6 +39,7 @@ public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
      * Gets the name of this ExpenseCreatorInputData.
      * @return the name of this ExpenseCreatorInputData
      */
+    @Override
     public String getName() {
         return name;
     }
