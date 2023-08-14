@@ -105,32 +105,34 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
                     // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
                     isRecurringCheckBox.setSelected(true);}}
         } else if (selectedExpense == null) {
-            JOptionPane.showMessageDialog(this, "Please select an expense you wish to edit.");}
-
-        if (evt.getSource() == categoryCombo) {
+            JOptionPane.showMessageDialog(this, "Please select an expense you wish to edit.");
+        }else if (evt.getSource() == categoryCombo) {
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
         } else if (selectedCategory == null){
             JOptionPane.showMessageDialog(this, "Please select the previous category if you " +
-                "don't wish to edit. Thanks.");}
-
-        if (evt.getSource() == submit) {
+                "don't wish to edit. Thanks.");
+        }else if (evt.getSource() == submit) {
             if (nameInput.getText().isEmpty()) {// Check if user inputs an expense name.
                 JOptionPane.showMessageDialog(this, "Please enter the previous expense name if you " +
                         "don't wish to edit. Thanks.");
             } else if (valueInput.getText().isEmpty()) {// Check if user inputs an expense value.
                 JOptionPane.showMessageDialog(this, "Please enter the previous expense value if you " +
                         "don't wish to edit. Thanks.");
-            } else { try {
-                boolean isRecurring = isRecurringCheckBox.isSelected();
-                ExpenseOD message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(),
-                        selectedCategory, isRecurring, monthID, currSession, selectedExpense);
-                JOptionPane.showMessageDialog(this, message.getMessage());
-                frame.setVisible(false);
-                // Update Month Menu
-                loadMonthMenu(currSession, monthID, null);
-            } catch (EntityException e) {
-                JOptionPane.showMessageDialog(this, "This month does not exist in current " +
-                        "session. Please go to add month page.");}}
+            } else {
+                ExpenseOD message;
+                message = null;
+                try {
+                    boolean isRecurring = isRecurringCheckBox.isSelected();
+                    message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory,
+                            isRecurring, monthID, currSession, selectedExpense);
+                    frame.setVisible(false);
+                    // Update Month Menu
+                    loadMonthMenu(currSession, monthID, null);
+                } catch (EntityException e) {
+                    JOptionPane.showMessageDialog(this, "This month does not exist in current " +
+                        "session. Please go to add month page.");
+                } if (message != null) {
+                JOptionPane.showMessageDialog(this, message.getMessage());}}
         }
     }
 

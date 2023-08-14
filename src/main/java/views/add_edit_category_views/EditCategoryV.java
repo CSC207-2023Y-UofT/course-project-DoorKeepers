@@ -116,14 +116,18 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
      * Pop-up window with context specific message may be shown to user.
      */
     private void tryUseCaseEdit(){
+        CategoryOD message;
+        message = null;
         try {
-            CategoryOD message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID, currSession, selectedCategory);
-            JOptionPane.showMessageDialog(this, message.getMessage());
+            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID,
+                    currSession, selectedCategory);
             frame.setVisible(false);
             // Update Month Menu
             loadMonthMenu(currSession,monthID,null);
         } catch (EntityException e) {
-            JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-        }
+            JOptionPane.showMessageDialog(this, "This month does not exist in current session. " +
+                    "Please go to add month page.");
+        }if (message != null) {
+            JOptionPane.showMessageDialog(this, message.getMessage());}
     }
 }
