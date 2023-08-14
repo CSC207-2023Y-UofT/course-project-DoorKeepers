@@ -99,8 +99,6 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
             message = null;
             try {
                 message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
-//                JOptionPane.showMessageDialog(this, message.getMessage());
-//                 Update Month Menu
                 frame.setVisible(false);
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {
@@ -109,7 +107,6 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
                 JOptionPane.showMessageDialog(this, message.getMessage());
         }}
     }
-
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
      *

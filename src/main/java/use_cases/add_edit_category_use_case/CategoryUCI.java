@@ -105,10 +105,6 @@ public class CategoryUCI implements CategoryIB {
             CategoryOD categoryODSuccessEdit = new CategoryOD("You have edited a category!");
             return categoryOB.success(categoryODSuccessEdit);
 
-        } catch (NoSuchElementException e) {
-            //NoSuchElementException: User tries to edit a category that does not exist.
-            CategoryOD categoryODFailEdit = new CategoryOD("There is no such category in the current month. Please add a new category or select existing category!");
-            return categoryOB.fail(categoryODFailEdit);
         } catch(NumberFormatException|NullPointerException e){
             //NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
             CategoryOD categoryODFailEdit = new CategoryOD("Category budget needs to be a number. Please try again!");
