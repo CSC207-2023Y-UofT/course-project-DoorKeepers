@@ -145,7 +145,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
             // Implementation of file chooser inspired from
             // https://www.geeksforgeeks.org/java-swing-jfilechooser/
             JFileChooser j = new JFileChooser();
-            if (j.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            if (j.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 try {
                     String chosenFilename = j.getSelectedFile().getAbsolutePath();
                     SessionSaveOD outputData = this.controller.save(this.session, chosenFilename);
