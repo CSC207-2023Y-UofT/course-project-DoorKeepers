@@ -98,8 +98,7 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
         if (evt.getSource() == submit){
             ExpenseOD message;
             message = null;
-            try {
-                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+            try {message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
                 frame.setVisible(false);
                 loadMonthMenu(currSession,monthID,null);
             } catch (EntityException e) {

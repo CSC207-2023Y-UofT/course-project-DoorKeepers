@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class CategoryUCI implements CategoryIB {
     private final CategoryOB categoryOB;
-    private final MonthObjectFactory categoryFactory;
+    private final CategoryFactory categoryFactory;
     private MonthlyStorage month;
 
 
@@ -62,7 +62,7 @@ public class CategoryUCI implements CategoryIB {
                 CategoryOD categoryODFailAdd = new CategoryOD("Category budget can't be less than $0. " +
                         "Please try again!");
                 return categoryOB.fail(categoryODFailAdd);}
-            month.addCategory(categoryFactory.createMonthObject(setCategoryCreatorInfo(categoryIDAdd)));
+            month.addCategory((Category) categoryFactory.createMonthObject(setCategoryCreatorInfo(categoryIDAdd)));
             CategoryOD categoryODSuccessAdd = new CategoryOD("You have added a new category!");
             return categoryOB.success(categoryODSuccessAdd);
 
@@ -144,14 +144,20 @@ public class CategoryUCI implements CategoryIB {
      * @return CategoryCreatorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory
      * for the createMonthObject method.
      */
-    private MonthObjectFactoryInputData setCategoryCreatorInfo(CategoryID categoryIDAdd){
-        return new CategoryCreatorInputData(categoryIDAdd.getName(), toDouble(categoryIDAdd.getValue()));}
+    private CategoryCreatorInputData setCategoryCreatorInfo(CategoryID categoryIDAdd){
+        CategoryCreatorInputData categoryCreatorInputData = new CategoryCreatorInputData();
+        categoryCreatorInputData.setName(categoryIDAdd.getName());
+        categoryCreatorInputData.setBudget(toDouble(categoryIDAdd.getValue()));
+        return categoryCreatorInputData;}
     /**
      * Sets information needed to edit a CategoryEditorInputData to call editMonthObject method in CategoryFactory
      * @return CategoryEditorInputData MonthObjectFactoryInputData Object specifically used in CategoryFactory
      * for the editMonthObject method.
      */
-    private MonthObjectFactoryInputData setCategoryEditorInfo(CategoryID categoryIDEdit){
-        return new CategoryEditorInputData(categoryIDEdit.getName(), toDouble(categoryIDEdit.getValue()),
-                findCategory(month.getCategoryData(), categoryIDEdit.getOldCategory()));}
+    private CategoryEditorInputData setCategoryEditorInfo(CategoryID categoryIDEdit){
+        CategoryEditorInputData categoryEditorInputData = new CategoryEditorInputData();
+        categoryEditorInputData.setName(categoryIDEdit.getName());
+        categoryEditorInputData.setBudget(toDouble(categoryIDEdit.getValue()));
+        categoryEditorInputData.setCategory(findCategory(month.getCategoryData(), categoryIDEdit.getOldCategory()));
+        return categoryEditorInputData;}
 }

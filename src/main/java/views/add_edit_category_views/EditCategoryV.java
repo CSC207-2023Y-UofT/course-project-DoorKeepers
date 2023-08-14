@@ -118,8 +118,7 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
     private void tryUseCaseEdit(){
         CategoryOD message;
         message = null;
-        try {
-            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID,
+        try {message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()), monthID,
                     currSession, selectedCategory);
             frame.setVisible(false);
             // Update Month Menu
