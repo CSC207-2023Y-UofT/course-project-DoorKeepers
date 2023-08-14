@@ -3,7 +3,6 @@ package views.session_load;
 import entities.SessionStorage;
 import use_cases.session_load.SessionLoadException;
 import use_cases.session_load.SessionLoadOD;
-import views.main_menu.MainMenuV;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +16,10 @@ import java.awt.event.ActionListener;
  */
 public class SessionLoadMenuV extends JPanel implements ActionListener {
     private final SessionLoadC controller;
-    private final MainMenuV mainMenuV;
+    private final SessionLoadMainMenuVB mainMenuV;
 
 
-    public SessionLoadMenuV(SessionLoadC controller, MainMenuV mainMenuV) {
+    public SessionLoadMenuV(SessionLoadC controller, SessionLoadMainMenuVB mainMenuV) {
         this.controller = controller;
         this.mainMenuV = mainMenuV;
 

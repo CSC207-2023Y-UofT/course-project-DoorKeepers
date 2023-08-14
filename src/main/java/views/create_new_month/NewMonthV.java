@@ -6,10 +6,10 @@ import use_cases.monthly_menu.MonthMenuOB;
 import use_cases.monthly_menu.UpdateViewIB;
 import use_cases.monthly_menu.UpdateViewUCI;
 import views.load_monthly_menu.LoadMonthMenuVB;
-import views.main_menu.MainMenuV;
 import views.monthly_menu.MonthMenuP;
 import views.monthly_menu.MonthMenuV;
 import views.monthly_menu.UpdateViewC;
+import views.session_load.SessionLoadMainMenuVB;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ import java.util.Objects;
  * NewMonthOD object, and use the output to set up success and fail view.
  */
 public class NewMonthV implements ActionListener, LoadMonthMenuVB {
-    private final MainMenuV mainMenu;
+    private final SessionLoadMainMenuVB mainMenu;
     private final NewMonthC controller;
     private final SessionStorage session;
     private final JFrame frame = new JFrame("Creat a new Month");
@@ -43,7 +43,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
      * @param controller the controller class to get output data
      * @param session the SessionStorage to store the new MonthlyStorage
      */
-    public NewMonthV (MainMenuV mainMenu, NewMonthC controller, SessionStorage session){
+    public NewMonthV (SessionLoadMainMenuVB mainMenu, NewMonthC controller, SessionStorage session){
         this.mainMenu = mainMenu;
         this.controller = controller;
         this.session = session;
