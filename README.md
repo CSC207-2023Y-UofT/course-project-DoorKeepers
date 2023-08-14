@@ -145,8 +145,12 @@ the necessary methods needed.
 the dependency inversion.
 
 ### Design Patterns
-- The Factory design pattern is used to implement the Add/Edit Categories and Add/Edit 
-Expenses.
+- The Factory design pattern is used to implement the Add/Edit Category and Add/Edit Expense features. We chose to add 
+this implementation to avoid tight coupling between the creators (`ExpenseUseCaseInteractor` and 
+`CategoryUseCaseInteractor`) and their products (`Expense` and `Category`). This choice helps our code adhere to the 
+Open/Closed Principle, since we can introduce new types of `MonthObject`s into the code and avoid breaking our current
+implementation. Additionally, it adheres to the Single Responsibility Principle, as the product creation code is moved
+to a separate class, allowing the Use Case Interactors to focus on error handling and post-creation tasks.
 
 ## Authors
 This project was created by Ari, Katarina, Lulu, and Yin for [CSC207] Software Design at the University of Toronto.
