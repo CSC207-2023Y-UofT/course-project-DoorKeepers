@@ -9,8 +9,6 @@ import java.util.Objects;
 public class ExpenseUCI implements ExpenseIB {
     private final ExpenseOB expenseOB;
     private ExpenseID expenseID;
-    private ArrayList<Expense> recurringExpenseList;
-
     /**
      * Constructs ExpenseUCI.
      *
@@ -45,7 +43,6 @@ public class ExpenseUCI implements ExpenseIB {
         MonthlyStorage month = expenseIDAdd.getSession().getMonthlyData(expenseIDAdd.getMonthID());
         ArrayList<Expense> monthExpenseList = month.getExpenseData();
         ArrayList<Category> categoryList = month.getCategoryData();
-        this.recurringExpenseList = session.getRecurData();
 
         try {double valueDouble = toDouble(expenseIDAdd.getValue());
             Category selectedCategory = findCategory(categoryList, expenseID.getCategory());
@@ -79,11 +76,7 @@ public class ExpenseUCI implements ExpenseIB {
         } catch (EntityException e) {
             // EntityException fail: User tries to add an invalid Expense name but failed. (See entities/EntityException.java)
             ExpenseOD expenseODFailAdd = new ExpenseOD("There is already a expense with this new name in this month.");
-            return expenseOB.fail(expenseODFailAdd);
-        } catch(NoSuchElementException e){
-        // NoSuchElementException fail: User tries to assign a category that does not exist in current month.
-        ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such category in the current month. Please add a new category or select existing category!");
-        return expenseOB.fail(expenseODFailEdit);}}
+            return expenseOB.fail(expenseODFailAdd);}}
 
     /**
      * Attempts to edit an expense with information from ExpenseID and returns a ExpenseOD indicating whether fail/success after execution.
@@ -114,19 +107,19 @@ public class ExpenseUCI implements ExpenseIB {
                     // Repeated name fail: When a user tries to edit the expense name to an existing expense in month.
                     ExpenseOD expenseODFailEdit = new ExpenseOD("There is already a expense with this new name in this month.");
                     return expenseOB.fail(expenseODFailEdit);}}
-
             if (changeInRecurringInfo()) {
                 if (expenseID.getIsRecurringExpense()) {
-                    setEditInfo(expenseID, valueDouble, selectedExpense,selectedCategory);
+                    setEditInfo(expenseID, valueDouble, selectedExpense, selectedCategory);
                     session.addRecurExpense(selectedExpense);
                     // Success edit to new recurring expense.
-                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this new recurring expense!");
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);
                 }else{
                     setEditInfo(expenseID, valueDouble, selectedExpense,selectedCategory);
-                    session.deleteRecurExpense(expenseID.getName());
+                    session.deleteRecurExpense(selectedExpense.getName());
                     //Success edit to remove recurring expense.
-                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of this expense and it is no longer a recurring expense!");
+                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes of " +
+                            "this expense and it is no longer a recurring expense!");
                     return expenseOB.success(expenseODSuccessEditRecurring);}
             }else{setEditInfo(expenseID, valueDouble, selectedExpense,selectedCategory);}
 
@@ -136,7 +129,8 @@ public class ExpenseUCI implements ExpenseIB {
 
             } catch(NoSuchElementException e){
                 //NoSuchElementException fail: User tries to edit an expense that does not exist.
-                ExpenseOD expenseODFailEdit = new ExpenseOD("There is no such expense in the current month. Please add a new expense or select existing expense!");
+                ExpenseOD expenseODFailEdit = new ExpenseOD("Please make sure you have selected the expense you " +
+                        "wish to edit or assigned a category to the expense!");
                 return expenseOB.fail(expenseODFailEdit);
             } catch(NumberFormatException e){
                 // NumberFormatException|NullPointerException fail: User tries to edit Expense value to an invalid number.
@@ -152,9 +146,9 @@ public class ExpenseUCI implements ExpenseIB {
      * @throws NoSuchElementException thrown when couldn't find Expense with String name.
      */
         public Expense findExpense(ArrayList<Expense> expenseData, String name)throws NoSuchElementException{
-            if(expenseData != null) {
+            if(!expenseData.isEmpty()) {
                 for (Expense expense : expenseData) {
-                    if (Objects.equals(expense.getName(), name)) {
+                    if (expense.getName().equals(name)) {
                         return expense;}}
             }
             throw new NoSuchElementException();}
@@ -189,11 +183,11 @@ public class ExpenseUCI implements ExpenseIB {
      */
     private boolean changeInRecurringInfo() {
         if(expenseID.getIsRecurringExpense()) {
-            try {findExpense(recurringExpenseList, expenseID.getOldExpense());
+            try {findExpense(expenseID.getSession().getRecurData(), expenseID.getOldExpense());
                 return false;
             }catch (NoSuchElementException e){return true;}
         }else{
-            try{findExpense(recurringExpenseList, expenseID.getOldExpense());
+            try{findExpense(expenseID.getSession().getRecurData(), expenseID.getOldExpense());
                 return true;
             }catch(NoSuchElementException e) {
                 return false;}}}

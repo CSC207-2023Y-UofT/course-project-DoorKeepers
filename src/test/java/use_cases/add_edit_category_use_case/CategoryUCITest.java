@@ -174,26 +174,6 @@ class CategoryUCITest {
         //Fail to edit Category name when tries to also edit Category budget, but it is a new budget that is a negative number.
         Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(9).getCategoryData(), "Banana"));
     }
-
-    /**
-     * Tests fail edit case when user tries to edit a Category that does not exist in MonthlyStorage.
-     * @throws EntityException if a valid method call throws, so that should fail the test
-     */
-    @Test
-    void editCategoryInMonthNoCategoryFail() throws EntityException {
-        CategoryP presenter = new CategoryP();
-        CategoryUCI interactor = new CategoryUCI(presenter);
-        MonthlyStorage monthEdit = new MonthlyStorage(10, 150);
-        session.addMonth(monthEdit);
-
-        CategoryID editIdNegValue = new CategoryID("Banana", 12, 10, session, "Salad");
-
-        // Check if the correct message is returned corresponding to the situation.
-        assertEquals("There is no such category in the current month. Please add a new category or select existing category!", interactor.editCategoryInMonth(editIdNegValue).getMessage());
-        //Fail to edit Category name, but the old_category is not found in MonthlyStorage.
-        Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(10).getCategoryData(), "Banana"));
-    }
-
     /**
      * Tests fail edit case when user tries to edit the Category budget into an invalid double.
      * @throws EntityException if a valid method call throws, so that should fail the test

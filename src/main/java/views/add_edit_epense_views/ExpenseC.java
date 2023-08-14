@@ -36,6 +36,7 @@ public class ExpenseC {
         if(oldExpense == null){
             return input.addExpenseInMonth(expenseID);
         }
-        else {return input.editExpenseInMonth(expenseID);}
+        else {
+            return input.editExpenseInMonth(expenseID);}
     }
 }

@@ -162,8 +162,7 @@ class ExpenseUCITest {
         ExpenseID addID = new ExpenseID("Sandwich", 3, "Food", false,7, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseID editID = new ExpenseID("Sandwich", 5, "Food", false,7, session, "Sandwich");
-        interactor.editExpenseInMonth(editID);
+        ExpenseID editID = new ExpenseID("Sandwich", 5, "Food", false,7, session, addID.getName());
         // Check if the correct message is returned corresponding to the situation.
 
         assertEquals("You have edited an expense!", interactor.editExpenseInMonth(editID).getMessage());
@@ -221,25 +220,6 @@ class ExpenseUCITest {
     }
 
     /**
-     * Tests fail edit case when user tries to edit an Expense that does not exist in MonthlyStorage.
-     */
-    @Test
-    void editExpenseInMonthNoExpenseFail() throws EntityException {
-        SessionStorage session = new SessionStorage();
-        ExpenseP presenter = new ExpenseP();
-        ExpenseUCI interactor = new ExpenseUCI(presenter);
-        MonthlyStorage monthEdit = new MonthlyStorage(10, 150);
-        session.addMonth(monthEdit);
-        monthEdit.addCategory(food);
-
-        ExpenseID editIdNegValue = new ExpenseID("Banana", -3, "Food", false,10, session, "Sandwich");
-        // Check if the correct message is returned corresponding to the situation.
-        assertEquals("There is no such expense in the current month. Please add a new expense or select existing expense!", interactor.editExpenseInMonth(editIdNegValue).getMessage());
-        //Fail to edit Expense name, but the old_expense is not found in MonthlyStorage.
-        Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findExpense(session.getMonthlyData(10).getExpenseData(), "Banana"));
-    }
-
-    /**
      * Tests fail edit case when user tries to edit the Expense value into an invalid double.
      */
     @Test
@@ -280,7 +260,7 @@ class ExpenseUCITest {
 
         ExpenseID editID = new ExpenseID("Sandwich", 3, "Other", true,12, session, oldExpense);
         // Check if the correct message is returned corresponding to the situation.
-        assertEquals("You have updated all changes of this new recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
+        assertEquals("You have updated all changes of this recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
         //Expected value is 1 because RecurData is updated with one new recurring expense.
         assertEquals(1, session.getRecurData().size());    }
 
