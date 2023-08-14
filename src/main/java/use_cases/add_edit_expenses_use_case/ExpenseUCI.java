@@ -41,7 +41,6 @@ public class ExpenseUCI implements ExpenseIB {
      */
     @Override
     public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd){
-
         try {SessionStorage session = expenseIDAdd.getSession();
             this.month = session.getMonthlyData(expenseIDAdd.getMonthID());
             double valueDouble = toDouble(expenseIDAdd.getValue());
@@ -90,8 +89,7 @@ public class ExpenseUCI implements ExpenseIB {
      */
     @Override
     public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
-        try {
-            SessionStorage session = expenseIDEdit.getSession();
+        try {SessionStorage session = expenseIDEdit.getSession();
             this.month = session.getMonthlyData(expenseIDEdit.getMonthID());
             ArrayList<Expense> monthExpenseList = month.getExpenseData();
             double valueDouble = toDouble(expenseIDEdit.getValue());
@@ -118,7 +116,7 @@ public class ExpenseUCI implements ExpenseIB {
                     return expenseOB.success(expenseODSuccessEditRecurring);
                 }else{
                     expenseFactory.editMonthObject(setExpenseEditorInfo(expenseIDEdit));
-                    session.deleteRecurExpense(expenseIDEdit.getOldExpense());
+                    session.deleteRecurExpense(expenseIDEdit.getName());
                     //Success edit to remove recurring expense.
                     ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD("You have updated all changes " +
                             "of this expense and it is no longer a recurring expense!");
@@ -139,6 +137,7 @@ public class ExpenseUCI implements ExpenseIB {
                 ExpenseOD expenseODFailEdit = new ExpenseOD("Expense value needs to be a number. Please try again!");
                 return expenseOB.fail(expenseODFailEdit);}
     }
+
     /**
      * Finds Expense with String name from a provided list of Expenses.
      * @param expenseData An ArrayList of expenses.
@@ -147,7 +146,7 @@ public class ExpenseUCI implements ExpenseIB {
      * @throws NoSuchElementException thrown when couldn't find Expense with String name.
      */
         public Expense findExpense(ArrayList<Expense> expenseData, String name)throws NoSuchElementException{
-            if(!expenseData.isEmpty()) {
+            if(expenseData != null) {
                 for (Expense expense : expenseData) {
                     if (Objects.equals(expense.getName(), name)) {
                         return expense;}}
@@ -204,6 +203,7 @@ public class ExpenseUCI implements ExpenseIB {
         expenseCreatorInputData.setValue(toDouble(expenseIDAdd.getValue()));
         expenseCreatorInputData.setCategory(findCategory(month.getCategoryData(), expenseIDAdd.getCategory()));
         return expenseCreatorInputData;}
+
     /**
      * Sets the information needed to edit an ExpenseEditorInputData to call editMonthObject method in ExpenseFactory
      * @return ExpenseEditorInputData MonthObjectFactoryInputData Object specifically used in ExpenseFactory
@@ -216,8 +216,4 @@ public class ExpenseUCI implements ExpenseIB {
         expenseEditorInputData.setCategory(findCategory(month.getCategoryData(), expenseIDEdit.getCategory()));
         expenseEditorInputData.setValue(toDouble(expenseIDEdit.getValue()));
         return expenseEditorInputData;}
-
 }
-
-
-
