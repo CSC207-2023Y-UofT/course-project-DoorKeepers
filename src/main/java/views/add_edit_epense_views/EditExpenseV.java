@@ -30,7 +30,6 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
     private final int monthID;
     private final SessionStorage currSession;
     private final JFrame frame;
-
     /**
      * Builds EditExpenseV for user entries.
      * @param monthMenu MonthMenuV that contains the button that creates EditExpenseV.
