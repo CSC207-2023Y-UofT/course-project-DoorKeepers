@@ -73,7 +73,10 @@ accumulated remain preserved and accessible over time.
 
 ### Testing
 This project uses JUnit as its testing framework. All the tests are contained inside the `src/test/java` directory.
-It contains tests for the entity classes, use case interactor classes, and the file storage gateway.
+It contains tests for the entity classes, use case interactor classes, and the file storage gateway. It doesn't contain
+any tests for most of our `view` package, since the classes contained in it are view, presenter, and controller classes.
+View classes contain UI elements that can't really be tested in any way other than by being looked at, and 
+presenter/controller classes only pass data around without much logic to be tested.
 
 To run tests: 
 1. Open the project in IntelliJ.
