@@ -190,7 +190,8 @@ public class ExpenseUCI implements ExpenseIB {
             try{findExpense(expenseID.getSession().getRecurData(), expenseID.getOldExpense());
                 return true;
             }catch(NoSuchElementException e) {
-                return false;}}}
+                return false;}}
+    }
 
     /**
      * Sets the information needed to create an ExpenseCreatorInputData to call createMonthObject method in ExpenseFactory
