@@ -9,7 +9,7 @@ package entities;
  * that each version of addMonthObject and editMonthObject in CategoryFactory and ExpenseFactory can take in a different
  * set of input data objects that are child classes of MonthObjectFactoryInputData.
  */
-abstract class MonthObjectFactoryInputData {
+public abstract class MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this MonthObject.
