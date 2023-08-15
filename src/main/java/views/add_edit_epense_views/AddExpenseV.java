@@ -31,11 +31,12 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
 
     /**
      * Builds AddExpenseV for user entries.
-     * @param monthMenu MonthMenuV that contains the button that creates AddExpenseV
-     * @param controller ExpenseC reacts to user input to return ExpenseOD.
+     *
+     * @param monthMenu        MonthMenuV that contains the button that creates AddExpenseV
+     * @param controller       ExpenseC reacts to user input to return ExpenseOD.
      * @param existingCategory String[] of Category names that exists in current month.
-     * @param monthID int representing the MonthlyStorage.
-     * @param currSession SessionStorage the current working session.
+     * @param monthID          int representing the MonthlyStorage.
+     * @param currSession      SessionStorage the current working session.
      */
     public AddExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingCategory, int monthID, SessionStorage currSession) {
         this.monthMenu = monthMenu;
@@ -53,8 +54,7 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
     /**
      * Open add expense GUI.
      */
-
-    public void openAddExpense(){
+    public void openAddExpense() {
         JLabel nameLabel = new JLabel("Expense Name:");
         JLabel valueLabel = new JLabel("Expense Budget:");
         JLabel selectCategoryLabel = new JLabel(" Assign Category:");
@@ -95,18 +95,22 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
     public void actionPerformed(ActionEvent evt) {
         String selectedCategory = Objects.requireNonNull(categoryCombo.getSelectedItem()).toString();
         boolean isRecurring = isRecurringCheckBox.isSelected();
-        if (evt.getSource() == submit){
+        if (evt.getSource() == submit) {
             ExpenseOD message;
             message = null;
-            try {message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
+            try {
+                message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
                 frame.setVisible(false);
-                loadMonthMenu(currSession,monthID,null);
+                loadMonthMenu(currSession, monthID, null);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
-            }if (message != null) {
+            }
+            if (message != null) {
                 JOptionPane.showMessageDialog(this, message.getMessage());
-        }}
+            }
+        }
     }
+
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
      *
@@ -116,6 +120,6 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
      */
     @Override
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
-        monthMenu.openMonthMenu(message,false);
+        monthMenu.openMonthMenu(message, false);
     }
 }
