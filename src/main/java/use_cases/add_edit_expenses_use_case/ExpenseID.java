@@ -7,8 +7,7 @@ import entities.SessionStorage;
  */
 public class ExpenseID {
     private final String name;
-    private Object value;
-
+    private final Object value;
     private final String category;
     private final boolean isRecurringExpense;
     private final int monthID;
@@ -47,12 +46,6 @@ public class ExpenseID {
      * @return Object value from user input
      */
     public Object getValue(){return value;}
-
-    /**
-     * Sets Double Expense value. (Casting occurs in ExpenseUCI)
-     * @param value double passed in from ExpenseUCI to cast user input into a valid Expense attribute.
-     */
-    public void setValue(double value){this.value = value;}
 
     /**
      * Gets String Category name that this Expense belongs to (before add/edit expense occurs).
