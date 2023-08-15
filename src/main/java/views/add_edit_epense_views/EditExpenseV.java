@@ -33,12 +33,13 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
 
     /**
      * Builds EditExpenseV for user entries.
-     * @param monthMenu MonthMenuV that contains the button that creates EditExpenseV.
-     * @param controller ExpenseC reacts to user input to return ExpenseOD.
-     * @param existingExpense String[] of Expense names that exists in current month.
+     *
+     * @param monthMenu        MonthMenuV that contains the button that creates EditExpenseV.
+     * @param controller       ExpenseC reacts to user input to return ExpenseOD.
+     * @param existingExpense  String[] of Expense names that exists in current month.
      * @param existingCategory String[] of Category names that exists in current month.
-     * @param monthID int representing the MonthlyStorage.
-     * @param currSession SessionStorage the current working session.
+     * @param monthID          int representing the MonthlyStorage.
+     * @param currSession      SessionStorage the current working session.
      */
     public EditExpenseV(MonthMenuV monthMenu, ExpenseC controller, String[] existingExpense, String[] existingCategory,
                         int monthID, SessionStorage currSession) {
@@ -57,21 +58,21 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
     /**
      * Open edit expense GUI.
      */
-    public void openEditExpense(){
+    public void openEditExpense() {
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Edit Expense");
-        frame.setSize(500,300);
+        frame.setSize(500, 300);
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panel.setLayout(new GridLayout(0,1));
+        panel.setLayout(new GridLayout(0, 1));
 
         JLabel select_expense_label = new JLabel(" Select existing expense:");
         JLabel nameLabel = new JLabel("New Expense Name:");
         JLabel valueLabel = new JLabel(" New Expense Budget:");
         JLabel select_category_label = new JLabel(" Select existing category:");
-        isRecurringCheckBox.setBounds(100,150,50,50);
-        submit.setSize(30,10);
+        isRecurringCheckBox.setBounds(100, 150, 50, 50);
+        submit.setSize(30, 10);
 
 
         panel.add(select_expense_label);
@@ -93,6 +94,7 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
         expenseCombo.addActionListener(this);
         categoryCombo.addActionListener(this);
     }
+
     /**
      * Checks and formats user input to pass in valid parameters to start a use case.
      */
@@ -103,15 +105,17 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
             for (Expense recurExpense : currSession.getRecurData()) {
                 if (recurExpense.getName().equals(selectedExpense)) {
                     // Set isRecurringCheckBox checked if the expense being edited was a recurring expense
-                    isRecurringCheckBox.setSelected(true);}}
+                    isRecurringCheckBox.setSelected(true);
+                }
+            }
         } else if (selectedExpense == null) {
             JOptionPane.showMessageDialog(this, "Please select an expense you wish to edit.");
-        }else if (evt.getSource() == categoryCombo) {
+        } else if (evt.getSource() == categoryCombo) {
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        } else if (selectedCategory == null){
+        } else if (selectedCategory == null) {
             JOptionPane.showMessageDialog(this, "Please select the previous category if you " +
-                "don't wish to edit. Thanks.");
-        }else if (evt.getSource() == submit) {
+                    "don't wish to edit. Thanks.");
+        } else if (evt.getSource() == submit) {
             if (nameInput.getText().isEmpty()) {// Check if user inputs an expense name.
                 JOptionPane.showMessageDialog(this, "Please enter the previous expense name if you " +
                         "don't wish to edit. Thanks.");
@@ -130,9 +134,12 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
                     loadMonthMenu(currSession, monthID, null);
                 } catch (EntityException e) {
                     JOptionPane.showMessageDialog(this, "This month does not exist in current " +
-                        "session. Please go to add month page.");
-                } if (message != null) {
-                JOptionPane.showMessageDialog(this, message.getMessage());}}
+                            "session. Please go to add month page.");
+                }
+                if (message != null) {
+                    JOptionPane.showMessageDialog(this, message.getMessage());
+                }
+            }
         }
     }
 
@@ -145,6 +152,6 @@ public class EditExpenseV extends JFrame implements ActionListener, LoadMonthMen
      */
     @Override
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
-        monthMenu.openMonthMenu(message,false);
+        monthMenu.openMonthMenu(message, false);
     }
 }

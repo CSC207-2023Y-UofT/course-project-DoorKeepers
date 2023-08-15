@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  * View class for the EditCategoryV that extends Component class and implements ActionListener interface.
  */
@@ -27,10 +28,11 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
 
     /**
      * Builds EditCategoryV for user entries.
-     * @param controller CategoryC reacts to user input to return a CategoryOD.
+     *
+     * @param controller       CategoryC reacts to user input to return a CategoryOD.
      * @param existingCategory String of existing categories in the MonthlyStorage with monthID.
-     * @param monthID int representing the MonthlyStorage.
-     * @param currSession SessionStorage the current working session.
+     * @param monthID          int representing the MonthlyStorage.
+     * @param currSession      SessionStorage the current working session.
      */
     public EditCategoryV(MonthMenuV monthMenu, CategoryC controller, String[] existingCategory, int monthID,
                          SessionStorage currSession) {
@@ -49,19 +51,19 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
     /**
      * Open edit category GUI.
      */
-    public void openEditCategory(){
+    public void openEditCategory() {
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Edit Category");
-        frame.setSize(500,300);
+        frame.setSize(500, 300);
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));
-        panel.setLayout(new GridLayout(0,1));
+        panel.setLayout(new GridLayout(0, 1));
 
         JLabel selectCategoryLabel = new JLabel(" Select existing category:");
         JLabel nameLabel = new JLabel("New Category Name:");
         JLabel budgetLabel = new JLabel(" New Category Budget:");
-        submit.setSize(30,10);
+        submit.setSize(30, 10);
 
         submit.addActionListener(this);
         categoryCombo.addActionListener(this);
@@ -87,18 +89,21 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
         //Two ActionListeners with different behaviours differentiated by checking evt.getSource().
         if (evt.getSource() == categoryCombo) {
             this.selectedCategory = (String) categoryCombo.getSelectedItem();
-        } else if(selectedCategory == null){
-            JOptionPane.showMessageDialog( this, "Please select a category you wish to edit.");
-        } else if(evt.getSource() == submit){
+        } else if (selectedCategory == null) {
+            JOptionPane.showMessageDialog(this, "Please select a category you wish to edit.");
+        } else if (evt.getSource() == submit) {
             if (nameInput.getText().isEmpty()) {// Check if user inputs a category name.
-                JOptionPane.showMessageDialog( this, "Please enter the previous category name if " +
+                JOptionPane.showMessageDialog(this, "Please enter the previous category name if " +
                         "you don't wish to edit. Thanks.");
-            } else if (budgetInput.getText().isEmpty()){// Check if user inputs a category budget.
-                JOptionPane.showMessageDialog(this,"Please enter the previous category budget if " +
+            } else if (budgetInput.getText().isEmpty()) {// Check if user inputs a category budget.
+                JOptionPane.showMessageDialog(this, "Please enter the previous category budget if " +
                         "you don't wish to edit. Thanks.");
-            } else {tryUseCaseEdit();}
+            } else {
+                tryUseCaseEdit();
+            }
         }
     }
+
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
      *
@@ -108,14 +113,14 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
      */
     @Override
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
-        monthMenu.openMonthMenu(message,false);
+        monthMenu.openMonthMenu(message, false);
     }
 
     /**
      * Tries an Edit Category Use Case.
      * Pop-up window with context specific message may be shown to user.
      */
-    private void tryUseCaseEdit(){
+    private void tryUseCaseEdit() {
         CategoryOD message;
         message = null;
         try {
@@ -123,11 +128,13 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
                     currSession, selectedCategory);
             frame.setVisible(false);
             // Update Month Menu
-            loadMonthMenu(currSession,monthID,null);
+            loadMonthMenu(currSession, monthID, null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. " +
                     "Please go to add month page.");
-        }if (message != null) {
-            JOptionPane.showMessageDialog(this, message.getMessage());}
+        }
+        if (message != null) {
+            JOptionPane.showMessageDialog(this, message.getMessage());
+        }
     }
 }

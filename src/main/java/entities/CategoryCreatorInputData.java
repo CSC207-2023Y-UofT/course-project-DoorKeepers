@@ -30,6 +30,7 @@ public class CategoryCreatorInputData extends MonthObjectFactoryInputData {
      * Gets the name of this CategoryCreatorInputData.
      * @return the name of this CategoryCreatorInputData
      */
+    @Override
     public String getName() {
         return name;
     }
