@@ -128,7 +128,7 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
                     currSession, selectedCategory);
             frame.setVisible(false);
             // Update Month Menu
-            loadMonthMenu(currSession, monthID, null);
+            ((LoadMonthMenuVB) this).loadMonthMenu(currSession, monthID, null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. " +
                     "Please go to add month page.");

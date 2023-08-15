@@ -146,7 +146,7 @@ public class NewMonthV implements ActionListener, LoadMonthMenuVB {
                     // Update Main Menu dropdown list of Months
                     mainMenu.openMainMenu(null,session);
                     // Load new Month Menu for the new MonthlyStorage
-                    loadMonthMenu(session,monthID,"Month created successfully.");
+                    ((LoadMonthMenuVB) this).loadMonthMenu(session,monthID,"Month created successfully.");
                 } else {
                     JOptionPane.showMessageDialog(frame, output.getWarning());
                 }

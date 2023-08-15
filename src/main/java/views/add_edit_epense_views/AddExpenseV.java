@@ -101,7 +101,7 @@ public class AddExpenseV extends JFrame implements ActionListener, LoadMonthMenu
             try {
                 message = controller.expenseInMonth(nameInput.getText(), valueInput.getText(), selectedCategory, isRecurring, monthID, currSession, selectedExpense);
                 frame.setVisible(false);
-                loadMonthMenu(currSession, monthID, null);
+                ((LoadMonthMenuVB) this).loadMonthMenu(currSession, monthID, null);
             } catch (EntityException e) {
                 JOptionPane.showMessageDialog(this, "This month does not exist in current session. Please go to add month page.");
             }
