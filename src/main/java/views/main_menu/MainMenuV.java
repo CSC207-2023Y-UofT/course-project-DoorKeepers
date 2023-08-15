@@ -2,19 +2,19 @@ package views.main_menu;
 
 import entities.MonthlyStorage;
 import entities.SessionStorage;
-import use_cases.create_new_month.NewMonthUCI;
-import use_cases.main_menu.SessionSaveOD;
-import use_cases.monthly_menu.MonthMenuOB;
-import use_cases.monthly_menu.UpdateViewIB;
-import use_cases.monthly_menu.UpdateViewUCI;
-import views.create_new_month.NewMonthC;
-import views.create_new_month.NewMonthP;
-import views.create_new_month.NewMonthV;
-import views.load_monthly_menu.LoadMonthMenuVB;
-import views.monthly_menu.MonthMenuP;
-import views.monthly_menu.MonthMenuV;
-import views.monthly_menu.UpdateViewC;
-import views.session_load.SessionLoadMainMenuVB;
+import use_cases.create_new_month.NewMonthUseCaseInteractor;
+import use_cases.main_menu.SessionSaveOutputData;
+import use_cases.monthly_menu.MonthMenuOutputBoundary;
+import use_cases.monthly_menu.UpdateViewInputBoundary;
+import use_cases.monthly_menu.UpdateViewUseCaseInteractor;
+import views.create_new_month.NewMonthController;
+import views.create_new_month.NewMonthPresenter;
+import views.create_new_month.NewMonthView;
+import views.load_monthly_menu.LoadMonthMenuViewBoundary;
+import views.monthly_menu.MonthMenuPresenter;
+import views.monthly_menu.MonthMenuView;
+import views.monthly_menu.UpdateViewController;
+import views.session_load.SessionLoadMainMenuViewBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * to create a new month, and also allows the user to open the month menu for any of the
  * existing months in the current session
  */
-public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionListener, LoadMonthMenuVB {
+public class MainMenuV extends JPanel implements SessionLoadMainMenuViewBoundary, ActionListener, LoadMonthMenuViewBoundary {
     private final MainMenuC controller;
     private SessionStorage session;
     private int selectedMonthID;
@@ -135,12 +135,12 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
                 this.selectedMonthID = Integer.parseInt(selectedID);
             }
         } else if (e.getSource() == this.selectMonthButton) {
-            // Open a new MonthMenuV to display the selected month
-            ((LoadMonthMenuVB) this).loadMonthMenu(this.session, this.selectedMonthID, null);
+            // Open a new MonthMenuView to display the selected month
+            ((LoadMonthMenuViewBoundary) this).loadMonthMenu(this.session, this.selectedMonthID, null);
         } else if (e.getSource() == this.createMonthButton) {
-            // Open a new NewMonthV so user can create their new month
-            NewMonthC newMonthController = new NewMonthC(new NewMonthUCI(new NewMonthP()));
-            new NewMonthV(this, newMonthController, this.session);
+            // Open a new NewMonthView so user can create their new month
+            NewMonthController newMonthController = new NewMonthController(new NewMonthUseCaseInteractor(new NewMonthPresenter()));
+            new NewMonthView(this, newMonthController, this.session);
         } else if (e.getSource() == this.saveButton) {
             // Implementation of file chooser inspired from
             // https://www.geeksforgeeks.org/java-swing-jfilechooser/
@@ -148,7 +148,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
             if (j.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 try {
                     String chosenFilename = j.getSelectedFile().getAbsolutePath();
-                    SessionSaveOD outputData = this.controller.save(this.session, chosenFilename);
+                    SessionSaveOutputData outputData = this.controller.save(this.session, chosenFilename);
                     JOptionPane.showMessageDialog(this, outputData.getMessage());
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "An error occurred while saving session file. Please try again.");
@@ -166,11 +166,11 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
      */
     @Override
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
-        // Construct MonthMenuV
-        MonthMenuOB monthMenuOutputBoundary = new MonthMenuP();
-        UpdateViewIB updateViewInteractor = new UpdateViewUCI(monthMenuOutputBoundary);
-        UpdateViewC updateViewControl = new UpdateViewC(updateViewInteractor);
-        MonthMenuV monthMenu = new MonthMenuV(updateViewControl, session, monthID);
+        // Construct MonthMenuView
+        MonthMenuOutputBoundary monthMenuOutputBoundary = new MonthMenuPresenter();
+        UpdateViewInputBoundary updateViewInteractor = new UpdateViewUseCaseInteractor(monthMenuOutputBoundary);
+        UpdateViewController updateViewControl = new UpdateViewController(updateViewInteractor);
+        MonthMenuView monthMenu = new MonthMenuView(updateViewControl, session, monthID);
 
         // Open Month Menu
         monthMenu.openMonthMenu(message, true);

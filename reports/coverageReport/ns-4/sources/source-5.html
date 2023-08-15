@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ExpenseIB</title>
+  <title>Coverage Report > ExpenseInputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,14 +21,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.add_edit_expenses_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: ExpenseIB (use_cases.add_edit_expenses_use_case)</h1>
+<h1>Coverage Summary for Class: ExpenseInputBoundary (use_cases.add_edit_expenses_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ExpenseIB</td>
+  <td class="name">ExpenseInputBoundary</td>
 </tr>
 
 </table>
@@ -43,26 +43,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import entities.EntityException;
 &nbsp;
 &nbsp;/**
-&nbsp; * ExpenseIB passes in user input of expense information in the form of ExpenseID.
+&nbsp; * ExpenseInputBoundary passes in user input of expense information in the form of ExpenseID.
 &nbsp; * Implemented by ExpenseUCI.
 &nbsp; */
 &nbsp;
-&nbsp;public interface ExpenseIB {
+&nbsp;public interface ExpenseInputBoundary {
 &nbsp;    /**
 &nbsp;     * Describes abstract addExpenseInMonth() that is override in ExpenseUCI to format detailed responses for attempts to add an Expense.
-&nbsp;     * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
+&nbsp;     * @param expenseInputDataAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
 &nbsp;     * @return String indicating fail/success add attempt.
 &nbsp;     * @throws EntityException thrown when the new  input is invalid.
 &nbsp;     */
-&nbsp;    ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) throws EntityException;
+&nbsp;    ExpenseOD addExpenseInMonth(ExpenseID expenseInputDataAdd) throws EntityException;
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Describes abstract editExpenseInMonth() that is override in ExpenseUCI to format detailed responses for attempts to edit an Expense.
-&nbsp;     * @param expenseIDEdit ExpenseID required for editing an existing Expense Object in designated monthID MonthlyStorage Object.
+&nbsp;     * @param expenseInputDataEdit ExpenseID required for editing an existing Expense Object in designated monthID MonthlyStorage Object.
 &nbsp;     * @return String indicating fail/success edit attempt.
 &nbsp;     * @throws EntityException thrown when the new expense input is invalid.
 &nbsp;     */
-&nbsp;    ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException;
+&nbsp;    ExpenseOD editExpenseInMonth(ExpenseID expenseInputDataEdit) throws EntityException;
 &nbsp;}
 &nbsp;
 </code>

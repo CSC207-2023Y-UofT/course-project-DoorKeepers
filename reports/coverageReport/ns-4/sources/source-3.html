@@ -82,9 +82,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.NoSuchElementException;
 &nbsp;import java.util.Objects;
 &nbsp;
-&nbsp;public class ExpenseUCI implements ExpenseIB {
+&nbsp;public class ExpenseUCI implements ExpenseInputBoundary {
 &nbsp;    private final ExpenseOB expenseOB;
-&nbsp;    private ExpenseID expenseID;
+&nbsp;    private ExpenseID expenseInputData;
 &nbsp;    private ArrayList&lt;Expense&gt; recurringExpenseList;
 &nbsp;    private ArrayList&lt;Expense&gt; monthExpenseList;
 &nbsp;
@@ -109,7 +109,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Overrides method in ExpenseIB.
+&nbsp;     * Overrides method in ExpenseInputBoundary.
 &nbsp;     * Attempts to add an expense with information from ExpenseID and returns a ExpenseOD indicating whether fail/success after execution.
 &nbsp;     * Provides detailed fail messages according to each condition listed below:
 &nbsp;     * 1. NumberFormatException: User tries to add a new budget value that can not be converted to a double.
@@ -117,74 +117,74 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * 3. EntityException: User tries to add an invalid Expense name but failed. (See entities/EntityException.java)
 &nbsp;     * 4. Same recurring expense name: User tries to add an expense name that is a saved recurring expense in the current SessionStorage.
 &nbsp;     *
-&nbsp;     * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
+&nbsp;     * @param expenseInputDataAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
 &nbsp;     * @return ExpenseOD String message indicating success/fail add attempt.
-&nbsp;     * @throws EntityException thrown when expenseIDAdd has invalid expense information.
+&nbsp;     * @throws EntityException thrown when expenseInputDataAdd has invalid expense information.
 &nbsp;     */
 &nbsp;    @Override
-&nbsp;    public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) throws EntityException {
-<b class="fc">&nbsp;        this.expenseID = expenseIDAdd;</b>
-<b class="fc">&nbsp;        SessionStorage session = expenseIDAdd.getSession();</b>
-<b class="fc">&nbsp;        MonthlyStorage month = expenseIDAdd.getSession().getMonthlyData(expenseIDAdd.getMonthID());</b>
+&nbsp;    public ExpenseOD addExpenseInMonth(ExpenseID expenseInputDataAdd) throws EntityException {
+<b class="fc">&nbsp;        this.expenseInputData = expenseInputDataAdd;</b>
+<b class="fc">&nbsp;        SessionStorage session = expenseInputDataAdd.getSession();</b>
+<b class="fc">&nbsp;        MonthlyStorage month = expenseInputDataAdd.getSession().getMonthlyData(expenseInputDataAdd.getMonthID());</b>
 <b class="fc">&nbsp;        ArrayList&lt;Expense&gt; monthExpenseList = month.getExpenseData();</b>
 <b class="fc">&nbsp;        ArrayList&lt;Category&gt; categoryList = month.getCategoryData();</b>
 <b class="fc">&nbsp;        this.recurringExpenseList = session.getRecurData();</b>
 &nbsp;
 &nbsp;        try {
-<b class="fc">&nbsp;            double valueDouble = toDouble(expenseIDAdd.getValue());</b>
+<b class="fc">&nbsp;            double valueDouble = toDouble(expenseInputDataAdd.getValue());</b>
 &nbsp;
-<b class="fc">&nbsp;            Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());</b>
+<b class="fc">&nbsp;            Category selectedCategory = findCategory(categoryList, expenseInputData.getOldCategory());</b>
 <b class="fc">&nbsp;            Category other = findCategory(categoryList, &quot;Other&quot;);</b>
 &nbsp;
 <b class="fc">&nbsp;            if (valueDouble &lt; 0) {</b>
 &nbsp;                // 2. Expense budget less than 0 fail
-<b class="fc">&nbsp;                ExpenseOD expenseODFailAdd = new ExpenseOD(&quot;Expense value can&#39;t be less than $0. Please try again!&quot;);</b>
-<b class="fc">&nbsp;                return expenseOB.fail(expenseODFailAdd);</b>
+<b class="fc">&nbsp;                ExpenseOD expenseOutputDataFailAdd = new ExpenseOD(&quot;Expense value can&#39;t be less than $0. Please try again!&quot;);</b>
+<b class="fc">&nbsp;                return expenseOB.fail(expenseOutputDataFailAdd);</b>
 &nbsp;            }
 <b class="fc">&nbsp;            for (Expense expense1 : monthExpenseList) {</b>
-<b class="fc">&nbsp;                if (expense1.getName().equals(expenseID.getName())) {</b>
+<b class="fc">&nbsp;                if (expense1.getName().equals(expenseInputData.getName())) {</b>
 &nbsp;                    //Repeated name in month
-<b class="fc">&nbsp;                    ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
-<b class="fc">&nbsp;                    return expenseOB.fail(expenseODFailEdit);</b>
+<b class="fc">&nbsp;                    ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
+<b class="fc">&nbsp;                    return expenseOB.fail(expenseOutputDataFailEdit);</b>
 &nbsp;                }
 <b class="fc">&nbsp;            }</b>
 &nbsp;
-<b class="fc">&nbsp;            if (expenseID.getIsRecurringExpense()) {</b>
+<b class="fc">&nbsp;            if (expenseInputData.getIsRecurringExpense()) {</b>
 <b class="fc">&nbsp;                if(recurringExpenseList.size() &gt; 0) {</b>
 <b class="fc">&nbsp;                    for (Expense expense1 : recurringExpenseList) {</b>
-<b class="fc">&nbsp;                        if (expense1.getName().equals(expenseID.getName())) {</b>
+<b class="fc">&nbsp;                        if (expense1.getName().equals(expenseInputData.getName())) {</b>
 &nbsp;                            //Repeated name in recurringData
-<b class="fc">&nbsp;                            ExpenseOD expenseODFailAdd = new ExpenseOD(&quot;There is a recurring expense with this name, you don&#39;t need to add expense in month. &quot; +</b>
+<b class="fc">&nbsp;                            ExpenseOD expenseOutputDataFailAdd = new ExpenseOD(&quot;There is a recurring expense with this name, you don&#39;t need to add expense in month. &quot; +</b>
 &nbsp;                                    &quot;(If this is not the same expense, please use another name!)&quot;);
-<b class="fc">&nbsp;                            return expenseOB.fail(expenseODFailAdd);</b>
+<b class="fc">&nbsp;                            return expenseOB.fail(expenseOutputDataFailAdd);</b>
 &nbsp;                        }
 <b class="nc">&nbsp;                    }</b>
 &nbsp;                }else{
-<b class="fc">&nbsp;                    Expense newrecurExpense = new Expense(expenseID.getName(), other, valueDouble);</b>
+<b class="fc">&nbsp;                    Expense newrecurExpense = new Expense(expenseInputData.getName(), other, valueDouble);</b>
 <b class="fc">&nbsp;                    session.addRecurExpense(newrecurExpense);</b>
-<b class="fc">&nbsp;                    ExpenseOD expenseODSuccessAdd = new ExpenseOD(&quot;You have created a new recurring expense!&quot;);</b>
-<b class="fc">&nbsp;                    return expenseOB.success(expenseODSuccessAdd);}</b>
+<b class="fc">&nbsp;                    ExpenseOD expenseOutputDataSuccessAdd = new ExpenseOD(&quot;You have created a new recurring expense!&quot;);</b>
+<b class="fc">&nbsp;                    return expenseOB.success(expenseOutputDataSuccessAdd);}</b>
 &nbsp;                    }
 &nbsp;
-<b class="fc">&nbsp;            Expense newExpense = new Expense(expenseID.getName(), selectedCategory,valueDouble);</b>
+<b class="fc">&nbsp;            Expense newExpense = new Expense(expenseInputData.getName(), selectedCategory,valueDouble);</b>
 &nbsp;
 <b class="fc">&nbsp;            month.addExpense(newExpense);</b>
-<b class="fc">&nbsp;            ExpenseOD expenseODSuccessAdd = new ExpenseOD(&quot;You have added a new expense!&quot;);</b>
-<b class="fc">&nbsp;            return expenseOB.success(expenseODSuccessAdd);</b>
+<b class="fc">&nbsp;            ExpenseOD expenseOutputDataSuccessAdd = new ExpenseOD(&quot;You have added a new expense!&quot;);</b>
+<b class="fc">&nbsp;            return expenseOB.success(expenseOutputDataSuccessAdd);</b>
 &nbsp;
 <b class="fc">&nbsp;        } catch (NumberFormatException | NullPointerException e) {</b>
 &nbsp;            //1. NumberFormatException/NullPointerException fail
-<b class="fc">&nbsp;            ExpenseOD expenseODFailAdd = new ExpenseOD(&quot;Expense value is needs to be a number. Please try again!&quot;);</b>
-<b class="fc">&nbsp;            return expenseOB.fail(expenseODFailAdd);</b>
+<b class="fc">&nbsp;            ExpenseOD expenseOutputDataFailAdd = new ExpenseOD(&quot;Expense value is needs to be a number. Please try again!&quot;);</b>
+<b class="fc">&nbsp;            return expenseOB.fail(expenseOutputDataFailAdd);</b>
 &nbsp;
 <b class="nc">&nbsp;        } catch (EntityException e) {</b>
 &nbsp;            //3. EntityException fail
-<b class="nc">&nbsp;            ExpenseOD expenseODFailAdd = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
-<b class="nc">&nbsp;            return expenseOB.fail(expenseODFailAdd);</b>
+<b class="nc">&nbsp;            ExpenseOD expenseOutputDataFailAdd = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
+<b class="nc">&nbsp;            return expenseOB.fail(expenseOutputDataFailAdd);</b>
 <b class="nc">&nbsp;        } catch(NoSuchElementException e){</b>
 &nbsp;        //2. NoSuchElementException fail
-<b class="nc">&nbsp;        ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;There is no such expense in the current month. Please add a new expense or select existing expense!&quot;);</b>
-<b class="nc">&nbsp;        return expenseOB.fail(expenseODFailEdit);</b>
+<b class="nc">&nbsp;        ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;There is no such expense in the current month. Please add a new expense or select existing expense!&quot;);</b>
+<b class="nc">&nbsp;        return expenseOB.fail(expenseOutputDataFailEdit);</b>
 &nbsp;    }}
 &nbsp;
 &nbsp;    /**
@@ -195,80 +195,80 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * 3. NumberFormatException|NullPointerException: User tries to edit a budget value with input that can not be converted to a double.
 &nbsp;     * 4. Expense budget less than 0: User tries to edit a budget value with input that is a negative number.
 &nbsp;     *
-&nbsp;     * @param expenseIDEdit ExpenseID required for editing a new expense to the designated monthID MonthlyStorage Object.
+&nbsp;     * @param expenseInputDataEdit ExpenseID required for editing a new expense to the designated monthID MonthlyStorage Object.
 &nbsp;     * @return ExpenseOD String message indicating success/fail add attempt.
 &nbsp;     * @throws EntityException (Although we know MonthlyStorage with monthID is always in the SessionStorage,
 &nbsp;     *                         it will be caught at views/add_edit_expense_views/EditExpenseV.java).
 &nbsp;     */
 &nbsp;    @Override
-&nbsp;    public ExpenseOD editExpenseInMonth(ExpenseID expenseIDEdit) throws EntityException {
-<b class="fc">&nbsp;        this.expenseID = expenseIDEdit;</b>
-<b class="fc">&nbsp;        SessionStorage session = expenseID.getSession();</b>
-<b class="fc">&nbsp;        MonthlyStorage month = session.getMonthlyData(expenseID.getMonthID());</b>
+&nbsp;    public ExpenseOD editExpenseInMonth(ExpenseID expenseInputDataEdit) throws EntityException {
+<b class="fc">&nbsp;        this.expenseInputData = expenseInputDataEdit;</b>
+<b class="fc">&nbsp;        SessionStorage session = expenseInputData.getSession();</b>
+<b class="fc">&nbsp;        MonthlyStorage month = session.getMonthlyData(expenseInputData.getMonthID());</b>
 <b class="fc">&nbsp;        ArrayList&lt;Expense&gt; monthExpenseList = month.getExpenseData();</b>
 <b class="fc">&nbsp;        ArrayList&lt;Category&gt; categoryList = month.getCategoryData();</b>
 &nbsp;        Expense selectedExpense;
 &nbsp;
 &nbsp;        try {
-<b class="fc">&nbsp;            Category selectedCategory = findCategory(categoryList, expenseID.getOldCategory());</b>
+<b class="fc">&nbsp;            Category selectedCategory = findCategory(categoryList, expenseInputData.getOldCategory());</b>
 &nbsp;
-<b class="fc">&nbsp;            if(Objects.equals(expenseIDEdit.getOldCategory(), &quot;Other&quot;)){</b>
-<b class="nc">&nbsp;                selectedExpense = findExpense(recurringExpenseList, expenseID.getOldExpense());</b>
-<b class="fc">&nbsp;            }else{selectedExpense = findExpense(monthExpenseList, expenseID.getOldExpense());}</b>
+<b class="fc">&nbsp;            if(Objects.equals(expenseInputDataEdit.getOldCategory(), &quot;Other&quot;)){</b>
+<b class="nc">&nbsp;                selectedExpense = findExpense(recurringExpenseList, expenseInputData.getOldExpense());</b>
+<b class="fc">&nbsp;            }else{selectedExpense = findExpense(monthExpenseList, expenseInputData.getOldExpense());}</b>
 &nbsp;
-<b class="fc">&nbsp;            double valueDouble = toDouble(expenseIDEdit.getValue());</b>
+<b class="fc">&nbsp;            double valueDouble = toDouble(expenseInputDataEdit.getValue());</b>
 <b class="fc">&nbsp;            if (valueDouble &lt; 0) {</b>
 &nbsp;                //4. Expense budget less than 0 fail
-<b class="fc">&nbsp;                ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;Expense budget can&#39;t be less than $0. Please try again!&quot;);</b>
-<b class="fc">&nbsp;                return expenseOB.fail(expenseODFailEdit);</b>
-&nbsp;            }//&amp;&amp;!expenseID.getIsRecurringExpense()
-<b class="fc">&nbsp;            if(!Objects.equals(expenseIDEdit.getName(), expenseIDEdit.getOldExpense())){</b>
+<b class="fc">&nbsp;                ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;Expense budget can&#39;t be less than $0. Please try again!&quot;);</b>
+<b class="fc">&nbsp;                return expenseOB.fail(expenseOutputDataFailEdit);</b>
+&nbsp;            }//&amp;&amp;!expenseInputData.getIsRecurringExpense()
+<b class="fc">&nbsp;            if(!Objects.equals(expenseInputDataEdit.getName(), expenseInputDataEdit.getOldExpense())){</b>
 <b class="fc">&nbsp;                if(checkHaveSameNameInList(monthExpenseList)) {</b>
 &nbsp;                    //1. Repeated name fail
-<b class="fc">&nbsp;                    ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
-<b class="fc">&nbsp;                    return expenseOB.fail(expenseODFailEdit);</b>
+<b class="fc">&nbsp;                    ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;There is already a expense with this new name in this month.&quot;);</b>
+<b class="fc">&nbsp;                    return expenseOB.fail(expenseOutputDataFailEdit);</b>
 &nbsp;                }}
 <b class="fc">&nbsp;            if (changeInRecurringInfo()) {// 4. Same recurring expense name fail</b>
-<b class="nc">&nbsp;                if (expenseID.getIsRecurringExpense()) {</b>
+<b class="nc">&nbsp;                if (expenseInputData.getIsRecurringExpense()) {</b>
 <b class="nc">&nbsp;                    if (checkHaveSameNameInList(recurringExpenseList)) {</b>
-<b class="nc">&nbsp;                        ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;There is a recurring expense with this name, you don&#39;t need to add recurring expense in month! &quot; +</b>
+<b class="nc">&nbsp;                        ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;There is a recurring expense with this name, you don&#39;t need to add recurring expense in month! &quot; +</b>
 &nbsp;                                &quot;(If this is not the same expense, please use another name!)&quot;);
-<b class="nc">&nbsp;                        return expenseOB.fail(expenseODFailEdit);</b>
+<b class="nc">&nbsp;                        return expenseOB.fail(expenseOutputDataFailEdit);</b>
 &nbsp;                    }else {
-<b class="nc">&nbsp;                        selectedExpense.setName(expenseIDEdit.getName());</b>
-<b class="nc">&nbsp;                        expenseIDEdit.setValue(valueDouble);</b>
+<b class="nc">&nbsp;                        selectedExpense.setName(expenseInputDataEdit.getName());</b>
+<b class="nc">&nbsp;                        expenseInputDataEdit.setValue(valueDouble);</b>
 <b class="nc">&nbsp;                        selectedExpense.setValue(valueDouble);</b>
-<b class="nc">&nbsp;                        session.deleteRecurExpense(expenseID.getName());</b>
+<b class="nc">&nbsp;                        session.deleteRecurExpense(expenseInputData.getName());</b>
 <b class="nc">&nbsp;                        selectedExpense.setCategory(selectedCategory);</b>
-<b class="nc">&nbsp;                        ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD(&quot;You have updated all changes of this expense to the category selected in current month!&quot;);</b>
-<b class="nc">&nbsp;                        return expenseOB.success(expenseODSuccessEditRecurring);</b>
+<b class="nc">&nbsp;                        ExpenseOD expenseOutputDataSuccessEditRecurring = new ExpenseOD(&quot;You have updated all changes of this expense to the category selected in current month!&quot;);</b>
+<b class="nc">&nbsp;                        return expenseOB.success(expenseOutputDataSuccessEditRecurring);</b>
 &nbsp;                    }
 &nbsp;                }else {
-<b class="nc">&nbsp;                    selectedExpense.setName(expenseIDEdit.getName());</b>
-<b class="nc">&nbsp;                    expenseIDEdit.setValue(valueDouble);</b>
+<b class="nc">&nbsp;                    selectedExpense.setName(expenseInputDataEdit.getName());</b>
+<b class="nc">&nbsp;                    expenseInputDataEdit.setValue(valueDouble);</b>
 <b class="nc">&nbsp;                    selectedExpense.setValue(valueDouble);</b>
 <b class="nc">&nbsp;                    session.addRecurExpense(selectedExpense);</b>
 <b class="nc">&nbsp;                    selectedExpense.setCategory(findCategory(categoryList, &quot;Other&quot;));</b>
-<b class="nc">&nbsp;                    ExpenseOD expenseODSuccessEditRecurring = new ExpenseOD(&quot;You have updated all changes of this expense to a recurring expense in current session!&quot;);</b>
-<b class="nc">&nbsp;                    return expenseOB.success(expenseODSuccessEditRecurring);</b>
+<b class="nc">&nbsp;                    ExpenseOD expenseOutputDataSuccessEditRecurring = new ExpenseOD(&quot;You have updated all changes of this expense to a recurring expense in current session!&quot;);</b>
+<b class="nc">&nbsp;                    return expenseOB.success(expenseOutputDataSuccessEditRecurring);</b>
 &nbsp;                }
 &nbsp;                    }
 &nbsp;
-<b class="fc">&nbsp;            selectedExpense.setName(expenseIDEdit.getName());</b>
-<b class="fc">&nbsp;            expenseIDEdit.setValue(valueDouble);</b>
+<b class="fc">&nbsp;            selectedExpense.setName(expenseInputDataEdit.getName());</b>
+<b class="fc">&nbsp;            expenseInputDataEdit.setValue(valueDouble);</b>
 <b class="fc">&nbsp;            selectedExpense.setValue(valueDouble);</b>
 &nbsp;
-<b class="fc">&nbsp;            ExpenseOD expenseODSuccessEdit = new ExpenseOD(&quot;You have edited a expense!&quot;);</b>
-<b class="fc">&nbsp;            return expenseOB.success(expenseODSuccessEdit);</b>
+<b class="fc">&nbsp;            ExpenseOD expenseOutputDataSuccessEdit = new ExpenseOD(&quot;You have edited a expense!&quot;);</b>
+<b class="fc">&nbsp;            return expenseOB.success(expenseOutputDataSuccessEdit);</b>
 &nbsp;
 <b class="fc">&nbsp;            } catch(NoSuchElementException e){</b>
 &nbsp;                //2. NoSuchElementException fail
-<b class="fc">&nbsp;                ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;There is no such expense in the current month. Please add a new expense or select existing expense!&quot;);</b>
-<b class="fc">&nbsp;                return expenseOB.fail(expenseODFailEdit);</b>
+<b class="fc">&nbsp;                ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;There is no such expense in the current month. Please add a new expense or select existing expense!&quot;);</b>
+<b class="fc">&nbsp;                return expenseOB.fail(expenseOutputDataFailEdit);</b>
 <b class="fc">&nbsp;            } catch(NumberFormatException|NullPointerException e){</b>
 &nbsp;                //3. NumberFormatException|NullPointerException fail
-<b class="fc">&nbsp;                ExpenseOD expenseODFailEdit = new ExpenseOD(&quot;Expense budget needs to be a number. Please try again!&quot;);</b>
-<b class="fc">&nbsp;                return expenseOB.fail(expenseODFailEdit);</b>
+<b class="fc">&nbsp;                ExpenseOD expenseOutputDataFailEdit = new ExpenseOD(&quot;Expense budget needs to be a number. Please try again!&quot;);</b>
+<b class="fc">&nbsp;                return expenseOB.fail(expenseOutputDataFailEdit);</b>
 &nbsp;            }
 &nbsp;    }
 &nbsp;
@@ -309,13 +309,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return boolean suggesting there is a need to update Session.recurringExpenseData
 &nbsp;     */
 &nbsp;    private boolean changeInRecurringInfo() {
-<b class="fc">&nbsp;        if(expenseID.getIsRecurringExpense()) {</b>
-<b class="nc">&nbsp;            try {findExpense(recurringExpenseList, expenseID.getName());</b>
+<b class="fc">&nbsp;        if(expenseInputData.getIsRecurringExpense()) {</b>
+<b class="nc">&nbsp;            try {findExpense(recurringExpenseList, expenseInputData.getName());</b>
 <b class="nc">&nbsp;                return false;</b>
 <b class="nc">&nbsp;            }catch (NoSuchElementException e){</b>
 <b class="nc">&nbsp;                return true;}</b>
 &nbsp;        }else{
-<b class="fc">&nbsp;            try{findExpense(recurringExpenseList, expenseID.getName());</b>
+<b class="fc">&nbsp;            try{findExpense(recurringExpenseList, expenseInputData.getName());</b>
 <b class="nc">&nbsp;            return true;</b>
 <b class="fc">&nbsp;            }catch(NoSuchElementException e) {</b>
 <b class="fc">&nbsp;                return false;}</b>
@@ -329,7 +329,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    private boolean checkHaveSameNameInList(ArrayList&lt;Expense&gt; expenseList){
 <b class="fc">&nbsp;        for (Expense expense1 : expenseList) {</b>
-<b class="fc">&nbsp;            return expense1.getName().equals(expenseID.getName());</b>
+<b class="fc">&nbsp;            return expense1.getName().equals(expenseInputData.getName());</b>
 &nbsp;    }
 <b class="nc">&nbsp;        return false;</b>
 &nbsp;    }

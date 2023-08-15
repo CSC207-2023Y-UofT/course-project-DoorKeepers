@@ -77,8 +77,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package views.add_edit_epense_views;
 &nbsp;
 &nbsp;
-&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOB;
-&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOD;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOutputBoundary;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOutputData;
 &nbsp;
 &nbsp;/**
 &nbsp; * ExpenseP notifies success/fail to add or edit expense, implements ExpenseOB.
@@ -90,8 +90,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return ExpenseOD with success message.
 &nbsp;     */
 &nbsp;    @Override
-&nbsp;    public ExpenseOD success(ExpenseOD expenseOD) {
-<b class="fc">&nbsp;        return expenseOD;</b>
+&nbsp;    public ExpenseOD success(ExpenseOD expenseOutputData) {
+<b class="fc">&nbsp;        return expenseOutputData;</b>
 &nbsp;    }
 &nbsp;    /**
 &nbsp;     * Returns a ExpenseOD notifying fail.

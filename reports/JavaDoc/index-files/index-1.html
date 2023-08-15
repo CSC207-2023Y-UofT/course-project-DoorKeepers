@@ -134,12 +134,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Adds a new Category to this month.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryIB.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">addCategoryInMonth(CategoryID)</a></span> - Method in interface use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryIB.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">addCategoryInMonth(CategoryID)</a></span> - Method in interface use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></dt>
 <dd>
 <div class="block">Returns String success message in the form of a CategoryOD object when a category is successfully added,
  returns String fail messages that are context specific when failed.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryUCI.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">addCategoryInMonth(CategoryID)</a></span> - Method in class use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryUCI.html" title="class in use_cases.add_edit_category_use_case">CategoryUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryUCI.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">addCategoryInMonth(CategoryID)</a></span> - Method in class use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryUCI.html" title="class in use_cases.add_edit_category_use_case">CategoryUCI</a></dt>
 <dd>
 <div class="block">Overrides method in CategoryIB.</div>
 </dd>
@@ -163,7 +163,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A view class for the AddCategoryV that extends Component class and implements ActionListener interface.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/add_edit_category_views/AddCategoryV.html#%3Cinit%3E(views.add_edit_category_views.CategoryC,int,entities.SessionStorage)">AddCategoryV(CategoryC, int, SessionStorage)</a></span> - Constructor for class views.add_edit_category_views.<a href="../views/add_edit_category_views/AddCategoryV.html" title="class in views.add_edit_category_views">AddCategoryV</a></dt>
+<dt><span class="memberNameLink"><a href="../views/add_edit_category_views/AddCategoryV.html#%3Cinit%3E(views.add_edit_category_views.CategoryController,int,entities.SessionStorage)">AddCategoryV(CategoryC, int, SessionStorage)</a></span> - Constructor for class views.add_edit_category_views.<a href="../views/add_edit_category_views/AddCategoryV.html" title="class in views.add_edit_category_views">AddCategoryV</a></dt>
 <dd>
 <div class="block">Builds AddCategoryV.</div>
 </dd>
@@ -173,13 +173,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Adds a new Expense to this month.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseIB.html#addExpenseInMonth(use_cases.add_edit_expenses_use_case.ExpenseID)">addExpenseInMonth(ExpenseID)</a></span> - Method in interface use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseIB.html" title="interface in use_cases.add_edit_expenses_use_case">ExpenseIB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseInputBoundary.html#addExpenseInMonth(use_cases.add_edit_expenses_use_case.ExpenseInputData)">addExpenseInMonth(ExpenseID)</a></span> - Method in interface use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseInputBoundary.html" title="interface in use_cases.add_edit_expenses_use_case">ExpenseInputBoundary</a></dt>
 <dd>
 <div class="block">Describes abstract addExpenseInMonth() that is override in ExpenseUCI to format detailed responses for attempts to add an Expense.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseUCI.html#addExpenseInMonth(use_cases.add_edit_expenses_use_case.ExpenseID)">addExpenseInMonth(ExpenseID)</a></span> - Method in class use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseUCI.html" title="class in use_cases.add_edit_expenses_use_case">ExpenseUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseUCI.html#addExpenseInMonth(use_cases.add_edit_expenses_use_case.ExpenseInputData)">addExpenseInMonth(ExpenseID)</a></span> - Method in class use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseUCI.html" title="class in use_cases.add_edit_expenses_use_case">ExpenseUCI</a></dt>
 <dd>
-<div class="block">Overrides method in ExpenseIB.</div>
+<div class="block">Overrides method in ExpenseInputBoundary.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseUCITest.html#addExpenseInMonthInvalidDoubleFail()">addExpenseInMonthInvalidDoubleFail()</a></span> - Method in class use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseUCITest.html" title="class in use_cases.add_edit_expenses_use_case">ExpenseUCITest</a></dt>
 <dd>
@@ -207,7 +207,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A view class for the AddExpenseV that extends Component class and implements ActionListener interface.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/add_edit_epense_views/AddExpenseV.html#%3Cinit%3E(views.add_edit_epense_views.ExpenseC,java.lang.String%5B%5D,int,entities.SessionStorage)">AddExpenseV(ExpenseC, String[], int, SessionStorage)</a></span> - Constructor for class views.add_edit_epense_views.<a href="../views/add_edit_epense_views/AddExpenseV.html" title="class in views.add_edit_epense_views">AddExpenseV</a></dt>
+<dt><span class="memberNameLink"><a href="../views/add_edit_epense_views/AddExpenseV.html#%3Cinit%3E(views.add_edit_epense_views.ExpenseController,java.lang.String%5B%5D,int,entities.SessionStorage)">AddExpenseV(ExpenseC, String[], int, SessionStorage)</a></span> - Constructor for class views.add_edit_epense_views.<a href="../views/add_edit_epense_views/AddExpenseV.html" title="class in views.add_edit_epense_views">AddExpenseV</a></dt>
 <dd>
 <div class="block">Builds AddExpenseV</div>
 </dd>
