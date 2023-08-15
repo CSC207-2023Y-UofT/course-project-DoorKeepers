@@ -5,6 +5,7 @@ package entities;
  * they can be created by MonthObjectFactory classes. It contains the setName and getName methods that all MonthObject
  * classes should have.
  */
+@SuppressWarnings("unused") // These methods are actually used, but just on the concrete class
 public interface MonthObject {
 
     /**
