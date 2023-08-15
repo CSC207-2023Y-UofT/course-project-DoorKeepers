@@ -28,9 +28,10 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
 
     /**
      * Builds AddCategoryV for user entries.
-     * @param monthMenu MonthMenuV that need to be updated when a new Category is created
-     * @param controller CategoryC reacts to user input to return a CategoryOD.
-     * @param monthID int representing the MonthlyStorage.
+     *
+     * @param monthMenu   MonthMenuV that need to be updated when a new Category is created
+     * @param controller  CategoryC reacts to user input to return a CategoryOD.
+     * @param monthID     int representing the MonthlyStorage.
      * @param currSession SessionStorage the current working session.
      */
     public AddCategoryV(MonthMenuV monthMenu, CategoryC controller, int monthID, SessionStorage currSession) {
@@ -47,7 +48,7 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
     /**
      * Open add category GUI.
      */
-    public void openAddCategory(){
+    public void openAddCategory() {
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Add New Category");
         frame.setSize(300, 500);
@@ -80,11 +81,11 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
     public void actionPerformed(ActionEvent evt) {
         // Check if user inputs a category name.
         if (nameInput.getText().isEmpty()) {
-            JOptionPane.showMessageDialog( this, "Please enter a category name.");
+            JOptionPane.showMessageDialog(this, "Please enter a category name.");
         }
         // Check if user inputs a category budget.
-        if (budgetInput.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Please enter a category budget.");
+        if (budgetInput.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a category budget.");
         } else {
             tryUseCaseAdd();
         }
@@ -99,14 +100,14 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
      */
     @Override
     public void loadMonthMenu(SessionStorage session, int monthID, String message) {
-        monthMenu.openMonthMenu(message,false);
+        monthMenu.openMonthMenu(message, false);
     }
 
     /**
      * Tries an Add Category use case.
      * Pop-up window with context specific message may be shown to user.
      */
-    private void tryUseCaseAdd(){
+    private void tryUseCaseAdd() {
         CategoryOD message;
         message = null;
         try {
@@ -114,11 +115,12 @@ public class AddCategoryV extends JFrame implements ActionListener, LoadMonthMen
                     monthID, currSession, oldCategory);
             frame.setVisible(false);
             // Update Month Menu
-            loadMonthMenu(currSession,monthID,null);
+            loadMonthMenu(currSession, monthID, null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this,
                     "This month does not exist in current session. Please go to add month page.");
-        }if (message != null) {
+        }
+        if (message != null) {
             JOptionPane.showMessageDialog(this, message.getMessage());
         }
     }

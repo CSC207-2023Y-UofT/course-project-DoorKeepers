@@ -48,6 +48,7 @@ public class ExpenseEditorInputData extends MonthObjectFactoryInputData {
      * Gets the name of this ExpenseEditorInputData.
      * @return the name of this ExpenseEditorInputData
      */
+    @Override
     public String getName() {
         return name;
     }

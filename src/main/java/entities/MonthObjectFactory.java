@@ -3,7 +3,7 @@ package entities;
 /**
  * An abstract class that contains the method needed to create and edit a MonthObject.
  */
-abstract class MonthObjectFactory {
+public abstract class MonthObjectFactory {
 
     /**
      * Creates and returns a new MonthObject.
