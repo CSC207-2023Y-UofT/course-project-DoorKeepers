@@ -48,9 +48,10 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Construct the view class and call private method to set up GUI.
+     *
      * @param controller the controller class to get output data
-     * @param session the SessionStorage holding the required MonthlyStorage
-     * @param monthID the monthID of the required MonthlyStorage
+     * @param session    the SessionStorage holding the required MonthlyStorage
+     * @param monthID    the monthID of the required MonthlyStorage
      */
     public MonthMenuView(UpdateViewController controller, SessionStorage session, int monthID) {
         this.controller = controller;
@@ -67,20 +68,21 @@ public class MonthMenuView implements ActionListener {
     /**
      * React to various button clicks that result in ActionEvent.
      * Code inspired from <a href="https://youtu.be/Kmgo00avvEw?t=2547">here</a>
+     *
      * @param event the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource()==addExpense){
+        if (event.getSource() == addExpense) {
             // Get list of category names
             String[] categoryNames = getCategoryNames();
             // Construct AddExpenseView and show GUI
             ExpenseOutputBoundary expensePresenter = new ExpensePresenter();
             ExpenseInputBoundary expenseInteractor = new ExpenseUseCaseInteractor(expensePresenter);
             ExpenseController expenseController = new ExpenseController(expenseInteractor);
-            AddExpenseView addExpenseView = new AddExpenseView(this,expenseController,categoryNames,monthID,session);
+            AddExpenseView addExpenseView = new AddExpenseView(this, expenseController, categoryNames, monthID, session);
             addExpenseView.openAddExpense();
-        } else if (event.getSource()==editExpense) {
+        } else if (event.getSource() == editExpense) {
             // Get list of category and list of expense names
             String[] categoryNames = getCategoryNames();
             String[] expenseNames = getExpenseNames();
@@ -88,26 +90,26 @@ public class MonthMenuView implements ActionListener {
             ExpenseOutputBoundary expensePresenter = new ExpensePresenter();
             ExpenseInputBoundary expenseInteractor = new ExpenseUseCaseInteractor(expensePresenter);
             ExpenseController expenseController = new ExpenseController(expenseInteractor);
-            EditExpenseView editExpenseView = new EditExpenseView(this,expenseController,expenseNames,categoryNames,monthID,session);
+            EditExpenseView editExpenseView = new EditExpenseView(this, expenseController, expenseNames, categoryNames, monthID, session);
             editExpenseView.openEditExpense();
-        } else if (event.getSource()==addCategory) {
+        } else if (event.getSource() == addCategory) {
             // Construct AddCategoryView and show GUI
             CategoryOutputBoundary categoryPresenter = new CategoryPresenter();
             CategoryInputBoundary categoryInteractor = new CategoryUseCaseInteractor(categoryPresenter);
             CategoryController categoryController = new CategoryController(categoryInteractor);
-            AddCategoryView addCategoryView = new AddCategoryView(this,categoryController, monthID,session);
+            AddCategoryView addCategoryView = new AddCategoryView(this, categoryController, monthID, session);
             addCategoryView.openAddCategory();
-        } else if (event.getSource()==editCategory) {
+        } else if (event.getSource() == editCategory) {
             // Get list of category names
             String[] categoryNames = getCategoryNames();
             // Construct EditCategoryView and show GUI
             CategoryOutputBoundary categoryPresenter = new CategoryPresenter();
             CategoryInputBoundary categoryInteractor = new CategoryUseCaseInteractor(categoryPresenter);
             CategoryController categoryController = new CategoryController(categoryInteractor);
-            EditCategoryView editCategoryView = new EditCategoryView(this,categoryController,categoryNames,
-                    monthID,session);
+            EditCategoryView editCategoryView = new EditCategoryView(this, categoryController, categoryNames,
+                    monthID, session);
             editCategoryView.openEditCategory();
-        } else if (event.getSource()==generateSummary) {
+        } else if (event.getSource() == generateSummary) {
             // Construct GenerateSummaryView and show view
             GenerateSummaryOutputBoundary genSumPresenter = new GenerateSummaryPresenter();
             GenerateSummaryInputBoundary genSumInteractor = new GenerateSummaryUseCaseInteractor(genSumPresenter);
@@ -119,13 +121,14 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Open Month Menu and notify user if opening Month Menu for a new MonthlyStorage created.
-     * @param message notify user if a new MonthlyStorage is created, else null
+     *
+     * @param message        notify user if a new MonthlyStorage is created, else null
      * @param loadMonthSaved true if method is called from MainMenuV to load saved MonthlyStorage
      */
     public void openMonthMenu(String message, boolean loadMonthSaved) {
-        if (message!=null){ // if opening Month Menu for a newly create MonthlyStorage
+        if (message != null) { // if opening Month Menu for a newly create MonthlyStorage
             frame.setVisible(true);
-            JOptionPane.showMessageDialog(frame,message);
+            JOptionPane.showMessageDialog(frame, message);
         } else if (loadMonthSaved) { // if opening Month Menu for a saved MonthlyStorage
             frame.setVisible(true);
         } else { // if updating Month Menu after adding/editing Expense/Category
@@ -145,8 +148,8 @@ public class MonthMenuView implements ActionListener {
      * <a href="https://stackoverflow.com/questions/5621338/how-to-add-jtable-in-jpanel-with-null-layout">here</a>
      * and <a href="https://youtu.be/S6evF1T_lrU">here</a>.
      */
-    private void createMonthMenuView(){
-        if (controller.getOutput(session, monthID).isSuccessful()){
+    private void createMonthMenuView() {
+        if (controller.getOutput(session, monthID).isSuccessful()) {
             JPanel layout = new JPanel(new BorderLayout(20, 20));
             this.addExpense = new JButton("Add an expense");
             this.editExpense = new JButton("Edit an expense");
@@ -155,22 +158,22 @@ public class MonthMenuView implements ActionListener {
             this.generateSummary = new JButton("Generate summary");
 
             //Separate the layout into left and right sides
-            JPanel leftLayout = new JPanel(new GridLayout(0,1,100,100));
-            leftLayout.setBounds(30,30,200,200);
+            JPanel leftLayout = new JPanel(new GridLayout(0, 1, 100, 100));
+            leftLayout.setBounds(30, 30, 200, 200);
             JPanel rightLayout = new JPanel(new BorderLayout(20, 20));
-            rightLayout.setBounds(30,30,333,200);
+            rightLayout.setBounds(30, 30, 333, 200);
 
             //Left side components: monthID
-            JPanel monthPanel = getMonthPanel(monthID,controller.getOutput(session, monthID).getMonthlyBudget());
+            JPanel monthPanel = getMonthPanel(monthID, controller.getOutput(session, monthID).getMonthlyBudget());
             leftLayout.add(monthPanel);
 
             //Left side components: add/edit buttons
-            JPanel buttons = new JPanel(new GridLayout(0,2,20,20));
+            JPanel buttons = new JPanel(new GridLayout(0, 2, 20, 20));
             buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            addExpense.setBounds(200,50,200,30);
-            editExpense.setBounds(200,50,200,30);
-            addCategory.setBounds(200,50,200,50);
-            editCategory.setBounds(200,50,200,50);
+            addExpense.setBounds(200, 50, 200, 30);
+            editExpense.setBounds(200, 50, 200, 30);
+            addCategory.setBounds(200, 50, 200, 50);
+            editCategory.setBounds(200, 50, 200, 50);
             addExpense.addActionListener(this);
             editExpense.addActionListener(this);
             addCategory.addActionListener(this);
@@ -185,7 +188,7 @@ public class MonthMenuView implements ActionListener {
             JPanel genSumButton = new JPanel();
             genSumButton.setLayout(new BoxLayout(genSumButton, BoxLayout.LINE_AXIS));
             genSumButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            generateSummary.setBounds(200,50,200,50);
+            generateSummary.setBounds(200, 50, 200, 50);
             generateSummary.addActionListener(this);
             genSumButton.add(generateSummary);
             leftLayout.add(genSumButton);
@@ -199,7 +202,7 @@ public class MonthMenuView implements ActionListener {
             categories.toArray(categoriesArray);
             JTable expenseTable = getExpenseTable(expensesArray);
             JTable categoryTable = getCategoryTable(categoriesArray);
-            Dimension dimension = new Dimension(333,180);
+            Dimension dimension = new Dimension(333, 180);
             expenseTable.setPreferredScrollableViewportSize(dimension);
             categoryTable.setPreferredScrollableViewportSize(dimension);
 
@@ -218,8 +221,7 @@ public class MonthMenuView implements ActionListener {
             layout.add(leftLayout, BorderLayout.WEST);
             layout.add(rightLayout, BorderLayout.CENTER);
             frame.setContentPane(layout);
-        }
-        else {
+        } else {
             // Create JPanel for error message
             JPanel layout = new JPanel();
             layout.setLayout(new BoxLayout(layout, BoxLayout.LINE_AXIS));
@@ -233,13 +235,14 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Create the JPanel that shows the monthID.
-     * @param monthID the monthID of the required MonthlyStorage
+     *
+     * @param monthID       the monthID of the required MonthlyStorage
      * @param monthlyBudget the monthlyBudget of the required MonthlyStorage
      * @return JPanel containing the monthID
      */
-    private static JPanel getMonthPanel(int monthID, double monthlyBudget){
+    private static JPanel getMonthPanel(int monthID, double monthlyBudget) {
         JPanel monthPanel = new JPanel();
-        monthPanel.setLayout(new GridLayout(0,1));
+        monthPanel.setLayout(new GridLayout(0, 1));
         monthPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         monthPanel.add(new JLabel("Month: " + monthID));
         monthPanel.add(new JLabel("Total budget: " + monthlyBudget));
@@ -249,10 +252,11 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Format list of Expense to JTable that shows the expense names and values.
+     *
      * @param expenseData expenseData to be outputted
      * @return JTable containing table of expense names and values
      */
-    private static JTable getExpenseTable(Expense[] expenseData){
+    private static JTable getExpenseTable(Expense[] expenseData) {
         String[] expenseTableTitle = new String[]{"Expense", "Value"};
         Object[][] expenseList = new Object[expenseData.length][2];
         for (int i = 0; i < expenseData.length; i++) {
@@ -265,10 +269,11 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Format list of Category to JTable that shows the category names and budget values.
+     *
      * @param categoryData categoryData to be outputted
      * @return JTable containing table of category names and budget values
      */
-    private static JTable getCategoryTable(Category[] categoryData){
+    private static JTable getCategoryTable(Category[] categoryData) {
         String[] categoryTableTitle = new String[]{"Category", "Budget"};
         Object[][] categoryList = new Object[categoryData.length][2];
         for (int i = 0; i < categoryData.length; i++) {
@@ -281,14 +286,15 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Get Array of String names from ArrayList of Expense.
+     *
      * @return String list of names of expenses stored in MonthlyStorage
      */
-    private String[] getExpenseNames(){
+    private String[] getExpenseNames() {
         ArrayList<Expense> expenses = controller.getOutput(session, monthID).getExpenseData();
         Expense[] expensesArray = new Expense[expenses.size()];
         expenses.toArray(expensesArray);
         String[] expenseNames = new String[expensesArray.length];
-        for (int i = 0; i < expensesArray.length; i++){
+        for (int i = 0; i < expensesArray.length; i++) {
             Expense expense = expensesArray[i];
             expenseNames[i] = expense.getName();
         }
@@ -297,14 +303,15 @@ public class MonthMenuView implements ActionListener {
 
     /**
      * Get Array of String names from ArrayList of Category.
+     *
      * @return String list of names of categories stored in MonthlyStorage
      */
-    private String[] getCategoryNames(){
+    private String[] getCategoryNames() {
         ArrayList<Category> categories = controller.getOutput(session, monthID).getCategoryData();
         Category[] categoriesArray = new Category[categories.size()];
         categories.toArray(categoriesArray);
         String[] categoryNames = new String[categoriesArray.length];
-        for (int i = 0; i < categoriesArray.length; i++){
+        for (int i = 0; i < categoriesArray.length; i++) {
             Category category = categoriesArray[i];
             categoryNames[i] = category.getName();
         }

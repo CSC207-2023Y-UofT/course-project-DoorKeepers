@@ -20,6 +20,7 @@ class NewMonthUseCaseInteractorTest {
 
     /**
      * Runs before each method to set up the necessary entities and relevant objects for the tests.
+     *
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeEach
@@ -28,19 +29,20 @@ class NewMonthUseCaseInteractorTest {
         monthID1 = 202305;
         monthID2 = 202308;
         budgetValue = 100;
-        monthlyStorage1 = new MonthlyStorage(monthID1,budgetValue);
+        monthlyStorage1 = new MonthlyStorage(monthID1, budgetValue);
         sessionStorage = new SessionStorage();
         sessionStorage.addMonth(monthlyStorage1);
     }
 
     /**
      * Test case when new MonthlyStorage is created with correct ID.
+     *
      * @throws EntityException when test fails
      */
     @Test
     void createOutputNoRecurExpenseSuccess() throws EntityException {
         NewMonthInputBoundary interactor = new NewMonthUseCaseInteractor(outputBoundary);
-        NewMonthInputData inputData = new NewMonthInputData(sessionStorage,monthID2,budgetValue);
+        NewMonthInputData inputData = new NewMonthInputData(sessionStorage, monthID2, budgetValue);
 
         NewMonthOutputData output = interactor.createOutput(inputData);
         assertTrue(output.isSuccessful());
@@ -49,6 +51,7 @@ class NewMonthUseCaseInteractorTest {
 
     /**
      * Test case when new MonthlyStorage is created with correct ID, and recurring expenses added.
+     *
      * @throws EntityException when test fails
      */
     @Test
@@ -59,12 +62,12 @@ class NewMonthUseCaseInteractorTest {
         Expense recurring = new Expense("Indigo", other, 30.00);
         sessionStorage.addRecurExpense(recurring);
 
-        NewMonthInputData inputData = new NewMonthInputData(sessionStorage,monthID2,budgetValue);
+        NewMonthInputData inputData = new NewMonthInputData(sessionStorage, monthID2, budgetValue);
 
         NewMonthOutputData output = interactor.createOutput(inputData);
         assertTrue(output.isSuccessful());
         assertEquals(monthID2, sessionStorage.getMonthlyData(monthID2).getMonthID());
-        assertEquals(recurring,sessionStorage.getMonthlyData(monthID2).getExpenseData().get(0));
+        assertEquals(recurring, sessionStorage.getMonthlyData(monthID2).getExpenseData().get(0));
     }
 
     /**
@@ -75,12 +78,12 @@ class NewMonthUseCaseInteractorTest {
     void createOutputRecurExpenseFail() {
         NewMonthInputBoundary interactor = new NewMonthUseCaseInteractor(outputBoundary);
 
-        Category other = new Category("Other",0);
+        Category other = new Category("Other", 0);
         Expense recurring = new Expense("Indigo", other, 30.00);
         sessionStorage.addRecurExpense(recurring);
         sessionStorage.addRecurExpense(recurring);
 
-        NewMonthInputData inputData = new NewMonthInputData(sessionStorage,monthID2,budgetValue);
+        NewMonthInputData inputData = new NewMonthInputData(sessionStorage, monthID2, budgetValue);
 
         NewMonthOutputData output = interactor.createOutput(inputData);
         assertFalse(output.isSuccessful());
@@ -93,9 +96,9 @@ class NewMonthUseCaseInteractorTest {
      * MonthlyStorage with the same monthID.
      */
     @Test
-    void createOutputFailMonthAlreadyExist(){
+    void createOutputFailMonthAlreadyExist() {
         NewMonthInputBoundary interactor = new NewMonthUseCaseInteractor(outputBoundary);
-        NewMonthInputData inputData = new NewMonthInputData(sessionStorage,monthID1,budgetValue);
+        NewMonthInputData inputData = new NewMonthInputData(sessionStorage, monthID1, budgetValue);
 
         NewMonthOutputData output = interactor.createOutput(inputData);
         assertFalse(output.isSuccessful());

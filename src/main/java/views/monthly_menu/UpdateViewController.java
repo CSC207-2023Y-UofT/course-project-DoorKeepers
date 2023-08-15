@@ -16,19 +16,21 @@ public class UpdateViewController {
 
     /**
      * Construct the controller class.
+     *
      * @param inputBoundary the UpdateViewInputBoundary containing the method to create output data
      */
-    public UpdateViewController(UpdateViewInputBoundary inputBoundary){
+    public UpdateViewController(UpdateViewInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
 
     /**
      * Create and pass the UpdateViewInputData object to the inputBoundary method call.
+     *
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
      * @return MonthMenuOutputData object that contains output data
      */
-    MonthMenuOutputData getOutput(SessionStorage session, int monthID){
+    MonthMenuOutputData getOutput(SessionStorage session, int monthID) {
         UpdateViewInputData inputData = new UpdateViewInputData(session, monthID);
         return inputBoundary.createOutput(inputData);
     }

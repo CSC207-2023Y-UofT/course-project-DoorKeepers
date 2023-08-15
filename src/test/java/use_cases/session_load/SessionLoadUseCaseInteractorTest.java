@@ -18,6 +18,7 @@ class SessionLoadUseCaseInteractorTest {
 
     /**
      * Creates a sample SessionStorage object that following test cases will use.
+     *
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeAll
@@ -55,6 +56,7 @@ class SessionLoadUseCaseInteractorTest {
 
     /**
      * Tests loading an existing session from a file
+     *
      * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test
@@ -109,6 +111,7 @@ class SessionLoadUseCaseInteractorTest {
 
     /**
      * Tests trying to load an invalid file  and that a SessionLoadException will be raised
+     *
      * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test

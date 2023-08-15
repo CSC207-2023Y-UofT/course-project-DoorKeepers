@@ -6,8 +6,8 @@ import views.main_menu.MainMenuC;
 import views.main_menu.MainMenuP;
 import views.main_menu.MainMenuV;
 import views.session_load.SessionLoadController;
-import views.session_load.SessionLoadPresenter;
 import views.session_load.SessionLoadMenuView;
+import views.session_load.SessionLoadPresenter;
 
 import javax.swing.*;
 import java.awt.*;

@@ -14,8 +14,9 @@ public class NewMonthInputData {
 
     /**
      * Constructs a NewMonthInputData holding input data.
-     * @param session the SessionStorage to store the new MonthlyStorage
-     * @param monthID the monthID of the new MonthlyStorage
+     *
+     * @param session     the SessionStorage to store the new MonthlyStorage
+     * @param monthID     the monthID of the new MonthlyStorage
      * @param budgetValue the budget for the new MonthlyStorage
      */
     public NewMonthInputData(SessionStorage session, int monthID, double budgetValue) {
@@ -26,6 +27,7 @@ public class NewMonthInputData {
 
     /**
      * Gets the session stored.
+     *
      * @return SessionStorage accessed in interactor
      */
     public SessionStorage getSession() {
@@ -34,6 +36,7 @@ public class NewMonthInputData {
 
     /**
      * Gets the monthID stored.
+     *
      * @return int ID of new MonthlyStorage to be created in interactor
      */
     public int getMonthID() {

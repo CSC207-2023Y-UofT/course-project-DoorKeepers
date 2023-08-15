@@ -11,14 +11,17 @@ import use_cases.add_edit_expenses_use_case.ExpenseOutputData;
 public class ExpensePresenter implements ExpenseOutputBoundary {
     /**
      * Returns a ExpenseOutputData notifying success.
+     *
      * @return ExpenseOutputData with success message.
      */
     @Override
     public ExpenseOutputData success(ExpenseOutputData expenseOutputData) {
         return expenseOutputData;
     }
+
     /**
      * Returns a ExpenseOutputData notifying fail.
+     *
      * @return ExpenseOutputData with fail message.
      */
     @Override

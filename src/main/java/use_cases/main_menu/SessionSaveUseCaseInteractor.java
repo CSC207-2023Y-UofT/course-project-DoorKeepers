@@ -17,7 +17,7 @@ public class SessionSaveUseCaseInteractor implements SessionSaveInputBoundary {
      * Creates a new SessionSaveUseCaseInteractor
      *
      * @param storageGateway a storage gateway that implements the SessionStorageGateway interface
-     * @param presenter a presenter that implements the SessionSaveOutputBoundary interface
+     * @param presenter      a presenter that implements the SessionSaveOutputBoundary interface
      */
     public SessionSaveUseCaseInteractor(SessionStorageGateway storageGateway, SessionSaveOutputBoundary presenter) {
         this.storageGateway = storageGateway;

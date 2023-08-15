@@ -7,6 +7,7 @@ public class EntityException extends Exception {
 
     /**
      * Creates a new EntityException with given message.
+     *
      * @param message a String detailing the cause of the exception
      */
     public EntityException(String message) {

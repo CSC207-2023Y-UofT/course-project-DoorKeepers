@@ -15,7 +15,8 @@ public class GenerateSummaryOutputData {
 
     /**
      * Creates a new instance of GenerateSummaryOutputData.
-     * @param remainder a double corresponding to the money unspent in this month
+     *
+     * @param remainder       a double corresponding to the money unspent in this month
      * @param statisticalData a Map containing all the data needed to plot the graphs
      */
     public GenerateSummaryOutputData(double remainder, Map<String, ArrayList<Double>> statisticalData) {
@@ -25,6 +26,7 @@ public class GenerateSummaryOutputData {
 
     /**
      * Gets the remainder of this GenerateSummaryOutputData.
+     *
      * @return the remainder of this GenerateSummaryOutputData
      */
     public double getRemainder() {
@@ -33,6 +35,7 @@ public class GenerateSummaryOutputData {
 
     /**
      * Gets the statisticalData of this GenerateSummaryOutputData.
+     *
      * @return the statisticalData of this GenerateSummaryOutputData
      */
     public Map<String, ArrayList<Double>> getStatisticalData() {

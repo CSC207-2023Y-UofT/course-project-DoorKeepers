@@ -36,12 +36,13 @@ public class GenerateSummaryView extends JFrame {
 
     /**
      * Construct the view class and call private method to set up GUI.
+     *
      * @param controller a GenerateSummaryController controller that will generate the formatted data needed to generate
-     * the graphs
-     * @param session a SessionStorage object that contains the data of the current session
-     * @param monthID an int corresponding to the current MonthlyStorage month
+     *                   the graphs
+     * @param session    a SessionStorage object that contains the data of the current session
+     * @param monthID    an int corresponding to the current MonthlyStorage month
      */
-    public GenerateSummaryView(GenerateSummaryController controller, SessionStorage session, int monthID){
+    public GenerateSummaryView(GenerateSummaryController controller, SessionStorage session, int monthID) {
         this.controller = controller;
         this.session = session;
         this.monthID = monthID;
@@ -52,7 +53,7 @@ public class GenerateSummaryView extends JFrame {
      * formatted data. Then, it generates a graphical representation of the formatted data associated with the current
      * month and displays them to the user. If an EntityException is caught, it will display an error to the user.
      */
-    public void openSummaryView(){
+    public void openSummaryView() {
         JFrame screen = new JFrame("Graphical Summary");
 
         try {
@@ -79,6 +80,7 @@ public class GenerateSummaryView extends JFrame {
 
     /**
      * Generates the Bar Graph.
+     *
      * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a JPanel object holding the Bar Graph
      */
@@ -94,7 +96,8 @@ public class GenerateSummaryView extends JFrame {
 
     /**
      * Generates the Pie Chart.
-     * @param remainder a double corresponding to the money unspent in this month
+     *
+     * @param remainder       a double corresponding to the money unspent in this month
      * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a JPanel object holding the Pie Chart
      */
@@ -103,7 +106,7 @@ public class GenerateSummaryView extends JFrame {
         JFreeChart pieChart = ChartFactory.createPieChart("Monthly Expenses", pieChartDataset, true,
                 true, false);
         Title subtitle;
-        if (remainder >= 0){
+        if (remainder >= 0) {
             subtitle = new TextTitle("You are within budget.");
         } else {
             subtitle = new TextTitle("You are over budget.");
@@ -114,12 +117,13 @@ public class GenerateSummaryView extends JFrame {
 
     /**
      * Generates the dataset used to plot the Bar Graph.
+     *
      * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a CategoryDataset object holding the data
      */
     private CategoryDataset createBarGraphDataset(Map<String, ArrayList<Double>> statisticalData) {
         DefaultCategoryDataset barGraphDataset = new DefaultCategoryDataset();
-        for (String c: statisticalData.keySet()){
+        for (String c : statisticalData.keySet()) {
             barGraphDataset.addValue(statisticalData.get(c).get(0), "Spent", c);
             barGraphDataset.addValue(statisticalData.get(c).get(1), "Budget", c);
         }
@@ -128,13 +132,14 @@ public class GenerateSummaryView extends JFrame {
 
     /**
      * Generates the dataset used to plot the Pie Chart.
-     * @param remainder a double corresponding to the money unspent in this month
+     *
+     * @param remainder       a double corresponding to the money unspent in this month
      * @param statisticalData a Map containing all the data needed to plot the graphs
      * @return a PieDataset object holding the data
      */
     private PieDataset<String> createPieChartDataset(double remainder, Map<String, ArrayList<Double>> statisticalData) {
         DefaultPieDataset<String> pieChartDataset = new DefaultPieDataset<>();
-        for (String c: statisticalData.keySet()){
+        for (String c : statisticalData.keySet()) {
             pieChartDataset.setValue(c, statisticalData.get(c).get(0));
         }
         if (remainder >= 0) {

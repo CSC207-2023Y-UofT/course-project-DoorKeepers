@@ -13,16 +13,18 @@ public class UpdateViewInputData {
 
     /**
      * Constructs an UpdateViewInputData holding input data.
+     *
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
      */
-    public UpdateViewInputData(SessionStorage session, int monthID){
+    public UpdateViewInputData(SessionStorage session, int monthID) {
         this.session = session;
         this.monthID = monthID;
     }
 
     /**
      * Gets the session stored.
+     *
      * @return SessionStorage input used in interactor
      */
     public SessionStorage getSession() {
@@ -31,6 +33,7 @@ public class UpdateViewInputData {
 
     /**
      * Gets the monthID stored.
+     *
      * @return int ID of MonthlyStorage accessed in interactor
      */
     public int getMonthID() {

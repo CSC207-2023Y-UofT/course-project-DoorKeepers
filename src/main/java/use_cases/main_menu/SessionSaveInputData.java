@@ -14,7 +14,7 @@ public class SessionSaveInputData {
     /**
      * Creates a new SessionSaveInputData
      *
-     * @param session a SessionStorage object to save to a file
+     * @param session  a SessionStorage object to save to a file
      * @param filename a String with the filename to save the session to
      */
     public SessionSaveInputData(SessionStorage session, String filename) {

@@ -21,12 +21,13 @@ public class MonthMenuOutputData {
 
     /**
      * Constructs an MonthMenuOutputData holding output data.
-     * @param expenseData ArrayList of Expense stored in a MonthlyStorage
-     * @param categoryData ArrayList of Category stored in a MonthlyStorage
+     *
+     * @param expenseData   ArrayList of Expense stored in a MonthlyStorage
+     * @param categoryData  ArrayList of Category stored in a MonthlyStorage
      * @param monthlyBudget this month's total budget set by user
-     * @param successful boolean indicating whether access to Expense/Category list was successful
+     * @param successful    boolean indicating whether access to Expense/Category list was successful
      */
-    public MonthMenuOutputData(ArrayList<Expense> expenseData, ArrayList<Category> categoryData, double monthlyBudget, boolean successful){
+    public MonthMenuOutputData(ArrayList<Expense> expenseData, ArrayList<Category> categoryData, double monthlyBudget, boolean successful) {
         this.expenseData = expenseData;
         this.categoryData = categoryData;
         this.monthlyBudget = monthlyBudget;
@@ -35,16 +36,18 @@ public class MonthMenuOutputData {
 
     /**
      * Constructs an MonthMenuOutputData holding error message.
-     * @param warning error message to show in the view
+     *
+     * @param warning    error message to show in the view
      * @param successful boolean indicating whether access to Expense/Category list was successful
      */
-    public MonthMenuOutputData(String warning, boolean successful){
+    public MonthMenuOutputData(String warning, boolean successful) {
         this.warning = warning;
         this.successful = successful;
     }
 
     /**
      * Gets the expenseData stored.
+     *
      * @return expenseData to be outputted
      */
     public ArrayList<Expense> getExpenseData() {
@@ -53,6 +56,7 @@ public class MonthMenuOutputData {
 
     /**
      * Gets the categoryData stored.
+     *
      * @return categoryData to be outputted
      */
     public ArrayList<Category> getCategoryData() {
@@ -61,6 +65,7 @@ public class MonthMenuOutputData {
 
     /**
      * Gets the monthlyBudget stored.
+     *
      * @return monthlyBudget to be outputted
      */
     public double getMonthlyBudget() {
@@ -69,6 +74,7 @@ public class MonthMenuOutputData {
 
     /**
      * Gets the error message stored.
+     *
      * @return warning message to be outputted
      */
     public String getWarning() {
@@ -78,6 +84,7 @@ public class MonthMenuOutputData {
     /**
      * Indicates if access to Expense/Category list was successful.
      * If true, MonthMenuOutputData also stores ArrayList of Expense and Category.
+     *
      * @return true if access to Expense/Category list was successful
      */
     public boolean isSuccessful() {

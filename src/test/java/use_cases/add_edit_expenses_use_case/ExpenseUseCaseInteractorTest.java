@@ -11,13 +11,14 @@ import views.add_edit_epense_views.ExpensePresenter;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class ExpenseUseCaseInteractorTest {
     private static Category food;
 
     /**
-     Creates a SessionStorage for the following test cases.
+     * Creates a SessionStorage for the following test cases.
      */
     @BeforeAll
     public static void expenseSetUp() {
@@ -25,7 +26,7 @@ class ExpenseUseCaseInteractorTest {
     }
 
     /**
-     Tests success add case by checking if the size of expenseData in MonthlyStorage is correctly updated.
+     * Tests success add case by checking if the size of expenseData in MonthlyStorage is correctly updated.
      */
     @Test
     void addExpenseInMonthSuccess() throws EntityException {
@@ -36,7 +37,7 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 333, "Other", false,1, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 333, "Other", false, 1, session, null);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have added a new expense!", interactor.addExpenseInMonth(addID).getMessage());
@@ -55,8 +56,8 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addIDSameName = new ExpenseInputData("Sandwich", 3, "Food", false ,2, session, null);
-        ExpenseInputData addID1 = new ExpenseInputData("Sandwich", 5, "Food", false,2, session, null);
+        ExpenseInputData addIDSameName = new ExpenseInputData("Sandwich", 3, "Food", false, 2, session, null);
+        ExpenseInputData addID1 = new ExpenseInputData("Sandwich", 5, "Food", false, 2, session, null);
         interactor.addExpenseInMonth(addID1);
 
         // Check if the correct message is returned corresponding to the situation.
@@ -77,7 +78,7 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addIDNegValue = new ExpenseInputData("Sandwich", -3, "Food", true,3, session, null);
+        ExpenseInputData addIDNegValue = new ExpenseInputData("Sandwich", -3, "Food", true, 3, session, null);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Expense value can't be less than $0. Please try again!", interactor.addExpenseInMonth(addIDNegValue).getMessage());
@@ -85,8 +86,8 @@ class ExpenseUseCaseInteractorTest {
         assertEquals(0, session.getMonthlyData(3).getExpenseData().size());
     }
 
-     /**
-      * Tests success add case by checking if the size of expenseData in recurringData is correctly updated.
+    /**
+     * Tests success add case by checking if the size of expenseData in recurringData is correctly updated.
      */
     @Test
     void addExpenseInMonthInvalidDoubleFail() throws EntityException {
@@ -97,7 +98,7 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addIDInvalidDouble = new ExpenseInputData("Sandwich", "a", "Food", true,4, session, null);
+        ExpenseInputData addIDInvalidDouble = new ExpenseInputData("Sandwich", "a", "Food", true, 4, session, null);
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Expense value needs to be a number. Please try again!", interactor.addExpenseInMonth(addIDInvalidDouble).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
@@ -116,12 +117,13 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Other", true,5, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Other", true, 5, session, null);
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have created a new recurring expense!", interactor.addExpenseInMonth(addID).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
-        assertEquals(1, session.getRecurData().size());    }
+        assertEquals(1, session.getRecurData().size());
+    }
 
     /**
      * Tests success edit use case by adding one valid expense and then a successful edit expense name.
@@ -136,16 +138,18 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthEdit);
         monthEdit.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,7, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 7, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseInputData editID = new ExpenseInputData("Salad", 3, "Food", false,7, session, "Sandwich");
+        ExpenseInputData editID = new ExpenseInputData("Salad", 3, "Food", false, 7, session, "Sandwich");
 
         // Check if the correct message is returned corresponding to the situation.
 
         assertEquals("You have edited an expense!", interactor.editExpenseInMonth(editID).getMessage());
         // Using findExpense() to check if an expense with the desired name parameter is update in the MonthlyStorage Expense list.
-        Assertions.assertDoesNotThrow(() -> interactor.findExpense(session.getMonthlyData(7).getExpenseData(), "Salad"));}
+        Assertions.assertDoesNotThrow(() -> interactor.findExpense(session.getMonthlyData(7).getExpenseData(), "Salad"));
+    }
+
     /**
      * Tests success edit use case by adding one valid expense and then a successful edit expense value.
      * Use findExpense() to see if the expense_name is successfully edited.
@@ -159,15 +163,16 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthEdit);
         monthEdit.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,7, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 7, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseInputData editID = new ExpenseInputData("Sandwich", 5, "Food", false,7, session, addID.getName());
+        ExpenseInputData editID = new ExpenseInputData("Sandwich", 5, "Food", false, 7, session, addID.getName());
         // Check if the correct message is returned corresponding to the situation.
 
         assertEquals("You have edited an expense!", interactor.editExpenseInMonth(editID).getMessage());
         // Using findExpense() to check if an expense with the desired value parameter is updated in MonthlyStorage Expense list.
-        assertEquals(5, interactor.findExpense(monthEdit.getExpenseData(), "Sandwich").getValue());}
+        assertEquals(5, interactor.findExpense(monthEdit.getExpenseData(), "Sandwich").getValue());
+    }
 
     /**
      * Tests fail edit case when user tries to edit the Expense name to another name that exists in MonthlyStorage.
@@ -182,14 +187,14 @@ class ExpenseUseCaseInteractorTest {
         monthEdit.addCategory(food);
 
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,8, session, null);
-        ExpenseInputData addID2 = new ExpenseInputData("Banana", 3, "Food", false,8, session, null);
-        ExpenseInputData addID3 = new ExpenseInputData("Coffee", 3, "Food", false,8, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 8, session, null);
+        ExpenseInputData addID2 = new ExpenseInputData("Banana", 3, "Food", false, 8, session, null);
+        ExpenseInputData addID3 = new ExpenseInputData("Coffee", 3, "Food", false, 8, session, null);
         interactor.addExpenseInMonth(addID);
         interactor.addExpenseInMonth(addID2);
         interactor.addExpenseInMonth(addID3);
 
-        ExpenseInputData editIdSameName = new ExpenseInputData("Sandwich", 12, "Food", false,8, session, "Banana");
+        ExpenseInputData editIdSameName = new ExpenseInputData("Sandwich", 12, "Food", false, 8, session, "Banana");
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("There is already a expense with this new name in this month.", interactor.editExpenseInMonth(editIdSameName).getMessage());
         //Fail to edit Expense value when tries to also edit Expense name, but it is an existing Expense name.
@@ -208,10 +213,10 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthEdit);
         monthEdit.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,9, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 9, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseInputData editIdNegValue = new ExpenseInputData("Banana", -3, "Food", false,9, session, "Sandwich");
+        ExpenseInputData editIdNegValue = new ExpenseInputData("Banana", -3, "Food", false, 9, session, "Sandwich");
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Expense value can't be less than $0. Please try again!", interactor.editExpenseInMonth(editIdNegValue).getMessage());
@@ -231,10 +236,10 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthlyStorage);
         monthlyStorage.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,11, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 11, session, null);
         interactor.addExpenseInMonth(addID);
 
-        ExpenseInputData editIDInvalidDouble = new ExpenseInputData("Sandwich", "a", "Food", false,11, session, "Sandwich");
+        ExpenseInputData editIDInvalidDouble = new ExpenseInputData("Sandwich", "a", "Food", false, 11, session, "Sandwich");
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("Expense value needs to be a number. Please try again!", interactor.editExpenseInMonth(editIDInvalidDouble).getMessage());
@@ -254,15 +259,16 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false,12, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Food", false, 12, session, null);
         interactor.addExpenseInMonth(addID);
-        String oldExpense = interactor.findExpense(monthAdd.getExpenseData(),"Sandwich").getName();
+        String oldExpense = interactor.findExpense(monthAdd.getExpenseData(), "Sandwich").getName();
 
-        ExpenseInputData editID = new ExpenseInputData("Sandwich", 3, "Other", true,12, session, oldExpense);
+        ExpenseInputData editID = new ExpenseInputData("Sandwich", 3, "Other", true, 12, session, oldExpense);
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have updated all changes of this recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
         //Expected value is 1 because RecurData is updated with one new recurring expense.
-        assertEquals(1, session.getRecurData().size());    }
+        assertEquals(1, session.getRecurData().size());
+    }
 
     /**
      * Tests success edit case when user edits recurring expense to a regular expense.
@@ -276,13 +282,15 @@ class ExpenseUseCaseInteractorTest {
         session.addMonth(monthAdd);
         monthAdd.addCategory(food);
 
-        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Other", true,13, session, null);
+        ExpenseInputData addID = new ExpenseInputData("Sandwich", 3, "Other", true, 13, session, null);
         interactor.addExpenseInMonth(addID);
         System.out.println(monthAdd.getExpenseData());
 
-        ExpenseInputData editID = new ExpenseInputData("Sandwich", 3, "Food", false,13, session, "Sandwich");
+        ExpenseInputData editID = new ExpenseInputData("Sandwich", 3, "Food", false, 13, session, "Sandwich");
 
         // Check if the correct message is returned corresponding to the situation.
         assertEquals("You have updated all changes of this expense and it is no longer a recurring expense!", interactor.editExpenseInMonth(editID).getMessage());
         //Expected value is 1 because there is one default Expense "Others" upon creation of each MonthlyStorage and one failed entry.
-        assertEquals(0, session.getRecurData().size()); }}
+        assertEquals(0, session.getRecurData().size());
+    }
+}

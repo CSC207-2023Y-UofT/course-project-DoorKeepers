@@ -13,6 +13,7 @@ public class NewMonthPresenter implements NewMonthOutputBoundary {
 
     /**
      * Pass in and returns MonthMenuOutputData containing output data.
+     *
      * @param output output to be used in NewMonthView to open MonthMenuView
      * @return NewMonthOutputData object that contains output data
      */

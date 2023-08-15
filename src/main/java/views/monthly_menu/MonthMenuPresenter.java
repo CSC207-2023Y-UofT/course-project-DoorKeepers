@@ -13,6 +13,7 @@ public class MonthMenuPresenter implements MonthMenuOutputBoundary {
 
     /**
      * Pass in and return output data.
+     *
      * @param output output to be shown in MonthMenuView
      * @return MonthMenuOutputData object that contains output data
      */

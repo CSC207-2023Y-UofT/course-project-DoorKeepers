@@ -8,6 +8,7 @@ package use_cases.create_new_month;
 public interface NewMonthInputBoundary {
     /**
      * Pass in and use NewMonthInputData containing input data to create new MonthlyStorage.
+     *
      * @param input input passed in from the controller class
      * @return NewMonthOutputData object that contains output data
      */

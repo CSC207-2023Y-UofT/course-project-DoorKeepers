@@ -8,13 +8,16 @@ public class ExpenseOutputData {
 
     /**
      * Constructs ExpenseOutputData by passing a String context-specific message generated in ExpenseUseCaseInteractor.
+     *
      * @param message String explaining to user with details to their add/edit Expense attempts
      */
     public ExpenseOutputData(String message) {
-            this.message = message;}
+        this.message = message;
+    }
 
     /**
      * Gets message from ExpenseOutputData that describes fails/success of the use case.
+     *
      * @return String with detailed descriptions about the use case
      */
     public String getMessage() {

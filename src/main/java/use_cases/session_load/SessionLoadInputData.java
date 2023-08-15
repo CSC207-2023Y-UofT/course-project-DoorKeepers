@@ -13,6 +13,7 @@ public class SessionLoadInputData {
         this.isNew = true;
         this.filename = "";
     }
+
     public SessionLoadInputData(String filename) {
         this.isNew = false;
         this.filename = filename;
@@ -20,6 +21,7 @@ public class SessionLoadInputData {
 
     /**
      * Gets the boolean representing whether to create a new session
+     *
      * @return whether to create a new session
      */
     public boolean getIsNew() {
@@ -28,6 +30,7 @@ public class SessionLoadInputData {
 
     /**
      * Gets the filename that leads to a file to load a session from
+     *
      * @return a String with the filename
      */
     public String getFilename() {

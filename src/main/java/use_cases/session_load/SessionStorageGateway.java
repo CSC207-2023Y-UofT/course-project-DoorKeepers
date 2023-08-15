@@ -23,7 +23,7 @@ public interface SessionStorageGateway {
      *
      * @param filename the name of the file to read the session from.
      * @return the SessionStorage object obtained from the file.
-     * @throws IOException if an error occurred while reading the file.
+     * @throws IOException            if an error occurred while reading the file.
      * @throws ClassNotFoundException if the file isn't a valid serialization of a SessionObject.
      */
     SessionStorage load(String filename) throws IOException, ClassNotFoundException;

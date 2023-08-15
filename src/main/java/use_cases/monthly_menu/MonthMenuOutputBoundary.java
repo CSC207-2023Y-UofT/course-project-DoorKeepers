@@ -9,6 +9,7 @@ public interface MonthMenuOutputBoundary {
 
     /**
      * Pass and returns MonthMenuOutputData containing output data.
+     *
      * @param output output to be shown in MonthMenuView
      * @return MonthMenuOutputData object that contains output data
      */

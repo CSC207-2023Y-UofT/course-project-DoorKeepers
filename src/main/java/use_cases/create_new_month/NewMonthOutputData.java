@@ -13,6 +13,7 @@ public class NewMonthOutputData {
 
     /**
      * Constructs a MonthMenuOutputData holding output data.
+     *
      * @param successful boolean indicating whether create new MonthlyStorage was successful
      */
     public NewMonthOutputData(boolean successful) {
@@ -21,16 +22,18 @@ public class NewMonthOutputData {
 
     /**
      * Constructs an NewMonthOutputData holding error message.
-     * @param warning error message to show in the view
+     *
+     * @param warning    error message to show in the view
      * @param successful boolean indicating whether create new MonthlyStorage was successful
      */
-    public NewMonthOutputData(String warning, boolean successful){
+    public NewMonthOutputData(String warning, boolean successful) {
         this.warning = warning;
         this.successful = successful;
     }
 
     /**
      * Gets the error message stored.
+     *
      * @return warning message to be outputted
      */
     public String getWarning() {
@@ -40,6 +43,7 @@ public class NewMonthOutputData {
     /**
      * Indicates if new MonthlyStorage is created and added to SessionStorage.
      * If false, NewMonthOutputData also stores a warning message.
+     *
      * @return true if new MonthlyStorage is created and added to SessionStorage
      */
     public boolean isSuccessful() {

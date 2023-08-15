@@ -19,6 +19,7 @@ class SessionSaveUseCaseInteractorTest {
 
     /**
      * Creates a sample SessionStorage object that following test cases will use.
+     *
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeAll
@@ -31,7 +32,7 @@ class SessionSaveUseCaseInteractorTest {
     /**
      * Tests the save method with valid inputs and no IOExceptions
      *
-     * @throws IOException shouldn't throw since we are saving and loading to valid files
+     * @throws IOException            shouldn't throw since we are saving and loading to valid files
      * @throws ClassNotFoundException shouldn't throw since we are only loading the file we just created
      */
     @Test

@@ -10,14 +10,17 @@ import use_cases.add_edit_category_use_case.CategoryOutputData;
 public class CategoryPresenter implements CategoryOutputBoundary {
     /**
      * Returns a CategoryOutputData notifying success.
+     *
      * @return CategoryOutputData with success message.
      */
     @Override
     public CategoryOutputData success(CategoryOutputData categoryOutputData) {
         return categoryOutputData;
     }
+
     /**
      * Returns a CategoryOutputData notifying fail.
+     *
      * @return CategoryOutputData with fail message.
      */
     @Override

@@ -28,7 +28,7 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
     private final SessionStorage session;
     private final JFrame frame = new JFrame("Creat a new Month");
     private final JTextField year = new JTextField(9);
-    private final JComboBox<String> month = new JComboBox<>(new String[]{"","January", "February", "March", "April",
+    private final JComboBox<String> month = new JComboBox<>(new String[]{"", "January", "February", "March", "April",
             "May", "June", "July", "August", "September", "October", "November", "December"});
     private final JTextField budget = new JTextField(9);
     private final JButton submitButton = new JButton("Submit");
@@ -39,11 +39,12 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
      * Set up the window for user input. User is required to input the year,
      * select the month, and input the budget for the month.
      * Code inspired from <a href="https://youtu.be/Kmgo00avvEw">here</a>.
-     * @param mainMenu the MainMenuV to update after creating the month
+     *
+     * @param mainMenu   the MainMenuV to update after creating the month
      * @param controller the controller class to get output data
-     * @param session the SessionStorage to store the new MonthlyStorage
+     * @param session    the SessionStorage to store the new MonthlyStorage
      */
-    public NewMonthView(SessionLoadMainMenuViewBoundary mainMenu, NewMonthController controller, SessionStorage session){
+    public NewMonthView(SessionLoadMainMenuViewBoundary mainMenu, NewMonthController controller, SessionStorage session) {
         this.mainMenu = mainMenu;
         this.controller = controller;
         this.session = session;
@@ -57,7 +58,7 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
         layout.setLayout(new BoxLayout(layout, BoxLayout.Y_AXIS));
 
         // Create components
-        JPanel yearMonthPanel = new JPanel(new GridLayout(0,2,0,10));
+        JPanel yearMonthPanel = new JPanel(new GridLayout(0, 2, 0, 10));
         yearMonthPanel.add(new JLabel("Year"));
         yearMonthPanel.add(year);
         yearMonthPanel.add(new JLabel("Month"));
@@ -85,19 +86,20 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
     /**
      * React to drop down selection and button click that result in ActionEvent.
      * Code inspired from <a href="https://youtu.be/Kmgo00avvEw">here</a>.
+     *
      * @param evt the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource()==submitButton){
+        if (evt.getSource() == submitButton) {
             // Check that user has inputted
-            if (Objects.equals(year.getText(), "")||Objects.equals(budget.getText(), "")){
-                JOptionPane.showMessageDialog(frame,"Please fill in text fields.");
+            if (Objects.equals(year.getText(), "") || Objects.equals(budget.getText(), "")) {
+                JOptionPane.showMessageDialog(frame, "Please fill in text fields.");
             } else {
                 //call helper method when there is input
                 getOutput();
             }
-        } else if (evt.getSource()==month) {
+        } else if (evt.getSource() == month) {
             // Get integer representation of selected Month
             this.selectedMonth = month.getSelectedIndex();
         }
@@ -105,6 +107,7 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
 
     /**
      * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+     *
      * @param session the SessionStorage holding the required MonthlyStorage
      * @param monthID the monthID of the required MonthlyStorage
      * @param message notify user when new MonthlyStorage is created, otherwise null
@@ -117,42 +120,42 @@ public class NewMonthView implements ActionListener, LoadMonthMenuViewBoundary {
         MonthMenuOutputBoundary monthMenuOutputBoundary = new MonthMenuPresenter();
         UpdateViewInputBoundary updateViewInteractor = new UpdateViewUseCaseInteractor(monthMenuOutputBoundary);
         UpdateViewController updateViewControl = new UpdateViewController(updateViewInteractor);
-        MonthMenuView monthMenu = new MonthMenuView(updateViewControl,session,monthID);
+        MonthMenuView monthMenu = new MonthMenuView(updateViewControl, session, monthID);
 
         // Open Month Menu
-        monthMenu.openMonthMenu(message,false);
+        monthMenu.openMonthMenu(message, false);
     }
 
     /**
      * Helper method to all controller method when user input is valid.
      */
-    private void getOutput(){
+    private void getOutput() {
         try {
             // Change user input to required number types
             int yearInt = Integer.parseInt(year.getText());
             int monthID = (yearInt * 100) + selectedMonth;
             double budgetValue = Double.parseDouble(budget.getText());
 
-            if (yearInt < 1900 || yearInt > 2100){
+            if (yearInt < 1900 || yearInt > 2100) {
                 JOptionPane.showMessageDialog(frame, "Input a valid year.");
             } else if (selectedMonth == 0) {
-                JOptionPane.showMessageDialog(frame,"Please select a Month.");
-            } else if (budgetValue <= 0){
+                JOptionPane.showMessageDialog(frame, "Please select a Month.");
+            } else if (budgetValue <= 0) {
                 JOptionPane.showMessageDialog(frame, "Budget must be more than 0.");
             } else {
                 // Create new MonthlyStorage and get output
                 NewMonthOutputData output = controller.getOutput(session, monthID, budgetValue);
-                if (output.isSuccessful()){
+                if (output.isSuccessful()) {
                     // Update Main Menu dropdown list of Months
-                    mainMenu.openMainMenu(null,session);
+                    mainMenu.openMainMenu(null, session);
                     // Load new Month Menu for the new MonthlyStorage
-                    ((LoadMonthMenuViewBoundary) this).loadMonthMenu(session,monthID,"Month created successfully.");
+                    ((LoadMonthMenuViewBoundary) this).loadMonthMenu(session, monthID, "Month created successfully.");
                 } else {
                     JOptionPane.showMessageDialog(frame, output.getWarning());
                 }
             }
-        } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(frame,"Please input valid numbers.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Please input valid numbers.");
         }
     }
 }

@@ -9,6 +9,7 @@ public class CategoryOutputData {
     public CategoryOutputData(String message) {
         this.message = message;
     }
+
     public String getMessage() {
         return message;
     }

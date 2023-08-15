@@ -24,6 +24,7 @@ class UpdateViewUseCaseInteractorTest {
 
     /**
      * Runs before each method to set up the necessary entities and relevant objects for the tests.
+     *
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeEach
@@ -31,11 +32,11 @@ class UpdateViewUseCaseInteractorTest {
         outputBoundary = new MonthMenuPresenter();
         category1 = new Category("Food", 100.00);
         category2 = new Category("Shopping", 70.00);
-        expense1 = new Expense("Loblaws", category1, 50.00 );
-        expense2 = new Expense("Indigo", category2, 30.00 );
+        expense1 = new Expense("Loblaws", category1, 50.00);
+        expense2 = new Expense("Indigo", category2, 30.00);
         other = new Category("Other", 0);
         monthID = 202307;
-        monthlyStorage = new MonthlyStorage(202307,100);
+        monthlyStorage = new MonthlyStorage(202307, 100);
         sessionStorage = new SessionStorage();
         sessionStorage.addMonth(monthlyStorage);
     }
@@ -53,36 +54,37 @@ class UpdateViewUseCaseInteractorTest {
         ArrayList<Category> categories = new ArrayList<>();
         categories.add(other);
         MonthMenuOutputData actualOutput = interactor.createOutput(inputData);
-        Assertions.assertEquals(expenses,actualOutput.getExpenseData());
-        Assertions.assertEquals(categories,actualOutput.getCategoryData());
-        Assertions.assertEquals(100,actualOutput.getMonthlyBudget());
+        Assertions.assertEquals(expenses, actualOutput.getExpenseData());
+        Assertions.assertEquals(categories, actualOutput.getCategoryData());
+        Assertions.assertEquals(100, actualOutput.getMonthlyBudget());
     }
 
     /**
      * Test case when accessing a MonthlyStorage in the specified SessionStorage.
      * Method should output MonthMenuOutputData storing list of Expense and list of Category.
+     *
      * @throws EntityException the exception thrown when adding an Expense/Category that already exist in the month
      */
     @Test
     void createOutputNormalMonthSuccess() throws EntityException {
-            UpdateViewInputBoundary interactor = new UpdateViewUseCaseInteractor(outputBoundary);
-            monthlyStorage.addCategory(category1);
-            monthlyStorage.addCategory(category2);
-            monthlyStorage.addExpense(expense1);
-            monthlyStorage.addExpense(expense2);
-            UpdateViewInputData inputData = new UpdateViewInputData(sessionStorage, monthID);
+        UpdateViewInputBoundary interactor = new UpdateViewUseCaseInteractor(outputBoundary);
+        monthlyStorage.addCategory(category1);
+        monthlyStorage.addCategory(category2);
+        monthlyStorage.addExpense(expense1);
+        monthlyStorage.addExpense(expense2);
+        UpdateViewInputData inputData = new UpdateViewInputData(sessionStorage, monthID);
 
-            ArrayList<Expense> expenses = new ArrayList<>();
-            expenses.add(expense1);
-            expenses.add(expense2);
-            ArrayList<Category> categories = new ArrayList<>();
-            categories.add(other);
-            categories.add(category1);
-            categories.add(category2);
-            MonthMenuOutputData actualOutput = interactor.createOutput(inputData);
-            Assertions.assertEquals(expenses,actualOutput.getExpenseData());
-            Assertions.assertEquals(categories,actualOutput.getCategoryData());
-            Assertions.assertEquals(100,actualOutput.getMonthlyBudget());
+        ArrayList<Expense> expenses = new ArrayList<>();
+        expenses.add(expense1);
+        expenses.add(expense2);
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(other);
+        categories.add(category1);
+        categories.add(category2);
+        MonthMenuOutputData actualOutput = interactor.createOutput(inputData);
+        Assertions.assertEquals(expenses, actualOutput.getExpenseData());
+        Assertions.assertEquals(categories, actualOutput.getCategoryData());
+        Assertions.assertEquals(100, actualOutput.getMonthlyBudget());
     }
 
     /**
@@ -91,11 +93,11 @@ class UpdateViewUseCaseInteractorTest {
      * a String of error message.
      */
     @Test
-    void createOutputFail(){
-            UpdateViewInputBoundary interactor = new UpdateViewUseCaseInteractor(outputBoundary);
-            UpdateViewInputData inputData = new UpdateViewInputData(sessionStorage, 202207);
+    void createOutputFail() {
+        UpdateViewInputBoundary interactor = new UpdateViewUseCaseInteractor(outputBoundary);
+        UpdateViewInputData inputData = new UpdateViewInputData(sessionStorage, 202207);
 
-            MonthMenuOutputData actualOutput = interactor.createOutput(inputData);
-            Assertions.assertEquals("An error has occurred. Please reload the program.",actualOutput.getWarning());
+        MonthMenuOutputData actualOutput = interactor.createOutput(inputData);
+        Assertions.assertEquals("An error has occurred. Please reload the program.", actualOutput.getWarning());
     }
 }

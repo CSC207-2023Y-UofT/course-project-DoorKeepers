@@ -16,16 +16,18 @@ public class NewMonthController {
 
     /**
      * Construct the controller class.
+     *
      * @param inputBoundary the NewMonthInputBoundary containing the method to create new MonthlyStorage
      */
-    public NewMonthController(NewMonthInputBoundary inputBoundary){
+    public NewMonthController(NewMonthInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
 
     /**
      * Create and pass the NewMonthInputData object to the inputBoundary method call.
-     * @param session the SessionStorage to store the new MonthlyStorage
-     * @param monthID the monthID of the new MonthlyStorage
+     *
+     * @param session     the SessionStorage to store the new MonthlyStorage
+     * @param monthID     the monthID of the new MonthlyStorage
      * @param budgetValue the budget for the new MonthlyStorage
      * @return NewMonthOutputData object that contains output data
      */

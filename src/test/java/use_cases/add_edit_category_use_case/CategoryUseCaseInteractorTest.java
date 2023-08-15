@@ -10,7 +10,8 @@ import views.add_edit_category_views.CategoryPresenter;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * CategoryUseCaseInteractorTest contains tests for the Category use cases (add and edit category).
@@ -20,17 +21,18 @@ class CategoryUseCaseInteractorTest {
     private static SessionStorage session;
 
     /**
-    Creates a SessionStorage for the following test cases.
-    */
+     * Creates a SessionStorage for the following test cases.
+     */
     @BeforeAll
     public static void categorySetUp() {
         session = new SessionStorage();
     }
 
     /**
-    Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
-     @throws EntityException if a valid method call throws, so that should fail the test
-    */
+     * Tests success add case by checking if the size of categoryData in MonthlyStorage is correctly updated.
+     *
+     * @throws EntityException if a valid method call throws, so that should fail the test
+     */
     @Test
     void addCategoryInMonthSuccess() throws EntityException {
         CategoryPresenter presenter = new CategoryPresenter();
@@ -44,10 +46,12 @@ class CategoryUseCaseInteractorTest {
         assertEquals("You have added a new category!", interactor.addCategoryInMonth(addID1).getMessage());
         //Expected value is 2 because there is one default Category "Others" upon creation of each MonthlyStorage and one successful entry.
         assertEquals(2, session.getMonthlyData(6).getCategoryData().size());
-        assertEquals(addID1.getName(), session.getMonthlyData(6).getCategoryData().get(1).getName());}
+        assertEquals(addID1.getName(), session.getMonthlyData(6).getCategoryData().get(1).getName());
+    }
 
     /**
      * Tests fail add case when user tries to add a new Category name that exists in the MonthlyStorage.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -70,6 +74,7 @@ class CategoryUseCaseInteractorTest {
 
     /**
      * Tests fail add case when user tries to add a new Category budget that is a negative number.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -89,6 +94,7 @@ class CategoryUseCaseInteractorTest {
 
     /**
      * Tests fail add case when user tries to add a new Category budget that is an invalid double.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -108,6 +114,7 @@ class CategoryUseCaseInteractorTest {
     /**
      * Tests success edit use case by adding a valid category and then a successful edit.
      * Use findCategory() to see if the category name is successfully edited.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -129,6 +136,7 @@ class CategoryUseCaseInteractorTest {
 
     /**
      * Tests fail edit case when user tries to edit the Category name to another name that exists in MonthlyStorage.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -155,6 +163,7 @@ class CategoryUseCaseInteractorTest {
 
     /**
      * Tests fail edit case when user tries to edit the Category budget into a negative number.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test
@@ -174,8 +183,10 @@ class CategoryUseCaseInteractorTest {
         //Fail to edit Category name when tries to also edit Category budget, but it is a new budget that is a negative number.
         Assertions.assertThrows(NoSuchElementException.class, () -> interactor.findCategory(session.getMonthlyData(9).getCategoryData(), "Banana"));
     }
+
     /**
      * Tests fail edit case when user tries to edit the Category budget into an invalid double.
+     *
      * @throws EntityException if a valid method call throws, so that should fail the test
      */
     @Test

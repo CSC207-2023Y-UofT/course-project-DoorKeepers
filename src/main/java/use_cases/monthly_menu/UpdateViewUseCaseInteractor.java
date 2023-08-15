@@ -14,34 +14,35 @@ public class UpdateViewUseCaseInteractor implements UpdateViewInputBoundary {
 
     /**
      * Construct a UpdateViewUseCaseInteractor.
+     *
      * @param outputBoundary MonthMenuOutputBoundary related to using output
      */
-    public UpdateViewUseCaseInteractor(MonthMenuOutputBoundary outputBoundary){
+    public UpdateViewUseCaseInteractor(MonthMenuOutputBoundary outputBoundary) {
         this.outputBoundary = outputBoundary;
     }
 
     /**
      * Pass in and use UpdateViewInputData containing input data to create output data.
+     *
      * @param input input passed in from the controller class
      * @return MonthMenuOutputData object that contains output data
      */
     @Override
-    public MonthMenuOutputData createOutput(UpdateViewInputData input){
+    public MonthMenuOutputData createOutput(UpdateViewInputData input) {
         // Get input data
         SessionStorage session = input.getSession();
         int monthID = input.getMonthID();
 
-        try{
+        try {
             MonthlyStorage monthData = session.getMonthlyData(monthID); // throws EntityException
-            ArrayList<Expense> expenseData= monthData.getExpenseData();
-            ArrayList<Category> categoryData= monthData.getCategoryData();
+            ArrayList<Expense> expenseData = monthData.getExpenseData();
+            ArrayList<Category> categoryData = monthData.getCategoryData();
             double monthlyBudget = monthData.getMonthlyBudget();
 
-            return outputBoundary.createOutput(new MonthMenuOutputData(expenseData,categoryData, monthlyBudget,true));
-        }
-        catch(EntityException e){ //set String warning as output if EntityException is caught
+            return outputBoundary.createOutput(new MonthMenuOutputData(expenseData, categoryData, monthlyBudget, true));
+        } catch (EntityException e) { //set String warning as output if EntityException is caught
             return outputBoundary.createOutput(new MonthMenuOutputData(
-                    "An error has occurred. Please reload the program.",false));
+                    "An error has occurred. Please reload the program.", false));
         }
     }
 }

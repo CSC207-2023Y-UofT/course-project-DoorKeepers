@@ -1,6 +1,9 @@
 package use_cases.generate_summary_use_case;
 
-import entities.*;
+import entities.Category;
+import entities.EntityException;
+import entities.Expense;
+import entities.MonthlyStorage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,19 +23,20 @@ class GenerateSummaryUseCaseInterpreterTest {
 
     /**
      * Runs once before the methods to set up the necessary entities for the tests.
+     *
      * @throws EntityException if Category and Expense names are the same, which is not a concern for this test.
      */
     @BeforeAll
-    public static void GenerateSummaryUCInterpreterCreateBaseEntities() throws EntityException{
+    public static void GenerateSummaryUCInterpreterCreateBaseEntities() throws EntityException {
         month1 = new MonthlyStorage(1, 1000.00);
         month2 = new MonthlyStorage(2, 100.00);
         category1 = new Category("Food", 100.00);
         category2 = new Category("Shopping", 70.00);
-        Expense expense1 = new Expense("Loblaws", category1, 50.00 );
-        Expense expense2 = new Expense("Indigo", category2, 30.00 );
-        Expense expense3 = new Expense("Walmart", category1, 20.00 );
-        Expense expense4 = new Expense("Target", category2, 60.00 );
-        Expense expense5 = new Expense("LCBO", month1.getCategoryData().get(0), 20.00 );
+        Expense expense1 = new Expense("Loblaws", category1, 50.00);
+        Expense expense2 = new Expense("Indigo", category2, 30.00);
+        Expense expense3 = new Expense("Walmart", category1, 20.00);
+        Expense expense4 = new Expense("Target", category2, 60.00);
+        Expense expense5 = new Expense("LCBO", month1.getCategoryData().get(0), 20.00);
 
         month1.addCategory(category1);
         month1.addCategory(category2);
@@ -54,7 +58,7 @@ class GenerateSummaryUseCaseInterpreterTest {
      * Tests getStatisticalData() and getRemainder() on a MonthlyStorage that contains Expense and Category objects.
      */
     @Test
-    public void GenerateSummaryNormalMonth(){
+    public void GenerateSummaryNormalMonth() {
         GenerateSummaryUseCaseInterpreter interpreter = new GenerateSummaryUseCaseInterpreter(month1);
         Map<String, ArrayList<Double>> statisticalData = interpreter.getStatisticalData();
 
@@ -73,7 +77,7 @@ class GenerateSummaryUseCaseInterpreterTest {
      * is over budget.
      */
     @Test
-    public void GenerateSummaryFullMonth(){
+    public void GenerateSummaryFullMonth() {
         GenerateSummaryUseCaseInterpreter interpreter = new GenerateSummaryUseCaseInterpreter(month2);
         Map<String, ArrayList<Double>> statisticalData = interpreter.getStatisticalData();
 
@@ -91,7 +95,7 @@ class GenerateSummaryUseCaseInterpreterTest {
      * Tests getStatisticalData() and getRemainder() on an empty MonthlyStorage object.
      */
     @Test
-    public void GenerateSummaryEmptyMonth(){
+    public void GenerateSummaryEmptyMonth() {
         MonthlyStorage newMonth = new MonthlyStorage(2, 1000);
 
         GenerateSummaryUseCaseInterpreter interpreter = new GenerateSummaryUseCaseInterpreter(newMonth);

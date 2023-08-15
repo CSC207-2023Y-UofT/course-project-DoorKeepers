@@ -11,6 +11,7 @@ public class GenerateSummaryPresenter implements GenerateSummaryOutputBoundary {
     /**
      * Returns a GenerateSummaryOutputData output data holding the remainder of money left in the budget and the statisticalData
      * pertaining to the current month.
+     *
      * @param outputData a GenerateSummaryOutputData object
      */
     @Override

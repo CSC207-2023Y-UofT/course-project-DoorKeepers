@@ -9,6 +9,7 @@ public interface UpdateViewInputBoundary {
 
     /**
      * Pass in and use UpdateViewInputData containing input data to create output data.
+     *
      * @param input input passed in from the controller class
      * @return MonthMenuOutputData object that contains output data
      */

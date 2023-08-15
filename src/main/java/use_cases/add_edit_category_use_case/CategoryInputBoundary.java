@@ -10,6 +10,7 @@ public interface CategoryInputBoundary {
     /**
      * Returns String success message in the form of a CategoryOutputData object when a category is successfully added,
      * returns String fail messages that are context specific when failed.
+     *
      * @param categoryInputDataAdd CategoryInputData required for adding a new category to the designated monthID MonthlyStorage Object.
      * @return CategoryOutputData indicating fail/success add attempt.
      * @throws EntityException thrown when the new category input is invalid.
@@ -19,6 +20,7 @@ public interface CategoryInputBoundary {
     /**
      * Returns String success message in the form of a CategoryOutputData object when a category is successfully edited,
      * returns String fail messages that are context specific when failed.
+     *
      * @param categoryInputDataEdit CategoryInputData required for editing an existing Category Object in designated monthID MonthlyStorage Object.
      * @return CategoryOutputData indicating fail/success edit attempt.
      * @throws EntityException thrown when the new category input is invalid.

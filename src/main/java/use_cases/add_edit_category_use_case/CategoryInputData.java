@@ -17,10 +17,11 @@ public class CategoryInputData {
 
     /**
      * Constructs CategoryInputData for adding/editing an existing Category Object.
-     * @param name Category name
-     * @param value Category budget
-     * @param monthID An int representing the month which the Category Object belongs to.
-     * @param session The current session which the MonthlyStorage Object belongs to.
+     *
+     * @param name        Category name
+     * @param value       Category budget
+     * @param monthID     An int representing the month which the Category Object belongs to.
+     * @param session     The current session which the MonthlyStorage Object belongs to.
      * @param oldCategory An existing Category in the MonthlyStorage Object the user wish to edit.
      *                    Otherwise, oldCategory is null when in an add Category use case. (implemented in AddCategoryView)
      */
@@ -31,9 +32,24 @@ public class CategoryInputData {
         this.session = session;
         this.oldCategory = oldCategory;
     }
-    public String getName(){return name;}
-    public Object getValue(){return value;}
-    public int getMonthID(){return monthID;}
-    public SessionStorage getSession(){return session;}
-    public String getOldCategory(){return oldCategory;}
+
+    public String getName() {
+        return name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public int getMonthID() {
+        return monthID;
+    }
+
+    public SessionStorage getSession() {
+        return session;
+    }
+
+    public String getOldCategory() {
+        return oldCategory;
+    }
 }
