@@ -52,11 +52,12 @@ public class CategoryUCI implements CategoryIB {
      *
      * @param categoryIDAdd CategoryID required for adding a new category to designated monthID MonthlyStorage Object.
      * @return CategoryOD String message indicating success/fail add attempt.
+     * @throws EntityException thrown when the new category input is invalid.
      */
     @Override
-    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd) {
+    public CategoryOD addCategoryInMonth(CategoryID categoryIDAdd) throws EntityException {
+        this.month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
         try {
-            this.month = categoryIDAdd.getSession().getMonthlyData(categoryIDAdd.getMonthID());
             double valueDouble = toDouble(categoryIDAdd.getValue());
 
             if (valueDouble < 0) {

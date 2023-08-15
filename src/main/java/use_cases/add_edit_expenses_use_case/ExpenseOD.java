@@ -4,7 +4,7 @@ package use_cases.add_edit_expenses_use_case;
  * ExpenseOD passes a String message (from ExpenseP) resulting from the success or fail add/edit Expense attempt.
  */
 public class ExpenseOD {
-    String message;
+    private final String message;
 
     /**
      * Constructs ExpenseOD by passing a String context-specific message generated in ExpenseUCI.

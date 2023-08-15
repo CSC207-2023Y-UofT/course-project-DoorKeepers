@@ -136,7 +136,7 @@ public class MainMenuV extends JPanel implements SessionLoadMainMenuVB, ActionLi
             }
         } else if (e.getSource() == this.selectMonthButton) {
             // Open a new MonthMenuV to display the selected month
-            this.loadMonthMenu(this.session, this.selectedMonthID, null);
+            ((LoadMonthMenuVB) this).loadMonthMenu(this.session, this.selectedMonthID, null);
         } else if (e.getSource() == this.createMonthButton) {
             // Open a new NewMonthV so user can create their new month
             NewMonthC newMonthController = new NewMonthC(new NewMonthUCI(new NewMonthP()));

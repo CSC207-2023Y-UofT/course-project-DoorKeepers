@@ -17,7 +17,7 @@ public class MonthMenuOD {
     private ArrayList<Category> categoryData;
     private double monthlyBudget;
     private String warning;
-    boolean successful;
+    private final boolean successful;
 
     /**
      * Constructs an MonthMenuOD holding output data.

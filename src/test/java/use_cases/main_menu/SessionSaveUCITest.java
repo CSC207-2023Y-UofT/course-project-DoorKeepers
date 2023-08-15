@@ -51,7 +51,8 @@ class SessionSaveUCITest {
         Assertions.assertEquals(loadedSession, sampleSession);
 
         // Cleanup
-        new File("UCISaveFileTest.ser").delete();
+        boolean deletedTestFile = new File("UCISaveFileTest.ser").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**

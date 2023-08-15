@@ -9,7 +9,7 @@ import entities.SessionStorage;
 
 public class CategoryID {
     private final String name;
-    private Object value;
+    private final Object value;
     private final int monthID;
 
     private final SessionStorage session;
@@ -33,7 +33,6 @@ public class CategoryID {
     }
     public String getName(){return name;}
     public Object getValue(){return value;}
-    public void setValue(double value){this.value = value;}
     public int getMonthID(){return monthID;}
     public SessionStorage getSession(){return session;}
     public String getOldCategory(){return oldCategory;}

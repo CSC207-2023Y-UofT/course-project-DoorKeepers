@@ -82,7 +82,7 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
     }
 
     /**
-     * Checks and formats user input to pass in valid parameters for a CategtoryC to start a use case.
+     * Checks and formats user input to pass in valid parameters for a CategoryC to start a use case.
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
@@ -128,7 +128,7 @@ public class EditCategoryV extends JFrame implements ActionListener, LoadMonthMe
                     currSession, selectedCategory);
             frame.setVisible(false);
             // Update Month Menu
-            loadMonthMenu(currSession, monthID, null);
+            ((LoadMonthMenuVB) this).loadMonthMenu(currSession, monthID, null);
         } catch (EntityException e) {
             JOptionPane.showMessageDialog(this, "This month does not exist in current session. " +
                     "Please go to add month page.");

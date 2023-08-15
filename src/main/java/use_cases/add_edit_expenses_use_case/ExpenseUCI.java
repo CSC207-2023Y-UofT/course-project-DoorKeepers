@@ -40,12 +40,13 @@ public class ExpenseUCI implements ExpenseIB {
      *
      * @param expenseIDAdd ExpenseID required for adding a new expense to the designated monthID MonthlyStorage Object.
      * @return ExpenseOD String message indicating success/fail add attempt.
+     * @throws EntityException thrown when the new expense input is invalid.
      */
     @Override
-    public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) {
+    public ExpenseOD addExpenseInMonth(ExpenseID expenseIDAdd) throws EntityException {
+        SessionStorage session = expenseIDAdd.getSession();
+        this.month = session.getMonthlyData(expenseIDAdd.getMonthID());
         try {
-            SessionStorage session = expenseIDAdd.getSession();
-            this.month = session.getMonthlyData(expenseIDAdd.getMonthID());
             double valueDouble = toDouble(expenseIDAdd.getValue());
 
             if (valueDouble < 0) {
