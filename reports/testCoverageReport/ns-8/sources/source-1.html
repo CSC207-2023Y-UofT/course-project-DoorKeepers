@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MonthMenuOutputData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.monthly_menu</a>
+</div>
+
+<h1>Coverage Summary for Class: MonthMenuOutputData (use_cases.monthly_menu)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MonthMenuOutputData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.monthly_menu;
+&nbsp;
+&nbsp;import entities.Category;
+&nbsp;import entities.Expense;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;/**
+&nbsp; * The output data class for storing view output. The interactor
+&nbsp; * class for getting the Month Menu output creates an object of
+&nbsp; * this class, and pass it into the output boundary. The output
+&nbsp; * boundary returns this type of object, and is then formatted
+&nbsp; * and shown in the Month Menu view.
+&nbsp; */
+&nbsp;public class MonthMenuOutputData {
+&nbsp;    private ArrayList&lt;Expense&gt; expenseData;
+&nbsp;    private ArrayList&lt;Category&gt; categoryData;
+&nbsp;    private double monthlyBudget;
+&nbsp;    private String warning;
+&nbsp;    private final boolean successful;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs an MonthMenuOutputData holding output data.
+&nbsp;     *
+&nbsp;     * @param expenseData   ArrayList of Expense stored in a MonthlyStorage
+&nbsp;     * @param categoryData  ArrayList of Category stored in a MonthlyStorage
+&nbsp;     * @param monthlyBudget this month&#39;s total budget set by user
+&nbsp;     * @param successful    boolean indicating whether access to Expense/Category list was successful
+&nbsp;     */
+<b class="fc">&nbsp;    public MonthMenuOutputData(ArrayList&lt;Expense&gt; expenseData, ArrayList&lt;Category&gt; categoryData, double monthlyBudget, boolean successful) {</b>
+<b class="fc">&nbsp;        this.expenseData = expenseData;</b>
+<b class="fc">&nbsp;        this.categoryData = categoryData;</b>
+<b class="fc">&nbsp;        this.monthlyBudget = monthlyBudget;</b>
+<b class="fc">&nbsp;        this.successful = successful;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs an MonthMenuOutputData holding error message.
+&nbsp;     *
+&nbsp;     * @param warning    error message to show in the view
+&nbsp;     * @param successful boolean indicating whether access to Expense/Category list was successful
+&nbsp;     */
+<b class="fc">&nbsp;    public MonthMenuOutputData(String warning, boolean successful) {</b>
+<b class="fc">&nbsp;        this.warning = warning;</b>
+<b class="fc">&nbsp;        this.successful = successful;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the expenseData stored.
+&nbsp;     *
+&nbsp;     * @return expenseData to be outputted
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Expense&gt; getExpenseData() {
+<b class="fc">&nbsp;        return expenseData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the categoryData stored.
+&nbsp;     *
+&nbsp;     * @return categoryData to be outputted
+&nbsp;     */
+&nbsp;    public ArrayList&lt;Category&gt; getCategoryData() {
+<b class="fc">&nbsp;        return categoryData;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the monthlyBudget stored.
+&nbsp;     *
+&nbsp;     * @return monthlyBudget to be outputted
+&nbsp;     */
+&nbsp;    public double getMonthlyBudget() {
+<b class="fc">&nbsp;        return monthlyBudget;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the error message stored.
+&nbsp;     *
+&nbsp;     * @return warning message to be outputted
+&nbsp;     */
+&nbsp;    public String getWarning() {
+<b class="fc">&nbsp;        return warning;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Indicates if access to Expense/Category list was successful.
+&nbsp;     * If true, MonthMenuOutputData also stores ArrayList of Expense and Category.
+&nbsp;     *
+&nbsp;     * @return true if access to Expense/Category list was successful
+&nbsp;     */
+&nbsp;    public boolean isSuccessful() {
+<b class="nc">&nbsp;        return successful;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>

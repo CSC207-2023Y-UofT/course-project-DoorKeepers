@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MonthObject</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: MonthObject (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">MonthObject</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entities;
+&nbsp;
+&nbsp;/**
+&nbsp; * An interface that objects belonging to the MonthlyStorage implement. Expense and Category implement this so that
+&nbsp; * they can be created by MonthObjectFactory classes. It contains the setName and getName methods that all MonthObject
+&nbsp; * classes should have.
+&nbsp; */
+&nbsp;@SuppressWarnings(&quot;unused&quot;) // These methods are actually used, but just on the concrete class
+&nbsp;public interface MonthObject {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the name of this MonthObject.
+&nbsp;     *
+&nbsp;     * @param name the new name that this MonthObject will have
+&nbsp;     */
+&nbsp;    void setName(String name);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the name of this MonthObject.
+&nbsp;     *
+&nbsp;     * @return the name of this MonthObject
+&nbsp;     */
+&nbsp;    String getName();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>

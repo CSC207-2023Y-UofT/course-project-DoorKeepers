@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UpdateViewInputBoundary</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.monthly_menu</a>
+</div>
+
+<h1>Coverage Summary for Class: UpdateViewInputBoundary (use_cases.monthly_menu)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UpdateViewInputBoundary</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.monthly_menu;
+&nbsp;
+&nbsp;/**
+&nbsp; * The input boundary interface for creating the Month Menu.
+&nbsp; * The interactor class for getting the Month Menu output
+&nbsp; * implements this interface, and returns MonthMenuOutputData object.
+&nbsp; */
+&nbsp;public interface UpdateViewInputBoundary {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Pass in and use UpdateViewInputData containing input data to create output data.
+&nbsp;     *
+&nbsp;     * @param input input passed in from the controller class
+&nbsp;     * @return MonthMenuOutputData object that contains output data
+&nbsp;     */
+&nbsp;    MonthMenuOutputData createOutput(UpdateViewInputData input);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>

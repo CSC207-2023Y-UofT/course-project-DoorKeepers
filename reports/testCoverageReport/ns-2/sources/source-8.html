@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ExpenseEditorInputData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: ExpenseEditorInputData (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExpenseEditorInputData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entities;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class that holds the input data for use by the ExpenseFactory. It extends MonthObjectFactoryInputData, so that it
+&nbsp; * can be used in place of this type. It includes the new name, new value, new category, and Expense object to edit.
+&nbsp; */
+<b class="fc">&nbsp;public class ExpenseEditorInputData extends MonthObjectFactoryInputData {</b>
+&nbsp;
+&nbsp;    private String name;
+&nbsp;    private Category category;
+&nbsp;    private double value;
+&nbsp;    private Expense expense;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the name of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @param name the new name that the edited Expense will have
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the Category of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @param category the new Category that the edited Expense will have
+&nbsp;     */
+&nbsp;    public void setCategory(Category category) {
+<b class="fc">&nbsp;        this.category = category;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the value of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @param value the new value that the edited Expense will have
+&nbsp;     */
+&nbsp;    public void setValue(double value) {
+<b class="fc">&nbsp;        this.value = value;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the Expense object of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @param expense the Expense to edit
+&nbsp;     */
+&nbsp;    public void setExpense(Expense expense) {
+<b class="fc">&nbsp;        this.expense = expense;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the name of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @return the name of this ExpenseEditorInputData
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the category of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @return the category of this ExpenseEditorInputData
+&nbsp;     */
+&nbsp;    public Category getCategory() {
+<b class="fc">&nbsp;        return category;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the value of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @return the value of this ExpenseEditorInputData
+&nbsp;     */
+&nbsp;    public double getValue() {
+<b class="fc">&nbsp;        return value;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the Expense object of this ExpenseEditorInputData.
+&nbsp;     *
+&nbsp;     * @return the Expense object of this ExpenseEditorInputData
+&nbsp;     */
+&nbsp;    public Expense getExpense() {
+<b class="fc">&nbsp;        return expense;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>

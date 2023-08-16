@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CategoryInputData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.add_edit_category_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryInputData (use_cases.add_edit_category_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CategoryInputData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.add_edit_category_use_case;
+&nbsp;
+&nbsp;import entities.SessionStorage;
+&nbsp;
+&nbsp;/**
+&nbsp; * CategoryInputData contains all user inputs.
+&nbsp; * Created in CategoryController and used in CategoryUseCaseInteractor to perform addCategoryInMonth() and editCategoryInMonth().
+&nbsp; */
+&nbsp;
+&nbsp;public class CategoryInputData {
+&nbsp;    private final String name;
+&nbsp;    private final Object value;
+&nbsp;    private final int monthID;
+&nbsp;
+&nbsp;    private final SessionStorage session;
+&nbsp;    private final String oldCategory;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs CategoryInputData for adding/editing an existing Category Object.
+&nbsp;     *
+&nbsp;     * @param name        Category name
+&nbsp;     * @param value       Category budget
+&nbsp;     * @param monthID     An int representing the month which the Category Object belongs to.
+&nbsp;     * @param session     The current session which the MonthlyStorage Object belongs to.
+&nbsp;     * @param oldCategory An existing Category in the MonthlyStorage Object the user wish to edit.
+&nbsp;     *                    Otherwise, oldCategory is null when in an add Category use case. (implemented in AddCategoryView)
+&nbsp;     */
+<b class="fc">&nbsp;    public CategoryInputData(String name, Object value, int monthID, SessionStorage session, String oldCategory) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.value = value;</b>
+<b class="fc">&nbsp;        this.monthID = monthID;</b>
+<b class="fc">&nbsp;        this.session = session;</b>
+<b class="fc">&nbsp;        this.oldCategory = oldCategory;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Object getValue() {
+<b class="fc">&nbsp;        return value;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getMonthID() {
+<b class="fc">&nbsp;        return monthID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public SessionStorage getSession() {
+<b class="fc">&nbsp;        return session;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getOldCategory() {
+<b class="fc">&nbsp;        return oldCategory;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>

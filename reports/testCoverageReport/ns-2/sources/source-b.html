@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MonthObjectFactoryInputData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: MonthObjectFactoryInputData (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MonthObjectFactoryInputData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entities;
+&nbsp;
+&nbsp;/**
+&nbsp; * An abstract class that other concrete CreatorInputData and EditorInputData classes extend. It holds the input data
+&nbsp; * for use by any concrete MonthObjectFactory class.
+&nbsp; * Note: This class is not a part of the Factory design pattern. Since CategoryFactory and ExpenseFactory need different
+&nbsp; * parameters for addMonthObject and editMonthObject, the abstract MonthObjectFactory needs a way to declare a parameter
+&nbsp; * type for these methods. Thus, I created the MonthObjectFactoryInputData and made both methods take this parameter, so
+&nbsp; * that each version of addMonthObject and editMonthObject in CategoryFactory and ExpenseFactory can take in a different
+&nbsp; * set of input data objects that are child classes of MonthObjectFactoryInputData.
+&nbsp; */
+&nbsp;@SuppressWarnings(&quot;unused&quot;) // These methods are actually used, but just on the concrete class
+<b class="fc">&nbsp;public abstract class MonthObjectFactoryInputData {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the name of this MonthObject.
+&nbsp;     *
+&nbsp;     * @param name the new name that this MonthObject will have
+&nbsp;     */
+&nbsp;    abstract void setName(String name);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the name of this MonthObject.
+&nbsp;     *
+&nbsp;     * @return the name of this MonthObject
+&nbsp;     */
+&nbsp;    abstract String getName();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:24</div>
+</div>
+</body>
+</html>
