@@ -16,7 +16,7 @@ class ExpenseTest {
      * Runs once before the methods to set up the necessary entities for the tests.
      */
     @BeforeAll
-    public static void ExpenseCreateBaseEntities(){
+    public static void ExpenseCreateBaseEntities() {
         category = new Category("Food", 100.00);
         other_category = new Category("Shopping", 70.00);
     }
@@ -27,7 +27,7 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseCreateExpense() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
         Assertions.assertEquals("Loblaws", e1.getName());
         Assertions.assertEquals(category, e1.getCategory());
         Assertions.assertEquals(50.00, e1.getValue());
@@ -39,7 +39,7 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseSetName() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
         Assertions.assertEquals("Loblaws", e1.getName());
         e1.setName("Grocery Trip 1");
         Assertions.assertEquals("Grocery Trip 1", e1.getName());
@@ -51,7 +51,7 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseSetCategory() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
         Assertions.assertEquals(category, e1.getCategory());
         e1.setCategory(other_category);
         Assertions.assertEquals(other_category, e1.getCategory());
@@ -63,7 +63,7 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseSetBudget() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
         Assertions.assertEquals(50.00, e1.getValue());
         e1.setValue(70.00);
         Assertions.assertEquals(70.00, e1.getValue());
@@ -74,8 +74,8 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseCheckEqualsSameName() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
-        Expense e2 = new Expense("Loblaws", other_category, 100.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
+        Expense e2 = new Expense("Loblaws", other_category, 100.00);
         Assertions.assertEquals(e1, e2);
     }
 
@@ -84,8 +84,8 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseCheckEqualsSameCategory() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
-        Expense e3 = new Expense("Shoppers", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
+        Expense e3 = new Expense("Shoppers", category, 50.00);
         Assertions.assertNotEquals(e1, e3);
     }
 
@@ -96,9 +96,9 @@ class ExpenseTest {
      */
     @Test
     public void ExpenseCheckEqualsChangeName() {
-        Expense e1 = new Expense("Loblaws", category, 50.00 );
-        Expense e2 = new Expense("Shoppers", other_category, 100.00 );
-        Expense e3 = new Expense("Loblaws", category, 50.00 );
+        Expense e1 = new Expense("Loblaws", category, 50.00);
+        Expense e2 = new Expense("Shoppers", other_category, 100.00);
+        Expense e3 = new Expense("Loblaws", category, 50.00);
         Assertions.assertEquals(e1, e3);
         Assertions.assertNotEquals(e2, e3);
         e3.setName("Shoppers");

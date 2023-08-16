@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>use_cases.session_load.SessionLoadUCI</li>
+<li>use_cases.session_load.SessionLoadUseCaseInteractor</li>
 </ul>
 </li>
 </ul>
@@ -195,7 +195,7 @@ implements <a href="SessionLoadIB.html" title="interface in use_cases.session_lo
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(use_cases.session_load.SessionStorageG,use_cases.session_load.SessionLoadOB,entities.SessionStorage)">SessionLoadUCI</a></span>&#8203;(<a href="SessionStorageG.html" title="interface in use_cases.session_load">SessionStorageG</a>&nbsp;storageGateway,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(use_cases.session_load.SessionStorageGateway,use_cases.session_load.SessionLoadOutputBoundary,entities.SessionStorage)">SessionLoadUCI</a></span>&#8203;(<a href="SessionStorageG.html" title="interface in use_cases.session_load">SessionStorageG</a>&nbsp;storageGateway,
               <a href="SessionLoadOB.html" title="interface in use_cases.session_load">SessionLoadOB</a>&nbsp;presenter,
               <a href="../../entities/SessionStorage.html" title="class in entities">SessionStorage</a>&nbsp;sessionToModify)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -220,7 +220,7 @@ implements <a href="SessionLoadIB.html" title="interface in use_cases.session_lo
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="SessionLoadOD.html" title="class in use_cases.session_load">SessionLoadOD</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#load(use_cases.session_load.SessionLoadID)">load</a></span>&#8203;(<a href="SessionLoadID.html" title="class in use_cases.session_load">SessionLoadID</a>&nbsp;inputData)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#load(use_cases.session_load.SessionLoadInputData)">load</a></span>&#8203;(<a href="SessionLoadID.html" title="class in use_cases.session_load">SessionLoadID</a>&nbsp;inputData)</code></th>
 <td class="colLast">
 <div class="block">Either loads a SessionStorage from a file, or creates a new empty one.</div>
 </td>
@@ -286,7 +286,7 @@ implements <a href="SessionLoadIB.html" title="interface in use_cases.session_lo
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(use_cases.session_load.SessionStorageG,use_cases.session_load.SessionLoadOB,entities.SessionStorage)">
+<a id="&lt;init&gt;(use_cases.session_load.SessionStorageGateway,use_cases.session_load.SessionLoadOutputBoundary,entities.SessionStorage)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -307,7 +307,7 @@ implements <a href="SessionLoadIB.html" title="interface in use_cases.session_lo
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="load(use_cases.session_load.SessionLoadID)">
+<a id="load(use_cases.session_load.SessionLoadInputData)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -319,7 +319,7 @@ implements <a href="SessionLoadIB.html" title="interface in use_cases.session_lo
  Then, mutates this.sessionToModify to reflect the data loaded/created.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SessionLoadIB.html#load(use_cases.session_load.SessionLoadID)">load</a></code>&nbsp;in interface&nbsp;<code><a href="SessionLoadIB.html" title="interface in use_cases.session_load">SessionLoadIB</a></code></dd>
+<dd><code><a href="SessionLoadIB.html#load(use_cases.session_load.SessionLoadInputData)">load</a></code>&nbsp;in interface&nbsp;<code><a href="SessionLoadIB.html" title="interface in use_cases.session_load">SessionLoadIB</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>inputData</code> - the user input data</dd>
 <dt><span class="returnLabel">Returns:</span></dt>

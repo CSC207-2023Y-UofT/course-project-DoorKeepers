@@ -18,6 +18,7 @@ class FileSessionStorageTest {
 
     /**
      * Creates a sample SessionStorage object that following test cases will use.
+     *
      * @throws EntityException if an error occur with addMonth() in SessionStorage
      */
     @BeforeAll
@@ -33,7 +34,8 @@ class FileSessionStorageTest {
      * This isn't split into two test cases because they are heavily intertwined; we can't test loading
      * a file without saving one first too. And we can't test that a save was successful without
      * loading it back to check.
-     * @throws IOException if an IO error that's outside the scope of this test happens
+     *
+     * @throws IOException            if an IO error that's outside the scope of this test happens
      * @throws ClassNotFoundException Shouldn't throw this since it is testing a valid file
      */
     @Test
@@ -55,7 +57,8 @@ class FileSessionStorageTest {
         Assertions.assertEquals(sampleSession, savedAndLoadedSession);
 
         // Cleanup
-        new File("FSSSaveFileTest.ser").delete();
+        boolean deletedTestFile = new File("FSSSaveFileTest.ser").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**
@@ -71,6 +74,7 @@ class FileSessionStorageTest {
     /**
      * Tests that the load method will throw an exception when loading a file that is not a serialization
      * of a SessionStorage
+     *
      * @throws IOException if an IO error that's outside the scope of this test happens
      */
     @Test
@@ -78,12 +82,14 @@ class FileSessionStorageTest {
         FileSessionStorage fileSessionStorage = new FileSessionStorage();
 
         // Build an invalid file to load
-        new File("Hello world.txt").createNewFile();
+        boolean createdTestFile = new File("Hello world.txt").createNewFile();
+        Assertions.assertTrue(createdTestFile);
 
         Assertions.assertThrows(IOException.class, () -> fileSessionStorage.load("Hello world.txt"));
 
         // Cleanup
-        new File("Hello world.txt").delete();
+        boolean deletedTestFile = new File("Hello world.txt").delete();
+        Assertions.assertTrue(deletedTestFile);
     }
 
     /**

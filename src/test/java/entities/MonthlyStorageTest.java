@@ -24,11 +24,11 @@ class MonthlyStorageTest {
      * Runs once before the methods to set up the necessary entities for the tests.
      */
     @BeforeAll
-    public static void MonthlyStorageCreateBaseEntities(){
+    public static void MonthlyStorageCreateBaseEntities() {
         category1 = new Category("Food", 100.00);
         category2 = new Category("Shopping", 70.00);
-        expense1 = new Expense("Loblaws", category1, 50.00 );
-        expense2 = new Expense("Indigo", category2, 30.00 );
+        expense1 = new Expense("Loblaws", category1, 50.00);
+        expense2 = new Expense("Indigo", category2, 30.00);
         expense3 = new Expense("Loblaws", category2, 100.00);
         other = new Category("Other", 0);
     }
@@ -119,10 +119,11 @@ class MonthlyStorageTest {
     /**
      * Tests deleteExpense() with a valid test case.
      * Note: EntityException is thrown because of addExpense() method that is not tested here.
+     *
      * @throws EntityException if a valid method call throws
      */
     @Test
-    public void MonthlyStorageDeleteExpenseSuccess() throws EntityException{
+    public void MonthlyStorageDeleteExpenseSuccess() throws EntityException {
         MonthlyStorage new_month = new MonthlyStorage(3, 1000);
         new_month.addExpense(expense1);
         new_month.addExpense(expense2);
@@ -137,6 +138,7 @@ class MonthlyStorageTest {
     /**
      * Tests deleteExpense() with an Expense not in the MonthlyStorage.
      * Note: EntityException is thrown because of addExpense() method that is not tested here.
+     *
      * @throws EntityException if a valid method call throws
      */
     @Test
@@ -154,10 +156,11 @@ class MonthlyStorageTest {
     /**
      * Tests deleteCategory() with a valid test case.
      * Note: EntityException is thrown because of addCategory() method that is not tested here.
+     *
      * @throws EntityException if a valid method call throws
      */
     @Test
-    public void MonthlyStorageDeleteCategorySuccess() throws EntityException{
+    public void MonthlyStorageDeleteCategorySuccess() throws EntityException {
         MonthlyStorage new_month = new MonthlyStorage(5, 1000.00);
         new_month.addCategory(category1);
         new_month.addCategory(category2);
@@ -176,10 +179,11 @@ class MonthlyStorageTest {
     /**
      * Tests deleteCategory() with a Category not in the MonthlyStorage.
      * Note: EntityException is thrown because of addCategory() method that is not tested here.
+     *
      * @throws EntityException if a valid method call throws
      */
     @Test
-    public void MonthlyStorageDeleteCategoryFail() throws EntityException{
+    public void MonthlyStorageDeleteCategoryFail() throws EntityException {
         MonthlyStorage new_month = new MonthlyStorage(5, 1000.00);
         new_month.addCategory(category1);
         new_month.deleteCategory("Treats");

@@ -1,0 +1,97 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionStorageGateway</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.session_load</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionStorageGateway (use_cases.session_load)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">SessionStorageGateway</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.session_load;
+&nbsp;
+&nbsp;import entities.SessionStorage;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;/**
+&nbsp; * A gateway interface for saving and loading sessions from files.
+&nbsp; * It is implemented by FileSessionStorage and called from the SessionLoadUseCaseInteractor interactor class
+&nbsp; */
+&nbsp;public interface SessionStorageGateway {
+&nbsp;    /**
+&nbsp;     * Saves a SessionStorage object into a file on disk.
+&nbsp;     *
+&nbsp;     * @param filename the name of file to save the session to.
+&nbsp;     * @param session  the SessionStorage object to serialize and save to the file.
+&nbsp;     * @throws IOException if an error occurred while saving the file.
+&nbsp;     */
+&nbsp;    void save(String filename, SessionStorage session) throws IOException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Loads a SessionStorage object from a file on disk.
+&nbsp;     *
+&nbsp;     * @param filename the name of the file to read the session from.
+&nbsp;     * @return the SessionStorage object obtained from the file.
+&nbsp;     * @throws IOException            if an error occurred while reading the file.
+&nbsp;     * @throws ClassNotFoundException if the file isn&#39;t a valid serialization of a SessionObject.
+&nbsp;     */
+&nbsp;    SessionStorage load(String filename) throws IOException, ClassNotFoundException;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

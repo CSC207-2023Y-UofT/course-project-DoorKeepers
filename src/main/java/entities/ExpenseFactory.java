@@ -7,12 +7,13 @@ public class ExpenseFactory extends MonthObjectFactory {
 
     /**
      * Creates and returns a new Expense.
+     *
      * @param inputData an ExpenseCreatorInputData object that is cast to MonthObjectFactoryInputData.
      *                  It holds the information needed to create an Expense.
      * @return the newly created Expense
      */
     @Override
-    public MonthObject createMonthObject(MonthObjectFactoryInputData inputData){
+    public MonthObject createMonthObject(MonthObjectFactoryInputData inputData) {
         ExpenseCreatorInputData expenseCreatorInputData = (ExpenseCreatorInputData) inputData;
         return new Expense(expenseCreatorInputData.getName(), expenseCreatorInputData.getCategory(),
                 expenseCreatorInputData.getValue());
@@ -20,6 +21,7 @@ public class ExpenseFactory extends MonthObjectFactory {
 
     /**
      * Edits and returns an Expense.
+     *
      * @param inputData an ExpenseEditorInputData object that is cast to MonthObjectFactoryInputData.
      *                  It holds the information needed to edit an Expense.
      * @return the newly edited Expense

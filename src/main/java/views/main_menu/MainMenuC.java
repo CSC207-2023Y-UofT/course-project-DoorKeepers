@@ -1,26 +1,26 @@
 package views.main_menu;
 
 import entities.SessionStorage;
-import use_cases.main_menu.SessionSaveIB;
-import use_cases.main_menu.SessionSaveID;
-import use_cases.main_menu.SessionSaveOD;
+import use_cases.main_menu.SessionSaveInputBoundary;
+import use_cases.main_menu.SessionSaveInputData;
+import use_cases.main_menu.SessionSaveOutputData;
 
 import java.io.IOException;
 
 /**
  * The controller class for the main menu.
  * It is called by the view with the user input, and it calls the interactor
- * through the SessionSaveIB interface
+ * through the SessionSaveInputBoundary interface
  */
 public class MainMenuC {
-    private final SessionSaveIB interactor;
+    private final SessionSaveInputBoundary interactor;
 
     /**
      * Creates a new MainMenuC
      *
-     * @param interactor an interactor that implements the SessionSaveIB interface
+     * @param interactor an interactor that implements the SessionSaveInputBoundary interface
      */
-    public MainMenuC(SessionSaveIB interactor) {
+    public MainMenuC(SessionSaveInputBoundary interactor) {
         this.interactor = interactor;
     }
 
@@ -29,11 +29,11 @@ public class MainMenuC {
      *
      * @param session  the SessionStorage object to save
      * @param filename a String with the filename to save the session to
-     * @return a SessionSaveOD with a message to display to the user
+     * @return a SessionSaveOutputData with a message to display to the user
      * @throws IOException if there is an error while saving the file
      */
-    public SessionSaveOD save(SessionStorage session, String filename) throws IOException {
-        SessionSaveID inputData = new SessionSaveID(session, filename);
+    public SessionSaveOutputData save(SessionStorage session, String filename) throws IOException {
+        SessionSaveInputData inputData = new SessionSaveInputData(session, filename);
         return this.interactor.save(inputData);
     }
 }

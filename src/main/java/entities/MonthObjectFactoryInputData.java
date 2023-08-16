@@ -9,16 +9,19 @@ package entities;
  * that each version of addMonthObject and editMonthObject in CategoryFactory and ExpenseFactory can take in a different
  * set of input data objects that are child classes of MonthObjectFactoryInputData.
  */
-abstract class MonthObjectFactoryInputData {
+@SuppressWarnings("unused") // These methods are actually used, but just on the concrete class
+public abstract class MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this MonthObject.
+     *
      * @param name the new name that this MonthObject will have
      */
     abstract void setName(String name);
 
     /**
      * Gets the name of this MonthObject.
+     *
      * @return the name of this MonthObject
      */
     abstract String getName();

@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;import entities.SessionStorage;
+&nbsp;import use_cases.main_menu.SessionSaveUseCaseInteractor;
+&nbsp;import use_cases.session_load.SessionLoadUseCaseInteractor;
+&nbsp;import views.file_session_storage.FileSessionStorage;
+&nbsp;import views.main_menu.MainMenuC;
+&nbsp;import views.main_menu.MainMenuP;
+&nbsp;import views.main_menu.MainMenuV;
+&nbsp;import views.session_load.SessionLoadController;
+&nbsp;import views.session_load.SessionLoadMenuView;
+&nbsp;import views.session_load.SessionLoadPresenter;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;
+<b class="nc">&nbsp;public class Main {</b>
+&nbsp;    public static void main(String[] args) {
+&nbsp;        // Build the main program window
+<b class="nc">&nbsp;        JFrame application = new JFrame(&quot;Expenditure Tracking&quot;);</b>
+<b class="nc">&nbsp;        application.setMinimumSize(new Dimension(500, 300));</b>
+<b class="nc">&nbsp;        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);</b>
+<b class="nc">&nbsp;        CardLayout cardLayout = new CardLayout();</b>
+&nbsp;
+<b class="nc">&nbsp;        JPanel screens = new JPanel(cardLayout);</b>
+<b class="nc">&nbsp;        application.add(screens);</b>
+&nbsp;
+&nbsp;        // Program session
+<b class="nc">&nbsp;        SessionStorage session = new SessionStorage();</b>
+&nbsp;
+&nbsp;        // Building menus
+&nbsp;        // Main Menu
+<b class="nc">&nbsp;        SessionSaveUseCaseInteractor sessionSaveUseCaseInteractor = new SessionSaveUseCaseInteractor(new FileSessionStorage(), new MainMenuP());</b>
+<b class="nc">&nbsp;        MainMenuC mainMenuController = new MainMenuC(sessionSaveUseCaseInteractor);</b>
+<b class="nc">&nbsp;        MainMenuV mainMenu = new MainMenuV(mainMenuController);</b>
+&nbsp;
+&nbsp;        // Load Session Menu
+<b class="nc">&nbsp;        SessionLoadUseCaseInteractor sessionLoadUseCaseInteractor = new SessionLoadUseCaseInteractor(new FileSessionStorage(), new SessionLoadPresenter(), session);</b>
+<b class="nc">&nbsp;        SessionLoadController sessionLoadController = new SessionLoadController(sessionLoadUseCaseInteractor);</b>
+<b class="nc">&nbsp;        SessionLoadMenuView sessionLoadMenu = new SessionLoadMenuView(sessionLoadController, mainMenu);</b>
+&nbsp;
+&nbsp;        // Add screens
+<b class="nc">&nbsp;        screens.add(sessionLoadMenu);</b>
+<b class="nc">&nbsp;        screens.add(mainMenu);</b>
+&nbsp;
+&nbsp;        // Open program UI
+<b class="nc">&nbsp;        application.pack();</b>
+<b class="nc">&nbsp;        application.setVisible(true);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

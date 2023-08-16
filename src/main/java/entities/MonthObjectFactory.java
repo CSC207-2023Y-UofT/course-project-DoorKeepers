@@ -3,10 +3,11 @@ package entities;
 /**
  * An abstract class that contains the method needed to create and edit a MonthObject.
  */
-abstract class MonthObjectFactory {
+public abstract class MonthObjectFactory {
 
     /**
      * Creates and returns a new MonthObject.
+     *
      * @param inputData a MonthObjectFactoryInputData object that holds the information needed to create a MonthObject
      * @return a new MonthObject
      */
@@ -14,6 +15,7 @@ abstract class MonthObjectFactory {
 
     /**
      * Edits and returns a MonthObject.
+     *
      * @param inputData a MonthObjectFactoryInputData object that holds the information needed to edit a MonthObject
      * @return the edited MonthObject
      */
