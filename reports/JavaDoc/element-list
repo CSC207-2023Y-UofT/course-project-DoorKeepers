@@ -1,0 +1,18 @@
+unnamed package
+entities
+use_cases.add_edit_category_use_case
+use_cases.add_edit_expenses_use_case
+use_cases.create_new_month
+use_cases.generate_summary_use_case
+use_cases.main_menu
+use_cases.monthly_menu
+use_cases.session_load
+views.add_edit_category_views
+views.add_edit_epense_views
+views.create_new_month
+views.file_session_storage
+views.generate_summary_views
+views.load_monthly_menu
+views.main_menu
+views.monthly_menu
+views.session_load
