@@ -27,6 +27,8 @@ public class ExpenseController {
      *
      * @param name       user input String expense name
      * @param value      user input Object expense budget
+     * @param category   String with the category name
+     * @param isRecurring boolean whether the expense is recurring
      * @param monthID    int representing current month
      * @param session    SessionStorage current session
      * @param oldExpense Expense existing expense selected by user

@@ -29,6 +29,7 @@ public class EditCategoryView extends JFrame implements ActionListener, LoadMont
     /**
      * Builds EditCategoryView for user entries.
      *
+     * @param monthMenu        MonthMenuView to be updated after editing
      * @param controller       CategoryController reacts to user input to return a CategoryOutputData.
      * @param existingCategory String of existing categories in the MonthlyStorage with monthID.
      * @param monthID          int representing the MonthlyStorage.
