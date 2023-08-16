@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionLoadController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">views.session_load</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionLoadController (views.session_load)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SessionLoadController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package views.session_load;
+&nbsp;
+&nbsp;import use_cases.session_load.SessionLoadException;
+&nbsp;import use_cases.session_load.SessionLoadInputBoundary;
+&nbsp;import use_cases.session_load.SessionLoadInputData;
+&nbsp;import use_cases.session_load.SessionLoadOutputData;
+&nbsp;
+&nbsp;/**
+&nbsp; * The controller class for the session load menu.
+&nbsp; * It is called by the view with the user input, and it calls the interactor
+&nbsp; * through the SessionLoadInputBoundary interface
+&nbsp; */
+&nbsp;public class SessionLoadController {
+&nbsp;    private final SessionLoadInputBoundary interactor;
+&nbsp;
+<b class="nc">&nbsp;    public SessionLoadController(SessionLoadInputBoundary interactor) {</b>
+<b class="nc">&nbsp;        this.interactor = interactor;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calls the interactor to load a new session from a file
+&nbsp;     *
+&nbsp;     * @param filename the filename to load the session from
+&nbsp;     * @return a SessionLoadOutputData object with the output data to be used by the View
+&nbsp;     * @throws SessionLoadException if there is an error while opening the file
+&nbsp;     */
+&nbsp;    public SessionLoadOutputData loadFile(String filename) throws SessionLoadException {
+<b class="nc">&nbsp;        SessionLoadInputData inputData = new SessionLoadInputData(filename);</b>
+<b class="nc">&nbsp;        return this.interactor.load(inputData);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calls the interactor to create a new empty session
+&nbsp;     *
+&nbsp;     * @return a SessionLoadOutputData object with the output data to be used by the View
+&nbsp;     */
+&nbsp;    public SessionLoadOutputData loadNew() {
+<b class="nc">&nbsp;        SessionLoadInputData inputData = new SessionLoadInputData();</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            return this.interactor.load(inputData);</b>
+<b class="nc">&nbsp;        } catch (SessionLoadException e) {</b>
+&nbsp;            // Loading a new empty session never throws
+<b class="nc">&nbsp;            throw new AssertionError(&quot;Unreachable code&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

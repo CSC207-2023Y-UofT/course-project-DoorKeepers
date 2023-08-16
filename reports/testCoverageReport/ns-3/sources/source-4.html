@@ -1,0 +1,97 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CategoryInputBoundary</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.add_edit_category_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryInputBoundary (use_cases.add_edit_category_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CategoryInputBoundary</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.add_edit_category_use_case;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;
+&nbsp;/**
+&nbsp; * CategoryInputBoundary passes in user input of category information in the form of CategoryInputData.
+&nbsp; * Implemented by CategoryUseCaseInteractor.
+&nbsp; */
+&nbsp;public interface CategoryInputBoundary {
+&nbsp;    /**
+&nbsp;     * Returns String success message in the form of a CategoryOutputData object when a category is successfully added,
+&nbsp;     * returns String fail messages that are context specific when failed.
+&nbsp;     *
+&nbsp;     * @param categoryInputDataAdd CategoryInputData required for adding a new category to the designated monthID MonthlyStorage Object.
+&nbsp;     * @return CategoryOutputData indicating fail/success add attempt.
+&nbsp;     * @throws EntityException thrown when the new category input is invalid.
+&nbsp;     */
+&nbsp;    CategoryOutputData addCategoryInMonth(CategoryInputData categoryInputDataAdd) throws EntityException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns String success message in the form of a CategoryOutputData object when a category is successfully edited,
+&nbsp;     * returns String fail messages that are context specific when failed.
+&nbsp;     *
+&nbsp;     * @param categoryInputDataEdit CategoryInputData required for editing an existing Category Object in designated monthID MonthlyStorage Object.
+&nbsp;     * @return CategoryOutputData indicating fail/success edit attempt.
+&nbsp;     * @throws EntityException thrown when the new category input is invalid.
+&nbsp;     */
+&nbsp;    CategoryOutputData editCategoryInMonth(CategoryInputData categoryInputDataEdit) throws EntityException;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

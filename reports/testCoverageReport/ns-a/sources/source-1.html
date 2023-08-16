@@ -1,0 +1,230 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AddCategoryView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">views.add_edit_category_views</a>
+</div>
+
+<h1>Coverage Summary for Class: AddCategoryView (views.add_edit_category_views)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddCategoryView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package views.add_edit_category_views;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;import entities.SessionStorage;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryOutputData;
+&nbsp;import views.load_monthly_menu.LoadMonthMenuViewBoundary;
+&nbsp;import views.monthly_menu.MonthMenuView;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;
+&nbsp;/**
+&nbsp; * A view class for the AddCategoryView that extends Component class and implements ActionListener interface.
+&nbsp; * Creates a new controller that produces a CategoryOutputData object.
+&nbsp; */
+&nbsp;
+&nbsp;public class AddCategoryView extends JFrame implements ActionListener, LoadMonthMenuViewBoundary {
+&nbsp;    private final MonthMenuView monthMenu;
+&nbsp;    private final CategoryController controller;
+&nbsp;    private final JTextField nameInput;
+&nbsp;    private final JTextField budgetInput;
+&nbsp;    private final int monthID;
+&nbsp;    private final SessionStorage currSession;
+&nbsp;    private final String oldCategory;
+&nbsp;    private final JFrame frame;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Builds AddCategoryView for user entries.
+&nbsp;     *
+&nbsp;     * @param monthMenu   MonthMenuView that need to be updated when a new Category is created
+&nbsp;     * @param controller  CategoryController reacts to user input to return a CategoryOutputData.
+&nbsp;     * @param monthID     int representing the MonthlyStorage.
+&nbsp;     * @param currSession SessionStorage the current working session.
+&nbsp;     */
+<b class="nc">&nbsp;    public AddCategoryView(MonthMenuView monthMenu, CategoryController controller, int monthID, SessionStorage currSession) {</b>
+<b class="nc">&nbsp;        this.monthMenu = monthMenu;</b>
+<b class="nc">&nbsp;        this.controller = controller;</b>
+<b class="nc">&nbsp;        this.monthID = monthID;</b>
+<b class="nc">&nbsp;        this.currSession = currSession;</b>
+<b class="nc">&nbsp;        this.oldCategory = null;</b>
+<b class="nc">&nbsp;        this.nameInput = new JTextField(15);</b>
+<b class="nc">&nbsp;        this.budgetInput = new JTextField(15);</b>
+<b class="nc">&nbsp;        this.frame = new JFrame();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Open add category GUI.
+&nbsp;     */
+&nbsp;    public void openAddCategory() {
+<b class="nc">&nbsp;        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);</b>
+<b class="nc">&nbsp;        frame.setTitle(&quot;Add New Category&quot;);</b>
+<b class="nc">&nbsp;        frame.setSize(300, 500);</b>
+&nbsp;
+<b class="nc">&nbsp;        JPanel panel = new JPanel();</b>
+<b class="nc">&nbsp;        panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 50, 30));</b>
+<b class="nc">&nbsp;        panel.setLayout(new GridLayout(0, 1));</b>
+&nbsp;
+<b class="nc">&nbsp;        JLabel nameLabel = new JLabel(&quot;Category Name:&quot;);</b>
+<b class="nc">&nbsp;        JLabel valueLabel = new JLabel(&quot;Category Budget:&quot;);</b>
+<b class="nc">&nbsp;        JButton submit = new JButton(&quot;Submit&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        submit.addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        panel.add(nameLabel, BorderLayout.WEST);</b>
+<b class="nc">&nbsp;        panel.add(nameInput, BorderLayout.CENTER);</b>
+<b class="nc">&nbsp;        panel.add(valueLabel);</b>
+<b class="nc">&nbsp;        panel.add(budgetInput);</b>
+<b class="nc">&nbsp;        panel.add(submit);</b>
+&nbsp;
+<b class="nc">&nbsp;        frame.add(panel, BorderLayout.CENTER);</b>
+<b class="nc">&nbsp;        frame.pack();</b>
+<b class="nc">&nbsp;        frame.setVisible(true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks and formats user input to pass in valid parameters for a CategoryController to start a use case.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void actionPerformed(ActionEvent evt) {
+&nbsp;        // Check if user inputs a category name.
+<b class="nc">&nbsp;        if (nameInput.getText().isEmpty()) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(this, &quot;Please enter a category name.&quot;);</b>
+&nbsp;        }
+&nbsp;        // Check if user inputs a category budget.
+<b class="nc">&nbsp;        if (budgetInput.getText().isEmpty()) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(this, &quot;Please enter a category budget.&quot;);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            tryUseCaseAdd();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Load Month Menu and notify user if opening Month Menu of a new MonthlyStorage created.
+&nbsp;     *
+&nbsp;     * @param session the SessionStorage holding the required MonthlyStorage
+&nbsp;     * @param monthID the monthID of the required MonthlyStorage
+&nbsp;     * @param message notify user when new MonthlyStorage is created, otherwise null
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void loadMonthMenu(SessionStorage session, int monthID, String message) {
+<b class="nc">&nbsp;        monthMenu.openMonthMenu(message, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Tries an Add Category use case.
+&nbsp;     * Pop-up window with context specific message may be shown to user.
+&nbsp;     */
+&nbsp;    private void tryUseCaseAdd() {
+&nbsp;        CategoryOutputData message;
+<b class="nc">&nbsp;        message = null;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            message = controller.categoryInMonth(nameInput.getText(), String.valueOf(budgetInput.getText()),</b>
+&nbsp;                    monthID, currSession, oldCategory);
+<b class="nc">&nbsp;            frame.setVisible(false);</b>
+&nbsp;            // Update Month Menu
+<b class="nc">&nbsp;            ((LoadMonthMenuViewBoundary) this).loadMonthMenu(currSession, monthID, null);</b>
+<b class="nc">&nbsp;        } catch (EntityException e) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(this,</b>
+&nbsp;                    &quot;This month does not exist in current session. Please go to add month page.&quot;);
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        if (message != null) {</b>
+<b class="nc">&nbsp;            JOptionPane.showMessageDialog(this, message.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SessionSaveInputData</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.main_menu</a>
+</div>
+
+<h1>Coverage Summary for Class: SessionSaveInputData (use_cases.main_menu)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SessionSaveInputData</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.main_menu;
+&nbsp;
+&nbsp;import entities.SessionStorage;
+&nbsp;
+&nbsp;/**
+&nbsp; * The input data used by the interactor to save a session.
+&nbsp; * The MainMenuC controller class creates an instance of this class from user input
+&nbsp; * and uses it as a parameter to call the SessionSaveUseCaseInteractor interactor.
+&nbsp; */
+&nbsp;public class SessionSaveInputData {
+&nbsp;    private final SessionStorage session;
+&nbsp;    private final String filename;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new SessionSaveInputData
+&nbsp;     *
+&nbsp;     * @param session  a SessionStorage object to save to a file
+&nbsp;     * @param filename a String with the filename to save the session to
+&nbsp;     */
+<b class="fc">&nbsp;    public SessionSaveInputData(SessionStorage session, String filename) {</b>
+<b class="fc">&nbsp;        this.session = session;</b>
+<b class="fc">&nbsp;        this.filename = filename;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the session to save
+&nbsp;     *
+&nbsp;     * @return a SessionStorage with the session data to be saved
+&nbsp;     */
+&nbsp;    public SessionStorage getSession() {
+<b class="fc">&nbsp;        return session;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the filename to save the session to
+&nbsp;     *
+&nbsp;     * @return a String containing the filename
+&nbsp;     */
+&nbsp;    public String getFilename() {
+<b class="fc">&nbsp;        return filename;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

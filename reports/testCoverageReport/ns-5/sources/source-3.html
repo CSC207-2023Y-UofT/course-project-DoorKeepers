@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > NewMonthUseCaseInteractor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.create_new_month</a>
+</div>
+
+<h1>Coverage Summary for Class: NewMonthUseCaseInteractor (use_cases.create_new_month)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NewMonthUseCaseInteractor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.create_new_month;
+&nbsp;
+&nbsp;import entities.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;/**
+&nbsp; * The use case interactor class for creating a new MonthlyStorage.
+&nbsp; * This class implements the NewMonthInputBoundary interface. The controller
+&nbsp; * class calls this class to get the NewMonthOutputData object.
+&nbsp; */
+&nbsp;public class NewMonthUseCaseInteractor implements NewMonthInputBoundary {
+&nbsp;    private final NewMonthOutputBoundary outputBoundary;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Construct a NewMonthUseCaseInteractor.
+&nbsp;     *
+&nbsp;     * @param outputBoundary NewMonthOutputBoundary related to using output
+&nbsp;     */
+<b class="fc">&nbsp;    public NewMonthUseCaseInteractor(NewMonthOutputBoundary outputBoundary) {</b>
+<b class="fc">&nbsp;        this.outputBoundary = outputBoundary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Pass in and use NewMonthInputData containing input data to add new MonthlyStorage to session
+&nbsp;     * and to create output data.
+&nbsp;     *
+&nbsp;     * @param input input passed in from the controller class
+&nbsp;     * @return NewMonthOutputData object that contains output data
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public NewMonthOutputData createOutput(NewMonthInputData input) {
+<b class="fc">&nbsp;        SessionStorage session = input.getSession();</b>
+&nbsp;
+&nbsp;        // Create and retrieve recurring expenses to new MonthlyStorage
+&nbsp;        MonthlyStorage newMonth;
+&nbsp;        try {
+<b class="fc">&nbsp;            newMonth = createNewMonth(session, input.getMonthID(), input.getBudgetValue());</b>
+<b class="fc">&nbsp;        } catch (EntityException e) {</b>
+&nbsp;            // Should not occur as recurData will not have expenses of the same name
+<b class="fc">&nbsp;            return outputBoundary.createOutput(new NewMonthOutputData(</b>
+&nbsp;                    &quot;An error has occurred. Please reload the program.&quot;, false));
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // Add MonthlyStorage to session
+&nbsp;        try {
+<b class="fc">&nbsp;            session.addMonth(newMonth);</b>
+<b class="fc">&nbsp;            return outputBoundary.createOutput(new NewMonthOutputData(true));</b>
+<b class="fc">&nbsp;        } catch (EntityException e) {</b>
+<b class="fc">&nbsp;            return outputBoundary.createOutput(new NewMonthOutputData(</b>
+&nbsp;                    &quot;This month already exist in this session.&quot;, false));
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Create a new MonthlyStorage object.
+&nbsp;     *
+&nbsp;     * @param session     the SessionStorage to store the new MonthlyStorage
+&nbsp;     * @param monthID     the monthID of the new MonthlyStorage
+&nbsp;     * @param budgetValue the budget for the new MonthlyStorage
+&nbsp;     * @return new MonthlyStorage object
+&nbsp;     * @throws EntityException if an error in the program causes two Expense in recurData to have the same name
+&nbsp;     */
+&nbsp;    private MonthlyStorage createNewMonth(SessionStorage session, int monthID, double budgetValue) throws EntityException {
+<b class="fc">&nbsp;        ArrayList&lt;Expense&gt; recurData = session.getRecurData();</b>
+<b class="fc">&nbsp;        MonthlyStorage newMonth = new MonthlyStorage(monthID, budgetValue);</b>
+<b class="fc">&nbsp;        Category other = newMonth.getCategoryData().get(0);</b>
+<b class="fc">&nbsp;        for (Expense expense : recurData) {</b>
+<b class="fc">&nbsp;            newMonth.addExpense(new Expense(expense.getName(), other, expense.getValue()));</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return newMonth;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>

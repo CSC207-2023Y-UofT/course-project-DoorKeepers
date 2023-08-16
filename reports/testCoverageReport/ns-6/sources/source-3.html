@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GenerateSummaryUseCaseInteractor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.generate_summary_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: GenerateSummaryUseCaseInteractor (use_cases.generate_summary_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GenerateSummaryUseCaseInteractor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package use_cases.generate_summary_use_case;
+&nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;import entities.MonthlyStorage;
+&nbsp;import entities.SessionStorage;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class that calls GenerateSummaryPresenter presenter and GenerateSummaryUseCaseInterpreter interpreter to execute the steps in
+&nbsp; * generating the information for the graphical summary. It returns a GenerateSummaryOutputData object containing information
+&nbsp; * needed to generate the graphs.
+&nbsp; */
+&nbsp;public class GenerateSummaryUseCaseInteractor implements GenerateSummaryInputBoundary {
+&nbsp;
+&nbsp;    private final GenerateSummaryOutputBoundary presenter;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new GenerateSummaryUseCaseInteractor with the provided presenter.
+&nbsp;     *
+&nbsp;     * @param presenter instance of presenter that will be called in the generateNewSummary method
+&nbsp;     */
+<b class="fc">&nbsp;    public GenerateSummaryUseCaseInteractor(GenerateSummaryOutputBoundary presenter) {</b>
+<b class="fc">&nbsp;        this.presenter = presenter;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates the information needed for the graphical representation of the MonthlyStorage data associated with
+&nbsp;     * monthID in the currentSession.
+&nbsp;     *
+&nbsp;     * @param inputData a GenerateSummaryInputData object holding the SessionStorage and monthID needed to retrieve data
+&nbsp;     * @return a GenerateSummaryOutputData object holding the information needed to plot the graphs.
+&nbsp;     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+&nbsp;     *                         raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+&nbsp;     *                         SessionStorage, and is not something the user can fix.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public GenerateSummaryOutputData generateNewSummary(GenerateSummaryInputData inputData) throws EntityException {
+<b class="fc">&nbsp;        SessionStorage currentSession = inputData.getCurrentSession();</b>
+<b class="fc">&nbsp;        MonthlyStorage monthlyStorage = currentSession.getMonthlyData(inputData.getMonthID());</b>
+<b class="fc">&nbsp;        GenerateSummaryUseCaseInterpreter interpreter = new GenerateSummaryUseCaseInterpreter(monthlyStorage);</b>
+<b class="fc">&nbsp;        GenerateSummaryOutputData outputData = new GenerateSummaryOutputData(interpreter.getRemainder(),</b>
+<b class="fc">&nbsp;                interpreter.getStatisticalData());</b>
+<b class="fc">&nbsp;        return presenter.createOutputData(outputData);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
+</div>
+</body>
+</html>
