@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > SessionSaveOutputBoundary</title>
+  <title>Coverage Report > SessionSaveInputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,14 +21,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.main_menu</a>
 </div>
 
-<h1>Coverage Summary for Class: SessionSaveOutputBoundary (use_cases.main_menu)</h1>
+<h1>Coverage Summary for Class: SessionSaveInputBoundary (use_cases.main_menu)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">SessionSaveOutputBoundary</td>
+  <td class="name">SessionSaveInputBoundary</td>
 </tr>
 
 </table>
@@ -40,19 +40,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package use_cases.main_menu;
 &nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
 &nbsp;/**
-&nbsp; * The output boundary interface for saving sessions.
-&nbsp; * The MainMenuP presenter class implements this interface, and it is called by
-&nbsp; * the SessionSaveUseCaseInteractor interactor class
+&nbsp; * The input boundary interface for saving sessions
+&nbsp; * The SessionSaveUseCaseInteractor interactor class implements this interface, and it is called by
+&nbsp; * the SessionSaveC controller class
 &nbsp; */
-&nbsp;public interface SessionSaveOutputBoundary {
+&nbsp;public interface SessionSaveInputBoundary {
 &nbsp;    /**
-&nbsp;     * Returns a SessionSaveOutputData signifying success which contains a success message to display
+&nbsp;     * Saves a session into a file according to the input data given
 &nbsp;     *
-&nbsp;     * @param sessionSavedSuccessfully the output data to be returned
+&nbsp;     * @param inputData a SessionSaveInputData with the user input data
 &nbsp;     * @return a SessionSaveOutputData object with the output data to be used by the View
+&nbsp;     * @throws IOException if there is an error while saving the file
 &nbsp;     */
-&nbsp;    SessionSaveOutputData displaySuccess(SessionSaveOutputData sessionSavedSuccessfully);
+&nbsp;    SessionSaveOutputData save(SessionSaveInputData inputData) throws IOException;
 &nbsp;}
 </code>
 </pre>
@@ -77,7 +80,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-08-15 20:24</div>
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
 </div>
 </body>
 </html>

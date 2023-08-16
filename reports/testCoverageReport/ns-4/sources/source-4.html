@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ExpenseInputBoundary</title>
+  <title>Coverage Report > ExpenseOutputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,14 +21,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.add_edit_expenses_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: ExpenseInputBoundary (use_cases.add_edit_expenses_use_case)</h1>
+<h1>Coverage Summary for Class: ExpenseOutputBoundary (use_cases.add_edit_expenses_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ExpenseInputBoundary</td>
+  <td class="name">ExpenseOutputBoundary</td>
 </tr>
 
 </table>
@@ -40,33 +40,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package use_cases.add_edit_expenses_use_case;
 &nbsp;
-&nbsp;import entities.EntityException;
 &nbsp;
 &nbsp;/**
-&nbsp; * ExpenseInputBoundary passes in user input of expense information in the form of ExpenseInputData.
-&nbsp; * Implemented by ExpenseUseCaseInteractor.
+&nbsp; * An interface ExpenseOutputBoundary containing methods implemented in ExpensePresenter.
 &nbsp; */
-&nbsp;
-&nbsp;public interface ExpenseInputBoundary {
+&nbsp;public interface ExpenseOutputBoundary {
 &nbsp;    /**
-&nbsp;     * Describes abstract addExpenseInMonth() that is override in ExpenseUseCaseInteractor to format detailed responses for attempts to add an Expense.
+&nbsp;     * Returns a ExpenseOutputData notifying success.
 &nbsp;     *
-&nbsp;     * @param expenseInputDataAdd ExpenseInputData required for adding a new expense to the designated monthID MonthlyStorage Object.
-&nbsp;     * @return String indicating fail/success add attempt.
-&nbsp;     * @throws EntityException thrown when the new  input is invalid.
+&nbsp;     * @return ExpenseOutputData with success message.
 &nbsp;     */
-&nbsp;    ExpenseOutputData addExpenseInMonth(ExpenseInputData expenseInputDataAdd) throws EntityException;
+&nbsp;    ExpenseOutputData success(ExpenseOutputData expenseOutputData);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Describes abstract editExpenseInMonth() that is override in ExpenseUseCaseInteractor to format detailed responses for attempts to edit an Expense.
+&nbsp;     * Returns a ExpenseOutputData notifying fail.
 &nbsp;     *
-&nbsp;     * @param expenseInputDataEdit ExpenseInputData required for editing an existing Expense Object in designated monthID MonthlyStorage Object.
-&nbsp;     * @return String indicating fail/success edit attempt.
-&nbsp;     * @throws EntityException thrown when the new expense input is invalid.
+&nbsp;     * @return ExpenseOutputData with fail message.
 &nbsp;     */
-&nbsp;    ExpenseOutputData editExpenseInMonth(ExpenseInputData expenseInputDataEdit) throws EntityException;
+&nbsp;    ExpenseOutputData fail(ExpenseOutputData Fails);
 &nbsp;}
-&nbsp;
 </code>
 </pre>
 </div>
@@ -90,7 +82,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-08-15 20:24</div>
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
 </div>
 </body>
 </html>

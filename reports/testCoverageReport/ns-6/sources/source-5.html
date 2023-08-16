@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > GenerateSummaryOutputBoundary</title>
+  <title>Coverage Report > GenerateSummaryInputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -21,14 +21,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.generate_summary_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: GenerateSummaryOutputBoundary (use_cases.generate_summary_use_case)</h1>
+<h1>Coverage Summary for Class: GenerateSummaryInputBoundary (use_cases.generate_summary_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">GenerateSummaryOutputBoundary</td>
+  <td class="name">GenerateSummaryInputBoundary</td>
 </tr>
 
 </table>
@@ -40,22 +40,25 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package use_cases.generate_summary_use_case;
 &nbsp;
+&nbsp;import entities.EntityException;
+&nbsp;
 &nbsp;/**
-&nbsp; * An interface that the GenerateSummaryPresenter presenter implements to maintain the dependency inversion principle. It
-&nbsp; * contains the method used to return the GenerateSummaryOutputData output data.
+&nbsp; * An interface that the GenerateSummaryUseCaseInteractor interactor implements to maintain the dependency inversion principle. It
+&nbsp; * contains the method used to generate a new graphical summary.
 &nbsp; */
-&nbsp;public interface GenerateSummaryOutputBoundary {
+&nbsp;public interface GenerateSummaryInputBoundary {
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Returns a GenerateSummaryOutputData output data holding the remainder of money left in the budget and the statisticalData
-&nbsp;     * pertaining to the current month.
+&nbsp;     * Generates the information needed for the graphical representation of the MonthlyStorage data associated with
+&nbsp;     * monthID in the currentSession.
 &nbsp;     *
-&nbsp;     * @param outputData a GenerateSummaryOutputData object
-&nbsp;     * @return the GenerateSummaryOutputData object with statistical data and remainder information
+&nbsp;     * @param inputData a GenerateSummaryInputData object holding the SessionStorage and monthID needed to retrieve data
+&nbsp;     * @return a GenerateSummaryOutputData object holding the information needed to plot the graphs.
+&nbsp;     * @throws EntityException if there is no MonthID corresponding to a month in a monthly storage. This error being
+&nbsp;     *                         raised is a sign that there is something broken in the way that the MonthlyStorage objects are stored in the
+&nbsp;     *                         SessionStorage, and is not something the user can fix.
 &nbsp;     */
-&nbsp;    GenerateSummaryOutputData createOutputData(GenerateSummaryOutputData outputData);
-&nbsp;
-&nbsp;
+&nbsp;    GenerateSummaryOutputData generateNewSummary(GenerateSummaryInputData inputData) throws EntityException;
 &nbsp;}
 </code>
 </pre>
@@ -80,7 +83,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-08-15 20:24</div>
+    <div style="float:right;">generated on 2023-08-15 20:33</div>
 </div>
 </body>
 </html>
