@@ -11,23 +11,26 @@ public class CategoryCreatorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this CategoryCreatorInputData.
+     *
      * @param name the name that the Category will have
      */
     @Override
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Sets the budget of this CategoryCreatorInputData.
+     *
      * @param newBudget the budget that the Category will have
      */
-    public void setBudget(double newBudget){
+    public void setBudget(double newBudget) {
         this.budget = newBudget;
     }
 
     /**
      * Gets the name of this CategoryCreatorInputData.
+     *
      * @return the name of this CategoryCreatorInputData
      */
     @Override
@@ -37,6 +40,7 @@ public class CategoryCreatorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the budget of this CategoryCreatorInputData.
+     *
      * @return the budget of this CategoryCreatorInputData
      */
     public double getBudget() {

@@ -17,10 +17,11 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Creates a new MonthlyStorage with the given data.
-     * @param currentMonth integer representing the id of the MonthlyStorage
+     *
+     * @param currentMonth  integer representing the id of the MonthlyStorage
      * @param monthlyBudget budget of the MonthlyStorage
      */
-    public MonthlyStorage(int currentMonth, double monthlyBudget){
+    public MonthlyStorage(int currentMonth, double monthlyBudget) {
         this.monthID = currentMonth;
         this.monthlyBudget = monthlyBudget;
 
@@ -32,44 +33,49 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Gets the monthID for this month.
+     *
      * @return the monthID associated with this MonthlyStorage
      */
-    public int getMonthID(){
+    public int getMonthID() {
         return this.monthID;
     }
 
     /**
      * Gets the monthlyBudget for this month.
+     *
      * @return the monthlyBudget associated with this MonthlyStorage
      */
-    public double getMonthlyBudget(){
+    public double getMonthlyBudget() {
         return this.monthlyBudget;
     }
 
     /**
      * Gets the list of categories for this month.
+     *
      * @return the categoryData associated with this MonthlyStorage
      */
-    public ArrayList<Category> getCategoryData(){
+    public ArrayList<Category> getCategoryData() {
         return this.categoryData;
     }
 
     /**
      * Gets the list of expenses for this month.
+     *
      * @return the expenseData associated with this MonthlyStorage
      */
-    public ArrayList<Expense> getExpenseData(){
+    public ArrayList<Expense> getExpenseData() {
         return this.expenseData;
     }
 
     /**
      * Adds a new Category to this month.
+     *
      * @param category a Category object to add
      * @throws EntityException if this Category is already in MonthlyStorage
      */
     public void addCategory(Category category) throws EntityException {
-        for (Category c: this.categoryData){
-            if (c.equals(category)){
+        for (Category c : this.categoryData) {
+            if (c.equals(category)) {
                 throw new EntityException("There is already a Category with that name in this MonthlyStorage.");
             }
         }
@@ -78,12 +84,13 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Adds a new Expense to this month.
+     *
      * @param expense an Expense object to add
      * @throws EntityException if this Expense is already in MonthlyStorage
      */
-    public void addExpense(Expense expense) throws EntityException{
-        for (Expense e: this.expenseData){
-            if (e.equals(expense)){
+    public void addExpense(Expense expense) throws EntityException {
+        for (Expense e : this.expenseData) {
+            if (e.equals(expense)) {
                 throw new EntityException("There is already an Expense with that name in this MonthlyStorage.");
             }
         }
@@ -92,6 +99,7 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Deletes a Category from this month.
+     *
      * @param categoryName a String referring to the Category object to delete
      */
     public void deleteCategory(String categoryName) {
@@ -100,6 +108,7 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Deletes an Expense from this month.
+     *
      * @param expenseName a String referring to the Expense object to delete
      */
     public void deleteExpense(String expenseName) {
@@ -108,6 +117,7 @@ public class MonthlyStorage implements Serializable {
 
     /**
      * Check if this MonthlyStorage is equal to Object
+     *
      * @param obj Any instance of Object
      * @return True if equals, False is not equals
      */
@@ -119,7 +129,7 @@ public class MonthlyStorage implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (this.getClass() != obj.getClass()){
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
 

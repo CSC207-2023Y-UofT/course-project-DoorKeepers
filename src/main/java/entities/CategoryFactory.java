@@ -7,6 +7,7 @@ public class CategoryFactory extends MonthObjectFactory {
 
     /**
      * Creates and returns a new Category.
+     *
      * @param inputData an CategoryCreatorInputData object that is cast to MonthObjectFactoryInputData.
      *                  It holds the information needed to create a Category.
      * @return the newly created Category
@@ -19,6 +20,7 @@ public class CategoryFactory extends MonthObjectFactory {
 
     /**
      * Edits an existing Category.
+     *
      * @param inputData an CategoryEditorInputData object that is cast to MonthObjectFactoryInputData.
      *                  It holds the information needed to edit a Category.
      * @return the newly edited Category

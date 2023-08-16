@@ -12,31 +12,35 @@ public class CategoryEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this CategoryEditorInputData.
+     *
      * @param name the new name that the edited Category will have
      */
     @Override
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Sets the budget of this CategoryEditorInputData.
+     *
      * @param newBudget the new budget that the edited Category will have
      */
-    public void setBudget(double newBudget){
+    public void setBudget(double newBudget) {
         this.budget = newBudget;
     }
 
     /**
      * Sets the Category object of this CategoryEditorInputData.
+     *
      * @param category the Category to edit
      */
-    public void setCategory(Category category){
+    public void setCategory(Category category) {
         this.category = category;
     }
 
     /**
      * Gets the name of this CategoryEditorInputData.
+     *
      * @return the name of this CategoryEditorInputData
      */
     @Override
@@ -46,6 +50,7 @@ public class CategoryEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the budget of this CategoryEditorInputData.
+     *
      * @return the budget of this CategoryEditorInputData
      */
     public double getBudget() {
@@ -54,6 +59,7 @@ public class CategoryEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the Category object of this CategoryEditorInputData.
+     *
      * @return the Category object of this CategoryEditorInputData
      */
     public Category getCategory() {

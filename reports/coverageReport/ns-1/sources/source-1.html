@@ -75,15 +75,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;import entities.SessionStorage;
-&nbsp;import use_cases.main_menu.SessionSaveUCI;
-&nbsp;import use_cases.session_load.SessionLoadUCI;
+&nbsp;import use_cases.main_menu.SessionSaveUseCaseInteractor;
+&nbsp;import use_cases.session_load.SessionLoadUseCaseInteractor;
 &nbsp;import views.file_session_storage.FileSessionStorage;
 &nbsp;import views.main_menu.MainMenuC;
 &nbsp;import views.main_menu.MainMenuP;
 &nbsp;import views.main_menu.MainMenuV;
-&nbsp;import views.session_load.SessionLoadC;
-&nbsp;import views.session_load.SessionLoadP;
-&nbsp;import views.session_load.SessionLoadMenuV;
+&nbsp;import views.session_load.SessionLoadController;
+&nbsp;import views.session_load.SessionLoadPresenter;
+&nbsp;import views.session_load.SessionLoadMenuView;
 &nbsp;
 &nbsp;import javax.swing.*;
 &nbsp;import java.awt.*;
@@ -104,13 +104,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;        // Building menus
 &nbsp;        // Main Menu
-<b class="nc">&nbsp;        SessionSaveUCI sessionSaveUCI = new SessionSaveUCI(new FileSessionStorage(), new MainMenuP());</b>
-<b class="nc">&nbsp;        MainMenuC mainMenuController = new MainMenuC(sessionSaveUCI);</b>
+<b class="nc">&nbsp;        SessionSaveUCI sessionSaveUseCaseInteractor = new SessionSaveUCI(new FileSessionStorage(), new MainMenuP());</b>
+<b class="nc">&nbsp;        MainMenuC mainMenuController = new MainMenuC(sessionSaveUseCaseInteractor);</b>
 <b class="nc">&nbsp;        MainMenuV mainMenu = new MainMenuV(mainMenuController);</b>
 &nbsp;
 &nbsp;        // Load Session Menu
-<b class="nc">&nbsp;        SessionLoadUCI sessionLoadUCI = new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(), session);</b>
-<b class="nc">&nbsp;        SessionLoadC sessionLoadController = new SessionLoadC(sessionLoadUCI);</b>
+<b class="nc">&nbsp;        SessionLoadUCI sessionLoadUseCaseInteractor = new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(), session);</b>
+<b class="nc">&nbsp;        SessionLoadC sessionLoadController = new SessionLoadC(sessionLoadUseCaseInteractor);</b>
 <b class="nc">&nbsp;        SessionLoadMenuV sessionLoadMenu = new SessionLoadMenuV(sessionLoadController, mainMenu);</b>
 &nbsp;
 &nbsp;        // Add screens

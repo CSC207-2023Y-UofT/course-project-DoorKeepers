@@ -107,12 +107,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Generates the Bar Graph.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryIB.html#generateNewSummary(use_cases.generate_summary_use_case.GenerateSummaryID)">generateNewSummary(GenerateSummaryID)</a></span> - Method in interface use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryIB.html" title="interface in use_cases.generate_summary_use_case">GenerateSummaryIB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryIB.html#generateNewSummary(use_cases.generate_summary_use_case.GenerateSummaryInputData)">generateNewSummary(GenerateSummaryID)</a></span> - Method in interface use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryIB.html" title="interface in use_cases.generate_summary_use_case">GenerateSummaryIB</a></dt>
 <dd>
 <div class="block">Generates the information needed for the graphical representation of the MonthlyStorage data associated with
  monthID in the currentSession.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html#generateNewSummary(use_cases.generate_summary_use_case.GenerateSummaryID)">generateNewSummary(GenerateSummaryID)</a></span> - Method in class use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html" title="class in use_cases.generate_summary_use_case">GenerateSummaryUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html#generateNewSummary(use_cases.generate_summary_use_case.GenerateSummaryInputData)">generateNewSummary(GenerateSummaryID)</a></span> - Method in class use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html" title="class in use_cases.generate_summary_use_case">GenerateSummaryUCI</a></dt>
 <dd>
 <div class="block">Generates the information needed for the graphical representation of the MonthlyStorage data associated with
  monthID in the currentSession.</div>
@@ -137,7 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">A class that creates the GenerateSummaryID input data and calls the GenerateSummaryUCI interactor's method to
  generate the graphical summary.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/generate_summary_views/GenerateSummaryC.html#%3Cinit%3E(use_cases.generate_summary_use_case.GenerateSummaryIB)">GenerateSummaryC(GenerateSummaryIB)</a></span> - Constructor for class views.generate_summary_views.<a href="../views/generate_summary_views/GenerateSummaryC.html" title="class in views.generate_summary_views">GenerateSummaryC</a></dt>
+<dt><span class="memberNameLink"><a href="../views/generate_summary_views/GenerateSummaryC.html#%3Cinit%3E(use_cases.generate_summary_use_case.GenerateSummaryInputBoundary)">GenerateSummaryC(GenerateSummaryIB)</a></span> - Constructor for class views.generate_summary_views.<a href="../views/generate_summary_views/GenerateSummaryC.html" title="class in views.generate_summary_views">GenerateSummaryC</a></dt>
 <dd>
 <div class="block">Creates a new GenerateSummaryC with the provided interactor.</div>
 </dd>
@@ -189,7 +189,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">A class that calls GenerateSummaryP presenter and GenerateSummaryUCInterpreter interpreter to execute the steps in
  generating the information for the graphical summary.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html#%3Cinit%3E(use_cases.generate_summary_use_case.GenerateSummaryOB)">GenerateSummaryUCI(GenerateSummaryOB)</a></span> - Constructor for class use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html" title="class in use_cases.generate_summary_use_case">GenerateSummaryUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html#%3Cinit%3E(use_cases.generate_summary_use_case.GenerateSummaryOutputBoundary)">GenerateSummaryUCI(GenerateSummaryOB)</a></span> - Constructor for class use_cases.generate_summary_use_case.<a href="../use_cases/generate_summary_use_case/GenerateSummaryUCI.html" title="class in use_cases.generate_summary_use_case">GenerateSummaryUCI</a></dt>
 <dd>
 <div class="block">Creates a new GenerateSummaryUCI with the provided presenter.</div>
 </dd>
@@ -241,7 +241,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">A class that displays and generates the Bar Graph and Pie Chart given the remainder and statistical data.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/generate_summary_views/GenerateSummaryV.html#%3Cinit%3E(views.generate_summary_views.GenerateSummaryC,entities.SessionStorage,int)">GenerateSummaryV(GenerateSummaryC, SessionStorage, int)</a></span> - Constructor for class views.generate_summary_views.<a href="../views/generate_summary_views/GenerateSummaryV.html" title="class in views.generate_summary_views">GenerateSummaryV</a></dt>
+<dt><span class="memberNameLink"><a href="../views/generate_summary_views/GenerateSummaryV.html#%3Cinit%3E(views.generate_summary_views.GenerateSummaryController,entities.SessionStorage,int)">GenerateSummaryV(GenerateSummaryC, SessionStorage, int)</a></span> - Constructor for class views.generate_summary_views.<a href="../views/generate_summary_views/GenerateSummaryV.html" title="class in views.generate_summary_views">GenerateSummaryV</a></dt>
 <dd>
 <div class="block">Construct the view class and call private method to set up GUI.</div>
 </dd>

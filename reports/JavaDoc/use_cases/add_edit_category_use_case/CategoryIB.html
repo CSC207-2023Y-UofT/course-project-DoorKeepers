@@ -153,7 +153,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">addCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDAdd)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">addCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataAdd)</code></th>
 <td class="colLast">
 <div class="block">Returns String success message in the form of a CategoryOD object when a category is successfully added,
  returns String fail messages that are context specific when failed.</div>
@@ -161,7 +161,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">editCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDEdit)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">editCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataEdit)</code></th>
 <td class="colLast">
 <div class="block">Returns String success message in the form of a CategoryOD object when a category is successfully edited,
  returns String fail messages that are context specific when failed.</div>
@@ -184,19 +184,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">
+<a id="addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addCategoryInMonth</h4>
-<pre class="methodSignature"><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;addCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDAdd)
+<pre class="methodSignature"><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;addCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataAdd)
                        throws <a href="../../entities/EntityException.html" title="class in entities">EntityException</a></pre>
 <div class="block">Returns String success message in the form of a CategoryOD object when a category is successfully added,
  returns String fail messages that are context specific when failed.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>categoryIDAdd</code> - CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.</dd>
+<dd><code>categoryInputDataAdd</code> - CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>CategoryOD indicating fail/success add attempt.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -204,19 +204,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 </li>
 </ul>
-<a id="editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">
+<a id="editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>editCategoryInMonth</h4>
-<pre class="methodSignature"><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;editCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDEdit)
+<pre class="methodSignature"><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;editCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataEdit)
                         throws <a href="../../entities/EntityException.html" title="class in entities">EntityException</a></pre>
 <div class="block">Returns String success message in the form of a CategoryOD object when a category is successfully edited,
  returns String fail messages that are context specific when failed.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>categoryIDEdit</code> - CategoryID required for editing an existing Category Object in designated monthID MonthlyStorage Object.</dd>
+<dd><code>categoryInputDataEdit</code> - CategoryID required for editing an existing Category Object in designated monthID MonthlyStorage Object.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>CategoryOD indicating fail/success edit attempt.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

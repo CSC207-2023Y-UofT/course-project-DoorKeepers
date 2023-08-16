@@ -78,23 +78,23 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import entities.EntityException;
 &nbsp;import entities.SessionStorage;
-&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseIB;
-&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseID;
-&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOD;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseInputBoundaryputBoundary;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseInputData;
+&nbsp;import use_cases.add_edit_expenses_use_case.ExpenseOutputData;
 &nbsp;
 &nbsp;
 &nbsp;public class ExpenseC {
 &nbsp;    /**
 &nbsp;     * Expense_Controller passes in user input and produces a Expense_Output_Data Object according to a use case.
 &nbsp;     */
-&nbsp;    final ExpenseIB input;
+&nbsp;    final ExpenseInputBoundary input;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Constructs ExpenseC with a ExpenseIB.
-&nbsp;     * @param ExpenseIB a ExpenseIB.
+&nbsp;     * Constructs ExpenseC with a ExpenseInputBoundary.
+&nbsp;     * @param ExpenseInputBoundary a ExpenseInputBoundary.
 &nbsp;     */
-<b class="nc">&nbsp;    public ExpenseC(ExpenseIB ExpenseIB){</b>
-<b class="nc">&nbsp;        this.input = ExpenseIB;</b>
+<b class="nc">&nbsp;    public ExpenseC(ExpenseInputBoundary ExpenseInputBoundary){</b>
+<b class="nc">&nbsp;        this.input = ExpenseInputBoundary;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -108,11 +108,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @throws EntityException thrown when edit expense attempt fails.
 &nbsp;     */
 &nbsp;    public ExpenseOD expenseInMonth(String name, Object value, String category, boolean isRecurring, int monthID, SessionStorage session, String oldExpense) throws EntityException {
-<b class="nc">&nbsp;        ExpenseID expenseID = new ExpenseID(name, value, category, isRecurring, monthID, session, oldExpense);</b>
+<b class="nc">&nbsp;        ExpenseID expenseInputData = new ExpenseID(name, value, category, isRecurring, monthID, session, oldExpense);</b>
 <b class="nc">&nbsp;        if(oldExpense == null){</b>
-<b class="nc">&nbsp;            return input.addExpenseInMonth(expenseID);</b>
+<b class="nc">&nbsp;            return input.addExpenseInMonth(expenseInputData);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        else {return input.editExpenseInMonth(expenseID);}</b>
+<b class="nc">&nbsp;        else {return input.editExpenseInMonth(expenseInputData);}</b>
 &nbsp;    }
 &nbsp;}
 </code>

@@ -116,11 +116,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Saves a SessionStorage object into a file on disk.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveIB.html#save(use_cases.main_menu.SessionSaveID)">save(SessionSaveID)</a></span> - Method in interface use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveIB.html" title="interface in use_cases.main_menu">SessionSaveIB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveIB.html#save(use_cases.main_menu.SessionSaveInputData)">save(SessionSaveID)</a></span> - Method in interface use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveIB.html" title="interface in use_cases.main_menu">SessionSaveIB</a></dt>
 <dd>
 <div class="block">Saves a session into a file according to the input data given</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveUCI.html#save(use_cases.main_menu.SessionSaveID)">save(SessionSaveID)</a></span> - Method in class use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveUCI.html" title="class in use_cases.main_menu">SessionSaveUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveUCI.html#save(use_cases.main_menu.SessionSaveInputData)">save(SessionSaveID)</a></span> - Method in class use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveUCI.html" title="class in use_cases.main_menu">SessionSaveUCI</a></dt>
 <dd>
 <div class="block">Saves a session into a file according to the input data given</div>
 </dd>
@@ -172,7 +172,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The controller class for the session load menu.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/session_load/SessionLoadC.html#%3Cinit%3E(use_cases.session_load.SessionLoadIB)">SessionLoadC(SessionLoadIB)</a></span> - Constructor for class views.session_load.<a href="../views/session_load/SessionLoadC.html" title="class in views.session_load">SessionLoadC</a></dt>
+<dt><span class="memberNameLink"><a href="../views/session_load/SessionLoadC.html#%3Cinit%3E(use_cases.session_load.SessionLoadInputBoundary)">SessionLoadC(SessionLoadIB)</a></span> - Constructor for class views.session_load.<a href="../views/session_load/SessionLoadC.html" title="class in views.session_load">SessionLoadC</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../use_cases/session_load/SessionLoadException.html" title="class in use_cases.session_load"><span class="typeNameLink">SessionLoadException</span></a> - Exception in <a href="../use_cases/session_load/package-summary.html">use_cases.session_load</a></dt>
 <dd>
@@ -206,7 +206,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The session load menu screen.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/session_load/SessionLoadMenuV.html#%3Cinit%3E(views.session_load.SessionLoadC,views.main_menu.MainMenuV)">SessionLoadMenuV(SessionLoadC, MainMenuV)</a></span> - Constructor for class views.session_load.<a href="../views/session_load/SessionLoadMenuV.html" title="class in views.session_load">SessionLoadMenuV</a></dt>
+<dt><span class="memberNameLink"><a href="../views/session_load/SessionLoadMenuV.html#%3Cinit%3E(views.session_load.SessionLoadController,views.main_menu.MainMenuV)">SessionLoadMenuV(SessionLoadC, MainMenuV)</a></span> - Constructor for class views.session_load.<a href="../views/session_load/SessionLoadMenuV.html" title="class in views.session_load">SessionLoadMenuV</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../views/session_load/SessionLoadMenuVB.html" title="interface in views.session_load"><span class="typeNameLink">SessionLoadMenuVB</span></a> - Interface in <a href="../views/session_load/package-summary.html">views.session_load</a></dt>
 <dd>
@@ -235,7 +235,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The use case interactor for loading a session.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/session_load/SessionLoadUCI.html#%3Cinit%3E(use_cases.session_load.SessionStorageG,use_cases.session_load.SessionLoadOB,entities.SessionStorage)">SessionLoadUCI(SessionStorageG, SessionLoadOB, SessionStorage)</a></span> - Constructor for class use_cases.session_load.<a href="../use_cases/session_load/SessionLoadUCI.html" title="class in use_cases.session_load">SessionLoadUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/session_load/SessionLoadUCI.html#%3Cinit%3E(use_cases.session_load.SessionStorageGateway,use_cases.session_load.SessionLoadOutputBoundary,entities.SessionStorage)">SessionLoadUCI(SessionStorageG, SessionLoadOB, SessionStorage)</a></span> - Constructor for class use_cases.session_load.<a href="../use_cases/session_load/SessionLoadUCI.html" title="class in use_cases.session_load">SessionLoadUCI</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveUCITest.html#SessionLoadUCICreateSampleSession()">SessionLoadUCICreateSampleSession()</a></span> - Static method in class use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveUCITest.html" title="class in use_cases.main_menu">SessionSaveUCITest</a></dt>
 <dd>&nbsp;</dd>
@@ -299,7 +299,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  This class implements the SessionSaveIB interface and is the one responsible for
  doing the file storage</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveUCI.html#%3Cinit%3E(use_cases.session_load.SessionStorageG,use_cases.main_menu.SessionSaveOB)">SessionSaveUCI(SessionStorageG, SessionSaveOB)</a></span> - Constructor for class use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveUCI.html" title="class in use_cases.main_menu">SessionSaveUCI</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/main_menu/SessionSaveUCI.html#%3Cinit%3E(use_cases.session_load.SessionStorageGateway,use_cases.main_menu.SessionSaveOutputBoundary)">SessionSaveUCI(SessionStorageG, SessionSaveOB)</a></span> - Constructor for class use_cases.main_menu.<a href="../use_cases/main_menu/SessionSaveUCI.html" title="class in use_cases.main_menu">SessionSaveUCI</a></dt>
 <dd>
 <div class="block">Creates a new SessionSaveUCI</div>
 </dd>
@@ -414,19 +414,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="../views/create_new_month/NewMonthV.html#submitButton">submitButton</a></span> - Variable in class views.create_new_month.<a href="../views/create_new_month/NewMonthV.html" title="class in views.create_new_month">NewMonthV</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryOB.html#success(use_cases.add_edit_category_use_case.CategoryOD)">success(CategoryOD)</a></span> - Method in interface use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryOB.html" title="interface in use_cases.add_edit_category_use_case">CategoryOB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_category_use_case/CategoryOB.html#success(use_cases.add_edit_category_use_case.CategoryOutputData)">success(CategoryOD)</a></span> - Method in interface use_cases.add_edit_category_use_case.<a href="../use_cases/add_edit_category_use_case/CategoryOB.html" title="interface in use_cases.add_edit_category_use_case">CategoryOB</a></dt>
 <dd>
 <div class="block">Returns a CategoryOD notifying success.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/add_edit_category_views/CategoryP.html#success(use_cases.add_edit_category_use_case.CategoryOD)">success(CategoryOD)</a></span> - Method in class views.add_edit_category_views.<a href="../views/add_edit_category_views/CategoryP.html" title="class in views.add_edit_category_views">CategoryP</a></dt>
+<dt><span class="memberNameLink"><a href="../views/add_edit_category_views/CategoryP.html#success(use_cases.add_edit_category_use_case.CategoryOutputData)">success(CategoryOD)</a></span> - Method in class views.add_edit_category_views.<a href="../views/add_edit_category_views/CategoryP.html" title="class in views.add_edit_category_views">CategoryP</a></dt>
 <dd>
 <div class="block">Returns a CategoryOD notifying success.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseOB.html#success(use_cases.add_edit_expenses_use_case.ExpenseOD)">success(ExpenseOD)</a></span> - Method in interface use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseOB.html" title="interface in use_cases.add_edit_expenses_use_case">ExpenseOB</a></dt>
+<dt><span class="memberNameLink"><a href="../use_cases/add_edit_expenses_use_case/ExpenseOB.html#success(use_cases.add_edit_expenses_use_case.ExpenseOutputData)">success(ExpenseOD)</a></span> - Method in interface use_cases.add_edit_expenses_use_case.<a href="../use_cases/add_edit_expenses_use_case/ExpenseOB.html" title="interface in use_cases.add_edit_expenses_use_case">ExpenseOB</a></dt>
 <dd>
 <div class="block">Returns a ExpenseOD notifying success.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="../views/add_edit_epense_views/ExpenseP.html#success(use_cases.add_edit_expenses_use_case.ExpenseOD)">success(ExpenseOD)</a></span> - Method in class views.add_edit_epense_views.<a href="../views/add_edit_epense_views/ExpenseP.html" title="class in views.add_edit_epense_views">ExpenseP</a></dt>
+<dt><span class="memberNameLink"><a href="../views/add_edit_epense_views/ExpenseP.html#success(use_cases.add_edit_expenses_use_case.ExpenseOutputData)">success(ExpenseOD)</a></span> - Method in class views.add_edit_epense_views.<a href="../views/add_edit_epense_views/ExpenseP.html" title="class in views.add_edit_epense_views">ExpenseP</a></dt>
 <dd>
 <div class="block">Returns a ExpenseOD notifying success.</div>
 </dd>

@@ -79,12 +79,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import entities.Category;
 &nbsp;import entities.Expense;
 &nbsp;import entities.SessionStorage;
-&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryIB;
-&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryOB;
-&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryUCI;
-&nbsp;import views.generate_summary_views.GenerateSummaryC;
-&nbsp;import views.generate_summary_views.GenerateSummaryP;
-&nbsp;import views.generate_summary_views.GenerateSummaryV;
+&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryInputBoundary;
+&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryOutputBoundary;
+&nbsp;import use_cases.generate_summary_use_case.GenerateSummaryUseCaseInteractor;
+&nbsp;import views.generate_summary_views.GenerateSummaryController;
+&nbsp;import views.generate_summary_views.GenerateSummaryPresenter;
+&nbsp;import views.generate_summary_views.GenerateSummaryView;
 &nbsp;
 &nbsp;import javax.swing.*;
 &nbsp;import java.awt.*;
@@ -114,7 +114,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param session the SessionStorage holding the required MonthlyStorage
 &nbsp;     * @param monthID the monthID of the required MonthlyStorage
 &nbsp;     */
-<b class="nc">&nbsp;    public MonthMenuV(views.monthly_menu.UpdateViewC controller, SessionStorage session, int monthID) {</b>
+<b class="nc">&nbsp;    public MonthMenuV(views.monthly_menu.UpdateViewController controller, SessionStorage session, int monthID) {</b>
 <b class="nc">&nbsp;        this.controller = controller;</b>
 <b class="nc">&nbsp;        this.session = session;</b>
 <b class="nc">&nbsp;        this.monthID = monthID;</b>

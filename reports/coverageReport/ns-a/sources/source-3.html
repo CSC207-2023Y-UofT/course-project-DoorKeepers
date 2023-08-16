@@ -76,8 +76,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package views.add_edit_category_views;
 &nbsp;
-&nbsp;import use_cases.add_edit_category_use_case.CategoryOB;
-&nbsp;import use_cases.add_edit_category_use_case.CategoryOD;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryOutputBoundary;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryOutputData;
 &nbsp;
 &nbsp;/**
 &nbsp; * CategoryP notifies success/fail to add or edit category, implements CategoryOB.
@@ -89,8 +89,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return CategoryOD with success message.
 &nbsp;     */
 &nbsp;    @Override
-&nbsp;    public CategoryOD success(CategoryOD categoryOD) {
-<b class="fc">&nbsp;        return categoryOD;</b>
+&nbsp;    public CategoryOD success(CategoryOD categoryOutputData) {
+<b class="fc">&nbsp;        return categoryOutputData;</b>
 &nbsp;    }
 &nbsp;    /**
 &nbsp;     * Returns a CategoryOD notifying fail.

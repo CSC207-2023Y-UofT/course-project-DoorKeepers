@@ -13,39 +13,44 @@ public class ExpenseEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this ExpenseEditorInputData.
+     *
      * @param name the new name that the edited Expense will have
      */
     @Override
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Sets the Category of this ExpenseEditorInputData.
+     *
      * @param category the new Category that the edited Expense will have
      */
-    public void setCategory(Category category){
+    public void setCategory(Category category) {
         this.category = category;
     }
 
     /**
      * Sets the value of this ExpenseEditorInputData.
+     *
      * @param value the new value that the edited Expense will have
      */
-    public void setValue(double value){
+    public void setValue(double value) {
         this.value = value;
     }
 
     /**
      * Sets the Expense object of this ExpenseEditorInputData.
+     *
      * @param expense the Expense to edit
      */
-    public void setExpense(Expense expense){
+    public void setExpense(Expense expense) {
         this.expense = expense;
     }
 
     /**
      * Gets the name of this ExpenseEditorInputData.
+     *
      * @return the name of this ExpenseEditorInputData
      */
     @Override
@@ -55,6 +60,7 @@ public class ExpenseEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the category of this ExpenseEditorInputData.
+     *
      * @return the category of this ExpenseEditorInputData
      */
     public Category getCategory() {
@@ -63,6 +69,7 @@ public class ExpenseEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the value of this ExpenseEditorInputData.
+     *
      * @return the value of this ExpenseEditorInputData
      */
     public double getValue() {
@@ -71,6 +78,7 @@ public class ExpenseEditorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the Expense object of this ExpenseEditorInputData.
+     *
      * @return the Expense object of this ExpenseEditorInputData
      */
     public Expense getExpense() {

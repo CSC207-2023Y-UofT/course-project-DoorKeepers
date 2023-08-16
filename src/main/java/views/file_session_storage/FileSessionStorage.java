@@ -1,18 +1,18 @@
 package views.file_session_storage;
 
 import entities.SessionStorage;
-import use_cases.session_load.SessionStorageG;
+import use_cases.session_load.SessionStorageGateway;
 
 import java.io.*;
 
 /**
  * A storage system for loading and saving SessionLoad to files.
- * Implements the SessionStorageG interface and is called from the SessionLoadUCI
+ * Implements the SessionStorageGateway interface and is called from the SessionLoadUseCaseInteractor
  * interactor class.
  * Implementation of serializing and deserializing inspired from
  * <a href="https://www.tutorialspoint.com/java/java_serialization.htm">here</a>
  */
-public class FileSessionStorage implements SessionStorageG {
+public class FileSessionStorage implements SessionStorageGateway {
     /**
      * Saves a SessionStorage object into a file on disk.
      *

@@ -16,19 +16,20 @@ public class SessionStorage implements Serializable {
     /**
      * Creates a new SessionStorage and assigns empty values to both its instance attributes.
      */
-    public SessionStorage(){
+    public SessionStorage() {
         this.monthlyData = new ArrayList<>();
         this.recurData = new ArrayList<>();
     }
 
     /**
      * Adds a new month to monthlyData.
+     *
      * @param month a MonthlyStorage object to add
      * @throws EntityException if this MonthlyStorage is already in SessionStorage
      */
     public void addMonth(MonthlyStorage month) throws EntityException {
-        for (MonthlyStorage m: this.monthlyData){
-            if (m.equals(month)){
+        for (MonthlyStorage m : this.monthlyData) {
+            if (m.equals(month)) {
                 throw new EntityException("There is already a MonthlyStorage with that name in this SessionStorage.");
             }
         }
@@ -37,14 +38,16 @@ public class SessionStorage implements Serializable {
 
     /**
      * Adds a new expense to the Session's recurExpense array.
+     *
      * @param expense an Expense object to add
      */
-    public void addRecurExpense(Expense expense){
+    public void addRecurExpense(Expense expense) {
         this.recurData.add(expense);
     }
 
     /**
      * Deletes an Expense from this month.
+     *
      * @param expenseName a String containing the name of the Expense to delete
      */
     public void deleteRecurExpense(String expenseName) {
@@ -53,12 +56,13 @@ public class SessionStorage implements Serializable {
 
     /**
      * Returns the MonthlyData object associated with the given monthID.
+     *
      * @param monthID an integer representing the MonthlyStorage object
      * @return a MonthlyStorage object with monthID attribute equal to monthID parameter
      * @throws EntityException if monthID parameter is not the monthID of any MonthlyStorage object
      */
     public MonthlyStorage getMonthlyData(int monthID) throws EntityException {
-        for (MonthlyStorage m: this.monthlyData) {
+        for (MonthlyStorage m : this.monthlyData) {
             if (m.getMonthID() == monthID) {
                 return m;
             }
@@ -68,6 +72,7 @@ public class SessionStorage implements Serializable {
 
     /**
      * Returns the list of the MonthlyData objects stored in this Session
+     *
      * @return list of all MonthlyData objects
      */
     public ArrayList<MonthlyStorage> getAllMonthlyData() {
@@ -76,15 +81,17 @@ public class SessionStorage implements Serializable {
 
     /**
      * Returns the list of recurring expenses in this Session
+     *
      * @return list of recurring expenses
      */
-    public ArrayList<Expense> getRecurData(){
+    public ArrayList<Expense> getRecurData() {
         return this.recurData;
     }
 
     /**
      * Copies all the contents from another SessionStorage object into this one.
      * This method can be used to mutate the entire contents of a SessionStorage object in-place.
+     *
      * @param other the SessionStorage object to copy the data from
      */
     public void copyDataFrom(SessionStorage other) {
@@ -96,6 +103,7 @@ public class SessionStorage implements Serializable {
 
     /**
      * Check if this SessionStorage is equal to Object
+     *
      * @param obj Any instance of Object
      * @return True if equals, False is not equals
      */
@@ -107,7 +115,7 @@ public class SessionStorage implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (this.getClass() != obj.getClass()){
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
 

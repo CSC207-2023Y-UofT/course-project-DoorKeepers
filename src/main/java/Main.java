@@ -1,13 +1,13 @@
 import entities.SessionStorage;
-import use_cases.main_menu.SessionSaveUCI;
-import use_cases.session_load.SessionLoadUCI;
+import use_cases.main_menu.SessionSaveUseCaseInteractor;
+import use_cases.session_load.SessionLoadUseCaseInteractor;
 import views.file_session_storage.FileSessionStorage;
 import views.main_menu.MainMenuC;
 import views.main_menu.MainMenuP;
 import views.main_menu.MainMenuV;
-import views.session_load.SessionLoadC;
-import views.session_load.SessionLoadP;
-import views.session_load.SessionLoadMenuV;
+import views.session_load.SessionLoadController;
+import views.session_load.SessionLoadMenuView;
+import views.session_load.SessionLoadPresenter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,14 +28,14 @@ public class Main {
 
         // Building menus
         // Main Menu
-        SessionSaveUCI sessionSaveUCI = new SessionSaveUCI(new FileSessionStorage(), new MainMenuP());
-        MainMenuC mainMenuController = new MainMenuC(sessionSaveUCI);
+        SessionSaveUseCaseInteractor sessionSaveUseCaseInteractor = new SessionSaveUseCaseInteractor(new FileSessionStorage(), new MainMenuP());
+        MainMenuC mainMenuController = new MainMenuC(sessionSaveUseCaseInteractor);
         MainMenuV mainMenu = new MainMenuV(mainMenuController);
 
         // Load Session Menu
-        SessionLoadUCI sessionLoadUCI = new SessionLoadUCI(new FileSessionStorage(), new SessionLoadP(), session);
-        SessionLoadC sessionLoadController = new SessionLoadC(sessionLoadUCI);
-        SessionLoadMenuV sessionLoadMenu = new SessionLoadMenuV(sessionLoadController, mainMenu);
+        SessionLoadUseCaseInteractor sessionLoadUseCaseInteractor = new SessionLoadUseCaseInteractor(new FileSessionStorage(), new SessionLoadPresenter(), session);
+        SessionLoadController sessionLoadController = new SessionLoadController(sessionLoadUseCaseInteractor);
+        SessionLoadMenuView sessionLoadMenu = new SessionLoadMenuView(sessionLoadController, mainMenu);
 
         // Add screens
         screens.add(sessionLoadMenu);

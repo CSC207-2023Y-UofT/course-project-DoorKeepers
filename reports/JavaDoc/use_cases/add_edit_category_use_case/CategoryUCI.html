@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>use_cases.add_edit_category_use_case.CategoryUCI</li>
+<li>use_cases.add_edit_category_use_case.CategoryUseCaseInteractor</li>
 </ul>
 </li>
 </ul>
@@ -185,7 +185,7 @@ implements <a href="CategoryIB.html" title="interface in use_cases.add_edit_cate
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(use_cases.add_edit_category_use_case.CategoryOB)">CategoryUCI</a></span>&#8203;(<a href="CategoryOB.html" title="interface in use_cases.add_edit_category_use_case">CategoryOB</a>&nbsp;categoryP)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(use_cases.add_edit_category_use_case.CategoryOutputBoundary)">CategoryUCI</a></span>&#8203;(<a href="CategoryOB.html" title="interface in use_cases.add_edit_category_use_case">CategoryOB</a>&nbsp;categoryP)</code></th>
 <td class="colLast">
 <div class="block">Constructs CategoryUCI.</div>
 </td>
@@ -210,14 +210,14 @@ implements <a href="CategoryIB.html" title="interface in use_cases.add_edit_cate
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">addCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDAdd)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">addCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataAdd)</code></th>
 <td class="colLast">
 <div class="block">Overrides method in CategoryIB.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">editCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDEdit)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">editCategoryInMonth</a></span>&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataEdit)</code></th>
 <td class="colLast">
 <div class="block">Overrides method in CategoryIB.</div>
 </td>
@@ -280,7 +280,7 @@ implements <a href="CategoryIB.html" title="interface in use_cases.add_edit_cate
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(use_cases.add_edit_category_use_case.CategoryOB)">
+<a id="&lt;init&gt;(use_cases.add_edit_category_use_case.CategoryOutputBoundary)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -325,13 +325,13 @@ implements <a href="CategoryIB.html" title="interface in use_cases.add_edit_cate
 </dl>
 </li>
 </ul>
-<a id="addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">
+<a id="addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addCategoryInMonth</h4>
-<pre class="methodSignature">public&nbsp;<a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;addCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDAdd)
+<pre class="methodSignature">public&nbsp;<a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;addCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataAdd)
                               throws <a href="../../entities/EntityException.html" title="class in entities">EntityException</a></pre>
 <div class="block">Overrides method in CategoryIB.
  Attempts to add a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
@@ -342,32 +342,32 @@ implements <a href="CategoryIB.html" title="interface in use_cases.add_edit_cate
  The second one is from the creation of a Category Object implementing addCategory() from MonthlyStorage, and is caught in the current implementation!</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="CategoryIB.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">addCategoryInMonth</a></code>&nbsp;in interface&nbsp;<code><a href="CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></code></dd>
+<dd><code><a href="CategoryIB.html#addCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">addCategoryInMonth</a></code>&nbsp;in interface&nbsp;<code><a href="CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>categoryIDAdd</code> - CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.</dd>
+<dd><code>categoryInputDataAdd</code> - CategoryID required for adding a new category to the designated monthID MonthlyStorage Object.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>CategoryOD String message indicating success/fail add attempt.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../entities/EntityException.html" title="class in entities">EntityException</a></code> - thrown when categoryIDAdd has invalid category information.</dd>
+<dd><code><a href="../../entities/EntityException.html" title="class in entities">EntityException</a></code> - thrown when categoryInputDataAdd has invalid category information.</dd>
 </dl>
 </li>
 </ul>
-<a id="editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">
+<a id="editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>editCategoryInMonth</h4>
-<pre class="methodSignature">public&nbsp;<a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;editCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryIDEdit)
+<pre class="methodSignature">public&nbsp;<a href="CategoryOD.html" title="class in use_cases.add_edit_category_use_case">CategoryOD</a>&nbsp;editCategoryInMonth&#8203;(<a href="CategoryID.html" title="class in use_cases.add_edit_category_use_case">CategoryID</a>&nbsp;categoryInputDataEdit)
                                throws <a href="../../entities/EntityException.html" title="class in entities">EntityException</a></pre>
 <div class="block">Overrides method in CategoryIB.
  Attempts to edit a category with information from CategoryID and returns a CategoryOD indicating whether fail/success after execution.
  Provides detailed fail messages according to each condition below. (Explained in comments.)</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="CategoryIB.html#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryID)">editCategoryInMonth</a></code>&nbsp;in interface&nbsp;<code><a href="CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></code></dd>
+<dd><code><a href="CategoryIB.html#editCategoryInMonth(use_cases.add_edit_category_use_case.CategoryInputData)">editCategoryInMonth</a></code>&nbsp;in interface&nbsp;<code><a href="CategoryIB.html" title="interface in use_cases.add_edit_category_use_case">CategoryIB</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>categoryIDEdit</code> - CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.</dd>
+<dd><code>categoryInputDataEdit</code> - CategoryID required for editing a new category to the designated monthID MonthlyStorage Object.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>CategoryOD String message indicating success/fail add attempt.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

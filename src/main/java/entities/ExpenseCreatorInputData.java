@@ -12,31 +12,35 @@ public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Sets the name of this ExpenseCreatorInputData.
+     *
      * @param name the name that the Expense will have
      */
     @Override
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Sets the Category of this ExpenseCreatorInputData.
+     *
      * @param newCategory the Category that the Expense will have
      */
-    public void setCategory(Category newCategory){
+    public void setCategory(Category newCategory) {
         this.category = newCategory;
     }
 
     /**
      * Sets the value of this ExpenseCreatorInputData.
+     *
      * @param newValue the value that the Expense will have
      */
-    public void setValue(double newValue){
+    public void setValue(double newValue) {
         this.value = newValue;
     }
 
     /**
      * Gets the name of this ExpenseCreatorInputData.
+     *
      * @return the name of this ExpenseCreatorInputData
      */
     @Override
@@ -46,6 +50,7 @@ public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the category of this ExpenseCreatorInputData.
+     *
      * @return the category of this ExpenseCreatorInputData
      */
     public Category getCategory() {
@@ -54,6 +59,7 @@ public class ExpenseCreatorInputData extends MonthObjectFactoryInputData {
 
     /**
      * Gets the value of this ExpenseCreatorInputData.
+     *
      * @return the value of this ExpenseCreatorInputData
      */
     public double getValue() {

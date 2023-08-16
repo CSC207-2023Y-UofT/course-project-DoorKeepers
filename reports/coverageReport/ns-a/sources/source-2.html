@@ -78,9 +78,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import entities.EntityException;
 &nbsp;import entities.SessionStorage;
-&nbsp;import use_cases.add_edit_category_use_case.CategoryIB;
-&nbsp;import use_cases.add_edit_category_use_case.CategoryID;
-&nbsp;import use_cases.add_edit_category_use_case.CategoryOD;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryInputBoundary;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryInputData;
+&nbsp;import use_cases.add_edit_category_use_case.CategoryOutputData;
 &nbsp;
 &nbsp;/**
 &nbsp; * CategoryC passes in user input information in the form of CategoryID.
@@ -92,10 +92,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Constructs CategoryC with a CategoryIB.
-&nbsp;     * @param categoryIB a CategoryIB.
+&nbsp;     * @param categoryInputBoundary a CategoryIB.
 &nbsp;     */
-<b class="nc">&nbsp;    public CategoryC(CategoryIB categoryIB){</b>
-<b class="nc">&nbsp;        this.input = categoryIB;</b>
+<b class="nc">&nbsp;    public CategoryC(CategoryIB categoryInputBoundary){</b>
+<b class="nc">&nbsp;        this.input = categoryInputBoundary;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -110,11 +110,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @throws EntityException thrown when edit category attempt fails.
 &nbsp;     */
 &nbsp;    public CategoryOD categoryInMonth(String name, Object value, int monthID, SessionStorage session, String oldCategory) throws EntityException {
-<b class="nc">&nbsp;        CategoryID categoryID = new CategoryID(name, value, monthID, session, oldCategory);</b>
+<b class="nc">&nbsp;        CategoryID categoryInputData = new CategoryID(name, value, monthID, session, oldCategory);</b>
 <b class="nc">&nbsp;        if(oldCategory == null){</b>
-<b class="nc">&nbsp;            return input.addCategoryInMonth(categoryID);</b>
+<b class="nc">&nbsp;            return input.addCategoryInMonth(categoryInputData);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        else {return input.editCategoryInMonth(categoryID);}</b>
+<b class="nc">&nbsp;        else {return input.editCategoryInMonth(categoryInputData);}</b>
 &nbsp;    }
 &nbsp;}
 </code>
